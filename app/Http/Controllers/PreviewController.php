@@ -15,7 +15,7 @@ class PreviewController extends Controller
     
     public function __construct()
     {
-
+        $this->middleware('auth');
     }
 
     public function preview(Request $request)

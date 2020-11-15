@@ -67,6 +67,8 @@ Route::post('/ticket', "TicketController@store");
 
 Route::put('/ticket/{ticket}', "TicketController@update");
 
+Route::get('/prescription', "PrescriptionController@index");
+
 //dari msoftweb
 Route::get('/preview','PreviewController@preview');
 Route::get('/preview/data','PreviewController@previewdata');
