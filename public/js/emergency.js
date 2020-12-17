@@ -3,21 +3,30 @@ $.jgrid.defaults.responsive = true;
 $.jgrid.defaults.styleUI = 'Bootstrap';
 
 $(document).ready(function () {
-	function calanderposition(){
-		var width = Math.floor($("#colmd_outer")[0].offsetWidth - $("#colmd_outer")[0].offsetLeft);
-		$('#mydate_glpd').css('width',width);
-		$('#mydate_glpd').css('height',width);
-	}
-	calanderposition();
+	// function calanderposition(){
+	// 	var width = Math.floor($("#colmd_outer")[0].offsetWidth - $("#colmd_outer")[0].offsetLeft);
+	// 	$('#mydate_glpd').css('width',width);
+	// 	$('#mydate_glpd').css('height',width);
+	// }
+	// calanderposition();
 
-	var gldatepicker = $('#mydate').glDatePicker({
-		zIndex: 0,
-		showAlways: true,
-		onClick: function(target, cell, date, data) {
-			urlParam.filterVal[0] = moment(date).format('YYYY-MM-DD');
-			refreshGrid("#jqGrid", urlParam);
-	    }
-	}).glDatePicker(true);
+	// var gldatepicker = $('#mydate').glDatePicker({
+	// 	zIndex: 0,
+	// 	showAlways: true,
+	// 	onClick: function(target, cell, date, data) {
+	// 		urlParam.filterVal[0] = moment(date).format('YYYY-MM-DD');
+	// 		refreshGrid("#jqGrid", urlParam);
+	//     }
+	// }).glDatePicker(true);
+
+	$('#calendar').fullCalendar({
+  		defaultView: 'listMonth',
+  		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,listMonth'
+		},
+	});
 
 	var urlParam = {
 		action: 'get_table_default',

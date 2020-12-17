@@ -4,9 +4,13 @@
 
 <div class="ui teal segment" style="padding-bottom: 30px;">
     <div class="ui stackable four column grid">
-        <div class="column" id="colmd_outer">
+        <!-- <div class="column" id="colmd_outer">
             <div id="mydate" gldp-id="mydate"></div>
             <div gldp-el="mydate" id="mydate_glpd" style="position:static;top:30px;left:0px;z-index:0;font-size: 28px;"></div>
+        </div> -->
+
+        <div class="column">
+            <div id="calendar"></div>
         </div>
 
         <div class="eleven wide right floated column">
@@ -21,6 +25,7 @@
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/bootstrap-3.3.5-dist/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/glDatePicker/styles/glDatePicker.default.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/fullcalendar-3.7.0/fullcalendar.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/DataTables/datatables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/trirand/css/trirand/ui.jqgrid-bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
@@ -30,6 +35,7 @@
 @section('js')
     <script type="text/ecmascript" src="{{ asset('assets/trirand/i18n/grid.locale-en.js') }}"></script>
     <script type="text/ecmascript" src="{{ asset('assets/trirand/jquery.jqGrid.min.js') }}"></script>
+    <script type="text/ecmascript" src="{{ asset('assets/fullcalendar-3.7.0/fullcalendar.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/glDatePicker/glDatePicker.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/glDatePicker/glDatePicker.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('assets/DataTables/datatables.min.js') }}"></script>

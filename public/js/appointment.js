@@ -448,7 +448,7 @@ $(document).ready(function() {
 		header: {
 			left: 'prev,next today myCustomButton',
 			center: 'title',
-			right: 'month,agendaWeek,agendaDay'
+			right: 'month,agendaWeek,agendaDay,listYear'
 		},
 		customButtons: {
 	        myCustomButton: {
