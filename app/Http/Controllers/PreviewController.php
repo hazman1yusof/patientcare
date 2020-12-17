@@ -22,18 +22,19 @@ class PreviewController extends Controller
     {   
         $navbar = $this->navbar();
         if(!empty($request->mrn)){
-            $user = DB::table('hisdb.pat_mast')->where('mrn','=',$request->mrn)->first();
+            $user = DB::table('pat_mast')->where('mrn','=',$request->mrn)->first();
         }else{
-            // $user = DB::table('hisdb.pat_mast')->where('loginid','=',Auth::user()->username)->first();
-            $user = DB::table('hisdb.pat_mast')->where('Newic','=',Auth::user()->username)->first();
+            // $user = DB::table('pat_mast')->where('loginid','=',Auth::user()->username)->first();
+            $user = DB::table('pat_mast')->where('mrn','=',Auth::user()->mrn)->first();
         }
-        // $previews = DB::table('hisdb.patresult')->where('mrn','=',$request->mrn)->get();
+        // $previews = DB::table('patresult')->where('mrn','=',$request->mrn)->get();
+
         return view('preview',compact('user','navbar'));
     }
 
     public function previewdata(Request $request)
     {
-        $table = DB::table('hisdb.patresult')->where('mrn','=',$request->mrn);
+        $table = DB::table('patresult')->where('mrn','=',$request->mrn);
 
         $responce = new stdClass();
         $responce->rows = $table->get();
@@ -45,7 +46,7 @@ class PreviewController extends Controller
 
     public function previewvideo($auditno)
     {   
-        $video = DB::table('hisdb.patresult')->where('auditno','=',$auditno)->first();
+        $video = DB::table('patresult')->where('auditno','=',$auditno)->first();
         return view('previewvideo',compact('video'));
     }
 
@@ -70,9 +71,9 @@ class PreviewController extends Controller
     public function upload(Request $request)
     {   
         // $navbar = $this->navbar();
-        $episode = DB::table('hisdb.episode')->select('mrn','reg_date','reg_time')->where('mrn','=',$request->mrn)->where('episno','=',$request->episno)->first();
-        $patient = DB::table('hisdb.pat_mast')->select('Name','newic','DOB')->where('mrn','=',$request->mrn)->first();
-        $patresult = DB::table('hisdb.patresult')->where('mrn','=',$request->mrn)->get();
+        $episode = DB::table('episode')->select('mrn','reg_date','reg_time')->where('mrn','=',$request->mrn)->where('episno','=',$request->episno)->first();
+        $patient = DB::table('pat_mast')->select('Name','newic','DOB')->where('mrn','=',$request->mrn)->first();
+        $patresult = DB::table('patresult')->where('mrn','=',$request->mrn)->get();
 
         return view('upload',compact('patient','episode','patresult'));
     }
@@ -118,7 +119,7 @@ class PreviewController extends Controller
             $filename = $request->file('file')->getClientOriginalName();
         }
         $file_path = $request->file('file')->store('pat_enq', 'public_uploads');
-        DB::table('hisdb.patresult')
+        DB::table('patresult')
             ->insert([
                 'compcode' => '-',
                 'resulttext' => $filename,
