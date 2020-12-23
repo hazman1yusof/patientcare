@@ -18,14 +18,37 @@ $(document).ready(function () {
 	// 		refreshGrid("#jqGrid", urlParam);
 	//     }
 	// }).glDatePicker(true);
-
 	$('#calendar').fullCalendar({
-  		defaultView: 'listMonth',
+		events: events,
+  		defaultView: 'month',
   		header: {
 			left: 'prev,next today',
 			center: 'title',
 			right: 'month,listMonth'
 		},
+		contentHeight:"auto",
+		dayClick: function(date, allDay, jsEvent, view) {
+			$( ".fc-bg td.fc-day" ).removeClass( "selected_day" );
+			$(this).addClass( "selected_day" );
+
+			urlParam.filterVal[0] = date.format('YYYY-MM-DD');
+			refreshGrid("#jqGrid", urlParam);
+
+		},
+		eventRender: function(eventObj, $el) {
+		},
+		eventClick: function(event) {
+			var view = $('#calendar').fullCalendar('getView');
+			if(view.type == 'listMonth'){
+				urlParam.filterVal[0] = event.start.format('YYYY-MM-DD');
+				refreshGrid("#jqGrid", urlParam);
+			}
+		}
+
+
+
+
+
 	});
 
 	var urlParam = {
@@ -33,7 +56,7 @@ $(document).ready(function () {
 		url: $('#util_tab').val(),
 		field: '',
 		fixPost:'true',
-		table_name:['hisdb.episode as e','hisdb.pat_mast as p'],
+		table_name:['episode as e','pat_mast as p'],
 		join_type:['LEFT JOIN'],
 		join_onCol:['e.mrn'],
 		join_onVal:['p.mrn'],

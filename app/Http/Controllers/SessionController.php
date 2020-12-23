@@ -23,15 +23,15 @@ class SessionController extends Controller
 
         $id = substr($url, strrpos($url, '/') + 1);
 
-        if($id == 'emergency'){
-            $user = User::where('username','farid')
-                        ->where('password','farid');
+        // if($id == 'emergency'){
+        //     $user = User::where('username','farid')
+        //                 ->where('password','farid');
 
 
-            Auth::login($user->first(),false);
+        //     Auth::login($user->first(),false);
 
-            return back();
-        }
+        //     return back();
+        // }
 
         return view('login');
     }
@@ -84,7 +84,7 @@ class SessionController extends Controller
 
             if ($request->password == $user->first()->password) {
                 Auth::login($user->first(),$remember);
-                return redirect('/ticket');
+                return redirect('/appointment');
             }else{
                 return back()->withErrors(['Try again, Password entered incorrect']);
             }
@@ -124,6 +124,7 @@ class SessionController extends Controller
      */
     public function destroy()
     {
+        // dd('sdsd');
         Auth::logout();
         Session::flush();
         return redirect('/login');

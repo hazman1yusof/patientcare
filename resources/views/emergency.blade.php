@@ -1,24 +1,67 @@
 @extends('layouts.main')
 
+@section('style')
+    
+.fc-toolbar .fc-center h2{
+    color:#f2711c;
+    margin-top:15px;
+}
+
+.fc-toolbar .fc-right {
+    float: right;
+    margin-left: 100px;
+}
+
+.fc-unthemed td.fc-today {
+    background: rgb(251 189 8 / 0.2);
+}
+
+.selected_day {
+    background: rgb(251 189 8 / 1) !important;
+}
+
+.h2 {
+    text-align: center;
+    color: #00b5ad !important;
+}
+
+.fc-event {
+    position: relative;
+    display: block;
+    font-size: .85em;
+    line-height: 1!important;
+    border-radius: 50px !important;
+    text-align: center !important;
+    border: 1px solid #3a87ad;
+    width: 10px;
+}
+
+@endsection
+
 @section('content')
 
-<div class="ui teal segment" style="padding-bottom: 30px;">
-    <div class="ui stackable four column grid">
+    <script>    
+        var events = {!! json_encode($events) !!};
+    </script>
+
+    <div class="ui stackable two column grid">
         <!-- <div class="column" id="colmd_outer">
             <div id="mydate" gldp-id="mydate"></div>
             <div gldp-el="mydate" id="mydate_glpd" style="position:static;top:30px;left:0px;z-index:0;font-size: 28px;"></div>
         </div> -->
 
-        <div class="column">
-            <div id="calendar"></div>
-        </div>
 
-        <div class="eleven wide right floated column">
+        <div class="five wide column"><div class="ui orange segment">
+            <div id="calendar"></div>
+        </div></div>
+
+        <div class="eleven wide right floated column" style="margin:0px;">
+            <div class="ui teal segment">
+                <h2 class="h2">Patient List</h2>
             <table id="jqGrid" class="table table-striped"></table>
-            <div id="jqGridPager"></div>
+            <div id="jqGridPager"></div></div>
         </div>
     </div>
-</div>
 
 @endsection
 

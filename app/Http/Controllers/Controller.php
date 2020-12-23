@@ -13,7 +13,7 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     public function navbar(){//guna table id, tak fixpost
-    	$navbar = DB::table('sysdb.programtab')
+    	$navbar = DB::table('programtab')
     					->where('programmenu','=','patient')
     					->get();
     	return $navbar;

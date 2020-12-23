@@ -23,19 +23,19 @@ class AppointmentController extends Controller
 
         $navbar = $this->navbar();
 
-        $resources = DB::table('hisdb.apptresrc as a')
+        $resources = DB::table('apptresrc as a')
                         ->select('a.resourcecode','a.description','d.intervaltime')
-                        ->join('hisdb.doctor as d', 'a.resourcecode', '=', 'd.doctorcode')
+                        ->join('doctor as d', 'a.resourcecode', '=', 'd.doctorcode')
                         ->where('a.TYPE','=','DOC')
                         ->get();
 
-        $ALCOLOR = DB::table('sysdb.sysparam')
+        $ALCOLOR = DB::table('sysparam')
                     ->where('source','=','HIS')
                     ->where('trantype','=','ALCOLOR')
                     ->first();
         
         if(Auth::user()->groupid == "patient"){
-            $pat_info = DB::table('hisdb.pat_mast')
+            $pat_info = DB::table('pat_mast')
                     ->where('mrn','=',Auth::user()->mrn)
                     ->first();
         }else{
@@ -73,7 +73,7 @@ class AppointmentController extends Controller
         switch ($request->type) {
             case 'apptbook':
 
-                $select = DB::table('hisdb.apptbook')
+                $select = DB::table('apptbook')
                     ->where('loccode','=',$request->drrsc)
                     ->where('recstatus','=',"A")
                     ->whereBetween('start', [$request->start, $request->end])
@@ -81,9 +81,9 @@ class AppointmentController extends Controller
 
                 break;
             case 'appt_ph':
-                $select = DB::table('hisdb.apptph')
+                $select = DB::table('apptph')
                     ->select('apptph.datefr as start','apptph.dateto as end','apptphcolor.color as color','apptph.remark as title')
-                    ->leftJoin('hisdb.apptphcolor', 'apptph.idno', '=', 'apptphcolor.phidno')
+                    ->leftJoin('apptphcolor', 'apptph.idno', '=', 'apptphcolor.phidno')
                     ->where('apptphcolor.userid', '=' , 'farid')
                     ->whereBetween('apptph.datefr', [$request->start, $request->end])
                     ->get();
@@ -97,7 +97,7 @@ class AppointmentController extends Controller
                 break;
             case 'appt_leave':
 
-                 $select = DB::table('hisdb.apptleave')
+                 $select = DB::table('apptleave')
                     ->select('datefr as start','dateto as end','remark as title')
                     ->where('resourcecode','=',$request->drrsc)
                     ->whereBetween('datefr', [$request->start, $request->end])
@@ -106,7 +106,7 @@ class AppointmentController extends Controller
                 break;
             case 'apptbook_1':
 
-                $select = DB::table('hisdb.apptbook')
+                $select = DB::table('apptbook')
                     ->where('loccode','=',$request->drrsc)
                     ->where('recstatus','=',"A")
                     ->whereBetween('start', [$request->start, $request->end])
@@ -124,7 +124,7 @@ class AppointmentController extends Controller
     public function addEvent(Request $request){
 
         $mrn_ = ($request->mrn == '')? '00000': $request->mrn;
-        DB::table('hisdb.apptbook')->insert([
+        DB::table('apptbook')->insert([
             'title'       => $mrn_.' - '.$request->patname.' - '.$request->telhp.' - '.$request->case.' - '.$request->remarks,
             'loccode'     => $request->doctor,
             'mrn'         => $request->mrn,
@@ -149,7 +149,7 @@ class AppointmentController extends Controller
     public function editEvent(Request $request){
 
         if(!empty($request->event_drop)){
-            DB::table('hisdb.apptbook')
+            DB::table('apptbook')
             ->where('idno','=',$request->idno)
             ->update([
                 'start'       => $request->start,
@@ -159,7 +159,7 @@ class AppointmentController extends Controller
         }else if(!empty($request->type) && $request->type=='transfer'){
 
             foreach ($request->arraytd as $key => $value) {
-                DB::table('hisdb.apptbook')
+                DB::table('apptbook')
                 ->where('idno','=',$value['idno'])
                 ->update([
                     'start'       => $value['new_start'],
@@ -169,7 +169,7 @@ class AppointmentController extends Controller
 
         }else{
             $mrn_ = ($request->mrn == '')? '00000': $request->mrn;
-            DB::table('hisdb.apptbook')
+            DB::table('apptbook')
             ->where('idno','=',$request->idno)
             ->update([
                 'title'       => $mrn_.' - '.$request->patname.' - '.$request->telhp.' - '.$request->case.' - '.$request->remarks,
@@ -193,7 +193,7 @@ class AppointmentController extends Controller
 
     public function delEvent(Request $request){
 
-            DB::table('hisdb.apptbook')
+            DB::table('apptbook')
             ->where('idno','=',$request->idno)
             ->update([
                 'recstatus'   => 'D',
@@ -205,7 +205,7 @@ class AppointmentController extends Controller
     public function save_patient_add(Request $request){
         DB::beginTransaction();
 
-        $table = DB::table('hisdb.pat_mast');
+        $table = DB::table('pat_mast');
 
         $array_insert = [
             'compcode' => '9A',
@@ -264,7 +264,7 @@ class AppointmentController extends Controller
     public function save_patient_edit(Request $request){
         DB::beginTransaction();
 
-        $table = DB::table('hisdb.pat_mast');
+        $table = DB::table('pat_mast');
 
         $array_update = [
             'compcode' => '9A',
@@ -288,13 +288,13 @@ class AppointmentController extends Controller
             $table->update($array_update);
 
             //2. edit apptbook mrn, telh, telhp
-            $old_apptbook = DB::table('hisdb.apptbook')
+            $old_apptbook = DB::table('apptbook')
                 ->where('idno','=',$request->apptbook_idno)
                 ->first();
 
             $newtitle = $old_apptbook->mrn.' - '.$old_apptbook->pat_name.' - '.$request->telhp.' - '.$old_apptbook->case_code.' - '.$old_apptbook->remarks;
 
-            DB::table('hisdb.apptbook')
+            DB::table('apptbook')
                 ->where('idno','=',$request->apptbook_idno)
                 ->update([
                     'title' => $newtitle,

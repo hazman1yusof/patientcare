@@ -34,55 +34,40 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                     <form class="ui form ui grid">
                                        
                     <div class="four wide column">
-                        <select
-                            name="filter_year"
-                            id="filter_year"
-                            class="ui dropdown"
-                            style="width: 100px"
-                        >
-                            <option value="">---Year---</option>
-                            @for($y=2019;$y<=date('Y');$y++)
-                                <option value="{{ $y }}" {{ $filter_year == $y ? 'selected' : '' }}>{{ $y }}</option>
-                            @endfor
-                        </select>
+                    <h4 class="card-title">
+                    MRN: 8663
+                    </h4>   
                     </div>
+                     <div class="four wide column">
+                    <h4 class="card-title">
+                    NAME: NOR LIZAH BINTI YACOB
+                    </h4>   
+                    </div>
+                    <h4 class="card-title">
+                    Search:
+                    </h4>
                     <div class="four wide column">
-                        <input type="text" name="filter_text" class="form-control" placeholder="Masukkan kata kunci" style="width: 250px" value="{{ $filter_text }}">
+                        <input type="text" name="filter_text" class="form-control" placeholder="Please Search..." style="width: 250px" value="{{ $filter_text }}">
                     </div>
                     </form>
                 </div>
                 <hr/>
-                <div>
-                    <button type="submit" class="ui button">View</button>
-                    <a href="{{ url('#') }}" class="ui button">
-                        <i class="fa fa-plus"></i> Add Data
-                    </a>
-                </div>
-                <hr/>
+                
                 <div class="table-responsive">
                     <table class="ui celled striped table">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
-                                <th scope="col">MRN</th>
-                                <th scope="col">Episode</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">PSNO</th>
-                                <th scope="col">TRX Date</th>
-                                <th scope="col">CHG Code</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Item Code</th>
                                 <th scope="col">Description</th>
-                                <th scope="col">Quantity</th>
-                                <th scope="col">Unit Price</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Dosage</th>
-                                <th scope="col">Freq</th>
-                                <th scope="col">Duration</th>
-                                <th scope="col">Instruction</th>
-                                <th scope="col">AddInstruction</th>
                                 <th scope="col">Doctor</th>
-                                <th scope="col">Action1</th>
-                                <th scope="col">Action2</th>
+                                <th scope="col">Dossage Code</th>
+                                <th scope="col">Frequency</th>
+                                <th scope="col">Instruction</th>
+                                <th scope="col">Remark</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,23 +79,15 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                             @foreach($table_prescription as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->mrn }}</td>
-                                    <td>{{ @$item->episode }}</td>
-                                    <td>{{ @$item->name }}</td>
-                                    <td>{{ @$item->psno }}</td>
-                                    <td>{{ date('d-m-Y', strtotime($item->trxdate)) }}</td>
+                                    <td>{{ @$item->date }}</td>
                                     <td>{{ @$item->chgcode }}</td>
                                     <td>{{ @$item->description }}</td>
-                                    <td>{{ @$item->qty }}</td>
-                                    <td>{{ @$item->unitprice }}</td>
-                                    <td>{{ $item->amount }}</td>
-                                    <td>{{ $item->type }}</td>
-                                    <td>{{ $item->dosage }}</td>
-                                    <td>{{ @$item->freq }}</td>
-                                    <td>{{ @$item->duration }}</td>
-                                    <td>{{ @$item->instruction }}</td>
-                                    <td>{{ @$item->addinstructon }}</td>
                                     <td>{{ @$item->doctor }}</td>
+                                    <td>{{ @$item->dosecode }}</td>
+                                    <td>{{ @$item->freqcode }}</td>
+                                    <td>{{ @$item->instcode }}</td>
+                                    <td>{{ @$item->remark }}</td>
+                                    <td>{{ @$item->qty }}</td>
                                     <td>
                                         <a
                                             href="{{ url('uploads/documents/surat-masuk/') }}"
@@ -119,15 +96,6 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                                         >
                                             <i class="fa fa-bars"></i> View Detail
                                         </a>
-                                    </td>
-                                    <td>
-                                        <a
-                                            <a href="{{ url('prescription/cetak_pdf') }}" class="btn btn-sm btn-primary text-white" target="_blank"
-                                        >
-                                            <i class="fa fa-file-pdf"></i> View Pdf
-                                        </a>
-                                       
-                                        
                                     </td>
                                 </tr>
                             @endforeach

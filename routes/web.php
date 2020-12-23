@@ -88,7 +88,7 @@ Route::get('/thumbnail/{folder}/{image_path}','PreviewController@thumbnail');
 
 //appointment
 
-Route::get('/appointment','AppointmentController@show');
+Route::get('/appointment','AppointmentController@show')->name('appointment');;
 Route::get('/appointment/table','AppointmentController@table');
 Route::post('/appointment/form','AppointmentController@form');
 Route::get('/appointment/getEvent','AppointmentController@getEvent');
@@ -100,6 +100,7 @@ Route::post('/appointment/delEvent','AppointmentController@delEvent');
 Route::get('/webservice/patmast','WebserviceController@patmast');
 Route::get('/webservice/episode','WebserviceController@episode');
 Route::get('/webservice/ticket','WebserviceController@ticket');
+Route::get('/webservice/login','WebserviceController@login');
 
 //util dr msoftweb
 Route::get('/util/get_value_default','defaultController@get_value_default')->name('util_val');
