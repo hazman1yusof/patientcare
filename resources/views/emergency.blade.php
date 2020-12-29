@@ -23,6 +23,7 @@
 .h2 {
     text-align: center;
     color: #00b5ad !important;
+    font-family: 'Open Sans', sans-serif !important;
 }
 
 .fc-event {
@@ -34,6 +35,32 @@
     text-align: center !important;
     border: 1px solid #3a87ad;
     width: 10px;
+}
+
+.fc-listMonth-button:before{
+    font-family: "FontAwesome";  
+    content: "\f03a";
+    padding-right: 5px;
+}
+
+.fc-month-button:before{
+    font-family: "FontAwesome";
+    content: "\f073";
+    padding-right: 5px;
+}
+
+.fc-button{
+    height: 2.8em !important;
+}
+
+.myb{
+    font-size: large;
+}
+
+.mysmall{
+    transform: scale(.5, 1);
+    font-family: 'Syncopate', sans-serif;
+    color:#f2711c;
 }
 
 @endsection
@@ -73,6 +100,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/trirand/css/trirand/ui.jqgrid-bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.css">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;500&family=Open+Sans:wght@300;700&family=Syncopate&display=swap" rel="stylesheet">
 @endsection
 
 @section('js')

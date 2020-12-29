@@ -26,6 +26,9 @@ $(document).ready(function () {
 			center: 'title',
 			right: 'month,listMonth'
 		},
+		buttonText:{
+			today: "Today1"
+		},
 		contentHeight:"auto",
 		dayClick: function(date, allDay, jsEvent, view) {
 			$( ".fc-bg td.fc-day" ).removeClass( "selected_day" );
@@ -36,6 +39,8 @@ $(document).ready(function () {
 
 		},
 		eventRender: function(eventObj, $el) {
+			$(".fc-today-button").html('<small class="mysmall">'+moment().format('ddd')+'</small><br/><b class="myb">'+moment().format('DD')+'</b>');
+			// $('div.fc-right').append('<p>sdssd</p>').insertAfter
 		},
 		eventClick: function(event) {
 			var view = $('#calendar').fullCalendar('getView');
@@ -43,7 +48,7 @@ $(document).ready(function () {
 				urlParam.filterVal[0] = event.start.format('YYYY-MM-DD');
 				refreshGrid("#jqGrid", urlParam);
 			}
-		}
+		},
 
 
 
