@@ -85,7 +85,6 @@ $(document).ready(function () {
 		width: 900,
 		height: 365,
 		rowNum: 30,
-		pager: "#jqGridPager",
 		onSelectRow:function(rowid, selected){
 		},
 		ondblClickRow: function (rowid, iRow, iCol, e) {

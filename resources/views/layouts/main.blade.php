@@ -18,7 +18,7 @@
                 margin: 0 .5em 0 .5em !important;
             }
             body{
-                height: auto !important;
+                /*height: auto !important;*/
             }
             @yield('style')
         </style>

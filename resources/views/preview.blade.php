@@ -68,7 +68,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Date</th>
-						<th>File Name</th>
+						<th>Remark</th>
 						<th>File Preview</th>
 						<th>MRN</th>
 						<th>Add User</th>

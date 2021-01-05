@@ -58,8 +58,7 @@
 }
 
 .mysmall{
-    transform: scale(.5, 1);
-    font-family: 'Syncopate', sans-serif;
+    font-weight: 900;
     color:#f2711c;
 }
 
@@ -78,11 +77,11 @@
         </div> -->
 
 
-        <div class="five wide column"><div class="ui orange segment">
+        <div class="eight wide tablet five wide computer column"><div class="ui orange segment">
             <div id="calendar"></div>
         </div></div>
 
-        <div class="eleven wide right floated column" style="margin:0px;">
+        <div class="eight wide tablet eleven wide computer right floated column" style="margin:0px;">
             <div class="ui teal segment">
                 <h2 class="h2">Patient List</h2>
             <table id="jqGrid" class="table table-striped"></table>

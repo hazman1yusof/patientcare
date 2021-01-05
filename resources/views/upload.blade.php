@@ -65,12 +65,13 @@
 				<td><span id="bio_reg_date">{{$episode->reg_date}}</span></td>
 				<td>{{$episode->reg_time}}</td>
 				<td>
+        			<small id="remark_" style="display: none">Remark<br></small>
 					<form class="upload_form ui input" id="formdata" method="post" action="./upload" enctype="multipart/form-data">
 						{{csrf_field()}}
 
         				<input type="hidden" name='trxdate' value="{{$episode->reg_date}}">
         				<input type="hidden" name='mrn' value="{{$episode->mrn}}">
-        				<input type="text" id="rename" name='rename' class="ui input" placeholder="filename" style="display: none">
+        				<input type="text" id="rename" name='rename' class="ui input" placeholder="Remark" style="display: none">
 
 						<button type="button" id='click' class='ui icon button orange btn' ><i class='cloud upload icon' ></i></button>
 
@@ -94,7 +95,7 @@
 			<tr>
 				<th>ID</th>
 				<th>Date</th>
-				<th>File Name</th>
+				<th>Remark</th>
 				<th>File Preview</th>
 				<th>MRN</th>
 				<th>Add User</th>

@@ -54,7 +54,7 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                 <hr/>
                 
                 <div class="table-responsive">
-                    <table class="ui celled striped table">
+                    <table class="ui basic table">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
@@ -101,7 +101,21 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $table_prescription->links() }}
+@if ($table_prescription->lastPage() > 1)
+    <div class="ui pagination menu">
+        <a href="{{ $table_prescription->previousPageUrl() }}" class="{{ ($table_prescription->currentPage() == 1) ? ' disabled' : '' }} item">
+            Previous
+        </a>
+        @for ($i = 1; $i <= $table_prescription->lastPage(); $i++)
+            <a href="{{ $table_prescription->url($i) }}" class="{{ ($table_prescription->currentPage() == $i) ? ' active' : '' }} item">
+                {{ $i }}
+            </a>
+        @endfor
+        <a href="{{ $table_prescription->nextPageUrl() }}" class="{{ ($table_prescription->currentPage() == $table_prescription->lastPage()) ? ' disabled' : '' }} item">
+            Next
+        </a>
+    </div>
+@endif
                 </div>
               </div>
             </div>

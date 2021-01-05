@@ -89,7 +89,7 @@ $(document).ready(function () {
                                     </div>`; 
 
                             break;
-
+                case 'vnd.openxmlformats-officedocument.wordprocessingml.document':
                 case 'msword': return_value =  `
                                     <div class="imgcontainer">
                                         <img src="./thumbnail/application/msword">
@@ -99,7 +99,27 @@ $(document).ready(function () {
                                     </div>`; 
 
                             break;
-                            
+                case 'vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                             return_value =  `
+                                    <div class="imgcontainer">
+                                        <img src="./thumbnail/application/excel">
+                                          <a class="small circular orange ui icon button btn" target="_blank" href="./uploads/`+filepath+`" >
+                                              <i class='search icon' ></i>
+                                          </a>
+                                    </div>`; 
+
+                            break;
+                case 'vnd.openxmlformats-officedocument.presentationml.presentation':
+                             return_value =  `
+                                    <div class="imgcontainer">
+                                        <img src="./thumbnail/application/powerpoint">
+                                          <a class="small circular orange ui icon button btn" target="_blank" href="./uploads/`+filepath+`" >
+                                              <i class='search icon' ></i>
+                                          </a>
+                                    </div>`; 
+
+                            break;
+
             }
 
         }else if(filetype=='video'){
@@ -123,11 +143,13 @@ $(document).ready(function () {
 
     function make_download_butt(i,filepath,type,filename){
         let filetype = type.split('/')[0];
+        filename = filename+'.'+filepath.split('.')[1];
         let fileextension = type.split('/')[1];
+
 
         return `<a class='small circular orange basic ui icon button' href="./download/`+filepath+`?filename=`+filename+`" data-index="`+i+`"><i class="download icon"></i></a>`
         
-    }   
+    }
 
     $('#biodob').text(formatDate_mom($('#biodob').text(),'YYYY-MM-DD'));
 

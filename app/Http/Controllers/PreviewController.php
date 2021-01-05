@@ -87,6 +87,8 @@ class PreviewController extends Controller
             switch($image_path){
                 case 'pdf': $img = Image::make('uploads/pat_enq/pdf_icon.png')->resize(96, 96); break;
                 case 'msword': $img = Image::make('uploads/pat_enq/word_icon.png')->resize(96, 96); break;
+                case 'powerpoint': $img = Image::make('uploads/pat_enq/powerpoint_icon.png')->resize(96, 96); break;
+                case 'excel': $img = Image::make('uploads/pat_enq/excel_icon.png')->resize(96, 96); break;
             }
         }else if($folder == 'video'){
             switch($image_path){
