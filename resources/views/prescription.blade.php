@@ -4,6 +4,24 @@
 Dashboard &raquo; Document Prescription | Apps Prescription
 @endsection
 
+@section('style')
+.ui.table td {
+    padding: 22px;
+}
+.ui.table tr:hover {
+    background: #f0f0f0;
+    box-shadow: 1px 2px 5px #949494;
+    cursor:pointer;
+}
+.ui.table th{
+    color: #d93025 !important;
+}
+@endsection
+
+@section('js')
+    <script src="{{ asset('js/prescription.js') }}"></script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -43,12 +61,6 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                     NAME: NOR LIZAH BINTI YACOB
                     </h4>   
                     </div>
-                    <h4 class="card-title">
-                    Search:
-                    </h4>
-                    <div class="four wide column">
-                        <input type="text" name="filter_text" class="form-control" placeholder="Please Search..." style="width: 250px" value="{{ $filter_text }}">
-                    </div>
                     </form>
                 </div>
                 <hr/>
@@ -57,17 +69,14 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                     <table class="ui basic table">
                         <thead>
                             <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Item Code</th>
+                                <th scope="col" width="9%">Date</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Doctor</th>
-                                <th scope="col">Dossage Code</th>
-                                <th scope="col">Frequency</th>
+                                <th scope="col">Dose</th>
+                                <th scope="col">Freq</th>
                                 <th scope="col">Instruction</th>
                                 <th scope="col">Remark</th>
                                 <th scope="col">Quantity</th>
-                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,10 +86,8 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                                 </tr>
                             @endif
                             @foreach($table_prescription as $item)
-                                <tr>
-                                    <td>{{ $item->id }}</td>
+                                <tr data-id="{{ $item->id }}">
                                     <td>{{ @$item->date }}</td>
-                                    <td>{{ @$item->chgcode }}</td>
                                     <td>{{ @$item->description }}</td>
                                     <td>{{ @$item->doctor }}</td>
                                     <td>{{ @$item->dosecode }}</td>
@@ -88,34 +95,25 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                                     <td>{{ @$item->instcode }}</td>
                                     <td>{{ @$item->remark }}</td>
                                     <td>{{ @$item->qty }}</td>
-                                    <td>
-                                        <a
-                                            href="{{ url('uploads/documents/surat-masuk/') }}"
-                                            class="btn btn-sm btn-primary text-white"
-                                            target="_blank"
-                                        >
-                                            <i class="fa fa-bars"></i> View Detail
-                                        </a>
-                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-@if ($table_prescription->lastPage() > 1)
-    <div class="ui pagination menu">
-        <a href="{{ $table_prescription->previousPageUrl() }}" class="{{ ($table_prescription->currentPage() == 1) ? ' disabled' : '' }} item">
-            Previous
-        </a>
-        @for ($i = 1; $i <= $table_prescription->lastPage(); $i++)
-            <a href="{{ $table_prescription->url($i) }}" class="{{ ($table_prescription->currentPage() == $i) ? ' active' : '' }} item">
-                {{ $i }}
-            </a>
-        @endfor
-        <a href="{{ $table_prescription->nextPageUrl() }}" class="{{ ($table_prescription->currentPage() == $table_prescription->lastPage()) ? ' disabled' : '' }} item">
-            Next
-        </a>
-    </div>
-@endif
+                @if ($table_prescription->lastPage() > 1)
+                    <div class="ui pagination menu">
+                        <a href="{{ $table_prescription->previousPageUrl() }}" class="{{ ($table_prescription->currentPage() == 1) ? ' disabled' : '' }} item">
+                            Previous
+                        </a>
+                        @for ($i = 1; $i <= $table_prescription->lastPage(); $i++)
+                            <a href="{{ $table_prescription->url($i) }}" class="{{ ($table_prescription->currentPage() == $i) ? ' active' : '' }} item">
+                                {{ $i }}
+                            </a>
+                        @endfor
+                        <a href="{{ $table_prescription->nextPageUrl() }}" class="{{ ($table_prescription->currentPage() == $table_prescription->lastPage()) ? ' disabled' : '' }} item">
+                            Next
+                        </a>
+                    </div>
+                @endif
                 </div>
               </div>
             </div>

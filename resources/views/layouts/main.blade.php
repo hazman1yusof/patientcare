@@ -21,12 +21,64 @@
                 /*height: auto !important;*/
             }
             @yield('style')
+
+            .preloader {
+                width: 100%;
+                height: 100%;
+                top: 0;
+                position: fixed;
+                z-index: 99999;
+                background: #fff;
+            }
+
+            .cssload-speeding-wheel {
+                position: absolute;
+                top: calc(50% - 3.5px);
+                left: calc(50% - 3.5px);
+                width: 31px;
+                height: 31px;
+                margin: 0 auto;
+                border: 2px solid rgba(97,100,193,0.98);
+                border-radius: 50%;
+                border-left-color: transparent;
+                border-right-color: transparent;
+                animation: cssload-spin 425ms infinite linear;
+                -o-animation: cssload-spin 425ms infinite linear;
+                -ms-animation: cssload-spin 425ms infinite linear;
+                -webkit-animation: cssload-spin 425ms infinite linear;
+                -moz-animation: cssload-spin 425ms infinite linear;
+            }
+
+            @keyframes cssload-spin {
+              100%{ transform: rotate(360deg); transform: rotate(360deg); }
+            }
+
+            @-o-keyframes cssload-spin {
+              100%{ -o-transform: rotate(360deg); transform: rotate(360deg); }
+            }
+
+            @-ms-keyframes cssload-spin {
+              100%{ -ms-transform: rotate(360deg); transform: rotate(360deg); }
+            }
+
+            @-webkit-keyframes cssload-spin {
+              100%{ -webkit-transform: rotate(360deg); transform: rotate(360deg); }
+            }
+
+            @-moz-keyframes cssload-spin {
+              100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }
+            }
         </style>
 
         @yield('css')
 
+
+
     </head>
     <body>
+        <div class="preloader">
+            <div class="cssload-speeding-wheel"></div>
+        </div>
         <input type="hidden" id="util_val" value="{{route('util_val')}}">
         <input type="hidden" id="util_tab" value="{{route('util_tab')}}">
         @if(!Request::is('login'))
@@ -37,7 +89,9 @@
         <div class="pusher container_sem" id="content">
             @yield('content')
         </div>
-    </body>  
+    </body>
+
+
     
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/moment.js') }}"></script>
@@ -47,5 +101,11 @@
     <script src="{{ asset('assets/velocity.min.js') }}"></script>
     <script src="{{ asset('assets/Summernote 0.8.9/summernote-lite.js') }}"></script>
 
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $(".preloader").fadeOut();
+        });
+    </script>  
+    
     @yield('js')
 </html>

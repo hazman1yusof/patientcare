@@ -92,4 +92,10 @@ class PrescriptionController extends Controller
         return view('prescription', compact('table_prescription','filter_unit','filter_kategori','filter_year','filter_month','filter_text'));
     }
 
+    public function detail($id,Request $request)
+    {
+
+        return view('pres_detail');
+    }
+
 }
