@@ -46,21 +46,7 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                     </div>
                     <hr/>
 
-                    <div class="ui card" style="width: auto;">
-                      <div class="content">
-                        <div class="header">
-                            <button class="ui button" onclick="window.history.back();
-">
-                                <i class="arrow left icon" style="margin: 0;"></i> 
-                            </button>
-                            Presciption 1
-                        </div>
-                        <div class="meta" style="margin: 30px 0 10px 0">
-                          <span>2 days ago</span>
-                        </div>
-                        <p>Presciption Detail BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA</p>
-                      </div>
-                    </div>
+                    
                     
                 </div>
             </div>

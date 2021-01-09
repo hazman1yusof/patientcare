@@ -6,7 +6,7 @@ Dashboard &raquo; Document Prescription | Apps Prescription
 
 @section('style')
 .ui.table td {
-    padding: 22px;
+    padding: 12px;
 }
 .ui.table tr:hover {
     background: #f0f0f0;
@@ -20,6 +20,10 @@ Dashboard &raquo; Document Prescription | Apps Prescription
 
 @section('js')
     <script src="{{ asset('js/prescription.js') }}"></script>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css">
 @endsection
 
 @section('content')
@@ -69,6 +73,7 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                     <table class="ui basic table">
                         <thead>
                             <tr>
+                                <th scope="col" width="20px"></th>
                                 <th scope="col" width="9%">Date</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Doctor</th>
@@ -87,6 +92,15 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                             @endif
                             @foreach($table_prescription as $item)
                                 <tr data-id="{{ $item->id }}">
+                                    <td>
+                                        <div class="pretty p-icon p-round p-pulse">
+                                            <input type="checkbox" id="cb_{{ $item->id }}" data-id="{{ $item->id }}" />
+                                            <div class="state p-primary">
+                                                <i class="huge check icon"></i>
+                                                <label></label>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td>{{ @$item->date }}</td>
                                     <td>{{ @$item->description }}</td>
                                     <td>{{ @$item->doctor }}</td>
@@ -95,6 +109,21 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                                     <td>{{ @$item->instcode }}</td>
                                     <td>{{ @$item->remark }}</td>
                                     <td>{{ @$item->qty }}</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="9" style="padding: 0; border-bottom: none;  border-top: none">
+                                        <div class="ui blue card" style="width: auto;display: none; margin: 20px;"  id="card_{{ $item->id }}" data-id="{{ $item->id }}">
+                                          <div class="content">
+                                            <div class="header">
+                                                Presciption 1
+                                            </div>
+                                            <div class="meta" style="margin: 30px 0 10px 0">
+                                              <span>2 days ago</span>
+                                            </div>
+                                            <p>Presciption Detail BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA</p>
+                                          </div>
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
