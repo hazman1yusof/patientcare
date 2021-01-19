@@ -7,14 +7,53 @@ Dashboard &raquo; Document Prescription | Apps Prescription
 @section('style')
 .ui.table td {
     padding: 12px;
+    font-size: 13px;
 }
 .ui.table tr:hover {
     background: #f0f0f0;
     box-shadow: 1px 2px 5px #949494;
     cursor:pointer;
 }
-.ui.table th{
+.ui.table th:nth-child(even){
+    position: relative;
     color: #d93025 !important;
+}
+.ui.table th:nth-child(odd){
+    position: relative;
+    color: #1a73e8 !important;
+}
+.ui.table tr a{
+    color: #2f6677;
+}
+.ui.table tr:nth-child(4n-3) a{
+    color: #8acdb2 !important;
+}
+.alnright { text-align: right !important}
+.bordermerah{
+    background-color: #d93025;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    bottom: 0;
+    content: '';
+    display: block;
+    height: 3px;
+    left: 0;
+    margin: 0 8px;
+    position: absolute;
+    right: 0;
+}
+.borderbiru{
+    background-color: #1a73e8;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    bottom: 0;
+    content: '';
+    display: block;
+    height: 3px;
+    left: 0;
+    margin: 0 8px;
+    position: absolute;
+    right: 0;
 }
 @endsection
 
@@ -57,12 +96,12 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                                        
                     <div class="four wide column">
                     <h4 class="card-title">
-                    MRN: 8663
+                    MRN: {{Auth::user()->mrn}}
                     </h4>   
                     </div>
                      <div class="four wide column">
                     <h4 class="card-title">
-                    NAME: NOR LIZAH BINTI YACOB
+                    Name: {{Auth::user()->name}}
                     </h4>   
                     </div>
                     </form>
@@ -74,14 +113,15 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                         <thead>
                             <tr>
                                 <th scope="col" width="20px"></th>
-                                <th scope="col" width="9%">Date</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Doctor</th>
-                                <th scope="col">Dose</th>
-                                <th scope="col">Freq</th>
-                                <th scope="col">Instruction</th>
-                                <th scope="col">Remark</th>
-                                <th scope="col">Quantity</th>
+                                <th scope="col">Description<div class="bordermerah"></div></th>
+                                <th scope="col">Doctor<div class="borderbiru"></div></th>
+                                <th scope="col">Dose<div class="bordermerah"></div></th>
+                                <th scope="col">Freq<div class="borderbiru"></div></th>
+                                <th scope="col">Instruction<div class="bordermerah"></div></th>
+                                <th scope="col">Remark<div class="borderbiru"></div></th>
+                                <th scope="col">Quantity<div class="bordermerah"></div></th>
+                                <th scope="col" width="9%">Date<div class="borderbiru"></div></th>
+                                <th scope="col">Action<div class="bordermerah"></div></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -101,26 +141,59 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{{ @$item->date }}</td>
                                     <td>{{ @$item->description }}</td>
                                     <td>{{ @$item->doctor }}</td>
                                     <td>{{ @$item->dosecode }}</td>
                                     <td>{{ @$item->freqcode }}</td>
                                     <td>{{ @$item->instcode }}</td>
                                     <td>{{ @$item->remark }}</td>
-                                    <td>{{ @$item->qty }}</td>
+                                    <td class='alnright'>{{ @$item->qty }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->date)->format('d-m-Y') }}</td>
+                                    <td>
+                                        <a
+                                            href="https://medicsoft.com.my/patientcare/resources/views/print_detail.php?id={{ $item->id }}"
+                                            class="btn btn-sm btn-primary text-white"
+                                            target="_blank"
+                                        >
+                                            <i class="paperclip icon"></i> Attachment
+                                        </a>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="9" style="padding: 0; border-bottom: none;  border-top: none">
+                                    <td colspan="10" style="padding: 0; border-bottom: none;  border-top: none">
                                         <div class="ui blue card" style="width: auto;display: none; margin: 20px;"  id="card_{{ $item->id }}" data-id="{{ $item->id }}">
                                           <div class="content">
                                             <div class="header">
-                                                Presciption 1
+                                                [ DETAIL PRESCRIPTION ]
                                             </div>
                                             <div class="meta" style="margin: 30px 0 10px 0">
                                               <span>2 days ago</span>
                                             </div>
-                                            <p>Presciption Detail BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA BLA</p>
+                                            <p>Epis Type: {{ @$item->freqcode }}</p>
+                                            <p>Adm Date/Time: {{ @$item->date }}</p>
+                                            <p>Sex/Race/DOB: -</p>
+                                            <p>PS. No.: -</p>
+                                            <p>War/Bed: -</p>
+                                            <p>TRX Date: {{ @$item->date }}</p>
+                                            <p>Charge Code: {{ @$item->chgcode }}</p>
+                                            <p>Description: {{ @$item->description }}</p>
+                                            <p>Dose Code: {{ @$item->dosecode }}</p>
+                                            <p>InstCode: {{ @$item->instcode }}</p>
+                                            <p>DoseDescription: {{ @$item->dosedescription }}</p>
+                                            <p>FreqDescription: {{ @$item->freqdescription }}</p>
+                                            <p>InstDescription: {{ @$item->inst_description }}</p>
+                                            <p>Duration: {{ @$item->duration }}</p>
+                                            <p>Remark: {{ @$item->remark }}</p>
+                                            <p>Duration2: {{ @$item->duration2 }}</p>
+                                            <p>Quantity: {{ @$item->qty }}</p>
+                                            <p>Doctor: {{ @$item->doctor }}</p>
+                                            <a
+                                                href="https://medicsoft.com.my/patientcare/resources/views/print_detail.php?id={{ $item->id }}"
+                                                class="btn btn-sm btn-primary text-white"
+                                                target="_blank"
+                                            >
+                                                <i class="fa fa-bars"></i> [ PRINT PDF ]
+                                            </a>
                                           </div>
                                         </div>
                                     </td>
