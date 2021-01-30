@@ -9,7 +9,6 @@
 
 .fc-toolbar .fc-right {
     float: right;
-    margin-left: 100px;
 }
 
 .fc-unthemed td.fc-today {

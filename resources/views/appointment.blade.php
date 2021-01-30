@@ -28,6 +28,25 @@ td.fc-event-container a.selected{
 	background-color: dimgray !important;
 }
 
+.fc-time-grid-event.fc-short .fc-title {
+    font-size: 1em !important;
+    padding: 0;
+}
+
+.fc-day-grid-event .fc-content {
+    white-space: pre-line !important;
+}
+
+#dialogForm input[type=text] {
+    text-transform: uppercase;
+}
+.ui.ribbon.label {
+    left: -1.2em !important;
+}
+.fc-ltr .fc-basic-view .fc-day-top .fc-day-number {
+    padding-right: 20px !important;
+}
+
 
 @endsection
 
@@ -86,13 +105,19 @@ td.fc-event-container a.selected{
 							<label for="title" class="col-md-2 control-label">MRN</label>
 							<div class="col-md-4">
 								<div class="input-group">
-									<input type="text" class="form-control input-sm" placeholder="MRN No" id="mrn" name="mrn" maxlength="12" readonly value="@if(!empty($pat_info)){{$pat_info->MRN}} @endif">
+									<input type="text" class="form-control input-sm" placeholder="MRN No" id="mrn" name="mrn" maxlength="12" readonly value="@if(!empty($pat_info)){{$pat_info->MRN}}@endif">
 									<a class="input-group-addon btn btn-primary"><span class='glyphicon glyphicon-option-horizontal'></span></a>
 								</div>
 								<span class='help-block'></span>
 							</div>
 							<div class="col-md-4">
-								<input type="text" class="form-control input-sm" data-validation="required" placeholder="Name" id="patname" name="patname" value="@if(!empty($pat_info)){{$pat_info->Name}} @endif" @if(!empty($pat_info)){{'readonly'}} @endif>
+								<input type="text" class="form-control input-sm" data-validation="required" placeholder="Name" id="patname" name="patname" value="@if(!empty($pat_info)){{$pat_info->Name}}@endif" @if(!empty($pat_info)){{'readonly'}}@endif>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="title" class="col-md-2 control-label">I/C No.</label>
+							<div class="col-md-3">
+								<input type="text" class="form-control input-sm" placeholder="I/C No." id="icnum" name="icnum" maxlength="12" data-validation="required" readonly value="@if(!empty($pat_info)){{$pat_info->Newic}}@endif">
 							</div>
 						</div>
 						<div class="form-group">
@@ -114,7 +139,7 @@ td.fc-event-container a.selected{
 						<div class="form-group">
 							<label for="telh" class="col-md-2 control-label">Tel No</label>
 							<div class="col-md-3">
-								<input type="text" class="form-control input-sm" placeholder="Telephone No" id="telh" name="telh" data-validation-optional-if-answered="telhp" data-validation="required" value="@if(!empty($pat_info)){{$pat_info->telh}} @endif">	
+								<input type="text" class="form-control input-sm" placeholder="Telephone No" id="telh" name="telh" data-validation-optional-if-answered="telhp" data-validation="required" value="@if(!empty($pat_info)){{trim($pat_info->telh)}}@endif">	
 							</div>
 							<label for="status" class="col-md-2 control-label">Status</label>
 							<div class="col-md-3">
@@ -127,7 +152,7 @@ td.fc-event-container a.selected{
 						<div class="form-group">
 							<label for="telhp" class="col-md-2 control-label">Tel Hp</label>
 							<div class="col-md-3">
-								<input type="text" class="form-control input-sm" placeholder="Telephone Hp" id="telhp" name="telhp" data-validation="required" data-validation-optional-if-answered="telh" value="@if(!empty($pat_info)){{$pat_info->telhp}} @endif">	
+								<input type="text" class="form-control input-sm" placeholder="Telephone Hp" id="telhp" name="telhp" data-validation="required" data-validation-optional-if-answered="telh" value="@if(!empty($pat_info)){{trim($pat_info->telhp)}}@endif">	
 							</div>
 							<label for="Doctor" class="col-md-2 control-label">Case</label>
 							<div class="col-md-3">

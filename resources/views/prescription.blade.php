@@ -148,7 +148,7 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                                     <td>{{ @$item->instcode }}</td>
                                     <td>{{ @$item->remark }}</td>
                                     <td class='alnright'>{{ @$item->qty }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($item->date)->format('d-m-Y') }}</td>
+                                    <td>@if(!empty($item->date)){{\Carbon\Carbon::parse($item->date)->format('d-m-Y')}}@endif</td>
                                     <td>
                                         <a
                                             href="https://medicsoft.com.my/patientcare/resources/views/print_detail.php?id={{ $item->id }}"

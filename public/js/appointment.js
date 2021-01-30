@@ -11,6 +11,17 @@ $(document).ready(function() {
             requiredFields: ''
         },
 	});
+
+	$('#addForm').validate({
+        rules: {
+            telno: {
+              require_from_group: [1, ".phone-group"]
+            },
+            telhp: {
+              require_from_group: [1, ".phone-group"]
+            }
+        },
+    });	// patient form validation
 	
 	var errorField=[];
 	conf = {
@@ -31,7 +42,7 @@ $(document).ready(function() {
 	var oper = 'add';
 
 	var dialog_name = new ordialog(
-		'resourcecode', ['hisdb.apptresrc AS a', 'hisdb.doctor AS d'], "input[name='resourcecode']", errorField,
+		'resourcecode', ['apptresrc AS a', 'doctor AS d'], "input[name='resourcecode']", errorField,
         {
             colModel: [
                 { label: 'Resource Code', name: 'a_resourcecode', width: 200, classes: 'pointer', canSearch: true, checked: true, or_search: true },
@@ -45,7 +56,7 @@ $(document).ready(function() {
 					action:"get_table_default",
 					url:$('#util_tab').val(),
 					field:'*',
-					table_name:'hisdb.apptsession',
+					table_name:'apptsession',
 					table_id:'idno',
 					filterCol:['doctorcode','status'],
 					filterVal:[data['a_resourcecode'],'True']
@@ -164,7 +175,7 @@ $(document).ready(function() {
 	});
 
 	var dialog_case = new ordialog(
-		'case', 'hisdb.casetype', "#dialogForm input[name='case']", errorField,
+		'case', 'casetype', "#dialogForm input[name='case']", errorField,
 		{
 			colModel: [
 				{ label: 'Case Code', name: 'case_code', width: 200, classes: 'pointer', canSearch: true, checked: true, or_search: true },
@@ -183,17 +194,19 @@ $(document).ready(function() {
 	dialog_case.makedialog(true);
 
 	var dialog_mrn = new ordialog(
-		'mrn', 'hisdb.pat_mast', "#dialogForm input[name='mrn']", errorField,
+		'mrn', 'pat_mast', "#dialogForm input[name='mrn']", errorField,
 		{
 			colModel: [
 				{	label: 'MRN', name: 'MRN', width: 100, classes: 'pointer', formatter: padzero, canSearch: true, or_search: true },
 				{	label: 'Name', name: 'Name', width: 200, classes: 'pointer', canSearch: true, checked: true, or_search: true },
 				{	label: 'telhp', name: 'telhp', width: 200, classes: 'pointer',hidden:true},
 				{	label: 'telh', name: 'telh', width: 200, classes: 'pointer',hidden:true},
+				{	label: 'Newic', name: 'Newic', width: 200, classes: 'pointer',hidden:true},
 			],
 			ondblClickRow: function () {
 				let data = selrowData('#' + dialog_mrn.gridname);
 				$("#addForm input[name='patname']").val(data['Name']);
+				$("#addForm input[name='icnum']").val(data['Newic']);
 				$("#addForm input[name='telh']").val(data['telh']);
 				$("#addForm input[name='telhp']").val(data['telhp']);
 				$(dialog_mrn.textfield).parent().next().text(" ");
@@ -214,7 +227,7 @@ $(document).ready(function() {
 	}
 
 	var dialog_doctor = new ordialog(
-		'dialog_doctor', ['hisdb.apptresrc AS a', 'hisdb.doctor AS d'], "input[name='transfer_doctor']", errorField,
+		'dialog_doctor', ['apptresrc AS a', 'doctor AS d'], "input[name='transfer_doctor']", errorField,
         {
             colModel: [
                 { label: 'Resource Code', name: 'a_resourcecode', width: 200, classes: 'pointer', canSearch: true, checked: true, or_search: true },
@@ -228,7 +241,7 @@ $(document).ready(function() {
 					action:"get_value_default",
 					url:$('#util_tab').val(),
 					field:'*',
-					table_name:'hisdb.apptsession',
+					table_name:'apptsession',
 					table_id:'idno',
 					filterCol:['doctorcode','status'],
 					filterVal:[data['a_resourcecode'],'True']
@@ -258,6 +271,7 @@ $(document).ready(function() {
 		modal: true,
 		open: function(event,ui){
 			session_field.clear().ready().set();
+			$("#addForm input[name='icnum']").prop('readonly',true);
 		},
 		close: function( event, ui ){
 			emptyFormdata(errorField,'#addForm');
@@ -445,6 +459,7 @@ $(document).ready(function() {
 	$('#calendar').fullCalendar( 'addEventSource', event_appt_leave);
 
 	$('#calendar').fullCalendar({
+		aspectRatio:  2.5,
 		header: {
 			left: 'prev,next today myCustomButton',
 			center: 'title',
@@ -512,10 +527,22 @@ $(document).ready(function() {
 		},
 		eventRender: function(event, element) {
 			if(event.source.id == "apptbook"){
+				element.attr('data-toggle','tooltip')
+				element.attr('data-placement','bottom')
+				let mrn_ = (event.mrn == null)?'00000':pad('0000000',event.mrn,true);
+				let remarks_ = (event.remarks == null)?' ':event.remarks;
+				let mytitle = mrn_+' - '
+								+event.pat_name+' - '
+								+event.case_desc+' - '
+								+remarks_;
+				element.attr('title',mytitle)
+				element.tooltip();
+
 				element.bind('dblclick', function() {
 					oper = 'edit';
 					$('#doctor').val(event.loccode);
 					$('#mrn').val(event.mrn);
+					$('#icnum').val(event.icnum);
 					$('#patname').val(event.pat_name);
 					$('#apptdatefr_day').val(event.start.format('YYYY-MM-DD'));
 					$('#start_time').val(event.start.format('HH:mm:ss'));
@@ -552,6 +579,30 @@ $(document).ready(function() {
 			if(event.source.rendering == 'background'){
 				element.append(event.title);
 			}
+		},
+		eventAfterAllRender: function(view){
+			var events = $('#calendar').fullCalendar( 'clientEvents');
+			var date_array = [];
+			var date_obj = [];
+			events.forEach(function(e,i){
+				let got = date_array.indexOf(e.start.date());
+				if(got == -1){
+					date_array.push(e.start.date());
+					date_obj.push({
+						format_date:e.start.format("YYYY-MM-DD"),
+						date:e.start.date(),
+						count:1
+					});
+				}else{
+					date_obj[got].count = date_obj[got].count + 1;
+				}
+			});
+
+			$("table tr td.fc-day-top span.ui.mini.teal.ribbon.label").remove();
+
+			date_obj.forEach(function(e,i){
+				$("table tr td.fc-day-top[data-date='"+e.format_date+"']").append("<span class='ui mini teal ribbon label'>"+e.count+" patients </span>");
+			});
 		},
 		timeFormat: 'h(:mm)a',
 		eventDrop: function(event, delta, revertFunc) {
