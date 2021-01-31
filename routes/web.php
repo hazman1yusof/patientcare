@@ -69,6 +69,8 @@ Route::put('/ticket/{ticket}', "TicketController@update");
 
 Route::get('/pivot', "PivotController@show");
 
+Route::get('/pivot_get', "PivotController@get_json_pivot");
+
 Route::get('/prescription', "PrescriptionController@index");
 Route::get('/prescription/{id}', "PrescriptionController@detail");
 

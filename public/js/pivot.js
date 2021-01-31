@@ -3,10 +3,10 @@ $(document).ready(function() {
     var derivers = $.pivotUtilities.derivers;
     var renderers = $.extend($.pivotUtilities.renderers,$.pivotUtilities.c3_renderers);
 
-    $.getJSON("assets/mps.json", function(mps) {
+    $.getJSON("pivot_get", function(mps) {
         $("#output").pivotUI(mps, {
             renderers: renderers,
-            cols: ["Party"], rows: ["Province"],
+            cols: ["gender"], rows: ["race"],
             rendererName: "Horizontal Stacked Bar Chart",
             rowOrder: "value_z_to_a", colOrder: "value_z_to_a",
             rendererOptions: {
