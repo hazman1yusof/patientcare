@@ -34,7 +34,27 @@ Pivot | Pivot
                     Pivot
                 </h3>
 
-                <div id="output" style="margin:30px;">
+                <div class="ui form">
+                  <div class="grouped fields">
+                    <h3 class="ui header">Data Analysis Type: </h3>
+                    <div class="field">
+                      <div class="ui slider checkbox">
+                        <input type="radio" name="throughput" checked="checked" value="dis">
+                        <label>Discharge</label>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="ui slider checkbox">
+                        <input type="radio" name="throughput" value="reg">
+                        <label>Registration</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ui divider"></div>
+
+                <div id="output">
                     
                 </div>
                 
