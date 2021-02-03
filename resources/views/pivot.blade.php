@@ -5,7 +5,8 @@ Pivot | Pivot
 @endsection
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.13.0/pivot.min.css">
+    <style id="plotly.js-style-global"></style>
+    <link rel="stylesheet" type="text/css" href="https://pivottable.js.org/dist/pivot.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.css">
 @endsection
 
@@ -13,14 +14,21 @@ Pivot | Pivot
     .pvtFilterBox{
         z-index: 120 !important;
     }
+    body{
+        overflow-x: scroll !important;
+    }
+    .pvtHorizList li { display: inline-block !important; } 
 @endsection
 
 @section('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.13.0/pivot.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-basic-latest.min.js"></script>
+    <script src="https://pivottable.js.org/dist/pivot.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.23.0/c3_renderers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pivottable/2.23.0/plotly_renderers.min.js"></script>
     <script src="{{ asset('js/pivot.js') }}"></script>
 @endsection
 
@@ -31,7 +39,7 @@ Pivot | Pivot
             <div class="card">
               <div class="card-body">
                 <h3 class="card-title">
-                    Pivot
+                    Data Analysis
                 </h3>
 
                 <div id="output" style="margin:30px;">
