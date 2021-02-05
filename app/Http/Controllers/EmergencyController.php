@@ -7,13 +7,13 @@ use stdClass;
 use App\User;
 use DB;
 use Carbon\Carbon;
+use Auth;
 
 class EmergencyController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-
+        // $this->middleware('auth');
     }
 
     public function index(Request $request){
@@ -25,6 +25,15 @@ class EmergencyController extends Controller
         				->get();
 
         $events = $this->getEvent($emergency);
+
+        if(!empty($request->username)){
+            $user = DB::table('users')
+                    ->where('username','=',$request->username);
+            if($user->exists()){
+                $user = User::where('username',$request->username);
+                Auth::login($user->first());
+            }
+        }
 
         return view('emergency',compact('navbar','events'));
     }

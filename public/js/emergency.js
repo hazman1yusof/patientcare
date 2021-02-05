@@ -27,7 +27,7 @@ $(document).ready(function () {
 			right: 'month,listMonth'
 		},
 		buttonText:{
-			today: "Today1"
+			today: "Today"
 		},
 		contentHeight:"auto",
 		dayClick: function(date, allDay, jsEvent, view) {
