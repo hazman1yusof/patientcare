@@ -11,6 +11,22 @@ Pivot | Pivot
 @endsection
 
 @section('style')
+    .ui.toggle.checkbox .box:before, .ui.toggle.checkbox label:before {
+        background: #db2828 !important;
+    }
+
+    .ui.toggle.checkbox input:focus~.box:before, .ui.toggle.checkbox input:focus~label:before {
+        background-color: #db2828;
+        border: none;
+    }
+    .ui.toggle.checkbox .box:hover::before, .ui.toggle.checkbox label:hover::before {
+        background-color: #db282875;
+        border: none;
+    }
+    .ui.checkbox input:focus~.box:before, .ui.checkbox input:focus~label:before {
+        background: #db28289e;
+        border-color: #96c8da;
+    }
     .pvtFilterBox{
         z-index: 120 !important;
     }
@@ -43,17 +59,16 @@ Pivot | Pivot
                 </h3>
 
                 <div class="ui form">
-                  <div class="grouped fields">
-                    <h3 class="ui header">Data Analysis Type: </h3>
+                  <div class="inline fields">
                     <div class="field">
-                      <div class="ui slider checkbox">
-                        <input type="radio" name="throughput" checked="checked" value="dis">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name="type" value="dis" checked="checked">
                         <label>Discharge</label>
                       </div>
                     </div>
                     <div class="field">
-                      <div class="ui slider checkbox">
-                        <input type="radio" name="throughput" value="reg">
+                      <div class="ui radio checkbox">
+                        <input type="radio" name="type" value="reg">
                         <label>Registration</label>
                       </div>
                     </div>

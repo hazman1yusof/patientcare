@@ -28,6 +28,7 @@ class PivotController extends Controller
     public function get_json_pivot(Request $request){
     	$pateis = DB::table('pateis')
     				->select('gender','race','religion','payertype','regdept','admdoctor','admsrc','docdiscipline','casetype','agerange','citizen','area','year','quarter','month','bedtype','procedure','type')
+                    ->where('type','=',$request->type)
     				->get();
 
     	return json_encode($pateis);
