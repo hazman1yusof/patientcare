@@ -84,7 +84,11 @@ class SessionController extends Controller
 
             if ($request->password == $user->first()->password) {
                 Auth::login($user->first(),$remember);
-                return redirect('/pivot');
+                if(Auth::user()->groupid == 'patient'){
+                    return redirect('/preview');
+                }else{
+                    return redirect('/pivot');
+                }
             }else{
                 return back()->withErrors(['Try again, Password entered incorrect']);
             }
