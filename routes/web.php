@@ -74,6 +74,9 @@ Route::get('/pivot_get', "PivotController@get_json_pivot");
 Route::get('/prescription', "PrescriptionController@index");
 Route::get('/prescription/{id}', "PrescriptionController@detail");
 
+
+Route::get('/chat', "ChatController@show");
+
 //dari msoftweb
 Route::get('/preview','PreviewController@preview');
 Route::get('/preview/data','PreviewController@previewdata');
