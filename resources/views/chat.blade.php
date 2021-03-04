@@ -26,7 +26,7 @@ Chat | Chat
                 <div class="ui divider"></div>
                 <div class="ui grid">
                     <div class="ten wide column">
-                        <div class="ui card">
+                        <div class="ui fluid card">
                           <div class="content">
                             <div class="header">Cute Dog</div>
                             <div class="meta">
