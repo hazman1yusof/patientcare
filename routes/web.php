@@ -76,6 +76,7 @@ Route::get('/prescription/{id}', "PrescriptionController@detail");
 
 
 Route::get('/chat', "ChatController@show");
+Route::get('/chat2', "ChatController@show2");
 
 //dari msoftweb
 Route::get('/preview','PreviewController@preview');

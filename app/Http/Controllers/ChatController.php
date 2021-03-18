@@ -24,4 +24,9 @@ class ChatController extends Controller
     {
         return view('chat');
     }
+
+    public function show2(Request $request)
+    {
+        return view('chat2');
+    }
 }

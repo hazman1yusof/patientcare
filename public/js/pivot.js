@@ -42,11 +42,12 @@ $(document).ready(function() {
     }
 
     function pivot(mps,type){
-        let mps_ = mps.filter(function(e,i){
-            if(e.type == type){
-                return true;
-            }
-        });
+        // let mps_ = mps.filter(function(e,i){
+        //     if(e.type == type){
+        //         return true;
+        //     }
+        // });
+        let mps_ = mps;
         
         $("#output").pivotUI(mps_, {
             renderers: renderers,
