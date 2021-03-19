@@ -61,6 +61,20 @@
     color:#f2711c;
 }
 
+.glyphicon-chevron-up,.glyphicon-chevron-down{
+    float:right;
+}
+
+.panel-heading.collapsed .glyphicon-chevron-up,
+.panel-heading .glyphicon-chevron-down {
+    display: none;
+}
+
+.panel-heading.collapsed .glyphicon-chevron-down,
+.panel-heading .glyphicon-chevron-up {
+    display: inline-block;
+}
+
 @endsection
 
 @section('content')
@@ -70,12 +84,6 @@
     </script>
 
     <div class="ui stackable two column grid">
-        <!-- <div class="column" id="colmd_outer">
-            <div id="mydate" gldp-id="mydate"></div>
-            <div gldp-el="mydate" id="mydate_glpd" style="position:static;top:30px;left:0px;z-index:0;font-size: 28px;"></div>
-        </div> -->
-
-
         <div class="eight wide tablet five wide computer column"><div class="ui orange segment">
             <div id="calendar"></div>
         </div></div>
@@ -88,10 +96,32 @@
         </div>
     </div>
 
+    <div class="panel panel-default" style="position: relative;margin-top: 10px">
+        <div class="panel-heading clearfix collapsed" id="toggle_preepis" data-toggle="collapse" data-target="#tabpreepis">
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div>
+            <h5><strong>PRE EPISODE</strong></h5>
+        </div> 
+        </div>
+
+        <div id="tabpreepis" class="panel-collapse collapse">
+            <div class="panel-body">
+                <p>asdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasd</p>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/bootstrap-3.3.5-dist/css/bootstrap.min.css') }}">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/glDatePicker/styles/glDatePicker.default.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/fullcalendar-3.7.0/fullcalendar.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/DataTables/datatables.min.css') }}">
@@ -101,10 +131,12 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.css">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;500&family=Open+Sans:wght@300;700&family=Syncopate&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;500&family=Open+Sans:wght@300;700&family=Syncopate&display=swap" rel="stylesheet">
 @endsection
 
 @section('js')
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script type="text/ecmascript" src="{{ asset('assets/trirand/i18n/grid.locale-en.js') }}"></script>
     <script type="text/ecmascript" src="{{ asset('assets/trirand/jquery.jqGrid.min.js') }}"></script>
     <script type="text/ecmascript" src="{{ asset('assets/fullcalendar-3.7.0/fullcalendar.min.js') }}"></script>
