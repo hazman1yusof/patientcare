@@ -51,9 +51,6 @@ $(document).ready(function () {
 		},
 
 
-
-
-
 	});
 
 	var urlParam = {
@@ -86,6 +83,11 @@ $(document).ready(function () {
 		height: 365,
 		rowNum: 30,
 		onSelectRow:function(rowid, selected){
+			//kalau dialysis
+			populatedialysis(selrowData('#jqGrid'),urlParam.filterVal[0]);
+
+			//habis kalau dialysis
+
 		},
 		ondblClickRow: function (rowid, iRow, iCol, e) {
 		},

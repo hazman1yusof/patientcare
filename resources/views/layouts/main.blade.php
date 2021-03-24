@@ -68,6 +68,14 @@
             @-moz-keyframes cssload-spin {
               100%{ -moz-transform: rotate(360deg); transform: rotate(360deg); }
             }
+            .ui.fixed.menu, .ui[class*="top fixed"].menu {
+                height: 30px;
+            }
+            .sidebar.inverted.icon{
+                height: 20px;
+                width: 10px;
+            }
+
         </style>
 
         @yield('css')

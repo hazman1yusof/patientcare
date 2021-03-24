@@ -75,6 +75,42 @@
     display: inline-block;
 }
 
+.table.diatbl{
+    font-size: 11px;
+    width: 85% !important;
+    margin: auto;
+}
+
+.table.diatbl td{
+    padding: 4px !important;
+}
+
+.ui.form.diaform {
+    font-size: smaller;
+    width: 85% !important;
+    margin: auto;
+}
+
+.ui.form.diaform div.field{
+    padding: 0px 8px !important;
+}
+
+.panel-heading{
+    position: sticky;
+    top: 40px;
+    z-index: 3;
+}
+
+#showSidebar{
+    background: rgb(255 255 255 / 0%) !mportant;
+}
+
+.metal{
+    font-size: 0.8em;
+    color: rgba(0,0,0,.4);
+}
+
+
 @endsection
 
 @section('content')
@@ -96,19 +132,58 @@
         </div>
     </div>
 
-    <div class="panel panel-default" style="position: relative;margin-top: 10px">
-        <div class="panel-heading clearfix collapsed" id="toggle_preepis" data-toggle="collapse" data-target="#tabpreepis">
+    <input id="_token" name="_token" value="{{ csrf_token() }}" type="hidden">
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
+        <div class="panel-heading clearfix collapsed" id="toggle_monthly" data-toggle="collapse" data-target="#tab_monthly">
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
         <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
         <div>
-            <h5><strong>PRE EPISODE</strong></h5>
+            <h5><strong>Monthly Clinical Record</strong>&nbsp;&nbsp;
+                <span class="metal"></span>
+            </h5>
         </div> 
         </div>
 
-        <div id="tabpreepis" class="panel-collapse collapse">
+        <div id="tab_monthly" class="panel-collapse collapse">
             <div class="panel-body">
-                <p>asdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasdasdsadsadadsadasdasdasd</p>
+                @include('monthly_clinical_record')
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
+        <div class="panel-heading clearfix collapsed" id="toggle_weekly" data-toggle="collapse" data-target="#tab_weekly">
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div>
+            <h5><strong>Weekly Clinical Record</strong>&nbsp;&nbsp;
+                <span class="metal"></span></h5>
+        </div> 
+        </div>
+
+        <div id="tab_weekly" class="panel-collapse collapse">
+            <div class="panel-body">
+                @include('weekly_clinical_record')
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
+        <div class="panel-heading clearfix collapsed" id="toggle_daily" data-toggle="collapse" data-target="#tab_daily">
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div>
+            <h5><strong>Daily Clinical Record</strong>&nbsp;&nbsp;
+                <span class="metal"></span></h5>
+        </div> 
+        </div>
+
+        <div id="tab_daily" class="panel-collapse collapse">
+            <div class="panel-body">
+                @include('daily_clinical_record')
             </div>
         </div>
     </div>
@@ -146,6 +221,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
 	<script type="text/javascript" src="{{ asset('js/emergency.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dialysis.js') }}"></script>
 @endsection
 
 
