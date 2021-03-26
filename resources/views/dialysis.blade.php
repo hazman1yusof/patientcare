@@ -60,7 +60,7 @@
     font-weight: 900;
     color:#f2711c;
 }
-<!-- 
+
 .glyphicon-chevron-up,.glyphicon-chevron-down{
     float:right;
 }
@@ -108,7 +108,7 @@
 .metal{
     font-size: 0.8em;
     color: rgba(0,0,0,.4);
-} -->
+}
 
 
 @endsection
@@ -132,6 +132,87 @@
         </div>
     </div>
 
+    <input id="_token" name="_token" value="{{ csrf_token() }}" type="hidden">
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
+        <div class="panel-heading clearfix collapsed" id="toggle_monthly" data-toggle="collapse" data-target="#tab_monthly">
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div>
+            <h5><strong>Monthly Clinical Record</strong>&nbsp;&nbsp;
+                <span class="metal"></span>
+            </h5>
+        </div> 
+        </div>
+
+        <div id="tab_monthly" class="panel-collapse collapse">
+            <div class="panel-body">
+                @include('monthly_clinical_record')
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
+        <div class="panel-heading clearfix collapsed" id="toggle_weekly" data-toggle="collapse" data-target="#tab_weekly">
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div>
+            <h5><strong>Weekly Clinical Record</strong>&nbsp;&nbsp;
+                <span class="metal"></span></h5>
+        </div> 
+        </div>
+
+        <div id="tab_weekly" class="panel-collapse collapse">
+            <div class="panel-body">
+                @include('weekly_clinical_record')
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
+        <div class="panel-heading clearfix collapsed" id="toggle_daily" data-toggle="collapse" data-target="#tab_daily">
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div>
+            <h5><strong>Daily Clinical Record</strong>&nbsp;&nbsp;
+                <span class="metal"></span></h5>
+        </div> 
+        </div>
+
+        <div id="tab_daily" class="panel-collapse collapse">
+            <div class="panel-body">
+                @include('daily_clinical_record')
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
+        <div class="panel-heading clearfix collapsed" id="toggle_trans" data-toggle="collapse" data-target="#tab_trans">
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div>
+            <h5><strong>Transaction Charges</strong>&nbsp;&nbsp;
+                <span class="metal"></span></h5>
+        </div> 
+        </div>
+
+        <div id="tab_trans" class="panel-collapse collapse">
+            <div class="panel-body">
+                @include('transaction_charges')
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="eight wide tablet eleven wide computer column" style="margin:0px;">
+        <div class="ui teal segment" id="jqGrid_trans_c">
+            <h2 class="h2">Patient List</h2>
+            <table id="jqGrid_trans" class="table table-striped"></table>
+            <div id="jqGrid_transPager"></div>
+        </div>
+    </div> -->
 
 @endsection
 
@@ -149,6 +230,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;500&family=Open+Sans:wght@300;700&family=Syncopate&display=swap" rel="stylesheet">
@@ -165,7 +247,10 @@
 	<script type="text/javascript" src="{{ asset('assets/DataTables/datatables.min.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
-	<script type="text/javascript" src="{{ asset('js/emergency.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script type="text/javascript" src="{{ asset('js/dialysis_main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dialysis.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/transaction.js') }}"></script>
 @endsection
 
 

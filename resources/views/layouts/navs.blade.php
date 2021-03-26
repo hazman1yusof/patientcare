@@ -21,6 +21,8 @@
 
         <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
 
+        <a class="item {{(Request::is('dialysis') ? 'active' : '')}}" href="{{ url('/dialysis')}}"><i style="float: left" class="heartbeat inverted big icon link"></i>Dialysis</a>
+
         <a class="item @if(Request::is('chat2') || Request::is('chat2/*')) {{'active'}} @endif" href="{{ url('/chat2')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
 
         <a class="item @if(Request::is('prescription') || Request::is('prescription/*')) {{'active'}} @endif" href="{{ url('/prescription')}}"><i style="float: left" class="hospital inverted big link icon"></i>Prescription</a>

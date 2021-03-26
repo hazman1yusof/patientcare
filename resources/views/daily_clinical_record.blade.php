@@ -5,7 +5,7 @@
   <div class="three fields">
     <div class="field">
 	<label><div class="label_hd">Start Date:</div></label>
-      <input type="date" id="start_datexx" disabled="" value="<?php echo date('Y-m-d'); ?>">
+      <input type="date" id="seldate" disabled="" value="{{Carbon\Carbon::now()}}">
     </div>
     <div class="field"><label><div class="label_hd">&nbsp;</div></label>
       <button type="button" class="ui mini blue submit button" id="addnew_dia" disabled="">Add New Record</button>
@@ -22,19 +22,19 @@
 		<div class="field">
 			<div class="clinic_code">
 				<label><div class="label_hd">Start Time:</div></label>
-				<input type="time" class="w" name="start_time" id="start_time" style="background-color:grey cloud; color:black"   value="">
+				<input type="time" class="w" name="start_time" id="start_time" style="background-color:grey cloud; "   value="">
 			</div>
 		</div>
 		<div class="field">
 			<div class="clinic_code">
 				<label><div class="label_hd">Pre HD Weight:</div></label>
-				<input type="text" name="prehd_weight" id="prehd_weight"  value="" style="background-color:grey cloud; color:black" >
+				<input type="text" name="prehd_weight" id="prehd_weight"  value="" style="background-color:grey cloud; " >
 			</div>
 		</div>
 		<div class="field">
 			<div class="clinic_code">
 				<label> Hep. Loading Dose:</label>
-				<input type="text" name="hep_loading" id="hep_loading" value="" style="background-color:#EBEBE4; color:black" >
+				<input type="text" name="hep_loading" id="hep_loading" value="" style="background-color:#EBEBE4; " >
 			</div>
 		</div>
 	</div>
@@ -43,19 +43,19 @@
 		<div class="field">
 			<div class="clinic_code">
 				<label><div class="label_hd">Time Complete:</div></label>
-				<input type="time" name="end_time" class="w" id="end_time" style="background-color:grey cloud; color:black"   value="">
+				<input type="time" name="end_time" class="w" id="end_time" style="background-color:grey cloud; "   value="">
 			</div>
 		</div>
 		<div class="field">
 			<div class="clinic_code">
 			    			<label><div class="label_hd">Prev.Post Weight:</div></label>
-				<input type="text" name="prev_post_weight" id="prev_post_weight"  value="" style="background-color:grey cloud; color:black" >
+				<input type="text" name="prev_post_weight" id="prev_post_weight"  value="" style="background-color:grey cloud; " >
 			</div>
 		</div>
 		 <div class="field">
 			<div class="clinic_code">
 				<label> Hep. Infusion:</label>
-				<input type="text" name="hep_infusion" id="hep_infusion" value="" style="background-color:#EBEBE4; color:black" >
+				<input type="text" name="hep_infusion" id="hep_infusion" value="" style="background-color:#EBEBE4; " >
 			</div>
 		</div>
 	</div>
@@ -65,19 +65,19 @@
 		<div class="field">
 			<div class="clinic_code">
 				<label><div class="label_hd">Duration of Dialysis:</div></label>
-				<input type="text" class="w" name="duration" id="duration"  value="" style="background-color:grey cloud; color:black" >
+				<input type="text" class="w" name="duration" id="duration"  value="" style="background-color:grey cloud; " >
 			</div>
 		</div>
 	    <div class="field">
 			<div class="clinic_code">
 				<label><div class="label_hd">IDWG:</div></label>
-				<input type="text" name="dialytic_weight" id="dialytic_weight"  value="" style="background-color:grey cloud; color:black" >
+				<input type="text" name="dialytic_weight" id="dialytic_weight"  value="" style="background-color:grey cloud; " >
 			</div>
 		</div>
 		<div class="field">
 			<div class="clinic_code">
 				<label> Tinzaparin (Innohep):</label>
-				<input type="text" name="tinzaparin" id="tinzaparin" value="" style="background-color:#EBEBE4; color:black" >
+				<input type="text" name="tinzaparin" id="tinzaparin" value="" style="background-color:#EBEBE4; " >
 			</div>
 		</div>
 	</div>
@@ -87,23 +87,23 @@
 				<label><div class="label_hd">Last Visit:</div></label>
 			<div class="fields">
 				<div class="ten wide field">
-				<input type="text" name="age" id="age"  value="" style="background-color:grey cloud; color:black" >
+				<input type="text" name="age" id="age"  value="" style="background-color:grey cloud; " >
 				</div>
 				<div class="six wide field">
-				<input type="text" name="visit_Cnt" id="visit_Cnt" value="" style="background-color:#EBEBE4; color:black" >
+				<input type="text" name="visit_Cnt" id="visit_Cnt" value="" style="background-color:#EBEBE4; " >
 				</div>
 			</div>
 		</div>
 		<div class="field">
 			<div class="clinic_code">
 				<label><div class="label_hd">Target Weight:</div></label>
-				<input type="text" name="dry_weight" id="dry_weight"  value="" style="background-color:grey cloud; color:black" >
+				<input type="text" name="dry_weight" id="dry_weight"  value="" style="background-color:grey cloud; " >
 			</div>
 		</div>
 		 <div class="field">
 			<div class="clinic_code">
 				<label> Dialysate Calcium:</label>  
-				<input type="text" name="dialysate_calcium" id="dialysate_calcium" value="" style="background-color:#EBEBE4; color:black" >
+				<input type="text" name="dialysate_calcium" id="dialysate_calcium" value="" style="background-color:#EBEBE4; " >
 
 			</div>
 		</div>
@@ -113,20 +113,20 @@
 		<div class="field">
 			<div class="clinic_code">
 				<label>Machine No:</label>
-				<input type="text" name="machine_no" id="machine_no" class="required w"  value="" style="background-color:#EBEBE4; color:black" >
+				<input type="text" name="machine_no" id="machine_no" class="required w"  value="" style="background-color:#EBEBE4; " >
 			</div>
 		</div>
 		<div class="field">
 			<div class="clinic_code">
 				<label><div class="label_hd">Target UF:</div></label>
-				<input type="text" name="total_uf" id="total_uf" value="" style="background-color:grey cloud; color:black" >
+				<input type="text" name="total_uf" id="total_uf" value="" style="background-color:grey cloud; " >
 			</div>
 		</div>
 
 	    <div class="field">
 			<div class="clinic_code">
 				<label>AVF Needle:</label>  
-	            <input type="text" name="avf_needle" id="avf_needle" value="" style="background-color:#EBEBE4; color:black" >
+	            <input type="text" name="avf_needle" id="avf_needle" value="" style="background-color:#EBEBE4; " >
 			</div>
 		</div>
    	</div>
@@ -163,7 +163,7 @@
 	<div class="field">
 		<div class="clinic_code">
         <label style="">Remarks:</label>
-			<textarea name="remarks" rows="3" cols="100" style="background-color:#EBEBE4; color:black"></textarea>
+			<textarea name="remarks" rows="3" cols="100" style="background-color:#EBEBE4; "></textarea>
 		</div>
 	</div>
 
@@ -183,7 +183,7 @@
 		<tbody>
 			<tr>
 				<td class="labeltd">Recorded Time:</td>
-				<td><input type="hidden" name="rec_pre" id="rec_pre" value="" style="background-color:grey cloud; color:black; " ></td>
+				<td><input type="hidden" name="rec_pre" id="rec_pre" value="" style="background-color:grey cloud; ; " ></td>
 				<td><input type="text"   name="rec_2" id="rec_2" style="  background-color:#D4FFFF;" value=""></td>
 				<td><input type="text"   name="rec_3" id="rec_3" style=" background-color:#AAFFAA;" value=""></td>
 				<td><input type="text"   name="rec_4" id="rec_4" style=" background-color:#FFD4FF;" value=""></td>
@@ -191,7 +191,7 @@
 			</tr>
 			<tr>
 				<td class="labeltd">TMP:</td>
-				<td><input type="hidden" name="tmp_pre" id="tmp_pre" value="" style="background-color:grey cloud; color:black; " ></td>
+				<td><input type="hidden" name="tmp_pre" id="tmp_pre" value="" style="background-color:grey cloud; ; " ></td>
 				<td><input type="text"   name="tmp_2" id="tmp_2" style=" background-color:#D4FFFF;" value=""></td>
 				<td><input type="text"   name="tmp_3" id="tmp_3" style=" background-color:#AAFFAA;" value=""></td>
 				<td><input type="text"   name="tmp_4" id="tmp_4" style=" background-color:#FFD4FF;" value=""></td>
@@ -199,7 +199,7 @@
 			</tr>
 			<tr>
 				<td class="labeltd">Blood Pressure:</td>
-				<td><input type="text" name="bp_pre" id="bp_pre" value="" style="background-color:grey cloud; color:black; " ></td>
+				<td><input type="text" name="bp_pre" id="bp_pre" value="" style="background-color:grey cloud; ; " ></td>
 				<td><input type="text"   name="bp_2" id="bp_2" style=" background-color:#D4FFFF;" value=""></td>
 				<td><input type="text"   name="bp_3" id="bp_3" style=" background-color:#AAFFAA;" value=""></td>
 				<td><input type="text"   name="bp_4" id="bp_4" style=" background-color:#FFD4FF;" value=""></td>
@@ -207,7 +207,7 @@
 			</tr>
 			<tr>
 				<td class="labeltd">Pulse:</td>
-				<td><input type="text" name="pulse_pre" id="pulse_pre" value="" style="background-color:grey cloud; color:black; " ></td>
+				<td><input type="text" name="pulse_pre" id="pulse_pre" value="" style="background-color:grey cloud; ; " ></td>
 				<td><input type="text"   name="pulse_2" id="pulse_2" style=" background-color:#D4FFFF;" value=""></td>
 				<td><input type="text"   name="pulse_3" id="pulse_3" style=" background-color:#AAFFAA;" value=""></td>
 				<td><input type="text"   name="pulse_4" id="pulse_4" style=" background-color:#FFD4FF;" value=""></td>
@@ -241,7 +241,7 @@
 			</tr>
 			<tr>
 				<td class="labeltd">Dialsate Flow Rate:</td>
-				<td><input type="hidden" name="df_pre" id="df_pre1" value="" style="background-color:grey cloud; color:black; " ></td>
+				<td><input type="hidden" name="df_pre" id="df_pre1" value="" style="background-color:grey cloud; ; " ></td>
 				<td><input type="text"   name="df_2" id="df_2" style=" background-color:#D4FFFF;" value=""></td>
 				<td><input type="text"   name="df_3" id="df_3" style=" background-color:#AAFFAA;" value=""></td>
 				<td><input type="text"   name="df_4" id="df_4" style=" background-color:#FFD4FF;" value=""></td>
@@ -312,11 +312,11 @@
 			<tr>
 				<td class="labeltd">Dialysate Temp:</td>
 				<td>
-					<input type="text" name="dialyser_temp" id="dialyser_temp" style=" background-color:grey cloud; color:black"   value="">
+					<input type="text" name="dialyser_temp" id="dialyser_temp" style=" background-color:grey cloud; "   value="">
 				</td>
 				<td class="labeltd">Program:</td>
 				<td>
-					<input type="text" name="program" id="program" style=" background-color:grey cloud; color:black"   value="">
+					<input type="text" name="program" id="program" style=" background-color:grey cloud; "   value="">
 				</td>
 				<td class="labeltd">Blood Pressure(Stand):</td>
 				<td>
@@ -331,11 +331,11 @@
 			<tr>
 				<td class="labeltd">EPO Type:</td>
 				<td>
-				    <input type="text" name="epo_type" id="epo_type"  value="" style=" background-color:grey cloud; color:black" >
+				    <input type="text" name="epo_type" id="epo_type"  value="" style=" background-color:grey cloud; " >
 				</td>
 				<td class="labeltd">EPO Dose:</td>
 				<td>
-	            	<input type="text" name="dose_type" id="dose_type"  value="" style=" background-color:grey cloud; color:black" >
+	            	<input type="text" name="dose_type" id="dose_type"  value="" style=" background-color:grey cloud; " >
 				</td>
 				<td class="labeltd">Blood Pressure(Sit):</td>
 				<td>
@@ -349,7 +349,7 @@
 			<tr>
 	            <td class="labeltd">Dialyzer Name:</td>
 	            <td colspan="3">
-	                <input type="text" name="type_dialyser" id="type_dialyser"  value="" style="background-color:#EBEBE4; color:black; width: 269px;" >
+	                <input type="text" name="type_dialyser" id="type_dialyser"  value="" style="background-color:#EBEBE4;  width: 269px;" >
 	            </td>  
 				<td class="labeltd">Post HD Weight:</td>
 				<td>
@@ -357,7 +357,7 @@
 				</td>
 				<td class="labeltd">Weight Loss:</td>
 				<td>
-					<input type="text" name="weight_loss" id="weight_loss"  style=" background-color:#F0F0F0; color:black" value="">
+					<input type="text" name="weight_loss" id="weight_loss"  style=" background-color:#F0F0F0; " value="">
 				</td>
 
 			</tr>
@@ -365,27 +365,27 @@
 			<tr>
 	            <td class="labeltd">Dialyzer Type:</td>
 				<td style="width:100px">
-					<input type="text" name="type_of_dialyser" id="type_of_dialyser"  value="" style="background-color:grey cloud; color:black; width: 95px;" >
+					<input type="text" name="type_of_dialyser" id="type_of_dialyser"  value="" style="background-color:grey cloud;  width: 95px;" >
 	            </td> 
 				<td class="labeltd">No of Used:</td>
-				<td><input type="text" name="dialyser_num_used" id="dialyser_num_used"  value="" style=" background-color:grey cloud; color:black" ></td>
+				<td><input type="text" name="dialyser_num_used" id="dialyser_num_used"  value="" style=" background-color:grey cloud; " ></td>
 				<td class="labeltd">Achieved UF:</td>
 				<td colspan="3"><input type="text" name="ultra" id="ultra"   value="" style=""></td>
 			</tr>
 			<tr>
 				<td class="labeltd">Vascular Access:</td>
-				<td colspan="3"><input type="text" name="vascular_name" id="vascular_name"  value="" style="width: 269px; background-color:grey cloud; color:black" ></td>
+				<td colspan="3"><input type="text" name="vascular_name" id="vascular_name"  value="" style="width: 269px; background-color:grey cloud; " ></td>
 				<td class="labeltd">KT/V/CBV:</td>
 				<td colspan="3"><input type="text" name="kt_v" id="kt_v"   value="" style=""></td>
 			</tr>
 			<tr>
 				<td class="labeltd">Pre HD Verified By:</td>
 				<td colspan="3">
-					<input type="text" name="pre_verifier_name" id="pre_verifier_name"  value="" style="background-color:#F0F0F0; color:black; width: 269px;" >
+					<input type="text" name="pre_verifier_name" id="pre_verifier_name"  value="" style="background-color:#F0F0F0; ; width: 269px;" >
 				</td>
 				<td class="labeltd">Post HD Verified By:</td>
 				<td colspan="3">
-					<input type="text" name="verifier_by" id="verifier_by"  value="" style="background-color:#F0F0F0; color:black; width: 269px;" >
+					<input type="text" name="verifier_by" id="verifier_by"  value="" style="background-color:#F0F0F0; ; width: 269px;" >
 				</td>
 			</tr>
 		</tbody>

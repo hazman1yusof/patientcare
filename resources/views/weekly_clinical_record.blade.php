@@ -1,5 +1,22 @@
-<table class="table table-bordered diatbl">
+<div class="ui mini form" style="width: 70% !important;margin: auto;">
+  <div class="four fields">
+    <div class="field">
+      <label>Week From:</label>
+      <input type="date" id="selectweek_from" >
+    </div>
 
+    <div class="field">
+      <label>To:</label>
+      <input type="date" id="selectweek_to" disabled="">
+    </div>
+    <div class="field">
+      <label>&nbsp;</label>
+      <button type="button" class="ui mini blue submit button" id="rec_weekly_but">Go</button>
+    </div>
+  </div>
+</div>
+
+<table class="table table-bordered diatbl">
 <tbody>
 	<tr>
 		<td width="100" rowspan="2" align="center" bgcolor="#BEBEBE"><b>Description</b></td>

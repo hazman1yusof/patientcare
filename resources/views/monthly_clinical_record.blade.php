@@ -2,7 +2,7 @@
   <div class="three fields">
     <div class="field">
       <label>Select Month</label>
-      <input type="month" id="selectmonth">&nbsp;&nbsp;
+      <input type="month" id="selectmonth" >&nbsp;&nbsp;
       <button type="button" class="ui mini blue submit button" id="rec_monthly_but">Go</button>
     </div>
   </div>
@@ -392,7 +392,6 @@
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
 </tr>
-
 <tr class="listHeading" id="rec_3">
     <td width="200" align="left" bgcolor="#DCDCDC"><b>2<sup>nd Hour</sup></b></td>
     <td width="80" align="center" bgcolor="#DCDCDC">&nbsp;</td>
@@ -699,7 +698,6 @@
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
 </tr>
-
 <tr class="listHeading" id="rec_post">
     <td width="200" align="left" bgcolor="#DCDCDC"><b>4<sup>th Hour</sup></b></td>
     <td width="80" align="center" bgcolor="#DCDCDC">&nbsp;</td>

@@ -3,21 +3,6 @@ $.jgrid.defaults.responsive = true;
 $.jgrid.defaults.styleUI = 'Bootstrap';
 
 $(document).ready(function () {
-	// function calanderposition(){
-	// 	var width = Math.floor($("#colmd_outer")[0].offsetWidth - $("#colmd_outer")[0].offsetLeft);
-	// 	$('#mydate_glpd').css('width',width);
-	// 	$('#mydate_glpd').css('height',width);
-	// }
-	// calanderposition();
-
-	// var gldatepicker = $('#mydate').glDatePicker({
-	// 	zIndex: 0,
-	// 	showAlways: true,
-	// 	onClick: function(target, cell, date, data) {
-	// 		urlParam.filterVal[0] = moment(date).format('YYYY-MM-DD');
-	// 		refreshGrid("#jqGrid", urlParam);
-	//     }
-	// }).glDatePicker(true);
 	$('#calendar').fullCalendar({
 		events: events,
   		defaultView: 'month',
@@ -84,7 +69,7 @@ $(document).ready(function () {
 		rowNum: 30,
 		onSelectRow:function(rowid, selected){
 			//kalau dialysis
-			// populatedialysis(selrowData('#jqGrid'),urlParam.filterVal[0]);
+			populatedialysis(selrowData('#jqGrid'),urlParam.filterVal[0]);
 
 			//habis kalau dialysis
 

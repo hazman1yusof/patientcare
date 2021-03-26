@@ -16,6 +16,53 @@ class DialysisController extends Controller
         $this->middleware('auth');
     }
 
+    public function index(Request $request){ 
+        // dd(Auth::user());
+
+        $navbar = $this->navbar();
+
+        $emergency = DB::table('episode')
+                        ->whereMonth('reg_date', '=', now()->month)
+                        ->get();
+
+        $events = $this->getEvent($emergency);
+
+        if(!empty($request->username)){
+            $user = DB::table('users')
+                    ->where('username','=',$request->username);
+            if($user->exists()){
+                $user = User::where('username',$request->username);
+                Auth::login($user->first());
+            }
+        }
+        return view('dialysis',compact('navbar','events'));
+    }
+
+    public function getEvent($obj){
+        $events = [];
+
+        for ($i=1; $i <= 31; $i++) {
+            $days = 0;
+            $reg_date;
+            foreach ($obj as $key => $value) {
+                $day = Carbon::createFromFormat('Y-m-d',$value->reg_date);
+                if($day->day == $i){
+                    $reg_date = $value->reg_date;
+                    $days++;
+                }
+            }
+            if($days != 0){
+                $event = new stdClass();
+                $event->title = $days.' patients';
+                $event->start = $reg_date;
+                array_push($events, $event);
+            }
+        }
+
+        return $events;
+
+    }
+
     public function get_data_dialysis(Request $request){
 
         switch ($request->action) {
@@ -35,12 +82,16 @@ class DialysisController extends Controller
     }
 
     public function get_dia_monthly(Request $request){
-        $carbon = new Carbon($request->date);
+        $post = [];
+        if(!empty($request->date)){
+            $carbon = new Carbon($request->date);
 
-        $post = DB::table('dialysis')
-                ->whereYear('start_date', '=', $carbon->year)
-                ->whereMonth('start_date', '=', $carbon->month)
-                ->get();
+            $post = DB::table('dialysis')
+                    ->where('mrn','=',$request->mrn)
+                    ->whereYear('start_date', '=', $carbon->year)
+                    ->whereMonth('start_date', '=', $carbon->month)
+                    ->get();
+        }
 
         $responce = new stdClass();
         $responce->data = $post;
@@ -52,27 +103,55 @@ class DialysisController extends Controller
     }
 
     public function get_dia_daily(Request $request){
-        
+        $post = [];
+        if(!empty($request->date)){
+            $carbon = new Carbon($request->date);
+
+            $post = DB::table('dialysis')
+                    ->where('mrn','=',$request->mrn)
+                    ->whereDate('start_date', '=', $carbon)
+                    ->get();
+        }
+
+        $responce = new stdClass();
+        $responce->data = $post;
+        return json_encode($responce);
     }
 
     public function save_dialysis(Request $request){
 
         $table = DB::table('dialysis');
-
-        $array_insert = [
-                'mrn'=>$request->mrn,
-                'episno'=>$request->episno,
-                'start_date'=>Carbon::now("Asia/Kuala_Lumpur")
+        try {
+            if($request->oper == 'add'){
+                $array_insert = [
+                    'mrn'=>$request->mrn,
+                    'episno'=>$request->episno,
+                    'start_date'=>new Carbon($request->seldate)
                 ];
 
-        foreach ($_POST as $key => $value) {
-            if(!empty($value)){
-                $array_insert[$key] = $value;
-            }
-        }
+                foreach ($_POST as $key => $value) {
+                    if(!empty($value)){
+                        $array_insert[$key] = $value;
+                    }
+                }
+        
+                $table->insert($array_insert);
 
-        try {
-            $table->insert($array_insert);
+            }else if($request->oper == 'edit'){
+                $table
+                    ->where('mrn','=',$request->mrn)
+                    ->where('episno','=',$request->episno);
+
+                $array_update = [];
+
+                foreach ($_POST as $key => $value) {
+                    if(!empty($value)){
+                        $array_update[$key] = $value;
+                    }
+                }
+        
+                $table->update($array_update);
+            }
 
             $responce = new stdClass();
             $responce->success = 'success';
