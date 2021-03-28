@@ -166,4 +166,20 @@ class DialysisController extends Controller
         
     }
 
+    public function transaction_save(Request $request){
+        try {
+            dd('saving');
+
+            $responce = new stdClass();
+            $responce->success = 'success';
+            echo json_encode($responce);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response('Error'.$e, 500);
+        }
+    }
+
 }

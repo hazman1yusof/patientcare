@@ -89,6 +89,8 @@
         </div>
         <input type="hidden" id="util_val" value="{{route('util_val')}}">
         <input type="hidden" id="util_tab" value="{{route('util_tab')}}">
+        <input type="hidden" id="navbar_hide" value="{{Session::get('navbar')}}">
+
         @if(!Request::is('login'))
             @if(!Request::is('upload'))
                 @include('layouts.navs')

@@ -34,4 +34,8 @@ $(document).ready(function() {
         }, 900, 'swing');
     });
 
+    if($('#navbar_hide').val() == 'navbar'){
+        $('div#sidemenu_topmenu').hide();
+    }
+
 });

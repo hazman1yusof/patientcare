@@ -2,7 +2,7 @@
 <a href="#top" class="ui circular icon button" id="toTop" data-slide="slide">
     <i class="angle up icon"></i>
 </a>
-<div class="ui fixed top menu sidemenu">
+<div class="ui fixed top menu sidemenu" id="sidemenu_topmenu">
     <a class="item" id="showSidebar"><i class="sidebar inverted icon"></i></a>
 </div>
 

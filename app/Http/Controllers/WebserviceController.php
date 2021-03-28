@@ -123,24 +123,36 @@ class WebserviceController extends Controller
 
     }
 
-    public function login(Request $request){
-        // $remember = (!empty($request->remember)) ? true:false;
-        $remember = false;
-        // $user = User::where('username','=',$request->username);
-
-        $user = User::where('username',request('username'));
-
-        if($user->count() > 0){
-            // if($user->first()->status == 'Inactive'){
-            //     return back()->withErrors(['Sorry, your account is inactive, contact admin to activate it again']);
-            // }
-
-            Auth::login($user->first(),$remember);
-            return redirect('/emergency');
-            
-        }else{
-            return back()->withErrors(['Try again, Username doesnt exist']);
+    public function login(Request $request){//http://patientcare.test/webservice/login?page=dialysis&username=farid
+        switch ($request->page) {
+            case 'upload':
+                $goto = '/emergency';
+                break;
+            case 'dialysis':
+                $goto = '/dialysis';
+                break;
+            default:
+                $goto = '/emergency';
+                break;
         }
+
+        if(Auth::check()){
+            return redirect($goto)->with('navbar','navbar');;
+        }else{
+
+            $user = User::where('username',request('username'));
+            if($user->count() > 0){
+
+                Auth::login($user->first(),false);
+                return redirect($goto)->with('navbar','navbar');;
+                
+            }else{
+                return back()->withErrors(['Try again, Username doesnt exist']);
+            }
+        }
+
+
+        
     }
     
 }
