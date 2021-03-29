@@ -109,6 +109,15 @@
     font-size: 0.8em;
     color: rgba(0,0,0,.4);
 }
+table#jqGrid, table#jqGrid_trans{
+    font-size: 11px;
+}
+.help-block {
+    display: block;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    color: #737373;
+}
 
 
 @endsection

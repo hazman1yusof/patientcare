@@ -168,7 +168,37 @@ class DialysisController extends Controller
 
     public function transaction_save(Request $request){
         try {
-            dd('saving');
+            $table = DB::table('chargetrx');
+
+            if($request->oper == 'edit'){
+                $table->where('mrn','=',$request->mrn)
+                        ->where('episno','=',$request->episno)
+                        ->where('auditno','=',$request->auditno);
+
+                $array_edit = [
+                    'chgcode' => $request->chgcode,
+                    'quantity' => $request->quantity
+                ];
+
+                $table->update($array_edit);
+            }else{
+                $array_insert = [
+                    'compcode' => '9A',
+                    'mrn' => $request->mrn,
+                    'episno' => $request->episno,
+                    'trxtype' => 'OE',
+                    'trxdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    'chgcode' => $request->chgcode,
+                    'billflag' => '0',
+                    'quantity' => $request->quantity,
+                    'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
+                    'isudept' => 'dialysis'
+                ];
+
+                $table->insert($array_insert);
+            }
+
+            
 
             $responce = new stdClass();
             $responce->success = 'success';

@@ -603,6 +603,25 @@ function dateUNFormatter(cellvalue, options, rowObject){
 	return moment(cellvalue, "DD/MM/YYYY").format("YYYY-MM-DD");
 }
 
+function sexFormatter(cellvalue, options, rowObject){
+	if(cellvalue == null) return '';
+	if(cellvalue == 'F'){
+		return 'Female';
+	}else if(cellvalue == 'M'){
+		return 'Male';
+	}
+}
+
+function sexUNFormatter(cellvalue, options, rowObject){
+	if(cellvalue == 'Female'){
+		return 'F';
+	}else if(cellvalue == 'Male'){
+		return 'M';
+	}else{
+		return null;
+	}
+}
+
 function timeFormatter(cellvalue, options, rowObject){
 	return moment(cellvalue, 'HH:mm:ss').format("hh:mm A");
 }
@@ -1601,7 +1620,9 @@ function faster_detail_load(){
 			let desc = elem.json.description;
 
 			if(except == undefined || except.indexOf(options.colModel.name) === -1){
-				$("#"+options.gid+" #"+options.rowId+" td:nth-child("+(options.pos+1)+")").append("<span class='help-block'>"+desc+"</span>");
+				if($("#"+options.gid+" #"+options.rowId+" td:nth-child("+(options.pos+1)+")").children('span.help-block').length==0){//kalau xde help-block baru letak
+					$("#"+options.gid+" #"+options.rowId+" td:nth-child("+(options.pos+1)+")").append("<span class='help-block'>"+desc+"</span>");
+				}
 			}else if(except != undefined && except.indexOf(options.colModel.name) !== -1){
 				$("#"+options.gid+" #"+options.rowId+" td:nth-child("+(options.pos+1)+")").text('');
 			}else{

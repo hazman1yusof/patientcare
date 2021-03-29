@@ -54,13 +54,15 @@ $(document).ready(function () {
 	$("#jqGrid").jqGrid({
 		datatype: "local",
 		colModel: [
+			{ label: 'Time', name: 'e_reg_time', width: 12, hidden: true },
+			{ label: 'MRN', name: 'e_mrn', width: 8, classes: 'wrap', formatter: padzero, unformat: unpadzero, canSearch: true, checked: true,  },
+			{ label: 'Epis. No', name: 'e_episno', width: 5 ,canSearch: true,classes: 'wrap' },
+			{ label: 'Name', name: 'p_name', width: 40 ,canSearch: true,classes: 'wrap' },
+			{ label: 'I/C', name: 'p_Newic', width: 15 ,canSearch: true,classes: 'wrap' },
+			{ label: 'DOB', name: 'p_DOB', width: 12 ,canSearch: true,classes: 'wrap' },
+			{ label: 'Sex', name: 'p_Sex', width: 5 ,canSearch: true,classes: 'wrap' },
+			{ label: 'Action', name: 'action', width: 15 ,canSearch: true,classes: 'wrap', formatter: formatterRemarks,unformat: unformatRemarks},
 			{ label: 'idno', name: 'e_idno', width: 5, hidden: true },
-			{ label: 'MRN', name: 'e_mrn', width: 12, classes: 'wrap', formatter: padzero, unformat: unpadzero, canSearch: true, checked: true,  },
-			{ label: 'Epis. No', name: 'e_episno', width: 10 ,canSearch: true,classes: 'wrap' },
-			// { label: 'Registered Date', name: 'e_reg_date', width: 15 ,classes: 'wrap' },
-			// { label: 'Registered Time', name: 'e_reg_time', width: 15 ,classes: 'wrap' },
-			{ label: 'Name', name: 'p_name', width: 30 ,canSearch: true,classes: 'wrap' },
-			{ label: 'Action', name: 'action', width: 30 ,canSearch: true,classes: 'wrap', formatter: formatterRemarks,unformat: unformatRemarks}
 		],
 		autowidth: true,
 		viewrecords: true,
@@ -70,7 +72,10 @@ $(document).ready(function () {
 		onSelectRow:function(rowid, selected){
 			//kalau dialysis
 			populatedialysis(selrowData('#jqGrid'),urlParam.filterVal[0]);
-
+			hide_tran_button(false);
+			urlParam_trans.filterVal[0] = selrowData('#jqGrid').e_mrn;
+			urlParam_trans.filterVal[1] = selrowData('#jqGrid').e_episno;
+			refreshGrid("#jqGrid_trans", urlParam_trans);
 			//habis kalau dialysis
 
 		},

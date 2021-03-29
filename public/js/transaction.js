@@ -1,18 +1,13 @@
 $(document).ready(function () {
 
 	var fdl = new faster_detail_load();
-
-	var urlParam = {
-		action: 'get_table_default',
-	}
-
+	
 	$("#jqGrid_trans").jqGrid({
 		datatype: "local",
-		editurl: "/deliveryOrderDetail/form",
+		editurl: "./transaction_save",
 		colModel: [
 			{ label: 'MRN', name: 'mrn', width: 30 },
 			{ label: 'Episno', name: 'episno', width: 30 },
-			{ label: 'Patient Name', name: 'patname' , width: 60},
 			{ label: 'Charge Code', name: 'chgcode', width: 60, editable:true,
 				editrules:{required: true, custom:true, classes: 'wrap', custom_func:cust_rules},formatter: showdetail,
 				edittype:'custom',	editoptions:
@@ -20,15 +15,10 @@ $(document).ready(function () {
 				       custom_value:galGridCustomValue 	
 				    },
 			},
-			{ label: 'Unit Price', name: 'unitprce', width: 30, align: 'right', editable:true,
-				formatter: 'currency', formatoptions: { decimalSeparator: ".", thousandsSeparator: ",", decimalPlaces: 4, },
-				editrules:{required: true} },
 			{ label: 'Quantity', name: 'quantity', width: 30 , align: 'right', editable:true,
 				formatter: 'number',
 				editrules:{required: true}},
-			{ label: 'Amount', name: 'amount', width: 30, align: 'right', editable:true,
-				formatter: 'currency', formatoptions: { decimalSeparator: ".", thousandsSeparator: ",", decimalPlaces: 4, },
-				editrules:{required: true} }
+			{ label: 'auditno', name: 'auditno', hidden: true,key:true },
 		],
 		autowidth: true,
 		viewrecords: true,
@@ -45,7 +35,7 @@ $(document).ready(function () {
 		ondblClickRow: function (rowid, iRow, iCol, e) {
 		},
 		gridComplete: function () {
-			
+			console.log(fdl.array);
 			fdl.set_array().reset();
 		},
 	});
@@ -65,19 +55,34 @@ $(document).ready(function () {
 	var myEditOptions = {
         keys: true,
         extraparam:{
-		    "_token": $("#_token").val()
+		    "_token": $("#_token").val(),
+		    "mrn": selrowData('#jqGrid').e_mrn,
+		    "episno": selrowData('#jqGrid').e_episno,
         },
         oneditfunc: function (rowid) {
+        	let selrow = selrowData('#jqGrid');
 			dialog_chgcode.on();
+			$("#jqGrid_trans").jqGrid("setRowData", rowid, {mrn:selrow.e_mrn,episno:selrow.e_episno});
         },
         aftersavefunc: function (rowid, response, options) {
-			
+			refreshGrid("#jqGrid_trans", urlParam_trans);
         }, 
         errorfunc: function(rowid,response){
         	
         },
         beforeSaveRow: function(options, rowid) {
-        	
+        	let selrow = selrowData('#jqGrid');
+        	let selrow_trans = selrowData('#jqGrid_trans');
+
+			let editurl = "/transaction_save?"+
+				$.param({
+					mrn: selrow.e_mrn,
+		    		episno: selrow.e_episno,
+		    		auditno: selrow_trans.auditno
+				});
+
+
+			$("#jqGrid_trans").jqGrid('setGridParam', { editurl: editurl });
         },
         afterrestorefunc : function( response ) {
 			
@@ -96,14 +101,14 @@ $(document).ready(function () {
 		editParams: myEditOptions
 	});
 
-
+	hide_tran_button(true);
 
     function showdetail(cellvalue, options, rowObject){
 		var field,table,case_;
 		switch(options.colModel.name){
 			case 'chgcode':field=['chgcode','description'];table="chgmast";case_='chgcode';break;
 		}
-		var param={action:'input_check',url:'/util/get_value_default',table_name:table,field:field,value:cellvalue,filterCol:[field[0]],filterVal:[cellvalue]};
+		var param={action:'input_check',url:'./util/get_value_default',table_name:table,field:field,value:cellvalue,filterCol:[field[0]],filterVal:[cellvalue]};
 
 		fdl.get_array('deliveryOrder',options,param,case_,cellvalue);
 		// faster_detail_array.push(faster_detail_load('deliveryOrder',options,param,case_,cellvalue));
@@ -114,7 +119,7 @@ $(document).ready(function () {
     function cust_rules(value,name){
 		var temp;
 		switch(name){
-			case 'Item Code':temp=$('#unitprce');break;
+			case 'Charge Code':temp=$('table#jqGrid_trans input[name=chgcode]');break;
 		}
 		return(temp.hasClass("error"))?[false,"Please enter valid "+name+" value"]:[true,''];
 	}
@@ -186,3 +191,19 @@ $(document).ready(function () {
 	dialog_chgcode.makedialog(false);
 
 });
+
+var urlParam_trans = {
+	url:'./util/get_table_default',
+	action: 'get_table_default',
+	table_name: 'chargetrx',
+	filterCol: ['mrn', 'episno'],
+	filterVal: ['', '']
+}
+
+function hide_tran_button(hide=true){
+	if(hide){
+		$('#jqGrid_trans_iladd,#jqGrid_trans_iledit').hide();
+	}else{
+		$('#jqGrid_trans_iladd,#jqGrid_trans_iledit').show();
+	}
+}
