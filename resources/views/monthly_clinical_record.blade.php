@@ -11,7 +11,7 @@
 <table class="table table-bordered diatbl" id="dia_monthly">
 <tbody>
     <tr>
-        <td width="100" rowspan="2" align="center" bgcolor="#DCDCDC" class="listHeading"><b>Description</b></td>
+        <th width="100" rowspan="2" align="center" bgcolor="#DCDCDC" class="listHeading"><b>Description</b></th>
         <th width="80" align="center" colspan="14" bgcolor="#DCDCDC" class="listHeading"><b>Date</b></th>
     </tr>
     <tr class="listHeading" id="monthly_date">
@@ -834,7 +834,7 @@
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
 </tr>
-<tr id="vp_post">
+<tr id="    ">
     <td width="100" align="left" class="txtaln">&nbsp;Venous Pressure</td>
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>

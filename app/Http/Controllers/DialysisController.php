@@ -21,11 +21,11 @@ class DialysisController extends Controller
 
         $navbar = $this->navbar();
 
-        $emergency = DB::table('episode')
-                        ->whereMonth('reg_date', '=', now()->month)
-                        ->get();
+        // $emergency = DB::table('episode')
+        //                 ->whereMonth('reg_date', '=', now()->month)
+        //                 ->get();
 
-        $events = $this->getEvent($emergency);
+        // $events = $this->getEvent($emergency);
 
         if(!empty($request->username)){
             $user = DB::table('users')
@@ -35,16 +35,20 @@ class DialysisController extends Controller
                 Auth::login($user->first());
             }
         }
-        return view('dialysis',compact('navbar','events'));
+        return view('dialysis',compact('navbar'));
     }
 
-    public function getEvent($obj){
+    public function dialysis_event(Request $request){
+        $date_event = DB::table('episode')
+                        ->whereBetween('reg_date', [$request->start,$request->end])
+                        ->get();
+
         $events = [];
 
         for ($i=1; $i <= 31; $i++) {
             $days = 0;
             $reg_date;
-            foreach ($obj as $key => $value) {
+            foreach ($date_event as $key => $value) {
                 $day = Carbon::createFromFormat('Y-m-d',$value->reg_date);
                 if($day->day == $i){
                     $reg_date = $value->reg_date;
@@ -99,7 +103,21 @@ class DialysisController extends Controller
     }
 
     public function get_dia_weekly(Request $request){
-        
+        $post = [];
+        if(!empty($request->datefrom)){
+            $datefrom = new Carbon($request->datefrom);
+            $dateto = new Carbon($request->dateto);
+
+            $post = DB::table('dialysis')
+                    ->where('mrn','=',$request->mrn)
+                    ->whereBetween('start_date', [$datefrom, $dateto])
+                    ->take(3)
+                    ->get();
+        }
+
+        $responce = new stdClass();
+        $responce->data = $post;
+        return json_encode($responce);
     }
 
     public function get_dia_daily(Request $request){
@@ -173,11 +191,13 @@ class DialysisController extends Controller
             if($request->oper == 'edit'){
                 $table->where('mrn','=',$request->mrn)
                         ->where('episno','=',$request->episno)
-                        ->where('auditno','=',$request->auditno);
+                        ->where('auditno','=',$request->t_auditno);
 
                 $array_edit = [
-                    'chgcode' => $request->chgcode,
-                    'quantity' => $request->quantity
+                    'chgcode' => $request->t_chgcode,
+                    'quantity' => $request->t_quantity,
+                    'lastuser' => Auth::user()->username,
+                    'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
                 ];
 
                 $table->update($array_edit);
@@ -187,17 +207,41 @@ class DialysisController extends Controller
                     'mrn' => $request->mrn,
                     'episno' => $request->episno,
                     'trxtype' => 'OE',
-                    'trxdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                    'chgcode' => $request->chgcode,
+                    'trxdate' => $request->trxdate,
+                    'chgcode' => $request->t_chgcode,
                     'billflag' => '0',
-                    'quantity' => $request->quantity,
+                    'isudept' => $request->isudept,
+                    'quantity' => $request->t_quantity,
                     'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
-                    'isudept' => 'dialysis'
+                    'lastuser' => Auth::user()->username,
+                    'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
                 ];
 
                 $table->insert($array_insert);
             }
 
+            
+
+            $responce = new stdClass();
+            $responce->success = 'success';
+            echo json_encode($responce);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response('Error'.$e, 500);
+        }
+    }
+
+    public function change_status(Request $request){
+        try {
+            $table = DB::table('episode')
+                        ->where('mrn','=',$request->mrn)
+                        ->where('episno','=',$request->episno)
+                        ->update([
+                            'ordercomplete' => 1,
+                        ]);
             
 
             $responce = new stdClass();

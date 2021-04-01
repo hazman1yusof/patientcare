@@ -1525,7 +1525,7 @@ function set_compid_from_storage(lastcompid,lastip,compid,ip){
 //////////////////////////////////padding dekat sysparam -IV-ZERO////////////////////
 
 function padzero(cellvalue, options, rowObject){
-	let padzero = localStorage.getItem('msoftweb_padzero'), str="";
+	let padzero = 6, str="";
 	while(padzero>0){
 		str=str.concat("0");
 		padzero--;

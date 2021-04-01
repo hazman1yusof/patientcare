@@ -22,7 +22,7 @@
 .h2 {
     text-align: center;
     color: #00b5ad !important;
-    font-family: 'Open Sans', sans-serif !important;
+    font-size: large !important;
 }
 
 .fc-event {
@@ -118,15 +118,16 @@ table#jqGrid, table#jqGrid_trans{
     margin-bottom: 0px !important;
     color: #737373;
 }
+.ui.checkbox.completed{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
 
 
 @endsection
 
 @section('content')
-
-    <script>    
-        var events = {!! json_encode($events) !!};
-    </script>
 
     <div class="ui stackable two column grid">
         <div class="eight wide tablet five wide computer column"><div class="ui orange segment">
@@ -136,11 +137,18 @@ table#jqGrid, table#jqGrid_trans{
         <div class="eight wide tablet eleven wide computer right floated column" style="margin:0px;">
             <div class="ui teal segment">
                 <h2 class="h2">Patient List</h2>
-            <table id="jqGrid" class="table table-striped"></table>
-            <div id="jqGridPager"></div></div>
+                <div class="ui checkbox completed">
+                  <input type="checkbox" id="checkbox_completed" name="checkbox_completed" disabled>
+                  <label>Completed</label>
+                </div>
+                <table id="jqGrid" class="table table-striped"></table>
+                <div id="jqGridPager"></div>
+            </div>
         </div>
     </div>
 
+    <input id="user_dept" name="user_dept" value="{{ Auth::user()->dept }}" type="hidden">
+    <input id="sel_date" name="sel_date" value="{{ \Carbon\Carbon::now()->toDateString() }}" type="hidden">
     <input id="_token" name="_token" value="{{ csrf_token() }}" type="hidden">
     <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
         <div class="panel-heading clearfix collapsed" id="toggle_monthly" data-toggle="collapse" data-target="#tab_monthly">
@@ -197,13 +205,13 @@ table#jqGrid, table#jqGrid_trans{
         </div>
     </div>
 
-    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="transaction_panel">
         <div class="panel-heading clearfix collapsed" id="toggle_trans" data-toggle="collapse" data-target="#tab_trans">
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
         <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
         <div>
-            <h5><strong>Transaction Charges</strong>&nbsp;&nbsp;
+            <h5><strong>Order Entry</strong>&nbsp;&nbsp;
                 <span class="metal"></span></h5>
         </div> 
         </div>

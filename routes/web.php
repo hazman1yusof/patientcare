@@ -72,6 +72,8 @@ Route::get('/pivot', "PivotController@show");
 Route::get('/pivot_get', "PivotController@get_json_pivot");
 
 Route::get('/dialysis','DialysisController@index');
+Route::get('/dialysis_event','DialysisController@dialysis_event');
+Route::post('/change_status', "DialysisController@change_status");
 Route::post('/save_dialysis', "DialysisController@save_dialysis");
 Route::get('/get_data_dialysis', "DialysisController@get_data_dialysis");
 Route::post('/transaction_save', "DialysisController@transaction_save");

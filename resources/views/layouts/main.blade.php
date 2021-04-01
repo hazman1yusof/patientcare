@@ -30,7 +30,11 @@
                 z-index: 99999;
                 background: #fff;
             }
-
+            .wrap{
+                word-wrap: break-word;
+                white-space: pre-line !important;
+                vertical-align: top !important;
+            }
             .cssload-speeding-wheel {
                 position: absolute;
                 top: calc(50% - 3.5px);

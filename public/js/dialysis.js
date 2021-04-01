@@ -57,6 +57,7 @@ $(document).ready(function () {
 	});
 
 	$('#rec_monthly_but').click(function(){
+		cleartabledata('monthly');
 		var param = {
 			action: 'get_dia_monthly',
 			date:$("#selectmonth").val(),
@@ -80,6 +81,21 @@ $(document).ready(function () {
 	    firstDate = moment(value, "MM-DD-YYYY").day(0).format("MM-DD-YYYY");
 	    lastDate =  moment(value, "MM-DD-YYYY").day(6).format("MM-DD-YYYY");
 	    $("#weeklyDatePicker").val(firstDate + "   -   " + lastDate);
+	});
+
+	$('#rec_weekly_but').click(function(){
+		cleartabledata('weekly');
+		var param = {
+			action: 'get_dia_weekly',
+			datefrom:$("#selectweek_from").val(),
+			dateto:$("#selectweek_to").val(),
+			mrn:$("#mrn").val()
+		}
+
+		$.get("./get_data_dialysis?"+$.param(param), function(data) {
+			populate_data('weekly',data.data);
+		},'json');
+
 	});
 
 });
@@ -152,6 +168,75 @@ function populate_data(type,data){
 			let index = array.indexOf($(this).attr('id'));
 			$(this).val(data[$(this).attr('id')]);
 		});
+	
+	}else if(type == 'weekly'){
+		data.forEach(function(e,i){
+			$('table#dia_weekly tr#monthly_date_w').children('td').eq(i).text(e.start_date);
+			$('table#dia_weekly tr#start_time_w').children('td').eq(i+1).text(e.start_time);
+			$('table#dia_weekly tr#end_time_w').children('td').eq(i+1).text(e.end_time);
+			$('table#dia_weekly tr#type_dialyser_w').children('td').eq(i+1).text(e.type_dialyser);
+			$('table#dia_weekly tr#noofuse_w').children('td').eq(i+1).text(e.noofuse);
+			$('table#dia_weekly tr#total_uf_w').children('td').eq(i+1).text(e.total_uf);
+			$('table#dia_weekly tr#hep_loading_w').children('td').eq(i+1).text(e.hep_loading);
+			$('table#dia_weekly tr#hep_infusion_w').children('td').eq(i+1).text(e.hep_infusion);
+			$('table#dia_weekly tr#dialysate_calcium_w').children('td').eq(i+1).text(e.dialysate_calcium);
+			$('table#dia_weekly tr#prehd_weight_w').children('td').eq(i+1).text(e.prehd_weight);
+			$('table#dia_weekly tr#dialytic_weight_w').children('td').eq(i+1).text(e.dialytic_weight);
+			$('table#dia_weekly tr#bp_pre_w').children('td').eq(i+1).text(e.bp_pre);
+			$('table#dia_weekly tr#pulse_pre_w').children('td').eq(i+1).text(e.pulse_pre);
+			$('table#dia_weekly tr#rec_2_w').children('td').eq(i+1).text(e.rec_2);
+			$('table#dia_weekly tr#tmp_2_w').children('td').eq(i+1).text(e.tmp_2);
+			$('table#dia_weekly tr#bp_2_w').children('td').eq(i+1).text(e.bp_2);
+			$('table#dia_weekly tr#pulse_2_w').children('td').eq(i+1).text(e.pulse_2);
+			$('table#dia_weekly tr#hepn_1_w').children('td').eq(i+1).text(e.hepn_1);
+			$('table#dia_weekly tr#bf_2_w').children('td').eq(i+1).text(e.bf_2);
+			$('table#dia_weekly tr#uf_rate_1_w').children('td').eq(i+1).text(e.uf_rate_1);
+			$('table#dia_weekly tr#df_2_w').children('td').eq(i+1).text(e.df_2);
+			$('table#dia_weekly tr#vp_2_w').children('td').eq(i+1).text(e.vp_2);
+			$('table#dia_weekly tr#rec_3_w').children('td').eq(i+1).text(e.rec_3);
+			$('table#dia_weekly tr#tmp_3_w').children('td').eq(i+1).text(e.tmp_3);
+			$('table#dia_weekly tr#bp_3_w').children('td').eq(i+1).text(e.bp_3);
+			$('table#dia_weekly tr#pulse_3_w').children('td').eq(i+1).text(e.pulse_3);
+			$('table#dia_weekly tr#hepn_2_w').children('td').eq(i+1).text(e.hepn_2);
+			$('table#dia_weekly tr#uf_rate_2_w').children('td').eq(i+1).text(e.uf_rate_2);
+			$('table#dia_weekly tr#df_3_w').children('td').eq(i+1).text(e.df_3);
+			$('table#dia_weekly tr#vp_3_w').children('td').eq(i+1).text(e.vp_3);
+			$('table#dia_weekly tr#rec_4_w').children('td').eq(i+1).text(e.rec_4);
+			$('table#dia_weekly tr#tmp_4_w').children('td').eq(i+1).text(e.tmp_4);
+			$('table#dia_weekly tr#bp_4_w').children('td').eq(i+1).text(e.bp_4);
+			$('table#dia_weekly tr#pulse_4_w').children('td').eq(i+1).text(e.pulse_4);
+			$('table#dia_weekly tr#hepn_3_w').children('td').eq(i+1).text(e.hepn_3);
+			$('table#dia_weekly tr#bf_4_w').children('td').eq(i+1).text(e.bf_4);
+			$('table#dia_weekly tr#uf_rate_3_w').children('td').eq(i+1).text(e.uf_rate_3);
+			$('table#dia_weekly tr#df_4_w').children('td').eq(i+1).text(e.df_4);
+			$('table#dia_weekly tr#vp_4_w').children('td').eq(i+1).text(e.vp_4);
+			$('table#dia_weekly tr#rec_post_w').children('td').eq(i+1).text(e.rec_post);
+			$('table#dia_weekly tr#tmp_post_w').children('td').eq(i+1).text(e.tmp_post);
+			$('table#dia_weekly tr#bp_post_w').children('td').eq(i+1).text(e.bp_post);
+			$('table#dia_weekly tr#pulse_post_w').children('td').eq(i+1).text(e.pulse_post);
+			$('table#dia_weekly tr#hepn_4_w').children('td').eq(i+1).text(e.hepn_4);
+			$('table#dia_weekly tr#bf_post_w').children('td').eq(i+1).text(e.bf_post);
+			$('table#dia_weekly tr#uf_rate_4_w').children('td').eq(i+1).text(e.uf_rate_4);
+			$('table#dia_weekly tr#df_post_w').children('td').eq(i+1).text(e.df_post);
+			$('table#dia_weekly tr#vp_post_w').children('td').eq(i+1).text(e.vp_post);
+			$('table#dia_weekly tr#bp_sit_w').children('td').eq(i+1).text(e.bp_sit);
+			$('table#dia_weekly tr#pulse_stand_w').children('td').eq(i+1).text(e.pulse_stand);
+			$('table#dia_weekly tr#hd_weight_w').children('td').eq(i+1).text(e.hd_weight);
+			$('table#dia_weekly tr#ultra_w').children('td').eq(i+1).text(e.ultra);
+			$('table#dia_weekly tr#kt_v_w').children('td').eq(i+1).text(e.kt_v);
+			$('table#dia_weekly tr#pre_verifier_name_w').children('td').eq(i+1).text(e.pre_verifier_name);
+			$('table#dia_weekly tr#verifier_by_w').children('td').eq(i+1).text(e.verifier_by);
+			$('table#dia_weekly tr#epo_type_w').children('td').eq(i+1).text(e.epo_type);
+			$('table#dia_weekly tr#dose_type_w').children('td').eq(i+1).text(e.dose_type);
+		});
+	}
+}
+
+function cleartabledata(type){
+	if(type == 'monthly'){
+		$('table#dia_monthly td[align=center]').html('&nbsp;');
+	}else if(type == 'weekly'){
+		$('table#dia_weekly td[align=center]').html('&nbsp;');
 	}
 }
 

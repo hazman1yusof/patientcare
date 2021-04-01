@@ -35,7 +35,7 @@ $(document).ready(function() {
     });
 
     if($('#navbar_hide').val() == 'navbar'){
-        $('div#sidemenu_topmenu').hide();
+        $('a#showSidebar').hide();
     }
 
 });
