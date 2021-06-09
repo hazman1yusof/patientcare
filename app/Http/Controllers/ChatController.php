@@ -27,6 +27,12 @@ class ChatController extends Controller
 
     public function show2(Request $request)
     {
-        return view('chat2');
+
+        $doctors = DB::table('users')
+                        ->where('groupid','=','doctor')
+                        ->where('username','!=',Auth::user()->username)
+                        ->get();
+
+        return view('chat2',compact('doctors'));
     }
 }

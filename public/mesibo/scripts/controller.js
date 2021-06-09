@@ -142,7 +142,7 @@ mesiboWeb.controller('AppController', ['$scope', '$window', '$anchorScroll', fun
 		$scope.link_preview = null
 
 		//Calls  
-		$scope.is_answer_call = false;
+		$scope.is_answer_call = true;
 		$scope.is_video_call = false;
 		$scope.is_voice_call = true;
 		$scope.call_status = "Call Status: ";
@@ -584,7 +584,7 @@ mesiboWeb.controller('AppController', ['$scope', '$window', '$anchorScroll', fun
 			u.name = name;
 			u.address = address;
 			u.groupid = 0;
-			u.picture = "images/profile/default-profile-icon.jpg";
+			u.picture = "mesibo/images/profile/default-profile-icon.jpg";
 			u.status = "";
 
 			return u;
@@ -1295,9 +1295,7 @@ mesiboWeb.controller('AppController', ['$scope', '$window', '$anchorScroll', fun
 		}
 
 		$scope.showRinging = function(){
-			$('#answerModal').modal({
-				show: true
-			});
+			$('#answerModal').modal("show");
 		}
 
 		$scope.hangupVideoCall = function(){
@@ -1534,6 +1532,7 @@ mesiboWeb.controller('AppController', ['$scope', '$window', '$anchorScroll', fun
 				$scope.is_voice_call = true;
 				$scope.mesibo.setupVoiceCall("audioPlayer");
 			}
+
 
 			$scope.call_alert_message = "Incoming "+(video ? "Video" : "Voice")+" call from: "+from;
 			$scope.is_answer_call = true;

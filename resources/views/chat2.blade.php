@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <title>Mesibo Messenger</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
         <link rel="stylesheet" href="{{asset('mesibo/styles/messenger.css')}}">
@@ -15,6 +16,22 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
         <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
         <script type="text/javascript" src="https://api.mesibo.com/mesibo.js" crossorigin="anonymous"></script>
+        <script type="text/javascript">
+            var MESIBO_ACCESS_TOKEN = "{{Auth::user()->mesibo}}"; 
+
+
+            var MESIBO_LOCAL_CONTACTS =[
+                @foreach ($doctors as $doctor)
+                    {   
+                        "address" : "{{$doctor->username}}",
+                        "picture" : "mesibo/images/profile/default-profile-icon.jpg",
+                        "name"    : "{{$doctor->username}}",
+                        "status"  : "{{$doctor->name}}"
+                    },
+                @endforeach
+
+            ]
+        </script>
         <script type="text/javascript" src="{{asset('mesibo/mesibo/config.js')}}"></script>
         <script type="text/javascript" src="{{asset('mesibo/mesibo/login.js')}}"></script>
         <script type="text/javascript" src="{{asset('mesibo/scripts/controller.js')}}"></script>
@@ -25,24 +42,39 @@
         <script type="text/javascript" src="{{asset('mesibo/mesibo/files.js')}}"></script>
         <script type="text/javascript" src="{{asset('mesibo/mesibo/recorder.js')}}"></script>
         <!--SCRIPTINCLUDEEND-->
+
+        <style type="text/css">
+            .my_bg {
+              /* The image used */
+              background-image: url("{{asset('img/mybg.jpg')}}");
+
+              /* Full height */
+              height: 100%;
+
+              /* Center and scale the image nicely */
+              background-position: center;
+              background-repeat: no-repeat;
+              background-size: cover;
+            }
+        </style>
     </head>
-    <body ng-app="MesiboWeb" id="mesibowebapp" ng-controller="AppController" style="overflow: hidden; background-color: hsl(0, 0%, 70%);">
-        <div style="max-width: 100%;  background-color: hsl(0, 0%, 70%);" onscroll="console.log('scroll fk app')">
-            <div ng-cloak="self_user.isConnected" class="container-fluid" id="main-container" style="width: 1200px; padding-left: 20px; padding-top: 20px; padding-bottom: 20px; background-color: hsl(0, 0%, 70%);">
-                <div class="row h-100" style=" margin: auto; background-color: white; overflow: hidden;" id="app-area">
-                    <div class="col-10 col-sm-5 col-md-5 col-lg-4 col-xl-4 d-flex flex-column" id="chat-list-area">
+    <body ng-app="MesiboWeb" id="mesibowebapp" ng-controller="AppController" style="overflow: hidden;" class="my_bg">
+        <div style="max-width: 100%;" onscroll="console.log('scroll fk app')">
+            <div ng-cloak="self_user.isConnected" class="container-fluid" id="main-container">
+                <div class="row h-100" style=" margin: auto; background-color: white; overflow: hidden;border-radius: 5px;" id="app-area">
+                    <div class="col-10 col-sm-12 col-md-5 col-lg-4 col-xl-4 d-flex flex-column" id="chat-list-area">
                         <!-- Navbar -->
                         <div class="row d-flex flex-row align-items-center p-2" id="navbar">
                             <img ng-src ="@{{getUserPicture(self_user)}}" class="img-fluid rounded-circle mr-2" style="max-height:48px; cursor:pointer;" ng-click="showProfile(self_user)" onerror="imgError(this)" id="display-pic">
                             <div>
-                                <div class="text-white font-weight-bold" id="username"></div>
+                                <div class="text-white font-weight-bold" id="username">{{Auth::user()->username}}</div>
                                 <div class="text-white small">@{{self_user.connection_status}}</div>
                             </div>
                             <div class = "col-sm col-xs heading-compose  float-xs-right">
                                 <i class="fa fa-plus text-white" aria-hidden="true" ng-click="showAvailableUsers()" style="cursor:pointer; float: right; padding-left: 2px; font-size: 10px;" title = "New Chat"></i>
                                 <i class="fas fa-comment-alt text-white" aria-hidden="true" ng-click="showAvailableUsers()" style="cursor:pointer; float: right;" title="New Chat"></i>
                             </div>
-                            <div class="nav-item dropdown ml-auto">
+                            <!-- <div class="nav-item dropdown ml-auto">
                                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-ellipsis-v text-white"></i></a>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="https://mesibo.com" >Mesibo Home</a>
@@ -50,7 +82,7 @@
                                     <a class="dropdown-item" href="https://github.com/mesibo/messenger-javascript" >Source Code</a>
                                     <a class="dropdown-item" href="#" ng-click = "logout();">Log Out</a>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                         <!-- Chat List = Left Side -->
                         <span ng-show="!(summarySession && summarySession.getMessages().length)" style="text-align: center"> <i style="color: grey">You have no messages </i></span>  
@@ -100,20 +132,21 @@
                             <div class="d-flex flex-column" style="overflow:auto;">
                               <img alt="Profile Photo" class="img-fluid rounded-circle my-5 justify-self-center mx-auto" id="profile-pic" ng-src="@{{getUserPicture(display_profile)}}">
                               <input type="file" id="profile-pic-input" class="d-none">
-                              <div class="bg-white px-2 py-1">
-                                <div class="text-muted mb-2 border-bottom"><label for="input-name"><h5>@{{getUserName(display_profile)}}</h5></label></div>
-                                <!-- <input type="text" name="name" id="input-name" class="w-100 border-0 py-2 profile-input"> -->
+                              <div class="bg-white px-2 py-1" style="text-align: center;">
+                                <div class="text-muted mb-2 border-bottom"><label for="input-name"><h5>{{Auth::user()->name}}</h5></label></div>
+                                <div class="text-muted mb-2 border-bottom"><label for="input-name"><h5>{{Auth::user()->groupid}}</h5></label></div>
+                                <div class="text-muted mb-2 border-bottom"><label for="input-name"><h5>{{Auth::user()->mrn}}</h5></label></div>
                               </div>
                               <!-- <div class="text-muted p-3 small">
                                 This name will be visible to your Mesibo contacts.
                               </div> -->
-                              <div class="bg-white px-2 py-1">
+                              <!-- <div class="bg-white px-2 py-1">
                                 <div class="text-muted mb-2" ng-if="display_profile.status && display_profile.address"><label for="input-about">Status & Address</label></div>
                                 <div class="text-muted mb-2" ng-if="!display_profile.status && display_profile.address"><label for="input-about">Address</label></div>
                                 <div class="small border-bottom">@{{display_profile.status}}</div>
                                 <br>
                                 <div class="small" style="color: grey">@{{display_profile.address}}</div>
-                                <!-- <input type="text" name="name" id="input-about" value="" class="w-100 border-0 py-2 profile-input"> -->
+                                <input type="text" name="name" id="input-about" value="" class="w-100 border-0 py-2 profile-input">
                               </div>
                                                       
                               <span ng-if="display_profile.membersList" class="px-2" style="color: grey">@{{display_profile.membersList.length}} Members</span>
@@ -128,7 +161,7 @@
                                         </div>
                                     </div>
                                 </div>
-                              </div>
+                              </div> -->
 
                             </div>
                         </div>
@@ -155,7 +188,7 @@
 
                     </div>
                     <!-- Message Area -->
-                    <div class="d-none d-sm-flex flex-column col-12 col-sm-7 col-md-7 col-lg-8 col-xl-8 p-0 h-100" id="message-area" >
+                    <div class="d-none d-sm-flex flex-column col-12 col-sm-12 col-md-7 col-lg-8 col-xl-8 p-0 h-100" id="message-area" >
                         <div ng-class = "{'d-none w-100 h-100 overlay': message_area_show, 'w-100 h-100 overlay': !message_area_show}"></div>
                         <!-- Navbar -->
                         <div class="row d-flex flex-row align-items-center p-2 m-0 w-100" id="navbar">
@@ -235,7 +268,7 @@
                                 <!-- File Preview End -->
                                 <div>
                                     <div ng-show="m.message" class="body m-1 mr-2" style="cursor: default;">@{{m.message}}</div>
-                                    <div  class="time ml-auto small text-right flex-shrink-0 align-self-end text-muted" style="width:75px; cursor: default;">
+                                    <div  class="time ml-auto small text-right flex-shrink-0 align-self-end text-muted mr-1" style="width:75px; cursor: default;">
                                         @{{m.date.time}}
                                         <i ng-class= "getMessageStatusClass(m)" ng-style = "{'color':getMessageStatusColor(m)}" ></i>
                                     </div>
@@ -266,7 +299,7 @@
                         </a>
                         <!--Real-Time Link Preview End -->
                         <!-- Input -->
-                        <div ng-class = "{'d-flex justify-self-end align-items-center flex-row': message_area_show, 'd-none justify-self-end align-items-center flex-row': !message_area_show}" id="input-area" >
+                        <div ng-class = "{'d-flex justify-self-end align-items-center flex-row': message_area_show, 'justify-self-end align-items-center flex-row': !message_area_show}" id="input-area" >
                             <a href="#" style="display: none;"><i class="far fa-smile text-muted px-3" style="font-size:1.5rem;"></i></a>
                             <input style="margin-left: 10px;" ng-model="input_message_text" ng-change="isLinkPreview && inputTextChanged()" ng-keydown="$event.keyCode === 13 && sendMessage()" type="text" name="message" id="input" placeholder="Type a message" class="flex-grow-1 border-0 px-3 py-2 my-3 rounded shadow-sm">
                             <i class="fas fa-paper-plane text-muted px-3" style="cursor:pointer;" ng-click="sendMessage()"></i>
@@ -293,9 +326,9 @@
                                         <div>
                                             <input type="phone" class="form-control input-lg" id="phone" name="phone" value="">
                                         </div>
-                                        <span style="color: grey; font-size: 12px;">
+                                        <!-- <span style="color: grey; font-size: 12px;">
                                           You can also login by <a href="https://mesibo.com/documentation/tutorials/get-started/first-app/#create-users-endpoints"> creating a user in the console or using backend API</a> and setting the token in <strong>config.js</strong> 
-                                        </span>
+                                        </span> -->
                                     </div>
                                     <div class="form-group" id="otp-input">
                                         <label class="control-label">One Time Password (OTP)</label>

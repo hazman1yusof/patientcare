@@ -49,10 +49,10 @@
  * In that case, there is no need to configure token here
  * 
  */
-var MESIBO_ACCESS_TOKEN = "4b0697c19eaab464da1a7bb85ebce109d3e8eade7d898560e5530d854"; 
+// var MESIBO_ACCESS_TOKEN = "fa93df27a6f14f8e9440ac7d293a90fca37ac666ca6eff32bdf5"; 
 
 /* App ID used to create a user token. */
-var MESIBO_APP_ID = "com.mesibo.firstapp";
+var MESIBO_APP_ID = "com.msoftweb.test";
 
 /* If you are hosting Mesibo backend on your own server, change this accordingly.
  * Refer https://github.com/mesibo/messenger-app-backend
@@ -60,17 +60,17 @@ var MESIBO_APP_ID = "com.mesibo.firstapp";
 const MESIBO_API_URL = "https://app.mesibo.com/messenger/api.php";
 
 /* Default images */
-const MESIBO_DEFAULT_PROFILE_IMAGE = "images/profile/default-profile-icon.jpg";
-const MESIBO_DEFAULT_GROUP_IMAGE = "images/profile/default-group-icon.jpg";
+const MESIBO_DEFAULT_PROFILE_IMAGE = "mesibo/images/profile/default-profile-icon.jpg";
+const MESIBO_DEFAULT_GROUP_IMAGE = "mesibo/images/profile/default-group-icon.jpg";
 
 /* File url sources */
-var MESIBO_DOWNLOAD_URL = "https://appimages.mesibo.com/";
+var MESIBO_DOWNLOAD_URL = "https://patientcare.test/";
 var MESIBO_UPLOAD_URL = "https://s3.mesibo.com/api.php";
 
 /************************ Messenger Config Start *****************************/
 
 /* Toggle for using phone Login*/
-var isLoginEnabled = true;
+var isLoginEnabled = false;
 
 /* Toggle for synchronizing contacts*/
 var isContactSync = true;
@@ -84,26 +84,9 @@ var isMessageSync = true;
 * for displaying a list of users to chat with and contact synchronization 
 
 For example:
-var MESIBO_LOCAL_CONTACTS =[
 
-{	
-	"address" : "18885551001",
-	"groupid" : 0,
-	"picture" : "images/profile/default-profile-icon.jpg",
-	"name"    : "MesiboTest",
-	"status"  : "Let's Chat.."
-},
-
-{	
-	"groupid" : 104661,	 
-	"picture" : "images/profile/default-group-icon.jpg",
-	"name"    : "Mesibo Group",
-	"members" : "1:123,456,789"		//Members list. Add 1: to mark as admin
-},
-
-]
 **/
-MESIBO_LOCAL_CONTACTS = [];
+// MESIBO_LOCAL_CONTACTS = [];
 
 /*Optional link preview*/
 const isLinkPreview = false; //Set to false if link preview not required
@@ -116,10 +99,10 @@ const LINK_DEFAULT_IMAGE = "images/file/default-link-icon.jpg"
 /************************ Popup Config Start *****************************/
 
 /* Set Display Avatar and destination address for popup */
-const POPUP_DISPLAY_NAME = "Mesibo"
-const POPUP_DISPLAY_PICTURE = "images/profile/default-profile-icon.jpg"
+const POPUP_DISPLAY_NAME = "TAJUL"
+const POPUP_DISPLAY_PICTURE = "mesibo/images/profile/default-profile-icon.jpg"
 /* A destination where the popup demo app will send message or make calls */
-const POPUP_DESTINATION_USER = "xxx" 
+const POPUP_DESTINATION_USER = "TAJUL" 
 
 /************************ Popup Config End *****************************/
 

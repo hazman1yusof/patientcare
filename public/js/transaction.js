@@ -18,7 +18,7 @@ $(document).ready(function () {
 			{ label: 'Department', name: 't_isudept', width: 30 },
 			{ label: 'Quantity', name: 't_quantity', width: 30 , align: 'right', editable:true,
 				editrules:{required: true, custom:true, custom_func:cust_rules},
-				formatter: 'number',formatoptions:{decimalPlaces: 0, defaultValue: ''}},
+				formatter: 'number',formatoptions:{decimalPlaces: 0, defaultValue: '1'}},
 			{ label: 'auditno', name: 't_auditno', hidden: true,key:true },
 		],
 		autowidth: true,

@@ -3,37 +3,6 @@ $.jgrid.defaults.responsive = true;
 $.jgrid.defaults.styleUI = 'Bootstrap';
 
 $(document).ready(function () {
-	$('.ui.checkbox.completed').checkbox()
-		.on('change', function(e) {
-
-
-			let cont = visiblecancel();
-			
-
-			if(cont ==  false){
-				alert('Please enter charges');
-				$('#checkbox_completed').prop('checked', false);
-			}else{
-				var r = confirm('Do you want to complete all entries?');
-		    	if(r == true){
-		    		var param = {
-						_token: $("#_token").val(),
-						action: 'change_status',
-						mrn:$("#mrn").val(),
-						episno:$("#episno").val(),
-					}
-
-					$.post( "./change_status?"+$.param(param),{}, function( data ){
-						if(data.success == 'success'){
-							toastr.success('Patient status completed',{timeOut: 1000})
-							refreshGrid("#jqGrid", urlParam);
-						}
-					},'json');
-		    	}else{
-					$('#checkbox_completed').prop('checked', false);
-		    	}
-			}
-	  	});
 
 	$('#calendar').fullCalendar({
 		// events: events,
@@ -105,8 +74,8 @@ $(document).ready(function () {
 			{ label: 'Handphone', name: 'p_telhp', width: 10 ,classes: 'wrap' },
 			{ label: 'Sex', name: 'p_Sex', width: 5 ,classes: 'wrap' },
 			{ label: 'Pay Mode', name: 'e_pyrmode', width: 10 ,classes: 'wrap'},
-			{ label: 'Completed', name: 'e_ordercomplete', width: 11,formatter: episactiveFormatter, unformat: episactiveUNFormatter },
-			{ label: 'idno', name: 'e_idno', hidden: true },
+			{ label: 'Completed', name: 'e_ordercomplete', width: 11,formatter: ordercompleteFormatter, unformat: ordercompleteUNFormatter },
+			{ label: 'idno', name: 'e_idno', hidden: true, key:true},
 			{ label: 'Time', name: 'e_reg_time', hidden: true },
 		],
 		autowidth: true,
@@ -114,6 +83,8 @@ $(document).ready(function () {
 		width: 900,
 		height: 365,
 		rowNum: 30,
+		sortname: 'e_idno',
+		sortorder: "desc",
 		onSelectRow:function(rowid, selected){
 
 			populatedialysis(selrowData('#jqGrid'),urlParam.filterVal[0]);
@@ -123,7 +94,7 @@ $(document).ready(function () {
 			addmore_onadd = false;
 			refreshGrid("#jqGrid_trans", urlParam_trans);
 
-			if(selrowData('#jqGrid').e_ordercomplete == '<span class="fa fa-check"></span>'){ //kalau dah completed
+			if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
 				$('#checkbox_completed').prop('disabled',true);
 				$('#checkbox_completed').prop('checked', true);
 				hide_tran_button(true);
@@ -139,6 +110,8 @@ $(document).ready(function () {
 		gridComplete: function () {
 			$('#checkbox_completed').prop('disabled',true);
 			$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+			ordercompleteInit();
+
 		},
 	});
 	addParamField('#jqGrid',true,urlParam,['action']);
@@ -150,20 +123,17 @@ $(document).ready(function () {
 		},
 	});
 
-	function episactiveFormatter(cellvalue, option, rowObject) {
+	function ordercompleteFormatter(cellvalue, option, rowObject) {
 		if (cellvalue == '1') {
-			return '<span class="fa fa-check"></span>';
+			// return '<span class="fa fa-check"></span>';
+			return `<input type="checkbox" class="checkbox_completed" data-rowid="`+option.rowId+`" checked onclick="return false;">`;
 		}else if (cellvalue == '0') {
-			return ' ';
+			return `<input type="checkbox" class="checkbox_completed" data-rowid="`+option.rowId+`" >`;
 		}
 	}
 
-	function episactiveUNFormatter(cellvalue, option, rowObject) {
-		if (cellvalue == '<span class="fa fa-check"></span>') {
-			return '1';
-		}else if (cellvalue == '<span class="fa fa-times"></span>') {
-			return '0';
-		}
+	function ordercompleteUNFormatter(cellvalue, option, rowObject) {
+		return $(rowObject).children('input[type=checkbox]').is("[checked]");
 	}
 
 	function visiblecancel(){
@@ -173,7 +143,6 @@ $(document).ready(function () {
 		if($('td#jqGrid_trans_ilcancel').hasClass("ui-disabled")){
 			editing = false;
 		}
-		console.log(editing)
 
 		let records = $("#jqGrid_trans").jqGrid('getGridParam', 'records');
 
@@ -185,6 +154,59 @@ $(document).ready(function () {
 
 		return cont
 
+	}
+
+	function ordercompleteInit(){
+
+		$('input[type=checkbox].checkbox_completed').on('change',function(e){
+			let cont = visiblecancel();
+
+			if(cont ==  false){
+				$.alert({
+				    title: 'Alert',
+				    content: 'Please enter charges',
+				});
+				$(this).prop('checked', false);
+			}else{
+				let self = this;
+				let rowid = $(this).data('rowid');
+				let rowdata = $('#jqGrid').jqGrid ('getRowData', rowid);
+
+				$.confirm({
+				    title: 'Confirm',
+				    content: 'Do you want to complete all entries?',
+				    buttons: {
+				        Yes:{
+				        	btnClass: 'btn-blue',
+				        	action: function () {
+					        	var param = {
+									_token: $("#_token").val(),
+									action: 'change_status',
+									mrn: rowdata.e_mrn,
+									episno: rowdata.e_episno,
+								}
+
+								$.post( "./change_status?"+$.param(param),{}, function( data ){
+									if(data.success == 'success'){
+										toastr.success('Patient status completed',{timeOut: 1000})
+										refreshGrid("#jqGrid", urlParam);
+									}
+								},'json');
+					         }
+
+				        },
+				        No: {
+				        	action: function () {
+								$(self).prop('checked', false);
+					        },
+				        }
+				    }
+
+				});
+
+			}
+		});
+		
 	}
 
 });

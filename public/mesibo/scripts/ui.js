@@ -54,25 +54,25 @@ let getStatusClass = (status) => {
         switch (status) {
 
                 case MESIBO_MSGSTATUS_SENT:
-                        statusTick = "far fa-check-circle";
+                        statusTick = "zmdi zmdi-check";
                         break;
 
                 case MESIBO_MSGSTATUS_DELIVERED:
-                        statusTick = "fas fa-check-circle";
+                        statusTick = "zmdi zmdi-check-all";
                         break;
 
 
                 case MESIBO_MSGSTATUS_READ:
-                        statusTick = "fas fa-check-circle";
+                        statusTick = "zmdi zmdi-check-all";
                         break;
 
                 default:
-                        statusTick = "far fa-clock";
+                        statusTick = "zmdi zmdi-check-all";
         }
 
         //MESIBO_MSGSTATUS_FAIL is 0x80
         if(status > 127) 
-            statusTick = "fas fa-exclamation-circle";
+            statusTick = "zmdi zmdi-alert-circle-o";
 
         return statusTick;
 };

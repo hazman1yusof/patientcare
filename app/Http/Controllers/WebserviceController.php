@@ -150,7 +150,7 @@ class WebserviceController extends Controller
 
             }else{
 
-                $this->create_new_user();
+                $this->create_new_user($request);
                 $user = User::where('username',request('username'));
                 Auth::login($user->first(),false);
                 return redirect($goto)->with('navbar','navbar');
