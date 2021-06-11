@@ -10,7 +10,7 @@
     @if (Auth::user()->groupid == 'patient')
         <a class="item {{(Request::is('appointment') ? 'active' : '')}}" href="{{url('/appointment')}}"><i style="float: left" class="calendar alternate outline inverted icon big link"></i>Appointment</a>
 
-        <a class="item @if(Request::is('chat2') || Request::is('chat2/*')) {{'active'}} @endif" href="{{ url('/chat2')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
+        <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
 
         <a class="item {{(Request::is('preview') ? 'active' : '')}}" href="{{ url('/preview')}}"><i style="float: left" class="folder open inverted big icon link"></i>Medical Images</a>
 
@@ -23,7 +23,7 @@
 
         <a class="item {{(Request::is('dialysis') ? 'active' : '')}}" href="{{ url('/dialysis')}}"><i style="float: left" class="heartbeat inverted big icon link"></i>Dialysis</a>
 
-        <a class="item @if(Request::is('chat2') || Request::is('chat2/*')) {{'active'}} @endif" href="{{ url('/chat2')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
+        <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
 
         <a class="item @if(Request::is('prescription') || Request::is('prescription/*')) {{'active'}} @endif" href="{{ url('/prescription')}}"><i style="float: left" class="hospital inverted big link icon"></i>Prescription</a>
 

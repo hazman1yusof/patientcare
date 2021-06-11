@@ -1,7 +1,14 @@
 $(document).ready(function() {
+    // $('.ui.sidebar').sidebar({
+    //         onHide: function() {
+    //           console.log('on hidden');
+    //         }
+    //     })
     $('#showSidebar').click(function(){
         $('.ui.sidebar').sidebar('toggle');
     });
+
+    $('.ui.sidebar').onHide
 
     $('.ui.dropdown').dropdown()
 
