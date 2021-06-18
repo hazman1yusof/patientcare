@@ -122,4 +122,16 @@ Route::get('/webservice/login','WebserviceController@login');
 Route::get('/util/get_value_default','defaultController@get_value_default')->name('util_val');
 Route::get('/util/get_table_default','defaultController@get_table_default')->name('util_tab');
 
+//user
+Route::get('/userlist','UserController@index')->name('userlist');
+Route::get('/user/{id}','UserController@edit')->name('user');
+Route::post('/user/{id}','UserController@update');
+Route::get('/user','UserController@create');
+Route::post('/user','UserController@store');
+Route::get('/user/delete/{id}','UserController@destroy');
 
+
+//pivot
+Route::get('/eis','eisController@show')->name('eis');
+Route::get('/reveis','eisController@reveis')->name('reveis');
+Route::get('/pivot_get', "eisController@table");

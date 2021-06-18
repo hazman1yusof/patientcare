@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/Semantic/semantic.min.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('assets/Summernote 0.8.9/summernote-lite.css') }}">
+        @yield('stylesheet')
 
         <style type="text/css">
             .ui.vertical.menu .item>i.icon {
@@ -82,7 +83,8 @@
 
         </style>
 
-        @yield('css')
+            @yield('css')
+
 
 
 

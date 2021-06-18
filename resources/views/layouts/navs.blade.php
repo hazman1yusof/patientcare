@@ -27,7 +27,11 @@
 
         <a class="item @if(Request::is('prescription') || Request::is('prescription/*')) {{'active'}} @endif" href="{{ url('/prescription')}}"><i style="float: left" class="hospital inverted big link icon"></i>Prescription</a>
 
-        <a class="item @if(Request::is('pivot') || Request::is('pivot/*')) {{'active'}} @endif" href="{{ url('/pivot')}}"><i style="float: left" class="chart line big link icon"></i>Data Analysis</a>
+        <a class="item @if(Request::is('eis') || Request::is('eis/*')) {{'active'}} @endif" href="{{ url('/eis')}}"><i style="float: left" class="chart bar big link icon"></i>Episode Statistics</a>
+
+        <a class="item @if(Request::is('reveis') || Request::is('reveis/*')) {{'active'}} @endif" href="{{ url('/reveis')}}"><i style="float: left" class="chart line big link icon"></i>Revenue By Services</a>
+
+        <a class="item @if(Request::is('userlist') || Request::is('user/*')) {{'active'}} @endif" href="{{ url('/userlist')}}"><i style="float: left" class="big user icon"></i>User</a>
         
     @endif
     <a class="item" href=".\logout"><i style="float: left" class="plug inverted big icon link"></i>Log Out</a>
