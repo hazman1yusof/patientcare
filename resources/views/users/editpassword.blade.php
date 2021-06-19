@@ -62,17 +62,6 @@ Edit Profile ({{ $user->name }})
               <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="{{$user->password}}">
             </div>
           </div>
-
-          <div class="form-group">
-            <label for="groupid">User Type</label>
-            <select id="groupid" name="groupid" class="form-control">
-      			  <option value="patient" {{ $user->groupid === 'patient' ? 'selected' : '' }}>Patient</option>
-      			  <option value="admin" {{ $user->groupid === 'admin' ? 'selected' : '' }}>Admin</option>
-              <option value="MR" {{ $user->groupid === 'MR' ? 'selected' : '' }}>Medical Record</option>
-              <option value="clinical" {{ $user->groupid === 'clinical' ? 'selected' : '' }}>Clinical</option>
-      			</select>
-          </div>
-
           
           <div class="form-group">
             <button type="submit" class="btn btn-primary btn-lg btn-block">
@@ -81,8 +70,6 @@ Edit Profile ({{ $user->name }})
           </div>
 
         </form>
-
-       
 
       </div>
 

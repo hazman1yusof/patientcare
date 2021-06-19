@@ -85,9 +85,15 @@ class SessionController extends Controller
             if ($request->password == $user->first()->password) {
                 Auth::login($user->first(),$remember);
                 if(Auth::user()->groupid == 'patient'){
-                    return redirect('/preview');
+                    return redirect('/chat');
+                }else if(Auth::user()->groupid == 'clinical'){
+                    return redirect('/emergency');
+                }else if(Auth::user()->groupid == 'admin'){
+                    return redirect('/userlist');
+                }else if(Auth::user()->groupid == 'MR'){
+                    return redirect('/emergency');
                 }else{
-                    return redirect('/pivot');
+                    return redirect('/chat');
                 }
             }else{
                 return back()->withErrors(['Try again, Password entered incorrect']);

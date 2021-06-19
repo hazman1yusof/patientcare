@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', "TicketController@index")->name('home');
+Route::get('/', "ChatController@show");
 
 Route::get('/login', 'SessionController@index')->name('login');
 
@@ -129,7 +129,8 @@ Route::post('/user/{id}','UserController@update');
 Route::get('/user','UserController@create');
 Route::post('/user','UserController@store');
 Route::get('/user/delete/{id}','UserController@destroy');
-
+Route::get('/user/editpassword/{id}','UserController@editpassword');
+Route::post('/user/editpassword/{id}','UserController@updatepassword');
 
 //pivot
 Route::get('/eis','eisController@show')->name('eis');

@@ -168,6 +168,57 @@ class UserController extends Controller
         }
     }
 
+    public function updatepassword($id, Request $request)
+    {
+        // if(!App::environment('demo'))
+        // {
+        //     $user->update($request->only([
+        //         'name', 'email'
+        //     ]));
+
+        //     if($request->password)
+        //     {
+        //         $user->update(['password' => Hash::make($request->password)]);
+        //     }
+
+        //     if($request->role && $request->user()->can('edit-users') && !$user->isme)
+        //     {
+        //         $role = Role::find($request->role);
+        //         if($role)
+        //         {
+        //             $user->syncRoles([$role]);
+        //         }
+        //     }
+        // }
+
+        $validatedData = $request->validate([
+            'password' => 'required|confirmed|min:5',
+        ]);
+
+        DB::table('users')
+            ->where('id','=',$id)
+            ->update([
+                'name' => $request->name,
+                'password' => $request->password,
+                'upddate' => Carbon::now("Asia/Kuala_Lumpur"),
+            ]);
+        
+        if(Auth::user()->type=='admin'){
+            return redirect()->back()->with('success', 'Profile Succesfully Updated'); 
+        }else{
+            return redirect()->back()->with('success', 'Profile Succesfully Updated'); 
+        }
+    }
+
+    public function editpassword($id)
+    {
+        $user = DB::table('users')
+            ->where('id','=',$id)
+            ->first();
+
+        return view('users.editpassword', compact('user'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *

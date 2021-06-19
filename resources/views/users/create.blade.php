@@ -59,7 +59,7 @@ Create User
       			  <option value="patient">Patient</option>
       			  <option value="admin">Admin</option>
               <option value="MR">Medical Record</option>
-              <option value="doctor">Doctor</option>
+              <option value="clinical">Clinical</option>
       			</select>
           </div>
 
