@@ -22,14 +22,14 @@ class EmergencyController extends Controller
 
         $navbar = $this->navbar();
 
-        $emergency = DB::table('episode')
+        $emergency = DB::table('hisdb.episode')
         				->whereMonth('reg_date', '=', now()->month)
         				->get();
 
         $events = $this->getEvent($emergency);
 
         if(!empty($request->username)){
-            $user = DB::table('users')
+            $user = DB::table('sysdb.users')
                     ->where('username','=',$request->username);
             if($user->exists()){
                 $user = User::where('username',$request->username);

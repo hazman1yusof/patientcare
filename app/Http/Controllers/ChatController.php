@@ -22,7 +22,7 @@ class ChatController extends Controller
 
     public function show(Request $request)
     {
-        $doctors = DB::table('users')
+        $doctors = DB::table('sysdb.users')
                         ->where('groupid','=','doctor')
                         ->where('username','!=',Auth::user()->username)
                         ->get();
@@ -33,7 +33,7 @@ class ChatController extends Controller
     public function show2(Request $request)
     {
 
-        $doctors = DB::table('users')
+        $doctors = DB::table('sysdb.users')
                         ->where('groupid','=','doctor')
                         ->where('username','!=',Auth::user()->username)
                         ->get();

@@ -77,7 +77,7 @@ class eisController extends Controller
 
         $all_collection = collect();
         foreach ($object as $key => $value) {
-            $pateis = DB::table('pateis_epis')
+            $pateis = DB::table('phisdb.pateis_epis')
                     ->select('units','epistype','gender','race','religion','payertype','regdept','admdoctor','admdate','discdate','admsrc','docdiscipline','docspeciality','agerange','citizen','area','postcode','placename','patient','state','country','year','quarter','month','datetype')
                     ->where('datetype','=',$datetype)
                     ->where('year','=','Y'.$key)
@@ -147,7 +147,7 @@ class eisController extends Controller
 
         $all_collection = collect();
         foreach ($object as $key => $value) {
-            $pateis = DB::table('pateis_rev')
+            $pateis = DB::table('phisdb.pateis_rev')
                     ->select('units','epistype','chgcode','chgdesc','groupdesc','typedesc','quantity','unitprice','amount','month','quarter','year','regdate','disdate','datetype')
                     ->where('datetype','=',$datetype)
                     ->where('year','=','Y'.$key)

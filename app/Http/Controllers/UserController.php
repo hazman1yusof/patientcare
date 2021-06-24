@@ -40,7 +40,7 @@ class UserController extends Controller
         // }
 
 
-        $users = DB::table('users')->get();
+        $users = DB::table('sysdb.users')->get();
         return view('users.index',compact('users'));
     }
 
@@ -71,7 +71,7 @@ class UserController extends Controller
             'password' => 'required|confirmed|min:5',
         ]);
 
-        DB::table('users')
+        DB::table('sysdb.users')
             ->insert([
                 'username' => $request->username,
                 'name' => $request->name,
@@ -110,7 +110,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {   
-        $user = DB::table('users')
+        $user = DB::table('sysdb.users')
             ->where('id','=',$id)
             ->first();
 
@@ -152,7 +152,7 @@ class UserController extends Controller
             'password' => 'required|confirmed|min:5',
         ]);
 
-        DB::table('users')
+        DB::table('sysdb.users')
             ->where('id','=',$id)
             ->update([
                 'name' => $request->name,
@@ -195,7 +195,7 @@ class UserController extends Controller
             'password' => 'required|confirmed|min:5',
         ]);
 
-        DB::table('users')
+        DB::table('sysdb.users')
             ->where('id','=',$id)
             ->update([
                 'name' => $request->name,
@@ -212,7 +212,7 @@ class UserController extends Controller
 
     public function editpassword($id)
     {
-        $user = DB::table('users')
+        $user = DB::table('sysdb.users')
             ->where('id','=',$id)
             ->first();
 
@@ -234,7 +234,7 @@ class UserController extends Controller
         // {
         //     return response()->json(['message' => 'User accounts cannot be deleted in demo mode.'], 400);
         // }
-        DB::table('users')
+        DB::table('sysdb.users')
             ->where('id','=',$id)
             ->delete();
 

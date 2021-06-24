@@ -86,7 +86,7 @@ class PrescriptionController extends Controller
         $filter_month = $request->filter_month;
         $filter_text = strtolower($request->filter_text);
 
-        $table_prescription = DB::table('prescription')->paginate(5);
+        $table_prescription = DB::table('phisdb.prescription')->paginate(5);
         // dd($table_prescription);
 
         return view('prescription', compact('table_prescription','filter_unit','filter_kategori','filter_year','filter_month','filter_text'));
