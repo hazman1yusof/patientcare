@@ -58,7 +58,7 @@ $(document).ready(function () {
 		url: $('#util_tab').val(),
 		field: '',
 		fixPost:'true',
-		table_name:['episode as e','pat_mast as p'],
+		table_name:['hisdb.episode as e','hisdb.pat_mast as p'],
 		join_type:['LEFT JOIN'],
 		join_onCol:['e.mrn'],
 		join_onVal:['p.mrn'],

@@ -20,7 +20,7 @@ class EmergencyController extends Controller
 
         // dd(Auth::user());
 
-        $navbar = $this->navbar();
+        // $navbar = $this->navbar();
 
         $emergency = DB::table('hisdb.episode')
         				->whereMonth('reg_date', '=', now()->month)
@@ -37,7 +37,7 @@ class EmergencyController extends Controller
             }
         }
 
-        return view('emergency',compact('navbar','events'));
+        return view('emergency',compact('events'));
     }
 
     public function getEvent($obj){

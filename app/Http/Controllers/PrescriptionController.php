@@ -23,7 +23,7 @@ class PrescriptionController extends Controller
     public function index(Request $request)
     {
         
-        $navbar = $this->navbar();
+        // $navbar = $this->navbar();
         // $filter_unit = $request->filter_unit;
         // $filter_kategori = $request->filter_kategori;
         // $filter_year = $request->filter_year;
