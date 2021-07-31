@@ -134,6 +134,7 @@ Route::post('/user/editpassword/{id}','UserController@updatepassword');
 
 //pivot
 Route::get('/dashboard','eisController@dashboard')->name('dashboard');
+Route::get('/store_dashb','eisController@store_dashb');
 Route::get('/eis','eisController@show')->name('eis');
 Route::get('/reveis','eisController@reveis')->name('reveis');
 Route::get('/pivot_get', "eisController@table");
