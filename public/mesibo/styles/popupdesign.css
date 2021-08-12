@@ -195,7 +195,8 @@
 	float: right;
 	max-width: 70%;
 	min-width: 40%;
-	background:#dcf8c6;
+	/*background:#dcf8c6; */
+	background: #d5f5ec;
 	/*display: block;*/
 	border-radius: 7px 7px 7px 7px;
 	font-size: 14px;

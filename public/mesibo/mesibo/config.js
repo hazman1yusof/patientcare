@@ -1,6 +1,6 @@
 // config.js
 
-/** Copyright (c) 2020 Mesibo
+/** Copyright (c) 2021 Mesibo
  * https://mesibo.com
  * All rights reserved.
  *
@@ -49,60 +49,39 @@
  * In that case, there is no need to configure token here
  * 
  */
-var MESIBO_ACCESS_TOKEN = "5c733db83a85d0e22be1c15c179e031357a6894f39ecfe0032f39d"; 
+var MESIBO_ACCESS_TOKEN = "4bcff45a6e48e1af5ff3edc9c8c347e63d5faba8f0e4e50e1136f629"; 
 
 /* App ID used to create a user token. */
-var MESIBO_APP_ID = "com.msoftweb.test";
+var MESIBO_APP_ID = "tajul";
 
 /* If you are hosting Mesibo backend on your own server, change this accordingly.
  * Refer https://github.com/mesibo/messenger-app-backend
  */
-const MESIBO_API_URL = "https://app.mesibo.com/messenger/api.php";
+var MESSENGER_API_URL = "https://messenger.mesibo.com";
 
 /* Default images */
-const MESIBO_DEFAULT_PROFILE_IMAGE = "mesibo/images/profile/default-profile-icon.jpg";
-const MESIBO_DEFAULT_GROUP_IMAGE = "mesibo/images/profile/default-group-icon.jpg";
-
-/* File url sources */
-var MESIBO_DOWNLOAD_URL = "https://patientcare.test/";
-var MESIBO_UPLOAD_URL = "https://s3.mesibo.com/api.php";
+var MESIBO_DEFAULT_PROFILE_IMAGE = "./mesibo/images/profile/default-profile-icon.jpg";
+var MESIBO_DEFAULT_GROUP_IMAGE = "./mesibo/images/profile/default-group-icon.jpg";
 
 /************************ Messenger Config Start *****************************/
-
-/* Toggle for using phone Login*/
-var isLoginEnabled = false;
-
-/* Toggle for synchronizing contacts*/
-var isContactSync = true;
 
 /* Toggle for synchronizing messages
 *  See https://mesibo.com/documentation/tutorials/get-started/synchronization/
 */
-var isMessageSync = true;
-
-/* (Optional) You can provide a list of contacts/groups,
-* for displaying a list of users to chat with and contact synchronization 
-
-For example:
-
-**/
-// MESIBO_LOCAL_CONTACTS = [];
+var isMessageSync = false;
 
 /*Optional link preview*/
-const isLinkPreview = false; //Set to false if link preview not required
-const LINK_PREVIEW_SERVICE = "http://api.linkpreview.net/";
-const LINK_PREVIEW_KEY = ""; // Access Key
-const LINK_DEFAULT_IMAGE = "images/file/default-link-icon.jpg"
+var isLinkPreview = false; //Set to false if link preview not required
+var LINK_PREVIEW_SERVICE = "http://api.linkpreview.net/";
+var LINK_PREVIEW_KEY = ""; // Access Key
+var LINK_DEFAULT_IMAGE = "./mesibo/images/file/default-link-icon.jpg"
 
 /************************ Messenger Config End *****************************/
 
 /************************ Popup Config Start *****************************/
 
-/* Set Display Avatar and destination address for popup */
-const POPUP_DISPLAY_NAME = "TAJUL"
-const POPUP_DISPLAY_PICTURE = "mesibo/images/profile/default-profile-icon.jpg"
 /* A destination where the popup demo app will send message or make calls */
-const POPUP_DESTINATION_USER = "TAJUL" 
+var POPUP_DESTINATION_USER = "<dest user>" 
 
 /************************ Popup Config End *****************************/
 
@@ -113,3 +92,23 @@ if (isDebug) var MesiboLog = console.log.bind(window.console);
 else var MesiboLog = function() {}
 
 var ErrorLog = console.log.bind(window.console);
+
+function saveLoginToken(token){
+	localStorage.setItem("MESIBO_MESSENGER_TOKEN", token);
+	return 0;
+}
+
+function deleteTokenInStorage(){
+	localStorage.removeItem("MESIBO_MESSENGER_TOKEN");
+}
+
+function getLoginToken(){
+	if(MESIBO_ACCESS_TOKEN && MESIBO_ACCESS_TOKEN.length > 16)
+		return MESIBO_ACCESS_TOKEN;
+
+	var token = localStorage.getItem("MESIBO_MESSENGER_TOKEN");
+	if(token && token.length > 16) return token;
+
+	return null;
+}
+

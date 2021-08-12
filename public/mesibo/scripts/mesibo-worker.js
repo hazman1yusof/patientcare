@@ -1,6 +1,6 @@
 //mesibo-worker.js
 
-/** Copyright (c) 2020 Mesibo
+/** Copyright (c) 2021 Mesibo
  * https://mesibo.com
  * All rights reserved.
  *

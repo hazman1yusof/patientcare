@@ -1,6 +1,6 @@
 //utils.js
 
-/** Copyright (c) 2020 Mesibo
+/** Copyright (c) 2021 Mesibo
  * https://mesibo.com
  * All rights reserved.
  *
@@ -56,9 +56,9 @@ let isValidString = (ele)=>{
 // One validation function for all file types    
 let isValidFileType = (fName, fType)=> {
     var extensionLists = {}; //Create an object for all extension lists
-    extensionLists.video = ['m4v', 'avi', 'mpg', 'mp4', 'webm'];
-    extensionLists.image = ['jpg', 'jpeg', 'gif', 'bmp', 'png'];
-    extensionLists.audio = ['mp3', 'mp4', 'aac', 'flac', 'm4a', 'wav','wva'];
+    extensionLists.video = ['m4v', 'avi', 'mpg', 'mp4', 'webm', 'wmv', 'mov', 'qt', 'mkv', 'flv', 'mpeg', 'm2v', '3gp'];
+    extensionLists.image = ['jpg', 'jpeg', 'gif', 'bmp', 'png', 'webp', 'svg', 'ico', 'tif', 'tiff'];
+    extensionLists.audio = ['mp3', 'mp4', 'aac', 'flac', 'm4a', 'wav','wva', 'ogg', 'pcm'];
     extensionLists.document = ['doc', 'txt', 'pdf', 'docx', 'xls', 'xlx'];
     return extensionLists[fType].indexOf(fName.split('.').pop()) > -1;
 }
@@ -85,10 +85,10 @@ let isGroup = (user) => {
         if(!isValid(user))
             return false;
 
-        if(undefined == user.groupid)
+        if(undefined == user.getGroupId())
             return false;
 
-        return (user.groupid > 0);
+        return (user.getGroupId() > 0);
 }
 
 const getUrlInText = (text) => {

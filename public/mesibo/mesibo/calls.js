@@ -1,6 +1,6 @@
 // calls.js
 
-/** Copyright (c) 2020 Mesibo
+/** Copyright (c) 2021 Mesibo
  * https://mesibo.com
  * All rights reserved.
  *
@@ -67,7 +67,7 @@ MesiboCall.prototype.videoCall = function() {
 	this.api.setupVideoCall("localVideo", "remoteVideo", true);
 
 	//Video Call API
-	this.api.call(this.scope.selected_user.address);
+	this.api.call(this.scope.selected_user.getAddress());
 
 }
 
@@ -79,7 +79,7 @@ MesiboCall.prototype.voiceCall = function() {
 	this.api.setupVoiceCall("audioPlayer");
 
 	//Voice Call API
-	this.api.call(this.scope.selected_user.address);
+	this.api.call(this.scope.selected_user.getAddress());
 }
 
 MesiboCall.prototype.answer = function() {
