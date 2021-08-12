@@ -42,7 +42,7 @@
  *
 */
 
-const MESIBO_FILETYPE_OTHER = 10;
+// const MESIBO_FILETYPE_OTHER = 10;
 
 function MesiboFile(s) {
 	this.scope = s;

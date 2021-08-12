@@ -17,7 +17,7 @@
         <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
         <script type="text/javascript" src="https://api.mesibo.com/mesibo.js" crossorigin="anonymous"></script>
         <script type="text/javascript">
-            var MESIBO_ACCESS_TOKEN = "{{Auth::user()->mesibo}}"; 
+            // var MESIBO_ACCESS_TOKEN = "{{Auth::user()->mesibo}}"; 
 
 
             var MESIBO_LOCAL_CONTACTS =[

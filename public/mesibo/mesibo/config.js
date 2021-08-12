@@ -49,7 +49,7 @@
  * In that case, there is no need to configure token here
  * 
  */
-// var MESIBO_ACCESS_TOKEN = "fa93df27a6f14f8e9440ac7d293a90fca37ac666ca6eff32bdf5"; 
+var MESIBO_ACCESS_TOKEN = "5c733db83a85d0e22be1c15c179e031357a6894f39ecfe0032f39d"; 
 
 /* App ID used to create a user token. */
 var MESIBO_APP_ID = "com.msoftweb.test";

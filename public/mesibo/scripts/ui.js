@@ -42,10 +42,10 @@
  *
  */
 
-const MESIBO_FILETYPE_IMAGE = 1;
-const MESIBO_FILETYPE_VIDEO = 2;
-const MESIBO_FILETYPE_AUDIO = 3;
-const MESIBO_FILETYPE_LOCATION = 4;
+// const MESIBO_FILETYPE_IMAGE = 1;
+// const MESIBO_FILETYPE_VIDEO = 2;
+// const MESIBO_FILETYPE_AUDIO = 3;
+// const MESIBO_FILETYPE_LOCATION = 4;
 
 // Get the matching status tick icon
 let getStatusClass = (status) => {
