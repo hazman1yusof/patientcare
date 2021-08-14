@@ -49,10 +49,7 @@
  * In that case, there is no need to configure token here
  * 
  */
-var MESIBO_ACCESS_TOKEN = "4bcff45a6e48e1af5ff3edc9c8c347e63d5faba8f0e4e50e1136f629"; 
 
-/* App ID used to create a user token. */
-var MESIBO_APP_ID = "tajul";
 
 /* If you are hosting Mesibo backend on your own server, change this accordingly.
  * Refer https://github.com/mesibo/messenger-app-backend

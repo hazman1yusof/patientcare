@@ -9,13 +9,23 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
         
+        <script type="text/javascript">
+            
+            var MESIBO_ACCESS_TOKEN = "{{Auth::user()->mesibo}}"; 
+
+            /* App ID used to create a user token. */
+            var MESIBO_APP_ID = "{{Auth::user()->username}}";
+        </script>
+
+
         <!--SCRIPTINCLUDESTART-->
         <script src="https://code.jquery.com/jquery-3.3.1.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.9/angular.min.js"></script>
         <script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-	<script type="text/javascript" src="https://api.mesibo.com/mesibo.js" crossorigin="anonymous"></script> 
+	    <script type="text/javascript" src="https://api.mesibo.com/mesibo.js" crossorigin="anonymous"></script> 
+        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
         <script type="text/javascript" src="{{asset('mesibo/mesibo/config.js')}}"></script>
         <script type="text/javascript" src="{{asset('mesibo/scripts/controller.js')}}"></script>
         <script type="text/javascript" src="{{asset('mesibo/scripts/ui.js')}}"></script>
@@ -25,6 +35,43 @@
         <script type="text/javascript" src="{{asset('mesibo/mesibo/config.js')}}"></script>
         <link rel="stylesheet" href="{{asset('mesibo/styles/messenger.css')}}">
         <!--SCRIPTINCLUDEEND-->
+
+
+    <style type="text/css">
+        table.pickcontacts {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+
+        table.pickcontacts td, table.pickcontacts th {
+          opacity: .7;
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+
+        table.pickcontacts td:hover {
+          cursor: pointer;
+          opacity: 1;
+          background-color: #616161;
+          color: white;
+        }
+
+        table.pickcontacts tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            $('table.pickcontacts td').click(function(){
+                $('#contact-name').val($(this).data('username'));
+                $('#contact-address').val($(this).data('username'));
+            });
+        });
+    </script>
     </head>
     <body ng-app="MesiboWeb" id="mesibowebapp" ng-controller="AppController" style="overflow: hidden; background-color: hsl(0, 0%, 70%);">
         <div style="max-width: 100%;  background-color: hsl(0, 0%, 70%);" onscroll="console.log('scroll fk app')">
@@ -35,7 +82,7 @@
                         <div class="row d-flex flex-row align-items-center p-2" id="navbar">
                             <img ng-src ="@{{getUserPicture(getSelfProfile())}}" class="img-fluid rounded-circle mr-2" style="max-height:48px; cursor:pointer;" ng-click="showProfile(getSelfProfile())" onerror="imgError(this)" id="display-pic">
                             <div>
-                                <div class="text-white font-weight-bold" id="username"></div>
+                                <div class="text-white font-weight-bold" id="username">{{Auth::user()->username}}</div>
                                 <div class="text-white small">@{{connection_status}}</div>
                             </div>
                             <div class = "col-sm col-xs heading-compose  float-xs-right">
@@ -84,7 +131,7 @@
 
                         <div ng-show="users_panel_show" class="d-flex flex-column w-100 h-100" id="available-users-panel" ng-style = "{'left': users_panel_show ? 0:'-110%'}" style="background: white;">
                             <div class="row d-flex flex-row align-items-center p-2 pr-5 m-0" style="background:#00868b; min-height:72px;">
-                                <i class="fas fa-arrow-left p-2 mx-2 my-1 text-white" style="cursor: pointer; align-self: left;" ng-click="hideAvailableUsers()"></i>
+                                <i class="fas fa-arrow-left p-2 mx-2 my-1 text-white" style="cursor: pointer; align-self: left;" ng-click="hideAvailableUsers()" id="hideuser"></i>
                                 <div class="text-white font-weight-bold">Select a Contact to Chat</div>
 				<div class="ml-auto">
                                 <i class="fa fa-user-plus" aria-hidden="true" style="color: white; cursor:pointer; float: right; margin-left: 50%;" title="Add Contact" ng-click="showContactForm()"></i>
@@ -355,20 +402,35 @@
                                         <div>
                                             <input ng-model="new_contact_name" type="name" class="form-control input-lg" id="contact-name" value="">
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label">Phone (or Address)</label>
-                                        <span style="color: grey; font-size: 12px;">
-                                          <br>
-                                          Enter the phone number of the contact, starting with country code (Example +1XXXXXXXXXX).
-                                          <br>
-                                          Otherwise, you can <a href="https://mesibo.com/documentation/tutorials/get-started/first-app/#create-users-endpoints">create a user in the console or using backend API </a> and add it as a contact, by entering the user's address (Example 123)
-                                          <br>                                          
-                                        </span>
 
                                         <div>
-                                            <input ng-model="new_contact_phone" type="phone" class="form-control input-lg" id="contact-address" value="">
+                                            <input ng-model="new_contact_phone" type="phone" class="form-control input-lg" id="contact-address" value="" style="display: none;">
                                         </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <table class="pickcontacts">
+                                          <tr>
+                                            <th>Name</th>
+                                          </tr>
+                                          <tr>
+                                            <td data-username='Alfreds'>Alfreds Futterkiste</td>
+                                          </tr>
+                                          <tr>
+                                            <td data-username='Centro'>Centro comercial Moctezuma</td>
+                                          </tr>
+                                          <tr>
+                                            <td data-username='Ernst'>Ernst Handel</td>
+                                          </tr>
+                                          <tr>
+                                            <td data-username='Island'>Island Trading</td>
+                                          </tr>
+                                          <tr>
+                                            <td data-username='Bacchus'>Laughing Bacchus Winecellars</td>
+                                          </tr>
+                                          <tr>
+                                            <td data-username='Alimentari'>Magazzini Alimentari Riuniti</td>
+                                          </tr>
+                                        </table>
                                     </div>
                                     <div class="form-group">
                                         <div style="width: 100%; text-align: center;">

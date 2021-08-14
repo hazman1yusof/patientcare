@@ -383,10 +383,14 @@ mesiboWeb.controller('AppController', ['$scope', '$window', '$anchorScroll', fun
 
 		//cAddress = document.getElementById('contact-address').value;
 		//cGroupid = document.getElementById('contact-group-id').value;
-		if($scope.new_contact_phone.length < 2){
+		var new_contact_phone = document.getElementById('contact-address').value;
+
+		if(new_contact_phone.length < 2){
 			alert("Enter valid phone number / address or a valid group id");	
 			return;
 		}
+
+		$scope.new_contact_phone = new_contact_phone;
 
 		if($scope.new_contact_phone[0] == "+")
 			$scope.new_contact_phone = $scope.new_contact_phone.slice(1);
@@ -401,6 +405,8 @@ mesiboWeb.controller('AppController', ['$scope', '$window', '$anchorScroll', fun
 		$scope.generateMessageArea(c);
 
 		$scope.refresh();
+
+		$('#hideuser').click();
 	}
 
 
