@@ -77,11 +77,11 @@ class SessionController extends Controller
         $user = User::where('username',request('username'))
                     ->where('password',request('password'));
 
-        if($user->count() > 0){
+        if($user->exists()){
             // if($user->first()->status == 'Inactive'){
             //     return back()->withErrors(['Sorry, your account is inactive, contact admin to activate it again']);
             // }
-
+            
             if ($request->password == $user->first()->password) {
                 Auth::login($user->first(),$remember);
                 if(Auth::user()->groupid == 'patient'){

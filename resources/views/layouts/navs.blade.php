@@ -6,7 +6,7 @@
     <a class="item" id="showSidebar"><i class="sidebar inverted icon"></i></a>
     <div class="right menu">
         <div class="ui dropdown item" style="color:white;">
-          Hi, {{Auth::user()->username}} !<i class="dropdown icon"></i>
+          Hi, {{Auth::user()->name}} !<i class="dropdown icon"></i>
           <div class="menu">
             <a class="item" href="{{ url('user/editpassword')}}/{{Auth::user()->id}}">Change Password</a>
             <a class="item" href="{{ url('/logout')}}">Log Out</a>
@@ -19,7 +19,11 @@
     @if (Auth::user()->groupid == 'patient')
         <a class="item {{(Request::is('appointment') ? 'active' : '')}}" href="{{url('/appointment')}}"><i style="float: left" class="calendar alternate outline inverted icon big link"></i>Appointment</a>
 
-        <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
+        @if(Auth::user()->televideo == 'true')
+            <a class="item @if(Request::is('chat2') ) {{'active'}} @endif" href="{{ url('/chat2')}}"><i style="float: left" class="comments inverted big link icon"></i>Tele-video</a>
+        @endif
+
+        <a class="item @if(Request::is('chat') ) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Whatsapp web</a>
 
         <a class="item {{(Request::is('preview') ? 'active' : '')}}" href="{{ url('/preview')}}"><i style="float: left" class="folder open inverted big icon link"></i>Medical Images</a>
 
@@ -42,7 +46,11 @@
 
         <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
 
-        <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
+        @if(Auth::user()->televideo == 'true')
+            <a class="item @if(Request::is('chat2') ) {{'active'}} @endif" href="{{ url('/chat2')}}"><i style="float: left" class="comments inverted big link icon"></i>Tele-video</a>
+        @endif
+
+        <a class="item @if(Request::is('chat') ) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Whatsapp web</a>
 
         <a class="item @if(Request::is('prescription') || Request::is('prescription/*')) {{'active'}} @endif" href="{{ url('/prescription')}}"><i style="float: left" class="hospital inverted big link icon"></i>Prescription</a>
 
@@ -60,7 +68,11 @@
 
         <a class="item @if(Request::is('reveis') || Request::is('reveis/*')) {{'active'}} @endif" href="{{ url('/reveis')}}"><i style="float: left" class="chart line big link icon"></i>Revenue By Services</a>
 
-        <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
+        @if(Auth::user()->televideo == 'true')
+            <a class="item @if(Request::is('chat2') ) {{'active'}} @endif" href="{{ url('/chat2')}}"><i style="float: left" class="comments inverted big link icon"></i>Tele-video</a>
+        @endif
+
+        <a class="item @if(Request::is('chat') ) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Whatsapp web</a>
 
         <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
 
@@ -70,7 +82,12 @@
 
         <a class="item {{(Request::is('appointment') ? 'active' : '')}}" href="{{url('/appointment')}}"><i style="float: left" class="calendar alternate outline inverted icon big link"></i>Appointment</a>
 
-        <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
+        @if(Auth::user()->televideo == 'true')
+            <a class="item @if(Request::is('chat2') ) {{'active'}} @endif" href="{{ url('/chat2')}}"><i style="float: left" class="comments inverted big link icon"></i>Tele-video</a>
+        @endif
+
+        <a class="item @if(Request::is('chat') ) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Whatsapp web</a>
+
 
         <a class="item {{(Request::is('preview') ? 'active' : '')}}" href="{{ url('/preview')}}"><i style="float: left" class="folder open inverted big icon link"></i>Medical Images</a>
 

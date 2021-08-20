@@ -63,7 +63,14 @@ Create User
       			</select>
           </div>
 
-          
+          <div class="form-group">
+            <label for="televideo">Tele Video</label>
+            <select id="televideo" name="televideo" class="form-control">
+              <option value="true">Yes</option>
+              <option value="false" selected="selected">No</option>
+            </select>
+          </div>
+
           <div class="form-group">
             <button type="submit" class="btn btn-primary btn-lg btn-block">
               Register

@@ -14,7 +14,7 @@
             var MESIBO_ACCESS_TOKEN = "{{Auth::user()->mesibo}}"; 
 
             /* App ID used to create a user token. */
-            var MESIBO_APP_ID = "{{Auth::user()->username}}";
+            var MESIBO_APP_ID = "com.patientcare";
         </script>
 
 
@@ -65,12 +65,12 @@
     </style>
 
     <script type="text/javascript">
-        $( document ).ready(function() {
-            $('table.pickcontacts td').click(function(){
-                $('#contact-name').val($(this).data('username'));
-                $('#contact-address').val($(this).data('username'));
-            });
-        });
+        // $( document ).ready(function() {
+        //     $('table.pickcontacts td').click(function(){
+        //         $('#contact-name').val($(this).data('username'));
+        //         $('#contact-address').val($(this).data('username'));
+        //     });
+        // });
     </script>
     </head>
     <body ng-app="MesiboWeb" id="mesibowebapp" ng-controller="AppController" style="overflow: hidden; background-color: hsl(0, 0%, 70%);">
