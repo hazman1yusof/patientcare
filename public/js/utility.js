@@ -1763,18 +1763,37 @@ function galGridCustomValue (elem, operation, value){
 	}
 }
 
+function dob_chg(date){
+	if(date == '' || date == "Invalid date"){
+		return '';
+	}
+	let arrdate = date.split("-");
+	return arrdate[2]+'-'+arrdate[1]+'-'+arrdate[0];
+}
+
+function dob_age(date){
+	if(date == '' || date == "Invalid date"){
+		return '';
+	}
+	return moment().diff(date, 'years');
+}
+
+function if_none(str){
+	return (str)?str:'NONE';
+}
+
 
 $(document).ready(function () {
 
-	$('.panel-heading.clearfix.collapsed.position .arrow.fa').click(function(){
+	$('.panel-heading.clearfix.collapsed i.glyphicon').click(function(){
 		var toggle = $(this).data('toggle');
 		if(toggle != undefined || toggle != null){
-			if($(this).hasClass('fa-angle-double-up')){
+			if($(this).hasClass('glyphicon-chevron-up')){
 				$(this).css('display','none');
-				$(this).siblings('i.arrow.fa.fa-angle-double-down').css('display','inline-block');
-			}else if($(this).hasClass('fa-angle-double-down')){
+				$(this).siblings('i.glyphicon.glyphicon-chevron-down').css('display','inline-block');
+			}else if($(this).hasClass('glyphicon-chevron-down')){
 				$(this).css('display','none');
-				$(this).siblings('i.arrow.fa.fa-angle-double-up').css('display','inline-block');
+				$(this).siblings('i.glyphicon.glyphicon-chevron-up').css('display','inline-block');
 			}
 		}
 	});

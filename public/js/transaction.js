@@ -3,7 +3,7 @@ $(document).ready(function () {
 	// var fdl = new faster_detail_load();
 	$("#jqGrid_trans").jqGrid({
 		datatype: "local",
-		editurl: "./transaction_save",
+		editurl: "./doctornote_transaction_save",
 		colModel: [
 			{ label: 'Date', name: 't_trxdate', width: 30 ,formatter: dateFormatter, unformat: dateUNFormatter},
 			{ label: 'Time', name: 't_trxtime', width: 30 ,formatter: timeFormatter, unformat: timeUNFormatter},
@@ -94,7 +94,7 @@ $(document).ready(function () {
         	let selrow = selrowData('#jqGrid');
         	let selrow_trans = selrowData('#jqGrid_trans');
 
-			let editurl = "./transaction_save?"+
+			let editurl = "./doctornote_transaction_save?"+
 				$.param({
 					mrn: selrow.e_mrn,
 		    		episno: selrow.e_episno,
@@ -136,7 +136,7 @@ $(document).ready(function () {
         	let selrow = selrowData('#jqGrid');
         	let selrow_trans = selrowData('#jqGrid_trans');
 
-			let editurl = "./transaction_save?"+
+			let editurl = "./doctornote_transaction_save?"+
 				$.param({
 					mrn: selrow.e_mrn,
 		    		episno: selrow.e_episno,
@@ -212,7 +212,7 @@ $(document).ready(function () {
 	var errorField = [];
 
 	var dialog_chgcode = new ordialog(
-		'chgcode',['chgmast'],"#jqGrid_trans input[name='chgcode']",errorField,
+		'chgcode',['hisdb.chgmast'],"#jqGrid_trans input[name='chgcode']",errorField,
 		{	colModel:
 			[
 				{label:'Charge code',name:'chgcode',width:200,classes:'pointer',canSearch:true,or_search:true},
@@ -220,7 +220,7 @@ $(document).ready(function () {
 			],
 			urlParam: {
 						filterCol:['recstatus'],
-						filterVal:['A']
+						filterVal:['ACTIVE']
 					},
 			ondblClickRow:function(event){
 				if(event.type == 'keydown'){
@@ -247,7 +247,7 @@ $(document).ready(function () {
 			title:"Select Charge Code Item",
 			open: function(){
 				dialog_chgcode.urlParam.filterCol=['recstatus'];
-				dialog_chgcode.urlParam.filterVal=['A'];
+				dialog_chgcode.urlParam.filterVal=['ACTIVE'];
 			},
 			close: function(){
 				// if($('#jqGridPager2SaveAll').css("display") == "none"){
@@ -272,7 +272,7 @@ var urlParam_trans = {
 	url:'./util/get_table_default',
 	action: 'get_table_default',
 	fixPost:'true',
-	table_name: ['chargetrx as t','chgmast as m'],
+	table_name: ['hisdb.chargetrx as t','hisdb.chgmast as m'],
 	join_type:['LEFT JOIN'],
 	join_onCol:['t.chgcode'],
 	join_onVal:['m.chgcode'],

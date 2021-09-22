@@ -22,7 +22,9 @@ Manage Users
                   <tr>
                       <th>User Id</th>
                       <th>Username</th>
+                      <th>Name</th>
                       <th>Type</th>
+                      <th>Video Call</th>
                       <th>Action</th>
                   </tr>
               </thead>
@@ -31,7 +33,9 @@ Manage Users
               	  <tr>
                       <td>{{$user->id}}</td>
                       <td>{{$user->username}}</td>
+                      <td>{{$user->name}}</td>
                       <td>{{$user->groupid}}</td>
+                      <td>{{$user->televideo}}</td>
                       <td>
                       	<a href="{{url('/user/'.$user->id)}}" class="btn btn-sm btn-secondary">Edit</a>
                       	<a href="{{url('/user/delete/'.$user->id)}}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
@@ -43,7 +47,9 @@ Manage Users
                   <tr>
                       <th>User Id</th>
                       <th>Username</th>
+                      <th>Name</th>
                       <th>Type</th>
+                      <th>Video Call</th>
                       <th>Action</th>
                   </tr>
               </tfoot>

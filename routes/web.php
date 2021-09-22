@@ -139,6 +139,13 @@ Route::get('/eis','eisController@show')->name('eis');
 Route::get('/reveis','eisController@reveis')->name('reveis');
 Route::get('/pivot_get', "eisController@table");
 
+//doctornote
+Route::get('/doctornote','DoctornoteController@index');
+Route::get('/doctornote/table','DoctornoteController@table')->name('doctornote_route');
+Route::post('/doctornote/form','DoctornoteController@form');
+Route::post('/doctornote_transaction_save', "DoctornoteController@transaction_save");
+
+
 //stisla ??
 Route::name('js.')->group(function() {
     Route::get('dynamic.js', 'JsController@dynamic')->name('dynamic');

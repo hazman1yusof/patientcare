@@ -22,7 +22,7 @@ class eisController extends Controller
         return view('eis.eis');
     }
 
-    public function reveis(Request $request)
+	public function reveis(Request $request)
     {
         return view('eis.reveis');
     }
@@ -77,7 +77,7 @@ class eisController extends Controller
 
         $all_collection = collect();
         foreach ($object as $key => $value) {
-            $pateis = DB::table('pateis_epis')
+            $pateis = DB::table('hisdb.pateis_epis')
                     ->select('units','epistype','gender','race','religion','payertype','regdept','admdoctor','admdate','discdate','admsrc','docdiscipline','docspeciality','agerange','citizen','area','postcode','placename','patient','state','country','year','quarter','month','datetype')
                     ->where('datetype','=',$datetype)
                     ->where('year','=','Y'.$key)
@@ -147,7 +147,7 @@ class eisController extends Controller
 
         $all_collection = collect();
         foreach ($object as $key => $value) {
-            $pateis = DB::table('pateis_rev')
+            $pateis = DB::table('hisdb.pateis_rev')
                     ->select('units','epistype','chgcode','chgdesc','groupdesc','typedesc','quantity','unitprice','amount','month','quarter','year','regdate','disdate','datetype')
                     ->where('datetype','=',$datetype)
                     ->where('year','=','Y'.$key)
@@ -163,91 +163,35 @@ class eisController extends Controller
         echo json_encode($responce);
     }
 
-    public function get_month(Request $request){
-        
-
-    }
-
-    public static function getQueries($builder){
-        $addSlashes = str_replace('?', "'?'", $builder->toSql());
-        return vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings());
-    }
-
-    public function post(Request $request){
-        echo "huuhu";
-    }
-
     public function dashboard(Request $request)
     {
-        if(!empty($request->date) && !empty($request->units)){
-            $now = explode('-', $request->date);
-            $year = $now[0];
-            $month = ltrim($now[1], '0');
-            $units = $request->units;
-        }else{
-            $now = Carbon::now();
-            $year = $now->year;
-            $month = $now->month;
-            $units = 'UKMSC';
-        }
-
-        $ip_rev = DB::table('patsumepis')
+        $month = 6;
+        $year = 2021;
+        $ip_rev = DB::table('hisdb.patsumepis')
                     ->where('month','=',$month)
                     ->where('year','=',$year)
                     ->where('patient','=',"IP")
-                    ->where('units','=', $units)
-                    ->where('type','=',"REV");
-
-        if(!$ip_rev->exists()){
-            if($month == 1){
-                $year = $year-1;
-                $month = 12;
-            }else{
-                $month = $month-1;
-            }
-
-            if(!empty($request->date)){
-                $request->date = $year.'-'.$month;
-            }
-
-            $ip_rev = DB::table('patsumepis')
-                    ->where('month','=',$month)
-                    ->where('year','=',$year)
-                    ->where('patient','=',"IP")
-                    ->where('units','=', $units)
-                    ->where('type','=',"REV");
-
-            if(!$ip_rev->exists()){
-                return $this->return_null();
-            }else{
-                $ip_rev = $ip_rev->first();
-            }
-        }else{
-            $ip_rev = $ip_rev->first();
-        }
-
-
-        $op_rev = DB::table('patsumepis')
-                    ->where('month','=',$month)
-                    ->where('year','=',$year)
-                    ->where('patient','=',"OP")
-                    ->where('units','=', $units)
                     ->where('type','=',"REV")
                     ->first();
 
-        $ip_epis = DB::table('patsumepis')
-                    ->where('month','=',$month)
-                    ->where('year','=',$year)
-                    ->where('patient','=',"IP")
-                    ->where('units','=', $units)
-                    ->where('type','=',"epis")
-                    ->first();
-
-        $op_epis = DB::table('patsumepis')
+        $op_rev = DB::table('hisdb.patsumepis')
                     ->where('month','=',$month)
                     ->where('year','=',$year)
                     ->where('patient','=',"OP")
-                    ->where('units','=', $units)
+                    ->where('type','=',"REV")
+                    ->first();
+
+        $ip_epis = DB::table('hisdb.patsumepis')
+                    ->where('month','=',$month)
+                    ->where('year','=',$year)
+                    ->where('patient','=',"IP")
+                    ->where('type','=',"epis")
+                    ->first();
+
+        $op_epis = DB::table('hisdb.patsumepis')
+                    ->where('month','=',$month)
+                    ->where('year','=',$year)
+                    ->where('patient','=',"OP")
                     ->where('type','=',"epis")
                     ->first();
 
@@ -257,8 +201,7 @@ class eisController extends Controller
         $ip_month_epis =  [$ip_epis->week1,$ip_epis->week2,$ip_epis->week3,$ip_epis->week4];
         $op_month_epis = [$op_epis->week1,$op_epis->week2,$op_epis->week3,$op_epis->week4];
 
-        $groupdesc_ = DB::table('pateis_rev')->distinct()->get(['groupdesc']);
-        $units_ = DB::table('pateis_rev')->select('units')->distinct()->get();
+        $groupdesc_ = DB::table('hisdb.pateis_rev')->distinct()->get(['groupdesc']);
 
         $groupdesc = [];
         $groupdesc_val_op = [];
@@ -267,10 +210,9 @@ class eisController extends Controller
         $groupdesc_cnt_ip = [];
         $groupdesc_val = [];
 
-        $patsumrev = DB::table('patsumrev')
+        $patsumrev = DB::table('hisdb.patsumrev')
                         ->where('month','=',$month)
                         ->where('year','=',$year)
-                        ->where('units','=', $units)
                         ->get();
 
         foreach ($patsumrev as $key => $value) {
@@ -282,29 +224,11 @@ class eisController extends Controller
             array_push($groupdesc_val,$value->totalsum);
         }
 
-        return view('eis.dashboard',compact('units_','ip_month','op_month','ip_month_epis','op_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val'));
+        return view('eis.dashboard',compact('ip_month','op_month','ip_month_epis','op_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val'));
     }
 
-    public function return_null(){
-
-        $groupdesc_ = DB::table('pateis_rev')->distinct()->get(['groupdesc']);
-        $units_ = DB::table('pateis_rev')->select('units')->distinct()->get();
-
-        $ip_month = [];
-        $op_month = [];
-
-        $ip_month_epis =  [];
-        $op_month_epis = [];
-
-        $groupdesc = [];
-        $groupdesc_val_op = [];
-        $groupdesc_val_ip = [];
-        $groupdesc_cnt_op = [];
-        $groupdesc_cnt_ip = [];
-        $groupdesc_val = [];
-
-        return view('eis.dashboard',compact('units_','ip_month','op_month','ip_month_epis','op_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val'));
+    public function getQueries($builder){
+        $addSlashes = str_replace('?', "'?'", $builder->toSql());
+        return vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings());
     }
-
-
 }

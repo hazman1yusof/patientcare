@@ -77,7 +77,10 @@ class SessionController extends Controller
         $user = User::where('username',request('username'))
                     ->where('password',request('password'));
 
+
         if($user->exists()){
+            $request->session()->put('username', request('username'));
+            
             // if($user->first()->status == 'Inactive'){
             //     return back()->withErrors(['Sorry, your account is inactive, contact admin to activate it again']);
             // }

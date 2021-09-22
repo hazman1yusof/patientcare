@@ -5,7 +5,9 @@ $(document).ready(function() {
         "columns": [
             { "data": "id" },
             { "data": "username" },
+            { "data": "name" },
             { "data": "type" },
+            { "data": "televideo" },
             { "data": "email" }
         ]
 	} );
