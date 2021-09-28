@@ -8,6 +8,7 @@ use App\User;
 use DB;
 use Carbon\Carbon;
 use Auth;
+use Session;
 
 class DoctornoteController extends Controller
 {
@@ -29,6 +30,24 @@ class DoctornoteController extends Controller
                 return $this->get_table_doctornote_div($request);
             case 'dialog_icd':
                 return $this->dialog_icd($request);
+            
+            //transaction stuff
+            case 'get_transaction_table':
+                return $this->get_transaction_table($request);
+            case 'get_chgcode':
+                return $this->get_chgcode($request);
+            case 'get_drugindcode':
+                return $this->get_drugindcode($request);
+            case 'get_freqcode':
+                return $this->get_freqcode($request);
+            case 'get_dosecode':
+                return $this->get_dosecode($request);
+            case 'get_inscode':
+                return $this->get_inscode($request);
+
+            //event stuff
+            case 'doctornote_event':
+                return $this->doctornote_event($request);
 
             default:
                 return 'error happen..';
@@ -64,22 +83,22 @@ class DoctornoteController extends Controller
 
         // $navbar = $this->navbar();
 
-        $emergency = DB::table('hisdb.episode')
-                        ->whereMonth('reg_date', '=', now()->month)
-                        ->whereYear('reg_date', '=', now()->year)
-                        ->get();
+        // $emergency = DB::table('hisdb.episode')
+        //                 ->whereMonth('reg_date', '=', now()->month)
+        //                 ->whereYear('reg_date', '=', now()->year)
+        //                 ->get();
 
-        $events = $this->getEvent($emergency);
+        // $events = $this->getEvent($emergency);
 
-        if(!empty($request->username)){
-            $user = DB::table('users')
-                    ->where('username','=',$request->username);
-            if($user->exists()){
-                $user = User::where('username',$request->username);
-                Auth::login($user->first());
-            }
-        }
-        return view('doctornote',compact('events'));
+        // if(!empty($request->username)){
+        //     $user = DB::table('users')
+        //             ->where('username','=',$request->username);
+        //     if($user->exists()){
+        //         $user = User::where('username',$request->username);
+        //         Auth::login($user->first());
+        //     }
+        // }
+        return view('doctornote');
     }
 
     public function get_table_doctornote($request){
@@ -98,6 +117,45 @@ class DoctornoteController extends Controller
         $responce->rows = $paginate->items();
         $responce->sql = $table_patm->toSql();
         $responce->sql_bind = $table_patm->getBindings();
+        return json_encode($responce);
+
+    }
+
+    public function get_transaction_table($request){
+        $table_chgtrx = DB::table('hisdb.chargetrx as trx') //ambil dari patmast balik
+                            ->select('trx.auditno',
+                                'trx.chgcode as chg_code',
+                                'trx.quantity',
+                                'trx.remarks',
+                                'trx.instruction as ins_code',
+                                'trx.doscode as dos_code',
+                                'trx.frequency as fre_code',
+                                'trx.drugindicator as dru_code',
+
+                                'chgmast.description as chg_desc',
+                                'instruction.description as ins_desc',
+                                'dose.dosedesc as dos_desc',
+                                'freq.freqdesc as fre_desc',
+                                'drugindicator.drugindcode as dru_desc')
+
+                            ->where('trx.mrn' ,'=', $request->mrn)
+                            ->leftJoin('hisdb.chgmast','chgmast.chgcode','=','trx.chgcode')
+                            ->leftJoin('hisdb.instruction','instruction.inscode','=','trx.instruction')
+                            ->leftJoin('hisdb.freq','freq.freqcode','=','trx.frequency')
+                            ->leftJoin('hisdb.dose','dose.dosecode','=','trx.doscode')
+                            ->leftJoin('hisdb.drugindicator','drugindicator.drugindcode','=','trx.drugindicator')
+                            ->where('trx.episno' ,'=', $request->episno);
+
+        //////////paginate/////////
+        $paginate = $table_chgtrx->paginate($request->rows);
+
+        $responce = new stdClass();
+        $responce->page = $paginate->currentPage();
+        $responce->total = $paginate->lastPage();
+        $responce->records = $paginate->total();
+        $responce->rows = $paginate->items();
+        $responce->sql = $table_chgtrx->toSql();
+        $responce->sql_bind = $table_chgtrx->getBindings();
         return json_encode($responce);
 
     }
@@ -151,10 +209,14 @@ class DoctornoteController extends Controller
                     'episno' => $request->episno,
                     'trxtype' => 'OE',
                     'trxdate' => $request->trxdate,
-                    'chgcode' => $request->t_chgcode,
+                    'chgcode' => $request->chg_desc,
+                    'instruction' => $request->ins_desc,
+                    'doscode' => $request->dos_desc,
+                    'frequency' => $request->fre_desc,
+                    'drugindicator' => $request->dru_desc,
+                    'remarks' => $request->remarks,
                     'billflag' => '0',
-                    'isudept' => $request->isudept,
-                    'quantity' => $request->t_quantity,
+                    'quantity' => $request->quantity,
                     'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
                     'lastuser' => Auth::user()->username,
                     'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
@@ -651,6 +713,107 @@ class DoctornoteController extends Controller
 
             return response($e->getMessage(), 500);
         }
+    }
+
+    public function get_chgcode(Request $request){
+        $pharcode = DB::table('sysdb.sysparam')
+                    ->where('compcode','=',session('compcode'))
+                    ->where('source','=','OE')
+                    ->where('trantype','=','PHAR')
+                    ->first();
+
+        $data = DB::table('hisdb.chgmast')
+                    ->where('compcode','=',session('compcode'))
+                    ->where('chggroup','=',$pharcode->pvalue1)
+                    ->where('active','=',1)
+                    ->select('chgcode as code','description as description');
+
+        if(!empty($request->search)){
+            $data = $data->where('description','LIKE','%'.$request->search.'%')->first();
+        }else{
+            $data = $data->get();
+        }
+        
+        $responce = new stdClass();
+        $responce->data = $data;
+        return json_encode($responce);
+        
+    }
+
+    public function get_drugindcode(Request $request){
+        $data = DB::table('hisdb.drugindicator')
+                ->select('drugindcode as code','description as description');
+
+        if(!empty($request->search)){
+            $data = $data->where('description','LIKE','%'.$request->search.'%')->first();
+        }else{
+            $data = $data->get();
+        }
+        
+        $responce = new stdClass();
+        $responce->data = $data;
+        return json_encode($responce);
+        
+    }
+
+    public function get_freqcode(Request $request){
+        $data = DB::table('hisdb.freq')
+                ->select('freqcode as code','freqdesc as description');
+
+        if(!empty($request->search)){
+            $data = $data->where('freqdesc','LIKE','%'.$request->search.'%')->first();
+        }else{
+            $data = $data->get();
+        }
+        
+        $responce = new stdClass();
+        $responce->data = $data;
+        return json_encode($responce);
+        
+    }
+
+    public function get_dosecode(Request $request){
+        $data = DB::table('hisdb.dose')
+                ->select('dosecode as code','dosedesc as description');
+
+        if(!empty($request->search)){
+            $data = $data->where('dosedesc','LIKE','%'.$request->search.'%')->first();
+        }else{
+            $data = $data->get();
+        }
+        
+        $responce = new stdClass();
+        $responce->data = $data;
+        return json_encode($responce);
+        
+    }
+
+    public function get_inscode(Request $request){
+        $data = DB::table('hisdb.instruction')
+                ->select('inscode as code','description as description');
+
+        if(!empty($request->search)){
+            $data = $data->where('description','LIKE','%'.$request->search.'%')->first();
+        }else{
+            $data = $data->get();
+        }
+        
+        $responce = new stdClass();
+        $responce->data = $data;
+        return json_encode($responce);
+        
+    }
+
+    public function doctornote_event(Request $request){
+        $emergency = DB::table('hisdb.episode')
+                        ->whereRaw(
+                          "(reg_date >= ? AND reg_date <= ?)", 
+                          [
+                             $request->start, 
+                             $request->end
+                         ])->get();
+
+        return $events = $this->getEvent($emergency);
     }
 
 }

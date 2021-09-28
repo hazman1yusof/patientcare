@@ -129,11 +129,6 @@ table#jqGrid, table#jqGrid_trans{
 
 @section('content')
 
-
-    <script>    
-        var events = {!! json_encode($events) !!};
-    </script>
-
     <input type="hidden" id="curr_user" value="{{ Auth::user()->username }}">
     <input type="hidden" id="doctornote_route" value="{{route('doctornote_route')}}">
     <div class="ui stackable two column grid">
@@ -234,6 +229,7 @@ table#jqGrid, table#jqGrid_trans{
         </div>
     </div> -->
 
+@include('itemselector')
 @endsection
 
 @section('css')

@@ -74,6 +74,12 @@ class SessionController extends Controller
         $remember = false;
         // $user = User::where('username','=',$request->username);
 
+        $compcode = DB::table('sysdb.company')
+                    ->first();
+
+        $request->session()->put('compcode', $compcode->compcode);
+
+
         $user = User::where('username',request('username'))
                     ->where('password',request('password'));
 

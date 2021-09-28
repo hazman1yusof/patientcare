@@ -5,7 +5,7 @@ $.jgrid.defaults.styleUI = 'Bootstrap';
 $(document).ready(function () {
 
 	$('#calendar').fullCalendar({
-		events: events,
+		// events: events,
   		defaultView: 'month',
   		header: {
 			left: 'prev,next today',
@@ -37,6 +37,17 @@ $(document).ready(function () {
 				refreshGrid("#jqGrid", urlParam);
 			}
 		},
+		eventSources: [
+			{	
+				id: 'doctornote_event',
+				url: './doctornote/table',
+				type: 'GET',
+				data: {
+					type: 'apptbook',
+					action: 'doctornote_event'
+				}
+			},
+	    ]
 
 
 	});
@@ -83,10 +94,12 @@ $(document).ready(function () {
 		sortname: 'e_idno',
 		sortorder: "desc",
 		onSelectRow:function(rowid, selected){
-
+			
+			$('#calendar').fullCalendar( 'refetchEventSources', 'apptbook' );
+			
 			hide_tran_button(false);
-			urlParam_trans.filterVal[0] = selrowData('#jqGrid').mrn;
-			urlParam_trans.filterVal[1] = selrowData('#jqGrid').episno;
+			urlParam_trans.mrn = selrowData('#jqGrid').MRN;
+			urlParam_trans.episno = selrowData('#jqGrid').Episno;
 			addmore_onadd = false;
 			refreshGrid("#jqGrid_trans", urlParam_trans);
             populate_currDoctorNote(selrowData('#jqGrid'));
