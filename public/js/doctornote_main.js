@@ -94,7 +94,8 @@ $(document).ready(function () {
 		sortname: 'e_idno',
 		sortorder: "desc",
 		onSelectRow:function(rowid, selected){
-
+			
+			timer_stop();
 			hide_tran_button(false);
 			urlParam_trans.mrn = selrowData('#jqGrid').MRN;
 			urlParam_trans.episno = selrowData('#jqGrid').Episno;
@@ -117,8 +118,8 @@ $(document).ready(function () {
 		},
 		gridComplete: function () {
 			$('#checkbox_completed').prop('disabled',true);
-			$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
-			ordercompleteInit();
+			// $("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+			// ordercompleteInit();
 
 		},
 	});
@@ -164,11 +165,28 @@ $(document).ready(function () {
 
 	}
 
-	setInterval(timer_fetch, 5000);
-	
-	function timer_fetch(){
-		refreshGrid("#jqGrid", urlParam);
-		$('#calendar').fullCalendar( 'refetchEventSources', 'apptbook' );
+	$('i#timer_play').click(function(){
+		console.log('start')
+		timer_start();
+	});
+
+	$('i#timer_stop').click(function(){
+		console.log('stop')
+		timer_stop();
+	});
+
+	var myfetch;
+	timer_start();
+
+	function timer_start(){
+		myfetch = setInterval(function(){
+			refreshGrid("#jqGrid", urlParam);
+			$('#calendar').fullCalendar( 'refetchEventSources', 'apptbook' );
+		}, 5000);
+	}
+
+	function timer_stop(){
+	  	clearInterval(myfetch);
 	}
 
 	function ordercompleteInit(){

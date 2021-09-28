@@ -142,10 +142,14 @@ table#jqGrid, table#jqGrid_trans{
         </div></div>
 
         <div class="eight wide tablet eleven wide computer right floated column" style="margin:0px;">
-            <div class="ui teal segment">
+            <div class="ui teal segment" style="padding-bottom: 30px;">
                 <h2 class="h2">Patient List</h2>
                 <table id="jqGrid" class="table table-striped"></table>
                 <div id="jqGridPager"></div>
+                <div style="float: right;">
+                    <i class="btn play icon" id="timer_play" style="position: inherit;color: black; padding: 5px 50px 10px 10px;"><small>Play</small></i>
+                    <i class="btn stop icon" id="timer_stop" style="position: inherit;color: black; padding: 5px 50px 10px 10px;"><small>Stop</small></i>
+                </div>
             </div>
         </div>
     </div>
