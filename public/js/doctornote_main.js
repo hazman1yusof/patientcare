@@ -55,14 +55,7 @@ $(document).ready(function () {
 	var urlParam = {
 		action: 'get_table_doctornote',
 		url: $('#doctornote_route').val(),
-		field: '',
-		fixPost:'true',
-		table_name:['hisdb.episode as e','hisdb.pat_mast as p'],
-		join_type:['LEFT JOIN'],
-		join_onCol:['e.mrn'],
-		join_onVal:['p.mrn'],
-		filterCol:['e.reg_date'],
-		filterVal:[moment().format('YYYY-MM-DD')],
+		filterVal : [moment().format("YYYY-MM-DD")]
 	}
 
 	$("#jqGrid").jqGrid({
@@ -91,11 +84,9 @@ $(document).ready(function () {
 		width: 900,
 		height: 365,
 		rowNum: 30,
-		sortname: 'e_idno',
-		sortorder: "desc",
 		onSelectRow:function(rowid, selected){
 			
-			timer_stop();
+			$('button#timer_stop').click();
 			hide_tran_button(false);
 			urlParam_trans.mrn = selrowData('#jqGrid').MRN;
 			urlParam_trans.episno = selrowData('#jqGrid').Episno;
@@ -165,28 +156,36 @@ $(document).ready(function () {
 
 	}
 
-	$('i#timer_play').click(function(){
-		console.log('start')
-		timer_start();
+	$('button#timer_play').click(function(){
+		timer_start_tbl();
+		$('button#timer_play').addClass('disabled');
+		$('button#timer_stop').removeClass('disabled');
 	});
 
-	$('i#timer_stop').click(function(){
-		console.log('stop')
-		timer_stop();
+	$('button#timer_stop').click(function(){
+		timer_stop_tbl();
+		$('button#timer_play').removeClass('disabled');
+		$('button#timer_stop').addClass('disabled');
 	});
 
-	var myfetch;
-	timer_start();
+	var fetch_tbl,fetch_evt;
+	timer_start_tbl();
+	timer_start_evt();
 
-	function timer_start(){
-		myfetch = setInterval(function(){
+	function timer_start_tbl(){
+		fetch_tbl = setInterval(function(){
 			refreshGrid("#jqGrid", urlParam);
-			$('#calendar').fullCalendar( 'refetchEventSources', 'apptbook' );
 		}, 5000);
 	}
 
-	function timer_stop(){
-	  	clearInterval(myfetch);
+	function timer_start_evt(){
+		fetch_evt = setInterval(function(){
+			$('#calendar').fullCalendar( 'refetchEventSources', 'doctornote_event' );
+		}, 5000);
+	}
+
+	function timer_stop_tbl(){
+	  	clearInterval(fetch_tbl);
 	}
 
 	function ordercompleteInit(){

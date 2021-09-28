@@ -616,24 +616,32 @@ var docnote_date_tbl = $('#docnote_date_tbl').DataTable({
 });
 
 var ajaxurl;
-$('#jqGridDoctorNote_panel').on('shown.bs.collapse', function () {
-	$('#docnote_date_tbl_sticky').waypoint(function(direction) {
-		console.log(this.element.id + ' hit') 
-	})
-	sticky_docnotetbl(on=true);
-    docnote_date_tbl.ajax.url( "./doctornote/table?"+$.param(dateParam_docnote) ).load(function(data){
-		emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
-		$('#docnote_date_tbl tbody tr:eq(0)').click();	//to select first row
-    });
+$('#tab_doctornote').on('shown.bs.collapse', function () {
+	$('div#docnote_date_tbl_sticky').waypoint(function(direction) {
+		console.log(this.element.id + ' hit' + direction);
+		if(direction == 'down'){
+			console.log('sdsd')
+		    $('div#docnote_date_tbl_sticky').addClass( "sticky_div" );
+		}else{
+		    $('div#docnote_date_tbl_sticky').removeClass( "sticky_div" );
+		}
+	});
+	
+
+	// sticky_docnotetbl(on=true);
+  //   docnote_date_tbl.ajax.url( "./doctornote/table?"+$.param(dateParam_docnote) ).load(function(data){
+		// emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
+		// $('#docnote_date_tbl tbody tr:eq(0)').click();	//to select first row
+  //   });
 });
 
-$('#jqGridTriageInfo_panel').on('shown.bs.collapse', function () {
-	sticky_docnotetbl(on=true);
-});
+// $('#jqGridTriageInfo_panel').on('shown.bs.collapse', function () {
+// 	sticky_docnotetbl(on=true);
+// });
 
-$('#jqGridTriageInfo_panel').on('hidden.bs.collapse', function () {
-	sticky_docnotetbl(on=true);
-});
+// $('#jqGridTriageInfo_panel').on('hidden.bs.collapse', function () {
+// 	sticky_docnotetbl(on=true);
+// });
 
 //to reload date table on radio btn click
 $("input[name=toggle_type]").on('click', function () {

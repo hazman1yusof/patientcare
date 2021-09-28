@@ -124,9 +124,9 @@ table#jqGrid, table#jqGrid_trans{
     right: 20px;
 }
 .sticky_div{
-    position: fixed;
-    top: 100px;
-    left: 16px;
+    position: fixed !important;
+    top: 130px;
+    left: 19px;
 }
 
 
@@ -142,13 +142,24 @@ table#jqGrid, table#jqGrid_trans{
         </div></div>
 
         <div class="eight wide tablet eleven wide computer right floated column" style="margin:0px;">
-            <div class="ui teal segment" style="padding-bottom: 30px;">
+            <div class="ui teal segment" style="padding-bottom: 40px;">
                 <h2 class="h2">Patient List</h2>
                 <table id="jqGrid" class="table table-striped"></table>
                 <div id="jqGridPager"></div>
-                <div style="float: right;">
-                    <i class="btn play icon" id="timer_play" style="position: inherit;color: black; padding: 5px 50px 10px 10px;"><small>Play</small></i>
-                    <i class="btn stop icon" id="timer_stop" style="position: inherit;color: black; padding: 5px 50px 10px 10px;"><small>Stop</small></i>
+                <div style="float: right;padding: 5px 4px 10px 10px;">
+                    <!-- <i class="btn play icon" id="timer_play" style="position: inherit;color: black; padding: 5px 50px 10px 10px;"><small>Play</small></i>
+                    <i class="btn stop icon" id="timer_stop" style="position: inherit;color: black; padding: 5px 50px 10px 10px;"><small>Stop</small></i> -->
+
+                    <div class="mini basic ui buttons">
+                      <button id="timer_play" class="ui disabled icon button">
+                        <i class="left play icon"></i>
+                        Play
+                      </button>
+                      <button id="timer_stop" class="ui icon button">
+                        <i class="right stop icon"></i>
+                        Stop
+                      </button>
+                    </div>
                 </div>
             </div>
         </div>
