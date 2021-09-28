@@ -617,6 +617,9 @@ var docnote_date_tbl = $('#docnote_date_tbl').DataTable({
 
 var ajaxurl;
 $('#jqGridDoctorNote_panel').on('shown.bs.collapse', function () {
+	$('#docnote_date_tbl_sticky').waypoint(function(direction) {
+		console.log(this.element.id + ' hit') 
+	})
 	sticky_docnotetbl(on=true);
     docnote_date_tbl.ajax.url( "./doctornote/table?"+$.param(dateParam_docnote) ).load(function(data){
 		emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
@@ -712,10 +715,10 @@ function check_same_usr_edit(data){
 }
 
 function sticky_docnotetbl(on){
-	$(window).off('scroll');
+	$('#tab_doctornote').off('scroll');
 	if(on){
 		var topDistance = $('#docnote_date_tbl_sticky').offset().top;
-		$(window).on('scroll', function() {
+		$('#tab_doctornote').on('scroll', function() {
 		    var scrollTop = $(this).scrollTop();
 			var bottomDistance = $('#jqGrid_ordcom_c').offset().top;
 		    if((topDistance+10) < scrollTop && (bottomDistance-280)>scrollTop){
@@ -725,7 +728,7 @@ function sticky_docnotetbl(on){
 		    }
 		});
 	}else{
-		$(window).off('scroll');
+		$('#tab_doctornote').off('scroll');
 	}
 	
 }

@@ -94,9 +94,7 @@ $(document).ready(function () {
 		sortname: 'e_idno',
 		sortorder: "desc",
 		onSelectRow:function(rowid, selected){
-			
-			$('#calendar').fullCalendar( 'refetchEventSources', 'apptbook' );
-			
+
 			hide_tran_button(false);
 			urlParam_trans.mrn = selrowData('#jqGrid').MRN;
 			urlParam_trans.episno = selrowData('#jqGrid').Episno;
@@ -164,6 +162,13 @@ $(document).ready(function () {
 
 		return cont
 
+	}
+
+	setInterval(timer_fetch, 5000);
+	
+	function timer_fetch(){
+		refreshGrid("#jqGrid", urlParam);
+		$('#calendar').fullCalendar( 'refetchEventSources', 'apptbook' );
 	}
 
 	function ordercompleteInit(){

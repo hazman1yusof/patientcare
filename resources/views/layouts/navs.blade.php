@@ -36,7 +36,7 @@
 
         <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
 
-        <a class="item {{(Request::is('doctornote') ? 'active' : '')}}" href="{{ url('/doctornote')}}"><i style="float: left" class="folder open inverted big icon link"></i>Doctor Note</a>
+        <a class="item {{(Request::is('doctornote') ? 'active' : '')}}" href="{{ url('/doctornote')}}"><i style="float: left" class="stethoscope inverted big icon link"></i>Doctor Note</a>
 
         <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
 
@@ -48,7 +48,7 @@
 
         <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
 
-        <a class="item {{(Request::is('doctornote') ? 'active' : '')}}" href="{{ url('/doctornote')}}"><i style="float: left" class="folder open inverted big icon link"></i>Doctor Note</a>
+        <a class="item {{(Request::is('doctornote') ? 'active' : '')}}" href="{{ url('/doctornote')}}"><i style="float: left" class="stethoscope inverted big icon link"></i>Doctor Note</a>
 
         @if(Auth::user()->televideo == 'true')
             <a class="item @if(Request::is('chat2') ) {{'active'}} @endif" href="{{ url('/chat2')}}"><i style="float: left" class="comments inverted big link icon"></i>Tele-video</a>
@@ -86,7 +86,7 @@
 
         <a class="item {{(Request::is('appointment') ? 'active' : '')}}" href="{{url('/appointment')}}"><i style="float: left" class="calendar alternate outline inverted icon big link"></i>Appointment</a>
 
-        <a class="item {{(Request::is('doctornote') ? 'active' : '')}}" href="{{ url('/doctornote')}}"><i style="float: left" class="folder open inverted big icon link"></i>Doctor Note</a>
+        <a class="item {{(Request::is('doctornote') ? 'active' : '')}}" href="{{ url('/doctornote')}}"><i style="float: left" class="stethoscope inverted big icon link"></i>Doctor Note</a>
 
         @if(Auth::user()->televideo == 'true')
             <a class="item @if(Request::is('chat2') ) {{'active'}} @endif" href="{{ url('/chat2')}}"><i style="float: left" class="comments inverted big link icon"></i>Tele-video</a>

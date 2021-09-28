@@ -6,11 +6,11 @@
         <input id="recorddate" name="recorddate" type="hidden">
 
 
-        <div class="col-md-2" id="docnote_date_tbl_sticky" style="padding:0 0 0 0">
+        <div class="col-md-2" id="docnote_date_tbl_sticky" style="padding:0 0 0 0;">
             <div class="panel panel-info">
                 <div class="panel-body">
 
-                    <table id="docnote_date_tbl" class="table-hover table-bordered" style="width: 100%">
+                    <table id="docnote_date_tbl" class="table-hover table-bordered" style="width: 100%;">
                         <thead>
                             <tr>
                                 <th>idno</th>

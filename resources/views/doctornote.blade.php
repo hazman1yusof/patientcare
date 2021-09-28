@@ -123,6 +123,11 @@ table#jqGrid, table#jqGrid_trans{
     top: 10px;
     right: 20px;
 }
+.sticky_div{
+    position: fixed;
+    top: 100px;
+    left: 16px;
+}
 
 
 @endsection
@@ -270,6 +275,7 @@ table#jqGrid, table#jqGrid_trans{
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script type="text/ecmascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+    <script type="text/ecmascript" src="{{ asset('assets/waypoints/lib/jquery.waypoints.min.js') }}/"></script>
     <script type="text/ecmascript" src="{{ asset('assets/form-validator/jquery.form-validator.min.js') }}/"></script>
 	<script type="text/javascript" src="{{ asset('js/doctornote_main.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/doctornote.js') }}"></script>
