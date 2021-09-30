@@ -18,7 +18,7 @@ $(document).ready(function () {
 
 	var fdl = new faster_detail_load();
 
-	disableForm('#formDoctorNote');
+	disableForm('#formDoctorNote',['toggle_type']);
 
 	$("#new_doctorNote").click(function(){
     	$('#docnote_date_tbl tbody tr').removeClass('active');
@@ -173,7 +173,6 @@ $(document).ready(function () {
 			if(errorField.length>0)return false;
 
 			let data = $('#jqGridAddNotes').jqGrid ('getRowData', rowid);
-			console.log(data);
 
 			let editurl = "/doctornote/form?"+
 				$.param({
@@ -460,6 +459,7 @@ function populate_currDoctorNote(obj){
 		emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
 		$('#docnote_date_tbl tbody tr:eq(0)').click();	//to select first row
     });
+
 }
 
 //screen emergency//
@@ -502,6 +502,7 @@ function populate_doctorNote_emergency(obj,rowdata){
 
 function on_toggling_curr_past(obj = curr_obj){
 	var addnotes = document.getElementById("addnotes");
+
 	if (document.getElementById("current").checked){
 		dateParam_docnote={
 			action:'get_table_date_curr',
@@ -553,7 +554,6 @@ function saveForm_doctorNote(callback){
     };
 
 	values = $("#formDoctorNote").serializeArray();
-	console.log(values)
 	
 	values = values.concat(
         $('#formDoctorNote input[type=checkbox]:not(:checked)').map(
@@ -585,9 +585,9 @@ function saveForm_doctorNote(callback){
 
     $.post( "./doctornote/form?"+$.param(saveParam), $.param(postobj)+'&'+$.param(values) , function( data ) {
         
-    },'json').fail(function(data) {
+    },'json').done(function(data) {
         callback(data);
-    }).success(function(data){
+    }).fail(function(data){
         callback(data);
     });
 }
@@ -607,20 +607,29 @@ var docnote_date_tbl = $('#docnote_date_tbl').DataTable({
     } ],
     order: [[0, 'desc']],
     drawCallback: function(settings, json) {
-    	// console.log(json);
-    	// if ($(this).find('tbody tr').length<=0) {
-     //    	$(this).find('tbody tr:first').first().hide();
-    	// }
 
 	}
 });
 
-var ajaxurl;
+var datable_medication = $('#medication_tbl').DataTable({
+	"ajax": "",
+	"sDom": "",
+    responsive: true,
+	"paging":false,
+    "columns": [
+        {data: 'chg_desc'},
+        {data: 'quantity'},
+        {data: 'remarks'},
+        {data: 'ins_desc'},
+        {data: 'dos_desc'},
+        {data: 'fre_desc'},
+        {data: 'dru_desc'},
+    ]
+});
+
 $('#tab_doctornote').on('shown.bs.collapse', function () {
 	$('div#docnote_date_tbl_sticky').waypoint(function(direction) {
-		console.log(this.element.id + ' hit' + direction);
 		if(direction == 'down'){
-			console.log('sdsd')
 		    $('div#docnote_date_tbl_sticky').addClass( "sticky_div" );
 		}else{
 		    $('div#docnote_date_tbl_sticky').removeClass( "sticky_div" );
@@ -647,6 +656,7 @@ $('#tab_doctornote').on('shown.bs.collapse', function () {
 $("input[name=toggle_type]").on('click', function () {
 	event.stopPropagation();
 	on_toggling_curr_past(curr_obj);
+	console.log(dateParam_docnote)
 	docnote_date_tbl.ajax.url( "./doctornote/table?"+$.param(dateParam_docnote) ).load(function(data){
 		emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
 		$('#docnote_date_tbl tbody tr:eq(0)').click();	//to select first row
@@ -656,7 +666,6 @@ $("input[name=toggle_type]").on('click', function () {
 
 $('#docnote_date_tbl tbody').on('click', 'tr', function () { 
     var data = docnote_date_tbl.row( this ).data();
-    console.log(data)
 
     if(disable_edit_date()){
     	return;

@@ -129,6 +129,11 @@ table#jqGrid, table#jqGrid_trans{
     left: 19px;
 }
 
+table#medication_tbl tbody td {
+    font-size:12px;
+    padding: 1px 2px;
+}
+
 
 @endsection
 

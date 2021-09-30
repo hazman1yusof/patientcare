@@ -176,6 +176,25 @@
 
                                 </div>
                             </div>
+
+                            <div class="panel panel-info">
+                                <div class="panel-heading text-center">Medication</div>
+                                <div class="panel-body" style="height: 150px;overflow: auto;">
+                                    <table id="medication_tbl" class="table-hover" style="width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Qty</th>
+                                                <th>Remarks</th>
+                                                <th>Instruction</th>
+                                                <th>Dosage</th>
+                                                <th>Frequency</th>
+                                                <th>Indicator</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
             
                         <div class="col-md-3" style="padding:0 0 0 0">
@@ -235,7 +254,7 @@
                             </div>
 
                             <!-- to add spaces between panels -->
-                            <div class="panel panel-info" style="height: 1035px;border: 0;box-shadow: none;">
+                            <div class="panel panel-info" style="height: 1250px;border: 0;box-shadow: none;">
                                 <div class="panel-body">
                                 </div>
                             </div>
