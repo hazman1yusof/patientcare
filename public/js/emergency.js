@@ -19,7 +19,6 @@ $(document).ready(function () {
 	//     }
 	// }).glDatePicker(true);
 	$('#calendar').fullCalendar({
-		events: events,
   		defaultView: 'month',
   		header: {
 			left: 'prev,next today',

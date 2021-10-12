@@ -115,10 +115,6 @@
 
 @section('content')
 
-    <script>    
-        var events = {!! json_encode($events) !!};
-    </script>
-
     <div class="ui stackable two column grid">
         <div class="eight wide tablet five wide computer column"><div class="ui orange segment">
             <div id="calendar"></div>

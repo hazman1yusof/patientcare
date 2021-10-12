@@ -22,12 +22,12 @@ class EmergencyController extends Controller
 
         // $navbar = $this->navbar();
 
-        $emergency = DB::table('hisdb.episode')
-        				->whereMonth('reg_date', '=', now()->month)
-                        ->whereYear('reg_date', '=', now()->year)
-        				->get();
+        // $emergency = DB::table('hisdb.episode')
+        // 				->whereMonth('reg_date', '=', now()->month)
+        //                 ->whereYear('reg_date', '=', now()->year)
+        // 				->get();
 
-        $events = $this->getEvent($emergency);
+        // $events = $this->getEvent($emergency);
 
         if(!empty($request->username)){
             $user = DB::table('sysdb.users')
@@ -38,7 +38,7 @@ class EmergencyController extends Controller
             }
         }
 
-        return view('emergency',compact('events'));
+        return view('emergency');
     }
 
     public function getEvent($obj){
