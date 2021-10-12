@@ -123,6 +123,7 @@ table#jqGrid, table#jqGrid_trans{
     top: 10px;
     right: 20px;
 }
+
 .sticky_div{
     position: fixed !important;
     top: 130px;
@@ -131,9 +132,18 @@ table#jqGrid, table#jqGrid_trans{
 
 table#medication_tbl tbody td {
     font-size:12px;
-    padding: 1px 2px;
 }
 
+table#medication_tbl {
+  position: relative;
+}
+
+table#medication_tbl th {
+  background: white;
+  position: sticky;
+  top: 0; /* Don't forget this, required for the stickiness */
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
+}
 
 @endsection
 
@@ -142,7 +152,7 @@ table#medication_tbl tbody td {
     <input type="hidden" id="curr_user" value="{{ Auth::user()->username }}">
     <input type="hidden" id="doctornote_route" value="{{route('doctornote_route')}}">
     <div class="ui stackable two column grid">
-        <div class="eight wide tablet five wide computer column"><div class="ui orange segment">
+        <div class="eight wide tablet five wide computer column"><div class="ui orange segment" style="z-index:100">
             <div id="calendar"></div>
         </div></div>
 
@@ -222,7 +232,7 @@ table#medication_tbl tbody td {
         </div>
 
         <div id="tab_doctornote" class="panel-collapse collapse">
-            <div class="panel-body">
+            <div class="panel-body" style="overflow-y: auto;height: 550px;" id="tab_doctornote_sticky">
                 @include('doctornote_div')
             </div>
         </div>
@@ -269,8 +279,9 @@ table#medication_tbl tbody td {
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/fullcalendar-3.7.0/fullcalendar.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/trirand/css/trirand/ui.jqgrid-bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/se/dt-1.11.3/datatables.min.css"/>
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css"> -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -289,8 +300,9 @@ table#medication_tbl tbody td {
     <script type="text/ecmascript" src="{{ asset('assets/trirand/i18n/grid.locale-en.js') }}"></script>
     <script type="text/ecmascript" src="{{ asset('assets/trirand/jquery.jqGrid.min.js') }}"></script>
     <script type="text/ecmascript" src="{{ asset('assets/fullcalendar-3.7.0/fullcalendar.min.js') }}"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/se/dt-1.11.3/datatables.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script> -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script type="text/ecmascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>

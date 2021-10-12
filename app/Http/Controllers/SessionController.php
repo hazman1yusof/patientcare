@@ -95,6 +95,8 @@ class SessionController extends Controller
                 Auth::login($user->first(),$remember);
                 if(Auth::user()->groupid == 'patient'){
                     return redirect('/chat');
+                }else if(Auth::user()->groupid == 'doctor'){
+                    return redirect('/emergency');
                 }else if(Auth::user()->groupid == 'clinical'){
                     return redirect('/emergency');
                 }else if(Auth::user()->groupid == 'admin'){

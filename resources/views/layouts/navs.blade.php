@@ -1,7 +1,3 @@
-<div id="top"></div>
-<a href="#top" class="ui circular icon button" id="toTop" data-slide="slide">
-    <i class="angle up icon"></i>
-</a>
 <div class="ui fixed top menu sidemenu" id="sidemenu_topmenu">
     <a class="item" id="showSidebar"><i class="sidebar inverted icon"></i></a>
     <div class="right menu">
@@ -28,6 +24,13 @@
         <a class="item {{(Request::is('preview') ? 'active' : '')}}" href="{{ url('/preview')}}"><i style="float: left" class="folder open inverted big icon link"></i>Medical Images</a>
 
         <a class="item @if(Request::is('prescription') || Request::is('prescription/*')) {{'active'}} @endif" href="{{ url('/prescription')}}"><i style="float: left" class="hospital inverted big link icon"></i>Prescription</a>
+
+    @elseif (Auth::user()->groupid == 'doctor')
+        <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
+
+        <a class="item {{(Request::is('doctornote') ? 'active' : '')}}" href="{{ url('/doctornote')}}"><i style="float: left" class="stethoscope inverted big icon link"></i>Doctor Note</a>
+
+        <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
 
     @elseif (Auth::user()->groupid == 'clinical')
         <a class="item {{(Request::is('dashboard') ? 'active' : '')}}" href="{{url('/dashboard')}}"><i style="float: left" class="home inverted icon big link"></i>Dashboard</a>

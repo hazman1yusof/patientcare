@@ -67,7 +67,7 @@ $(document).ready(function () {
 			}
 		},
 		loadComplete: function () {
-			get_trans_tbl_data();
+			// get_trans_tbl_data();
 			if(addmore_onadd == true){
 				$('#jqGrid_trans_iladd').click();
 			}
@@ -391,10 +391,9 @@ function get_url(type){
 
 function get_trans_tbl_data(){
 	var data = $('#jqGrid_trans').jqGrid('getRowData');
-	
-	data.forEach(function(obj,i){
-        console.log(obj);
-    });
+
+	datable_medication.clear().draw();
 
 	datable_medication.rows.add(data).draw();
+
 }

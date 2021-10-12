@@ -122,6 +122,10 @@ class DoctornoteController extends Controller
     }
 
     public function get_transaction_table($request){
+        if($request->rows == null){
+            $request->rows = 100;
+        }
+
         $table_chgtrx = DB::table('hisdb.chargetrx as trx') //ambil dari patmast balik
                             ->select('trx.auditno',
                                 'trx.chgcode as chg_code',
@@ -139,12 +143,12 @@ class DoctornoteController extends Controller
                                 'drugindicator.drugindcode as dru_desc')
 
                             ->where('trx.mrn' ,'=', $request->mrn)
+                            ->where('trx.episno' ,'=', $request->episno)
                             ->leftJoin('hisdb.chgmast','chgmast.chgcode','=','trx.chgcode')
                             ->leftJoin('hisdb.instruction','instruction.inscode','=','trx.instruction')
                             ->leftJoin('hisdb.freq','freq.freqcode','=','trx.frequency')
                             ->leftJoin('hisdb.dose','dose.dosecode','=','trx.doscode')
-                            ->leftJoin('hisdb.drugindicator','drugindicator.drugindcode','=','trx.drugindicator')
-                            ->where('trx.episno' ,'=', $request->episno);
+                            ->leftJoin('hisdb.drugindicator','drugindicator.drugindcode','=','trx.drugindicator');
 
         //////////paginate/////////
         $paginate = $table_chgtrx->paginate($request->rows);
@@ -539,14 +543,26 @@ class DoctornoteController extends Controller
 
         $responce = new stdClass();
 
-        $patexam_obj = DB::table('hisdb.patexam')
-            ->select('idno','recorddate AS date','adduser')
+        $patexam_obj = DB::table('hisdb.pathealth')
+            ->select('mrn','episno','recordtime','adddate')
             ->where('mrn','=',$request->mrn)
-            ->where('episno','=',$request->episno);
+            ->where('episno','=',$request->episno)
+            ->orderBy('adddate','desc');
 
         if($patexam_obj->exists()){
             $patexam_obj = $patexam_obj->get();
-            $responce->data = $patexam_obj;
+
+            $data = [];
+
+            foreach ($patexam_obj as $key => $value) {
+                $date['date'] =  explode(" ",$value->adddate)[0].' '.$value->recordtime;
+                $date['mrn'] = $value->mrn;
+                $date['episno'] = $value->episno;
+
+                array_push($data,$date);
+            }
+
+            $responce->data = $data;
         }else{
             $responce->data = [];
         }
@@ -558,13 +574,25 @@ class DoctornoteController extends Controller
 
         $responce = new stdClass();
 
-        $patexam_obj = DB::table('hisdb.patexam')
-            ->select('idno','recorddate AS date','adduser')
-            ->where('mrn','=',$request->mrn);
+        $patexam_obj = DB::table('hisdb.pathealth')
+            ->select('mrn','episno','recordtime','adddate')
+            ->where('mrn','=',$request->mrn)
+            ->orderBy('adddate','desc');
 
         if($patexam_obj->exists()){
             $patexam_obj = $patexam_obj->get();
-            $responce->data = $patexam_obj;
+
+            $data = [];
+
+            foreach ($patexam_obj as $key => $value) {
+                $date['date'] =  explode(" ",$value->adddate)[0].' '.$value->recordtime;
+                $date['mrn'] = $value->mrn;
+                $date['episno'] = $value->episno;
+
+                array_push($data,$date);
+            }
+
+            $responce->data = $data;
         }else{
             $responce->data = [];
         }
@@ -639,6 +667,8 @@ class DoctornoteController extends Controller
             $pathealthadd_obj = $pathealthadd_obj->first();
             $responce->pathealthadd = $pathealthadd_obj;
         }
+
+        $responce->transaction = json_decode($this->get_transaction_table($request));
 
         return json_encode($responce);
     }

@@ -49,7 +49,17 @@ $(document).ready(function () {
 				refreshGrid("#jqGrid", urlParam);
 			}
 		},
-
+		eventSources: [
+			{	
+				id: 'doctornote_event',
+				url: './doctornote/table',
+				type: 'GET',
+				data: {
+					type: 'apptbook',
+					action: 'doctornote_event'
+				}
+			},
+	    ]
 
 	});
 

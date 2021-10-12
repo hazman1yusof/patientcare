@@ -535,6 +535,12 @@ function autoinsert_rowdata_doctorNote(form,rowData){
 			if(value==1){
 				$(form+" [name='"+index+"']").prop('checked', true);
 			}
+		}else if(input.is("textarea")){
+			console.log(value);
+			if(value !== null){
+				let newval = value.replaceAll("</br>",'\n');
+				input.val(newval);
+			}
 		}else{
 			input.val(value);
 		}
@@ -597,69 +603,54 @@ var docnote_date_tbl = $('#docnote_date_tbl').DataTable({
 	"sDom": "",
 	"paging":false,
     "columns": [
-        {'data': 'idno'},
+        {'data': 'mrn'},
+        {'data': 'episno'},
         {'data': 'date', 'width': '100%'},
-        {'data': 'adduser'},
-    ],
-    columnDefs: [ {
-        targets: [0,2],
-        visible: false
-    } ],
-    order: [[0, 'desc']],
-    drawCallback: function(settings, json) {
-
-	}
+    ]
+    ,columnDefs: [
+        { targets: [0, 1], visible: false},
+    ]
 });
 
 var datable_medication = $('#medication_tbl').DataTable({
 	"ajax": "",
 	"sDom": "",
-    responsive: true,
+    "responsive": true,
 	"paging":false,
     "columns": [
-        {data: 'chg_desc'},
+        {data: 'chg_desc', 'width': '30%'},
         {data: 'quantity'},
         {data: 'remarks'},
-        {data: 'ins_desc'},
-        {data: 'dos_desc'},
-        {data: 'fre_desc'},
-        {data: 'dru_desc'},
+        {data: 'ins_code'},
+        {data: 'dos_code'},
+        {data: 'fre_code'},
+        {data: 'dru_code'},
     ]
 });
 
 $('#tab_doctornote').on('shown.bs.collapse', function () {
-	$('div#docnote_date_tbl_sticky').waypoint(function(direction) {
-		if(direction == 'down'){
-		    $('div#docnote_date_tbl_sticky').addClass( "sticky_div" );
-		}else{
-		    $('div#docnote_date_tbl_sticky').removeClass( "sticky_div" );
-		}
+	datable_medication.columns.adjust();
+
+	$('div#docnote_date_tbl_sticky').waypoint({
+		handler: function(direction) {
+		    if(direction == 'down'){
+			    $('div#docnote_date_tbl_sticky').addClass( "sticky_div" );
+			}else{
+			    $('div#docnote_date_tbl_sticky').removeClass( "sticky_div" );
+			}
+		},
+		context: '#tab_doctornote_sticky',
 	});
 	
-
-	// sticky_docnotetbl(on=true);
-  //   docnote_date_tbl.ajax.url( "./doctornote/table?"+$.param(dateParam_docnote) ).load(function(data){
-		// emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
-		// $('#docnote_date_tbl tbody tr:eq(0)').click();	//to select first row
-  //   });
 });
-
-// $('#jqGridTriageInfo_panel').on('shown.bs.collapse', function () {
-// 	sticky_docnotetbl(on=true);
-// });
-
-// $('#jqGridTriageInfo_panel').on('hidden.bs.collapse', function () {
-// 	sticky_docnotetbl(on=true);
-// });
 
 //to reload date table on radio btn click
 $("input[name=toggle_type]").on('click', function () {
 	event.stopPropagation();
 	on_toggling_curr_past(curr_obj);
-	console.log(dateParam_docnote)
 	docnote_date_tbl.ajax.url( "./doctornote/table?"+$.param(dateParam_docnote) ).load(function(data){
 		emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
-		$('#docnote_date_tbl tbody tr:eq(0)').click();	//to select first row
+		// $('#docnote_date_tbl tbody tr:eq(0)').click();	//to select first row
     });
 	$("#jqGridAddNotes").jqGrid('setGridWidth', Math.floor($("#jqGridAddNotes_c")[0].offsetWidth-$("#jqGridAddNotes_c")[0].offsetLeft));
 });
@@ -667,9 +658,9 @@ $("input[name=toggle_type]").on('click', function () {
 $('#docnote_date_tbl tbody').on('click', 'tr', function () { 
     var data = docnote_date_tbl.row( this ).data();
 
-    if(disable_edit_date()){
+    if(data == undefined){
     	return;
-	}else if(data == undefined){
+	}else if(disable_edit_date()){
 		return;
 	}
 	
@@ -691,6 +682,8 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
     	button_state_doctorNote('add');
     }
     doctornote_docnote.recorddate = data.date;
+    doctornote_docnote.mrn = data.mrn;
+    doctornote_docnote.episno = data.episno;;
 
     $.get( "./doctornote/table?"+$.param(doctornote_docnote), function( data ) {
 			
@@ -704,28 +697,33 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
 			autoinsert_rowdata_doctorNote("#formDoctorNote",data.pathealthadd);
 			refreshGrid('#jqGridAddNotes',urlParam_AddNotes,'add_notes');
 			getBMI();
+
+			datable_medication.clear().draw();
+			datable_medication.rows.add(data.transaction.rows).draw();
 		}
 	});
 
 });
 
 function disable_edit_date(){
-	let disabled = false;
-    let newact = $('#new_doctorNote').attr('disabled');
-    let data_oper = $('#cancel_doctorNote').data('oper');
+	// let disabled = false;
+ //    let newact = $('#new_doctorNote').attr('disabled');
+ //    let data_oper = $('#cancel_doctorNote').data('oper');
 
-    if(newact == 'disabled' && data_oper == 'add'){
-    	disabled = true;
-    }
-    return disabled;
+ //    if(newact == 'disabled' && data_oper == 'add'){
+ //    	disabled = true;
+ //    }
+    return false;
 }
 
 function check_same_usr_edit(data){
 	let same = true;
     var adduser = data.adduser;
 
-    if(adduser.toUpperCase() != $('#curr_user').val().toUpperCase()){
-    	same = false;
+    if(adduser == undefined){
+    	return false
+    }else if(adduser.toUpperCase() != $('#curr_user').val().toUpperCase()){
+    	return false;
     }
 
     return same;

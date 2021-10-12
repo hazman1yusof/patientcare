@@ -10,12 +10,12 @@
             <div class="panel panel-info">
                 <div class="panel-body">
 
-                    <table id="docnote_date_tbl" class="table-hover table-bordered" style="width: 100%;">
+                    <table id="docnote_date_tbl" class="ui celled table" style="width: 100%;">
                         <thead>
                             <tr>
-                                <th>idno</th>
+                                <th class="scope">mrn</th>
+                                <th class="scope">episno</th>
                                 <th class="scope">Date</th>
-                                <th>adduser</th>
                             </tr>
                         </thead>
                     </table>
@@ -34,7 +34,7 @@
                             <input id="remarks" name="remarks" type="text" class="form-control input-sm" data-validation="required" data-validation-error-msg-required="Please enter Patient Complaint">
                         </div>
 
-                        <div class="col-md-3 panel panel-info" style="margin-left:70px;">
+                        <div class="col-md-3 panel panel-info">
                             <div class="panel-body" style="padding-top:5px;padding-bottom:5px;">
                                 <label class="radio-inline">
                                     <input class="form-check-input" type="radio" name="toggle_type" id="current" value="current" checked>
@@ -176,25 +176,6 @@
 
                                 </div>
                             </div>
-
-                            <div class="panel panel-info">
-                                <div class="panel-heading text-center">Medication</div>
-                                <div class="panel-body" style="height: 150px;overflow: auto;">
-                                    <table id="medication_tbl" class="table-hover" style="width: 100%;">
-                                        <thead>
-                                            <tr>
-                                                <th>Code</th>
-                                                <th>Qty</th>
-                                                <th>Remarks</th>
-                                                <th>Instruction</th>
-                                                <th>Dosage</th>
-                                                <th>Frequency</th>
-                                                <th>Indicator</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                            </div>
                         </div>
             
                         <div class="col-md-3" style="padding:0 0 0 0">
@@ -254,7 +235,7 @@
                             </div>
 
                             <!-- to add spaces between panels -->
-                            <div class="panel panel-info" style="height: 1250px;border: 0;box-shadow: none;">
+                            <div class="panel panel-info" style="height: 1028px;border: 0;box-shadow: none;">
                                 <div class="panel-body">
                                 </div>
                             </div>
@@ -274,6 +255,28 @@
                                     </div>
 
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <div class="panel panel-info">
+                            <div class="panel-heading text-center">Medication</div>
+                            <div class="panel-body" style="height: 250px;overflow: auto;padding: 0px;">
+                                <table id="medication_tbl" class="ui selectable celled table" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Items</th>
+                                            <th>Qty</th>
+                                            <th>Remarks</th>
+                                            <th>Instruction</th>
+                                            <th>Dosage</th>
+                                            <th>Frequency</th>
+                                            <th>Indicator</th>
+                                        </tr>
+                                    </thead>
+                                </table>
                             </div>
                         </div>
                     </div>
