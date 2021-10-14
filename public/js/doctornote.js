@@ -507,7 +507,8 @@ function on_toggling_curr_past(obj = curr_obj){
 		dateParam_docnote={
 			action:'get_table_date_curr',
 			mrn:obj.MRN,
-			episno:obj.Episno
+			episno:obj.Episno,
+			date:$('#sel_date').val()
 		}
 		
 		addnotes.style.display = "none";
@@ -550,7 +551,8 @@ function autoinsert_rowdata_doctorNote(form,rowData){
 function saveForm_doctorNote(callback){
 	var saveParam={
         action:'save_table_doctornote',
-        oper:$("#cancel_doctorNote").data('oper')
+        oper:$("#cancel_doctorNote").data('oper'),
+        sel_date:$('#sel_date').val()
     }
     var postobj={
     	_token : $('#_token').val(),

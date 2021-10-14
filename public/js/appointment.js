@@ -42,19 +42,24 @@ $(document).ready(function() {
 	var oper = 'add';
 
 	var dialog_name = new ordialog(
-		'resourcecode', ['apptresrc AS a', 'doctor AS d'], "input[name='resourcecode']", errorField,
+		'resourcecode', ['hisdb.apptresrc AS a', 'hisdb.doctor AS d'], "input[name='resourcecode']", errorField,
         {
             colModel: [
                 { label: 'Resource Code', name: 'a_resourcecode', width: 200, classes: 'pointer', canSearch: true, checked: true, or_search: true },
 				{ label: 'Description', name: 'a_description', width: 400, classes: 'pointer', canSearch: true, or_search: true },
 				{ label: 'Interval Time', name: 'd_intervaltime', width: 400, classes: 'pointer', hidden:true},
             ],
+			urlParam: {
+				url : "./util/get_table_default",
+				filterCol:['sp.compcode'],
+				filterVal:['session.compcode'],
+			},
             onSelectRow: function () {
 				let data = selrowData('#' + dialog_name.gridname);
 
 				var session_param ={
 					action:"get_table_default",
-					url:$('#util_tab').val(),
+					url:"./util/get_table_default",
 					field:'*',
 					table_name:'apptsession',
 					table_id:'idno',
@@ -75,6 +80,7 @@ $(document).ready(function() {
 				$("#grid_session").jqGrid ('setGridWidth', Math.floor($("#grid_session_c")[0].offsetWidth-$("#grid_session_c")[0].offsetLeft));
 
                 var type = $('#Class2').val();
+				dialog_name.urlParam.url = "./util/get_table_default";
 				dialog_name.urlParam.join_type = ['LEFT JOIN'];
 				dialog_name.urlParam.join_onCol = ['a.resourcecode'];
 				dialog_name.urlParam.join_onVal = ['d.doctorcode'];
@@ -180,14 +186,19 @@ $(document).ready(function() {
 			colModel: [
 				{ label: 'Case Code', name: 'case_code', width: 200, classes: 'pointer', canSearch: true, checked: true, or_search: true },
 				{ label: 'Description', name: 'description', width: 400, classes: 'pointer', canSearch: true, or_search: true },
-			]
+			],
+			urlParam: {
+				url : "./util/get_table_default",
+				filterCol:['grpcasetype','compcode'],
+				filterVal:['REGISTER','session.compcode'],
+			},
 		},
 		{
 			title: "Select Case",
             width: 10/10 * $(window).width(),
 			open: function () {
 				dialog_case.urlParam.filterCol = ['grpcasetype','compcode'];
-				dialog_case.urlParam.filterVal = ['REGISTER','9A'];
+				dialog_case.urlParam.filterVal = ['REGISTER','session.compcode'];
 			},
 		}, 'urlParam'
 	);
@@ -203,6 +214,11 @@ $(document).ready(function() {
 				{	label: 'telh', name: 'telh', width: 200, classes: 'pointer',hidden:true},
 				{	label: 'Newic', name: 'Newic', width: 200, classes: 'pointer',hidden:true},
 			],
+			urlParam: {
+				url : "./util/get_table_default",
+				filterCol:['grpcasetype','compcode'],
+				filterVal:['REGISTER','session.compcode'],
+			},
 			ondblClickRow: function () {
 				let data = selrowData('#' + dialog_mrn.gridname);
 				$("#addForm input[name='patname']").val(data['Name']);
@@ -216,7 +232,7 @@ $(document).ready(function() {
 			title: "Select Case",
 			open: function () {
 				dialog_mrn.urlParam.filterCol = ['compcode'];
-				dialog_mrn.urlParam.filterVal = ['9A'];
+				dialog_mrn.urlParam.filterVal = ['session.compcode'];
 			},
 		}, 'urlParam'
 	);
@@ -234,6 +250,11 @@ $(document).ready(function() {
 				{ label: 'Description', name: 'a_description', width: 400, classes: 'pointer', canSearch: true, or_search: true },
 				{ label: 'Interval Time', name: 'd_intervaltime', width: 400, classes: 'pointer', hidden:true},
             ],
+			urlParam: {
+				url : "./util/get_table_default",
+				filterCol:['grpcasetype','compcode'],
+				filterVal:['REGISTER','session.compcode'],
+			},
             ondblClickRow: function () {
 				let data = selrowData('#' + dialog_name.gridname);
 

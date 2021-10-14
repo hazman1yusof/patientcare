@@ -145,6 +145,11 @@ table#medication_tbl th {
   box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
 }
 
+.form-control[disabled] {
+    background-color: #fff !important;
+    color: #1a1a1a;
+}
+
 @endsection
 
 @section('content')

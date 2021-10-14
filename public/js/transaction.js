@@ -99,15 +99,14 @@ $(document).ready(function () {
         oneditfunc: function (rowid) {
         	addmore_onadd = true;
         	let selrow = selrowData('#jqGrid');
-			// dialog_chgcode.on();
-            onclick_itemselector();
-
 
 			$("#jqGrid_trans").jqGrid("setRowData", rowid, {
 					t_trxdate:$('#sel_date').val(),
 					t_trxtime:moment().format("hh:mm A"),
 					t_isudept:$('#user_dept').val()
 				});
+
+			$("#jqGrid_trans input[name='chgcode'],#jqGrid_trans input[name='instruction'],#jqGrid_trans input[name='doscode'],#jqGrid_trans input[name='frequency'],#jqGrid_trans input[name='drugindicator']").on('keydown',{data:this},onTab);
 
 			// $("input[name='t_quantity']").keydown(function(e) {//when click tab, auto save
 			// 	var code = e.keyCode || e.which;
@@ -148,11 +147,8 @@ $(document).ready(function () {
         },
         oneditfunc: function (rowid) {
         	let selrow = selrowData('#jqGrid');
-			// dialog_chgcode.on();
-			// $("input[name='t_quantity']").keydown(function(e) {//when click tab, auto save
-			// 	var code = e.keyCode || e.which;
-			// 	if (code == '9')$('#jqGrid_trans_ilsave').click();
-			// });
+			
+			$("#jqGrid_trans input[name='chgcode'],#jqGrid_trans input[name='instruction'],#jqGrid_trans input[name='doscode'],#jqGrid_trans input[name='frequency'],#jqGrid_trans input[name='drugindicator']").on('keydown',{data:this},onTab);
         },
         aftersavefunc: function (rowid, response, options) {
 			refreshGrid("#jqGrid_trans", urlParam_trans);
@@ -227,29 +223,28 @@ $(document).ready(function () {
 	}
 
 	function chgcodeCustomEdit(val,opt){
-		console.log(opt)
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.id+`" id="`+opt.id+`" name="chgcode" type="text" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('chgcode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="chgcode" type="text" mytype="chgcode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('chgcode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
 	}
 
 	function instructionCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.id+`" id="`+opt.id+`" name="instruction" type="text" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('inscode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="instruction" type="text" mytype="inscode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('inscode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
 	}
 
 	function doscodeCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.id+`" id="`+opt.id+`" name="doscode" type="text" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('dosecode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="doscode" type="text" mytype="dosecode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('dosecode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
 	}
 
 	function frequencyCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.id+`" id="`+opt.id+`" name="frequency" type="text" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('freqcode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="frequency" type="text" mytype="freqcode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('freqcode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
 	}
 
 	function drugindicatorCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.id+`" id="`+opt.id+`" name="drugindicator" type="text" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('drugindcode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="drugindicator" type="text" mytype="drugindcode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('drugindcode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
 	}
 
     function galGridCustomValue (elem, operation, value){
@@ -278,19 +273,28 @@ function hide_tran_button(hide=true){
 	}
 }
 
-function onclick_itemselector(){
+function onTab(event){
+    var obj = event.data.data;
+    var textfield = $(event.currentTarget);
+    var type = textfield.attr('mytype');
+    var id_ = textfield.attr('id');
+    var optid = textfield.attr('optid');
 
+    if(event.key == "Tab" && textfield.val() != ""){
+        obj.blurring = true;
+        $('#mdl_item_selector').modal('show');
+        pop_item_select(type,id_,optid,true);
+    }
 }
 
-function pop_item_select(type,id,rowid){ 
+function pop_item_select(type,id,rowid,ontab=false){ 
     var act = null;
     var id = id;
     var rowid = rowid;
     var selecter = null;
     var title="Item selector";
     var mdl = null;
-
-    console.log(id);
+    var text_val = $('input#'+id).val();
         
     act = get_url(type);
 
@@ -327,12 +331,12 @@ function pop_item_select(type,id,rowid){
               } ],
 
             "fnInitComplete": function(oSettings, json) {
-                // if(ontab==true){
-                //     selecter.search( text_val ).draw();
-                // }
+                if(ontab==true){
+                    selecter.search( text_val ).draw();
+                }
                 
                 if(selecter.page.info().recordsDisplay == 1){
-                    $('#tbl_item_select tbody tr:eq(0)').dblclick();
+                    // $('#tbl_item_select tbody tr:eq(0)').dblclick();
                 }
             }
     });
@@ -340,7 +344,7 @@ function pop_item_select(type,id,rowid){
 
     
     // dbl click will return the description in text box and code into hidden input, dialog will be closed automatically
-    $('#tbl_item_select tbody').on('dblclick', 'tr', function () {
+    $('#tbl_item_select tbody').on('click', 'tr', function () {
         // $('#txt_' + type).removeClass('error myerror').addClass('valid');
         // setTimeout(function(type){
         //     $('#txt_' + type).removeClass('error myerror').addClass('valid'); 

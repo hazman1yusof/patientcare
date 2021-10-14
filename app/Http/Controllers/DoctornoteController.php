@@ -261,6 +261,12 @@ class DoctornoteController extends Controller
                     'lastupdate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                 ]);
 
+            $seldate = new Carbon($request->sel_date);
+            $recorddate = Carbon::now("Asia/Kuala_Lumpur");
+            $recorddate->day($seldate->day);
+            $recorddate->month($seldate->month);
+            $recorddate->year($seldate->year);
+
             DB::table('hisdb.patexam')
                     ->insert([
                         // 'compcode' => session('compcode'),
@@ -271,7 +277,7 @@ class DoctornoteController extends Controller
                         'adddate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                         'lastuser'  => session('username'),
                         'lastupdate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
-                        'recorddate' => Carbon::now("Asia/Kuala_Lumpur"),
+                        'recorddate' => $recorddate,
                         'recordtime' => Carbon::now("Asia/Kuala_Lumpur"),
                     ]);
 
@@ -292,7 +298,7 @@ class DoctornoteController extends Controller
                         'temperature' => $request->temperature,
                         'respiration' => $request->respiration,
                         'adduser'  => session('username'),
-                        'adddate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
+                        'adddate'  => $recorddate,
                         'lastuser'  => session('username'),
                         'lastupdate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                         'recordtime' => Carbon::now("Asia/Kuala_Lumpur"),
@@ -543,19 +549,20 @@ class DoctornoteController extends Controller
 
         $responce = new stdClass();
 
-        $patexam_obj = DB::table('hisdb.pathealth')
+        $pathealth_obj = DB::table('hisdb.pathealth')
             ->select('mrn','episno','recordtime','adddate')
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno)
+            ->where('adddate','=',$request->date)
             ->orderBy('adddate','desc');
 
-        if($patexam_obj->exists()){
-            $patexam_obj = $patexam_obj->get();
+        if($pathealth_obj->exists()){
+            $pathealth_obj = $pathealth_obj->get();
 
             $data = [];
 
-            foreach ($patexam_obj as $key => $value) {
-                $date['date'] =  explode(" ",$value->adddate)[0].' '.$value->recordtime;
+            foreach ($pathealth_obj as $key => $value) {
+                $date['date'] =  $value->adddate.' '.$value->recordtime;
                 $date['mrn'] = $value->mrn;
                 $date['episno'] = $value->episno;
 

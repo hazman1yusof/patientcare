@@ -21,28 +21,28 @@ class AppointmentController extends Controller
     public function show(Request $request)
     {   
 
-        $navbar = $this->navbar();
+        // $navbar = $this->navbar();
 
-        $resources = DB::table('apptresrc as a')
+        $resources = DB::table('hisdb.apptresrc as a')
                         ->select('a.resourcecode','a.description','d.intervaltime')
-                        ->join('doctor as d', 'a.resourcecode', '=', 'd.doctorcode')
+                        ->join('hisdb.doctor as d', 'a.resourcecode', '=', 'd.doctorcode')
                         ->where('a.TYPE','=','DOC')
                         ->get();
 
-        $ALCOLOR = DB::table('sysparam')
+        $ALCOLOR = DB::table('sysdb.sysparam')
                     ->where('source','=','HIS')
                     ->where('trantype','=','ALCOLOR')
                     ->first();
         
         if(Auth::user()->groupid == "patient"){
-            $pat_info = DB::table('pat_mast')
+            $pat_info = DB::table('hisdb.pat_mast')
                     ->where('mrn','=',Auth::user()->mrn)
                     ->first();
         }else{
             $pat_info=null;
         }
 
-        return view('appointment',compact('ALCOLOR','pat_info','resources','navbar'));
+        return view('appointment',compact('ALCOLOR','pat_info','resources'));
     }
 
     public function form(Request $request)
