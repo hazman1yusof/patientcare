@@ -224,27 +224,27 @@ $(document).ready(function () {
 
 	function chgcodeCustomEdit(val,opt){
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="chgcode" type="text" mytype="chgcode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('chgcode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="chgcode" type="text" mytype="chgcode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('chgcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
 	}
 
 	function instructionCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="instruction" type="text" mytype="inscode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('inscode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="instruction" type="text" mytype="inscode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('inscode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
 	}
 
 	function doscodeCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="doscode" type="text" mytype="dosecode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('dosecode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="doscode" type="text" mytype="dosecode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('dosecode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
 	}
 
 	function frequencyCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="frequency" type="text" mytype="freqcode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('freqcode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="frequency" type="text" mytype="freqcode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('freqcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
 	}
 
 	function drugindicatorCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="drugindicator" type="text" mytype="drugindcode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('drugindcode','`+opt.id+`','`+opt.rowId+`');"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="drugindicator" type="text" mytype="drugindcode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('drugindcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
 	}
 
     function galGridCustomValue (elem, operation, value){

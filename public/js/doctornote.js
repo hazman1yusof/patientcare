@@ -630,20 +630,26 @@ var datable_medication = $('#medication_tbl').DataTable({
     ]
 });
 
-$('#tab_doctornote').on('shown.bs.collapse', function () {
+$('#tab_doctornote').on('show.bs.collapse', function () {
 	datable_medication.columns.adjust();
+	$('div#docnote_date_tbl_sticky').show();
 
-	$('div#docnote_date_tbl_sticky').waypoint({
-		handler: function(direction) {
-		    if(direction == 'down'){
-			    $('div#docnote_date_tbl_sticky').addClass( "sticky_div" );
-			}else{
-			    $('div#docnote_date_tbl_sticky').removeClass( "sticky_div" );
-			}
-		},
-		context: '#tab_doctornote_sticky',
-	});
+	// $('div#docnote_date_tbl_sticky').waypoint({
+	// 	handler: function(direction) {
+	// 	    if(direction == 'down'){
+	// 		    $('div#docnote_date_tbl_sticky').addClass( "sticky_div" );
+	// 		}else{
+	// 		    $('div#docnote_date_tbl_sticky').removeClass( "sticky_div" );
+	// 		}
+	// 	},
+	// 	context: '#tab_doctornote_sticky',
+	// });
 	
+});
+$('#tab_doctornote').on('hide.bs.collapse', function () {
+
+	$('div#docnote_date_tbl_sticky').hide();
+
 });
 
 //to reload date table on radio btn click

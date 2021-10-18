@@ -157,11 +157,11 @@ table#medication_tbl th {
     <input type="hidden" id="curr_user" value="{{ Auth::user()->username }}">
     <input type="hidden" id="doctornote_route" value="{{route('doctornote_route')}}">
     <div class="ui stackable two column grid">
-        <div class="eight wide tablet five wide computer column"><div class="ui orange segment" style="z-index:100">
+        <div class="five wide tablet five wide computer column"><div class="ui orange segment" style="z-index:100">
             <div id="calendar"></div>
         </div></div>
 
-        <div class="eight wide tablet eleven wide computer right floated column" style="margin:0px;">
+        <div class="eleven wide tablet eleven wide computer right floated column" style="margin:0px;">
             <div class="ui teal segment" style="padding-bottom: 40px;">
                 <h2 class="h2">Patient List</h2>
                 <table id="jqGrid" class="table table-striped"></table>
@@ -191,6 +191,26 @@ table#medication_tbl th {
 
     <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="doctornote_panel">
         <div class="panel-heading clearfix collapsed" id="toggle_doctornote" >
+
+        <div class="col-md-2" id="docnote_date_tbl_sticky" style="display: none;position: absolute;
+    padding: 0 0 0 0;
+    top: 98px;
+    left: 5px;">
+            <div class="panel panel-info">
+                <div class="panel-body" style="max-height: 300px;overflow-y: scroll;">
+                    <table id="docnote_date_tbl" class="ui celled table" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th class="scope">mrn</th>
+                                <th class="scope">episno</th>
+                                <th class="scope">Date</th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                </div>
+            </div>
+        </div>
 
         <b>NAME: <span id="name_show_doctorNote"></span></b><br>
         MRN: <span id="mrn_show_doctorNote"></span>
@@ -243,7 +263,7 @@ table#medication_tbl th {
         </div>
     </div>
 
-    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="transaction_panel">
+    <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="transaction_panel">
         <div class="panel-heading clearfix collapsed" id="toggle_trans" data-toggle="collapse" data-target="#tab_trans">
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>

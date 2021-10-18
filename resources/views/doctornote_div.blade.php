@@ -5,25 +5,6 @@
         <input id="episno_doctorNote" name="episno_doctorNote" type="hidden">
         <input id="recorddate" name="recorddate" type="hidden">
 
-
-        <div class="col-md-2" id="docnote_date_tbl_sticky" style="padding:0 0 0 0;">
-            <div class="panel panel-info">
-                <div class="panel-body">
-
-                    <table id="docnote_date_tbl" class="ui celled table" style="width: 100%;">
-                        <thead>
-                            <tr>
-                                <th class="scope">mrn</th>
-                                <th class="scope">episno</th>
-                                <th class="scope">Date</th>
-                            </tr>
-                        </thead>
-                    </table>
-
-                </div>
-            </div>
-        </div>
-
         <div class="col-md-10" style="padding:0 0 0 5px; float: right;">
             <div class="panel panel-info">
                 <div class="panel-body">
@@ -34,14 +15,14 @@
                             <input id="remarks" name="remarks" type="text" class="form-control input-sm" data-validation="required" data-validation-error-msg-required="Please enter Patient Complaint">
                         </div>
 
-                        <div class="col-md-3 panel panel-info">
+                        <div class="col-md-4 panel panel-info">
                             <div class="panel-body" style="padding-top:5px;padding-bottom:5px;">
-                                <label class="radio-inline">
+                                <label class="radio-inline col-md-5 col-xs-12">
                                     <input class="form-check-input" type="radio" name="toggle_type" id="current" value="current" checked>
                                     <label class="form-check-label" for="current">Current</label>
                                 </label>
-                                <label class="radio-inline">
-                                    <input class="form-check-input" type="radio" name="toggle_type" id="past" value="past">
+                                <label class="radio-inline col-md-5 col-xs-12" style="margin-left:0px">
+                                    <input class="form-check-input" type="radio" name="toggle_type" id="past" value="past" >
                                     <label class="form-check-label" for="past">Past History</label>
                                 </label>
                             </div>

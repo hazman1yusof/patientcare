@@ -253,7 +253,7 @@ class DoctornoteController extends Controller
             DB::table('hisdb.episode')
                 ->where('mrn','=',$request->mrn_doctorNote)
                 ->where('episno','=',$request->episno_doctorNote)
-                // ->where('compcode','=',session('compcode'))
+                ->where('compcode','=',session('compcode'))
                 ->update([
                     'remarks' => $request->remarks,
                     'diagfinal' => $request->diagfinal,
@@ -269,7 +269,7 @@ class DoctornoteController extends Controller
 
             DB::table('hisdb.patexam')
                     ->insert([
-                        // 'compcode' => session('compcode'),
+                        'compcode' => session('compcode'),
                         'mrn' => $request->mrn_doctorNote,
                         'episno' => $request->episno_doctorNote,
                         'examination' => $request->examination,
@@ -283,7 +283,7 @@ class DoctornoteController extends Controller
 
             DB::table('hisdb.pathealth')
                     ->insert([
-                        // 'compcode' => session('compcode'),
+                        'compcode' => session('compcode'),
                         'mrn' => $request->mrn_doctorNote,
                         'episno' => $request->episno_doctorNote,
                         'clinicnote' => $request->clinicnote,
@@ -306,7 +306,7 @@ class DoctornoteController extends Controller
 
             DB::table('hisdb.pathistory')
                     ->insert([
-                        // 'compcode' => session('compcode'),
+                        'compcode' => session('compcode'),
                         'mrn' => $request->mrn_doctorNote,
                         'pmh' => $request->pmh,
                         'drugh' => $request->drugh,
@@ -323,7 +323,7 @@ class DoctornoteController extends Controller
 
             DB::table('hisdb.episdiag')
                     ->insert([
-                        // 'compcode' => session('compcode'),
+                        'compcode' => session('compcode'),
                         'mrn' => $request->mrn_doctorNote,
                         'episno' => $request->episno_doctorNote,
                         'icdcode' => $request->icdcode,

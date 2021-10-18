@@ -74,18 +74,18 @@ class SessionController extends Controller
         $remember = false;
         // $user = User::where('username','=',$request->username);
 
-        $compcode = DB::table('sysdb.company')
-                    ->first();
+        // $compcode = DB::table('sysdb.company')
+        //             ->first();
 
-        $request->session()->put('compcode', $compcode->compcode);
+        // $request->session()->put('compcode', $compcode->compcode);
 
 
         $user = User::where('username',request('username'))
                     ->where('password',request('password'));
 
-
         if($user->exists()){
             $request->session()->put('username', request('username'));
+            $request->session()->put('compcode', $user->first()->compcode);
             
             // if($user->first()->status == 'Inactive'){
             //     return back()->withErrors(['Sorry, your account is inactive, contact admin to activate it again']);

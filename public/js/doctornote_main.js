@@ -109,7 +109,7 @@ $(document).ready(function () {
 		},
 		gridComplete: function () {
 			$('#checkbox_completed').prop('disabled',true);
-			// $("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+			$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
 			// ordercompleteInit();
 
 		},
