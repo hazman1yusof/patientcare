@@ -58,62 +58,126 @@ $(document).ready(function () {
 		filterVal : [moment().format("YYYY-MM-DD")]
 	}
 
-	$("#jqGrid").jqGrid({
-		datatype: "local",
-		colModel: [
-			{ label: 'MRN', name: 'MRN', width: 7, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
-			{ label: 'Epis. No', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' },
-			{ label: 'Time', name: 'reg_time', width: 8 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
-			{ label: 'Name', name: 'Name', width: 18 ,classes: 'wrap' },
-			{ label: 'Payer', name: 'payer', width: 18 ,classes: 'wrap' },
-			{ label: 'I/C', name: 'Newic', width: 12 ,classes: 'wrap' },
-			{ label: 'DOB', name: 'DOB', width: 10 ,classes: 'wrap' ,formatter: dateFormatter, unformat: dateUNFormatter},
-			{ label: 'Handphone', name: 'telhp', width: 10 ,classes: 'wrap' },
-			{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
-			{ label: 'Pay Mode', name: 'pyrmode', width: 10 ,classes: 'wrap'},
-			{ label: 'idno', name: 'idno', hidden: true, key:true},
-			{ label: 'dob', name: 'dob', hidden: true },
-			{ label: 'RaceCode', name: 'RaceCode', hidden: true },
-			{ label: 'religion', name: 'religion', hidden: true },
-			{ label: 'OccupCode', name: 'OccupCode', hidden: true },
-			{ label: 'Citizencode', name: 'Citizencode', hidden: true },
-			{ label: 'AreaCode', name: 'AreaCode', hidden: true },
-		],
-		autowidth: true,
-		viewrecords: true,
-		width: 900,
-		height: 365,
-		rowNum: 30,
-		onSelectRow:function(rowid, selected){
-			
-			$('button#timer_stop').click();
-			hide_tran_button(false);
-			urlParam_trans.mrn = selrowData('#jqGrid').MRN;
-			urlParam_trans.episno = selrowData('#jqGrid').Episno;
-			addmore_onadd = false;
-			refreshGrid("#jqGrid_trans", urlParam_trans);
-            populate_currDoctorNote(selrowData('#jqGrid'));
+	if($(window).width() <= 1024){
 
-			if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
-				$('#checkbox_completed').prop('disabled',true);
-				$('#checkbox_completed').prop('checked', true);
-				hide_tran_button(true);
-			}else{//kalau belum completed
-				$('#checkbox_completed').prop('disabled',false);
-				$('#checkbox_completed').prop('checked', false);
+		$("#jqGrid").jqGrid({
+			datatype: "local",
+			colModel: [
+				{ label: 'MRN', name: 'MRN', width: 9, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
+				{ label: ' ', name: 'Episno', width: 3 ,align: 'right',classes: 'wrap' },
+				{ label: 'Time', name: 'reg_time', width: 10 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
+				{ label: 'Name', name: 'Name', width: 13 ,classes: 'wrap' },
+				{ label: 'Payer', name: 'payer', width: 13 ,classes: 'wrap' },
+				{ label: 'I/C', name: 'Newic', width: 15 ,classes: 'wrap' },
+				{ label: 'DOB', name: 'DOB', width: 12 ,classes: 'wrap' ,formatter: dateFormatter, unformat: dateUNFormatter},
+				{ label: 'HP', name: 'telhp', width: 13 ,classes: 'wrap' },
+				{ label: 'Sex', name: 'Sex', width: 6 ,classes: 'wrap' },
+				{ label: 'Mode', name: 'pyrmode', width: 8 ,classes: 'wrap'},
+				{ label: 'idno', name: 'idno', hidden: true, key:true},
+				{ label: 'dob', name: 'dob', hidden: true },
+				{ label: 'RaceCode', name: 'RaceCode', hidden: true },
+				{ label: 'religion', name: 'religion', hidden: true },
+				{ label: 'OccupCode', name: 'OccupCode', hidden: true },
+				{ label: 'Citizencode', name: 'Citizencode', hidden: true },
+				{ label: 'AreaCode', name: 'AreaCode', hidden: true },
+			],
+			autowidth: true,
+			viewrecords: true,
+			width: 900,
+			height: 365,
+			rowNum: 30,
+			onSelectRow:function(rowid, selected){
+				
+				$('button#timer_stop').click();
 				hide_tran_button(false);
-			}
+				urlParam_trans.mrn = selrowData('#jqGrid').MRN;
+				urlParam_trans.episno = selrowData('#jqGrid').Episno;
+				addmore_onadd = false;
+				refreshGrid("#jqGrid_trans", urlParam_trans);
+	            populate_currDoctorNote(selrowData('#jqGrid'));
 
-		},
-		ondblClickRow: function (rowid, iRow, iCol, e) {
-		},
-		gridComplete: function () {
-			$('#checkbox_completed').prop('disabled',true);
-			$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
-			// ordercompleteInit();
+				if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
+					$('#checkbox_completed').prop('disabled',true);
+					$('#checkbox_completed').prop('checked', true);
+					hide_tran_button(true);
+				}else{//kalau belum completed
+					$('#checkbox_completed').prop('disabled',false);
+					$('#checkbox_completed').prop('checked', false);
+					hide_tran_button(false);
+				}
 
-		},
-	});
+			},
+			ondblClickRow: function (rowid, iRow, iCol, e) {
+			},
+			gridComplete: function () {
+				$('#checkbox_completed').prop('disabled',true);
+				$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+				// ordercompleteInit();
+
+			},
+		});
+	}else{
+
+		$("#jqGrid").jqGrid({
+			datatype: "local",
+			colModel: [
+				{ label: 'MRN', name: 'MRN', width: 7, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
+				{ label: 'Epis. No', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' },
+				{ label: 'Time', name: 'reg_time', width: 8 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
+				{ label: 'Name', name: 'Name', width: 18 ,classes: 'wrap' },
+				{ label: 'Payer', name: 'payer', width: 18 ,classes: 'wrap' },
+				{ label: 'I/C', name: 'Newic', width: 12 ,classes: 'wrap' },
+				{ label: 'DOB', name: 'DOB', width: 10 ,classes: 'wrap' ,formatter: dateFormatter, unformat: dateUNFormatter},
+				{ label: 'HP', name: 'telhp', width: 10 ,classes: 'wrap' },
+				{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
+				{ label: 'Mode', name: 'pyrmode', width: 10 ,classes: 'wrap'},
+				{ label: 'idno', name: 'idno', hidden: true, key:true},
+				{ label: 'dob', name: 'dob', hidden: true },
+				{ label: 'RaceCode', name: 'RaceCode', hidden: true },
+				{ label: 'religion', name: 'religion', hidden: true },
+				{ label: 'OccupCode', name: 'OccupCode', hidden: true },
+				{ label: 'Citizencode', name: 'Citizencode', hidden: true },
+				{ label: 'AreaCode', name: 'AreaCode', hidden: true },
+			],
+			autowidth: true,
+			viewrecords: true,
+			sortorder: "reg_time",
+			sortorder: "desc",
+			width: 900,
+			height: 365,
+			rowNum: 30,
+			onSelectRow:function(rowid, selected){
+				
+				$('button#timer_stop').click();
+				hide_tran_button(false);
+				urlParam_trans.mrn = selrowData('#jqGrid').MRN;
+				urlParam_trans.episno = selrowData('#jqGrid').Episno;
+				addmore_onadd = false;
+				refreshGrid("#jqGrid_trans", urlParam_trans);
+	            populate_currDoctorNote(selrowData('#jqGrid'));
+
+				if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
+					$('#checkbox_completed').prop('disabled',true);
+					$('#checkbox_completed').prop('checked', true);
+					hide_tran_button(true);
+				}else{//kalau belum completed
+					$('#checkbox_completed').prop('disabled',false);
+					$('#checkbox_completed').prop('checked', false);
+					hide_tran_button(false);
+				}
+
+			},
+			ondblClickRow: function (rowid, iRow, iCol, e) {
+			},
+			gridComplete: function () {
+				$('#checkbox_completed').prop('disabled',true);
+				$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+				// ordercompleteInit();
+
+			},
+		});
+
+	}
 	addParamField('#jqGrid',true,urlParam,['action']);
 	/////////////////////////start grid pager/////////////////////////////////////////////////////////
 	$("#jqGrid").jqGrid('navGrid', '#jqGridPager', {

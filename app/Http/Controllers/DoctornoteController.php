@@ -105,7 +105,9 @@ class DoctornoteController extends Controller
         $table_patm = DB::table('hisdb.pat_mast') //ambil dari patmast balik
                 ->select(['pat_mast.idno','pat_mast.CompCode','episode.MRN','episode.Episno','pat_mast.Name','pat_mast.Call_Name','pat_mast.addtype','pat_mast.Address1','pat_mast.Address2','pat_mast.Address3','pat_mast.Postcode','pat_mast.citycode','pat_mast.AreaCode','pat_mast.StateCode','pat_mast.CountryCode','pat_mast.telh','pat_mast.telhp','pat_mast.telo','pat_mast.Tel_O_Ext','pat_mast.ptel','pat_mast.ptel_hp','pat_mast.ID_Type','pat_mast.idnumber','pat_mast.Newic','pat_mast.Oldic','pat_mast.icolor','pat_mast.Sex','pat_mast.DOB','pat_mast.Religion','pat_mast.AllergyCode1','pat_mast.AllergyCode2','pat_mast.Century','pat_mast.Citizencode','pat_mast.OccupCode','pat_mast.Staffid','pat_mast.MaritalCode','pat_mast.LanguageCode','pat_mast.TitleCode','pat_mast.RaceCode','pat_mast.bloodgrp','pat_mast.Accum_chg','pat_mast.Accum_Paid','pat_mast.first_visit_date','pat_mast.Reg_Date','pat_mast.last_visit_date','pat_mast.last_episno','pat_mast.PatStatus','pat_mast.Confidential','pat_mast.Active','pat_mast.FirstIpEpisNo','pat_mast.FirstOpEpisNo','pat_mast.AddUser','pat_mast.AddDate','pat_mast.Lastupdate','pat_mast.LastUser','pat_mast.OffAdd1','pat_mast.OffAdd2','pat_mast.OffAdd3','pat_mast.OffPostcode','pat_mast.MRFolder','pat_mast.MRLoc','pat_mast.MRActive','pat_mast.OldMrn','pat_mast.NewMrn','pat_mast.Remarks','pat_mast.RelateCode','pat_mast.ChildNo','pat_mast.CorpComp','pat_mast.Email','pat_mast.Email_official','pat_mast.CurrentEpis','pat_mast.NameSndx','pat_mast.BirthPlace','pat_mast.TngID','pat_mast.PatientImage','pat_mast.pAdd1','pat_mast.pAdd2','pat_mast.pAdd3','pat_mast.pPostCode','pat_mast.DeptCode','pat_mast.DeceasedDate','pat_mast.PatientCat','pat_mast.PatType','pat_mast.PatClass','pat_mast.upduser','pat_mast.upddate','pat_mast.recstatus','pat_mast.loginid','pat_mast.pat_category','pat_mast.idnumber_exp','episode.reg_time','episode.payer','episode.pyrmode'])
                 ->leftJoin('hisdb.episode','episode.mrn','=','pat_mast.MRN')
-                ->where('episode.reg_date' ,'=', $request->filterVal[0]);
+                ->where('pat_mast.compcode','=',session('compcode'))
+                ->where('episode.reg_date' ,'=', $request->filterVal[0])
+                ->orderBy('episode.reg_time', 'desc');
 
         //////////paginate/////////
         $paginate = $table_patm->paginate($request->rows);
@@ -144,6 +146,7 @@ class DoctornoteController extends Controller
 
                             ->where('trx.mrn' ,'=', $request->mrn)
                             ->where('trx.episno' ,'=', $request->episno)
+                            ->where('trx.compcode','=',session('compcode'))
                             ->leftJoin('hisdb.chgmast','chgmast.chgcode','=','trx.chgcode')
                             ->leftJoin('hisdb.instruction','instruction.inscode','=','trx.instruction')
                             ->leftJoin('hisdb.freq','freq.freqcode','=','trx.frequency')
@@ -208,7 +211,7 @@ class DoctornoteController extends Controller
                 $table->update($array_edit);
             }else{
                 $array_insert = [
-                    'compcode' => '9A',
+                    'compcode' => session('compcode'),
                     'mrn' => $request->mrn,
                     'episno' => $request->episno,
                     'trxtype' => 'OE',
@@ -331,8 +334,8 @@ class DoctornoteController extends Controller
                         'adddate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                     ]);
 
-            $queries = DB::getQueryLog();
-            dump($queries);
+            // $queries = DB::getQueryLog();
+            // dump($queries);
 
             DB::commit();
 
@@ -369,26 +372,26 @@ class DoctornoteController extends Controller
                 ]);
 
             $patexam = DB::table('hisdb.patexam')
+                ->where('compcode','=',session('compcode'))
                 ->where('mrn','=',$request->mrn_doctorNote)
                 ->where('episno','=',$request->episno_doctorNote)
-                ->where('recorddate','=',$request->recorddate)
-                ->where('compcode','=',session('compcode'));
+                ->where('recorddate','=',$request->recorddate);
 
             $pathealth = DB::table('hisdb.pathealth')
+                ->where('compcode','=',session('compcode'))
                 ->where('mrn','=',$request->mrn_doctorNote)
                 ->where('episno','=',$request->episno_doctorNote)
-                ->where('recordtime','=',$request->recordtime)
-                ->where('compcode','=',session('compcode'));
+                ->where('recordtime','=',$request->recordtime);
 
             $pathistory = DB::table('hisdb.pathistory')
+                ->where('compcode','=',session('compcode'))
                 ->where('mrn','=',$request->mrn_doctorNote)
-                ->where('recorddate','=',$request->recorddate)
-                ->where('compcode','=',session('compcode'));
+                ->where('recorddate','=',$request->recorddate);
 
             $episdiag = DB::table('hisdb.episdiag')
+                ->where('compcode','=',session('compcode'))
                 ->where('mrn','=',$request->mrn_doctorNote)
-                ->where('episno','=',$request->episno_doctorNote)
-                ->where('compcode','=',session('compcode'));
+                ->where('episno','=',$request->episno_doctorNote);
 
             if($patexam->exists()){
                 $patexam->update([
@@ -517,17 +520,17 @@ class DoctornoteController extends Controller
                     ]);
             }
 
-            $queries = DB::getQueryLog();
-            dump($queries);
+            // $queries = DB::getQueryLog();
+            // dump($queries);
             
             DB::commit();
 
             $patexam_obj = DB::table('hisdb.patexam')
                 ->select('idno','recorddate AS date')
+                ->where('compcode','=',session('compcode'))
                 ->where('mrn','=',$request->mrn_doctorNote)
                 ->where('episno','=',$request->episno_doctorNote)
                 ->where('recorddate','=',$request->recorddate)
-                ->where('compcode','=',session('compcode'))
                 ->first();
 
 
@@ -551,6 +554,7 @@ class DoctornoteController extends Controller
 
         $pathealth_obj = DB::table('hisdb.pathealth')
             ->select('mrn','episno','recordtime','adddate')
+            ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno)
             ->where('adddate','=',$request->date)
@@ -583,6 +587,7 @@ class DoctornoteController extends Controller
 
         $patexam_obj = DB::table('hisdb.pathealth')
             ->select('mrn','episno','recordtime','adddate')
+            ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->orderBy('adddate','desc');
 
@@ -611,37 +616,36 @@ class DoctornoteController extends Controller
 
         $responce = new stdClass();
 
-
         $episode_obj = DB::table('hisdb.episode')
             ->select('remarks','diagfinal')
-            // ->where('compcode','=',session('compcode'))
+            ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno);
 
         $pathealth_obj = DB::table('hisdb.pathealth')
-            // ->where('compcode','=',session('compcode'))
+            ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno)
             ->orderBy('recordtime','desc');
 
         $pathistory_obj = DB::table('hisdb.pathistory')
-            // ->where('compcode','=',session('compcode'))
+            ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('recorddate','=',$request->recorddate);
 
         $patexam_obj = DB::table('hisdb.patexam')
-            // ->where('compcode','=',session('compcode'))
+            ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno)
             ->where('recorddate','=',$request->recorddate);
 
         $episdiag_obj = DB::table('hisdb.episdiag')
-            // ->where('compcode','=',session('compcode'))
+            ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno);
 
         $pathealthadd_obj = DB::table('hisdb.pathealthadd')
-            // ->where('compcode','=',session('compcode'))
+            ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno);
 
@@ -684,7 +688,7 @@ class DoctornoteController extends Controller
 
         $icdver = DB::table('sysdb.sysparam')
                         ->select('pvalue1')
-                        // ->where('compcode','=',session('compcode'))
+                        ->where('compcode','=',session('compcode'))
                         ->where('source','=','MR')
                         ->where('trantype','=','ICD')
                         ->first();
@@ -795,7 +799,8 @@ class DoctornoteController extends Controller
 
     public function get_freqcode(Request $request){
         $data = DB::table('hisdb.freq')
-                ->select('freqcode as code','freqdesc as description');
+                ->select('freqcode as code','freqdesc as description')
+                ->where('compcode','=',session('compcode'));
 
         if(!empty($request->search)){
             $data = $data->where('freqdesc','LIKE','%'.$request->search.'%')->first();
@@ -811,7 +816,8 @@ class DoctornoteController extends Controller
 
     public function get_dosecode(Request $request){
         $data = DB::table('hisdb.dose')
-                ->select('dosecode as code','dosedesc as description');
+                ->select('dosecode as code','dosedesc as description')
+                ->where('compcode','=',session('compcode'));
 
         if(!empty($request->search)){
             $data = $data->where('dosedesc','LIKE','%'.$request->search.'%')->first();
@@ -827,7 +833,8 @@ class DoctornoteController extends Controller
 
     public function get_inscode(Request $request){
         $data = DB::table('hisdb.instruction')
-                ->select('inscode as code','description as description');
+                ->select('inscode as code','description as description')
+                ->where('compcode','=',session('compcode'));
 
         if(!empty($request->search)){
             $data = $data->where('description','LIKE','%'.$request->search.'%')->first();

@@ -16,12 +16,12 @@
 						<label>Password</label>
 						<input placeholder="Password" type="password" name="password">
 					</div>
-					<div class="ui stackable two column grid">
+					<!-- <div class="ui stackable two column grid">
 						<div class="ui checkbox column">
 							<input type="checkbox" tabindex="0" class="hidden" name="remember">
 							<label>Remember me</label>
 						</div>
-					</div>
+					</div> -->
 				</div>
 
 				<button class="ui fluid button teal" type="submit" style="margin-top: 10px">Log In</button>

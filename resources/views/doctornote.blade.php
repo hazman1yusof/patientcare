@@ -192,7 +192,7 @@ table#medication_tbl th {
     <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="doctornote_panel">
         <div class="panel-heading clearfix collapsed" id="toggle_doctornote" >
 
-        <div class="col-md-2" id="docnote_date_tbl_sticky" style="display: none;position: absolute;
+        <div class="col-md-3" id="docnote_date_tbl_sticky" style="display: none;position: absolute;
     padding: 0 0 0 0;
     top: 98px;
     left: 5px;">

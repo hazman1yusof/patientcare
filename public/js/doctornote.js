@@ -176,8 +176,9 @@ $(document).ready(function () {
 
 			let editurl = "/doctornote/form?"+
 				$.param({
-					episno:$('#episno_doctorNote').val(),
-					mrn:$('#mrn_doctorNote').val(),
+    				_token : $('#_token').val(),
+					episno:$('#episno_doctorNote_past').val(),
+					mrn:$('#mrn_doctorNote_past').val(),
 					action: 'doctornote_save',
 				});
 			$("#jqGridAddNotes").jqGrid('setGridParam', { editurl: editurl });
@@ -510,6 +511,7 @@ function on_toggling_curr_past(obj = curr_obj){
 			episno:obj.Episno,
 			date:$('#sel_date').val()
 		}
+		$('#primary_icd_form').show();
 		
 		addnotes.style.display = "none";
 		// enableFields();
@@ -519,6 +521,7 @@ function on_toggling_curr_past(obj = curr_obj){
 			action:'get_table_date_past',
 			mrn:obj.MRN,
 		}
+		$('#primary_icd_form').hide();
 
 		addnotes.style.display = "block";
 		disableOtherFields();
@@ -691,7 +694,14 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
     }
     doctornote_docnote.recorddate = data.date;
     doctornote_docnote.mrn = data.mrn;
-    doctornote_docnote.episno = data.episno;;
+    doctornote_docnote.episno = data.episno;
+
+    
+	urlParam_AddNotes.filterVal[0] = data.mrn;
+	urlParam_AddNotes.filterVal[1] = data.episno;
+
+    $('#mrn_doctorNote_past').val(data.mrn);
+    $('#episno_doctorNote_past').val(data.episno);
 
     $.get( "./doctornote/table?"+$.param(doctornote_docnote), function( data ) {
 			
