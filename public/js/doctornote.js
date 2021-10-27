@@ -516,6 +516,7 @@ function on_toggling_curr_past(obj = curr_obj){
 		addnotes.style.display = "none";
 		// enableFields();
 		$("#new_doctorNote").attr('disabled',false);
+		datable_medication.clear().draw();
 	}else if(document.getElementById("past").checked){
 		dateParam_docnote={
 			action:'get_table_date_past',
@@ -540,7 +541,6 @@ function autoinsert_rowdata_doctorNote(form,rowData){
 				$(form+" [name='"+index+"']").prop('checked', true);
 			}
 		}else if(input.is("textarea")){
-			console.log(value);
 			if(value !== null){
 				let newval = value.replaceAll("</br>",'\n');
 				input.val(newval);
@@ -614,7 +614,10 @@ var docnote_date_tbl = $('#docnote_date_tbl').DataTable({
     ]
     ,columnDefs: [
         { targets: [0, 1], visible: false},
-    ]
+    ],
+    "drawCallback": function( settings ) {
+    	$(this).find('tbody tr')[0].click();
+    }
 });
 
 var datable_medication = $('#medication_tbl').DataTable({
@@ -633,7 +636,8 @@ var datable_medication = $('#medication_tbl').DataTable({
     ]
 });
 
-$('#tab_doctornote').on('show.bs.collapse', function () {
+$('#tab_doctornote').on('shown.bs.collapse', function () {
+	SmoothScrollTo('#tab_doctornote', 300);
 	datable_medication.columns.adjust();
 	$('div#docnote_date_tbl_sticky').show();
 
@@ -647,12 +651,10 @@ $('#tab_doctornote').on('show.bs.collapse', function () {
 	// 	},
 	// 	context: '#tab_doctornote_sticky',
 	// });
-	
 });
+
 $('#tab_doctornote').on('hide.bs.collapse', function () {
-
 	$('div#docnote_date_tbl_sticky').hide();
-
 });
 
 //to reload date table on radio btn click

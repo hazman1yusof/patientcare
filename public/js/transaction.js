@@ -78,6 +78,7 @@ $(document).ready(function () {
 	jqgrid_label_align_right('#jqGrid_trans');
 
 	$("#tab_trans").on("shown.bs.collapse", function(){
+		SmoothScrollTo('#tab_trans', 300);
 		$("#jqGrid_trans").jqGrid ('setGridWidth', Math.floor($("#jqGrid_trans_c")[0].offsetWidth-$("#jqGrid_trans_c")[0].offsetLeft-14));
 	});
 

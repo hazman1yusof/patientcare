@@ -150,6 +150,10 @@ table#medication_tbl th {
     color: #1a1a1a;
 }
 
+.input-lg{
+    font-size: 16px !important;
+}
+
 @endsection
 
 @section('content')

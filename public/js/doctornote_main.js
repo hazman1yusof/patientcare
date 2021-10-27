@@ -64,10 +64,10 @@ $(document).ready(function () {
 			datatype: "local",
 			colModel: [
 				{ label: 'MRN', name: 'MRN', width: 9, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
-				{ label: ' ', name: 'Episno', width: 3 ,align: 'right',classes: 'wrap' },
+				{ label: ' ', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' },
 				{ label: 'Time', name: 'reg_time', width: 10 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
-				{ label: 'Name', name: 'Name', width: 13 ,classes: 'wrap' },
-				{ label: 'Payer', name: 'payer', width: 13 ,classes: 'wrap' },
+				{ label: 'Name', name: 'Name', width: 12 ,classes: 'wrap' },
+				{ label: 'Payer', name: 'payer', width: 12 ,classes: 'wrap' },
 				{ label: 'I/C', name: 'Newic', width: 15 ,classes: 'wrap' },
 				{ label: 'DOB', name: 'DOB', width: 12 ,classes: 'wrap' ,formatter: dateFormatter, unformat: dateUNFormatter},
 				{ label: 'HP', name: 'telhp', width: 13 ,classes: 'wrap' },
