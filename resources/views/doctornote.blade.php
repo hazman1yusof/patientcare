@@ -1,6 +1,12 @@
 @extends('layouts.main')
 
 @section('style')
+
+.wrap{
+    word-wrap: break-word;
+    white-space: pre-line !important;
+    vertical-align: top !important;
+}
     
 .fc-toolbar .fc-center h2{
     color:#f2711c;
@@ -25,6 +31,13 @@
     font-size: large !important;
 }
 
+.ui-jqgrid .inline-edit-cell {
+    height: 46 px;
+    padding: 10 px 16 px;
+    font-size: 15px;
+    line-height: 1.3333333;
+    border-radius: 6 px;
+}
 .fc-event {
     position: relative;
     display: block;
@@ -208,6 +221,7 @@ table#medication_tbl th {
                                 <th class="scope">mrn</th>
                                 <th class="scope">episno</th>
                                 <th class="scope">Date</th>
+                                <th class="scope">adduser</th>
                             </tr>
                         </thead>
                     </table>

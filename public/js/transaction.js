@@ -7,41 +7,41 @@ $(document).ready(function () {
 		colModel: [
 			{ label: 'auditno', name: 'auditno', hidden: true,key:true },
 			{ label: 'chg_code', name: 'chg_code', hidden: true },
-			{ label: 'Code', name: 'chg_desc', width: 40, editable:true,
-				editrules:{required: true, custom:true, classes: 'wrap', custom_func:cust_rules},
+			{ label: 'Code', name: 'chg_desc', width: 40, editable:true, classes: 'wrap',
+				editrules:{required: true, custom:true, custom_func:cust_rules},
 				edittype:'custom',	editoptions:
 				    {  custom_element:chgcodeCustomEdit,
 				       custom_value:galGridCustomValue 	
 				    },
 			},
-			{ label: 'Qty', name: 'quantity', width: 15 , align: 'right', editable:true,
+			{ label: 'Qty', name: 'quantity', width: 15 , align: 'right', editable:true, classes: 'input-lg',
 				editrules:{required: true, custom:true, custom_func:cust_rules},
 				formatter: 'number',formatoptions:{decimalPlaces: 0, defaultValue: '1'}},
-			{ label: 'Remarks', name: 'remarks', width: 100, editable:true,edittype:'textarea',editoptions: { rows: 4 }},
-			{ label: 'ins_code', name: 'ins_code', hidden: true },
-			{ label: 'Instruction', name: 'ins_desc', width: 40 , editable:true,
-				editrules:{required: true, custom:true, classes: 'wrap', custom_func:cust_rules},
-				edittype:'custom',	editoptions:
-				    {  custom_element:instructionCustomEdit,
-				       custom_value:galGridCustomValue 	
-				    },},
+			{ label: 'Remarks', name: 'remarks', width: 100, classes: 'wrap', editable:true,edittype:'textarea',editoptions: { rows: 4 }},
 			{ label: 'dos_code', name: 'dos_code', hidden: true },
-			{ label: 'Dosage', name: 'dos_desc', width: 40 , editable:true,
-				editrules:{required: true, custom:true, classes: 'wrap', custom_func:cust_rules},
+			{ label: 'Dosage', name: 'dos_desc', classes: 'wrap', width: 40 , editable:true,
+				editrules:{required: false},
 				edittype:'custom',	editoptions:
 				    {  custom_element:doscodeCustomEdit,
 				       custom_value:galGridCustomValue 	
 				    },},
 			{ label: 'fre_code', name: 'fre_code', hidden: true },
-			{ label: 'Frequency', name: 'fre_desc', width: 40 , editable:true,
-				editrules:{required: true, custom:true, classes: 'wrap', custom_func:cust_rules},
+			{ label: 'Frequency', name: 'fre_desc', classes: 'wrap', width: 40 , editable:true,
+				editrules:{required: false},
 				edittype:'custom',	editoptions:
 				    {  custom_element:frequencyCustomEdit,
 				       custom_value:galGridCustomValue 	
 				    },},
+			{ label: 'ins_code', name: 'ins_code', hidden: true },
+			{ label: 'Instruction', name: 'ins_desc', classes: 'wrap', width: 40 , editable:true,
+				editrules:{required: false},
+				edittype:'custom',	editoptions:
+				    {  custom_element:instructionCustomEdit,
+				       custom_value:galGridCustomValue 	
+				    },},
 			{ label: 'dru_code', name: 'dru_code', hidden: true },
-			{ label: 'Indicator', name: 'dru_desc', width: 40 , editable:true,
-				editrules:{required: true, custom:true, classes: 'wrap', custom_func:cust_rules},
+			{ label: 'Indicator', name: 'dru_desc', classes: 'wrap', width: 40 , editable:true,
+				editrules:{required: false},
 				edittype:'custom',	editoptions:
 				    {  custom_element:drugindicatorCustomEdit,
 				       custom_value:galGridCustomValue 	
@@ -70,6 +70,37 @@ $(document).ready(function () {
 			// get_trans_tbl_data();
 			if(addmore_onadd == true){
 				$('#jqGrid_trans_iladd').click();
+			}
+			if($('#jqGrid_transPager_right').data('loaded') == undefined){
+				let button = `
+								<button type="button" class="btn btn-sm btn-success" id="discharge_btn">Submit</button>
+							`;
+				$('#jqGrid_transPager_right').html(button);
+				$('#jqGrid_transPager_right').data('loaded','loaded');
+
+				$('#discharge_btn').click(function(){
+					let episno = selrowData('#jqGrid').Episno;
+					let mrn = selrowData('#jqGrid').MRN;
+					if(episno != undefined || episno != null ){
+						var r = confirm("Do you want to complete this patient order?");
+						if (r == true) {
+							var postobj={
+		    					_token : $('#_token').val(),
+						        episno: episno,
+						        mrn: mrn
+						    }
+
+							$.post( "./doctornote/form?action=submit_patient", postobj , function( data ) {
+		        	
+						    },'json').done(function(data) {
+						        
+						    }).fail(function(data){
+						        
+						    });
+						}
+					}
+					
+				});
 			}
 			// fdl.set_array().reset();
 		},
@@ -207,10 +238,6 @@ $(document).ready(function () {
 		var temp;
 		switch(name){
 			case 'Code':temp=$('table#jqGrid_trans input[name=chgcode]');break;
-			case 'Instruction':temp=$('table#jqGrid_trans input[name=instruction]');break;
-			case 'Dosage':temp=$('table#jqGrid_trans input[name=doscode]');break;
-			case 'Frequency':temp=$('table#jqGrid_trans input[name=frequency]');break;
-			case 'Indicator':temp=$('table#jqGrid_trans input[name=drugindicator]');break;
 			case 'Qty':
 					let quan=$('table#jqGrid_trans input[name=quantity]').val();
 					if(parseInt(quan) <= 0){
@@ -225,27 +252,27 @@ $(document).ready(function () {
 
 	function chgcodeCustomEdit(val,opt){
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="chgcode" type="text" mytype="chgcode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('chgcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="chgcode" type="text" mytype="chgcode" class="form-control input-lg" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('chgcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
 	}
 
 	function instructionCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="instruction" type="text" mytype="inscode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('inscode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="instruction" type="text" mytype="inscode" class="form-control input-lg" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('inscode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
 	}
 
 	function doscodeCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="doscode" type="text" mytype="dosecode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('dosecode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="doscode" type="text" mytype="dosecode" class="form-control input-lg" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('dosecode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
 	}
 
 	function frequencyCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="frequency" type="text" mytype="freqcode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('freqcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="frequency" type="text" mytype="freqcode" class="form-control input-lg" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('freqcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
 	}
 
 	function drugindicatorCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="drugindicator" type="text" mytype="drugindcode" class="form-control input-sm" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('drugindcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="drugindicator" type="text" mytype="drugindcode" class="form-control input-lg" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('drugindcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
 	}
 
     function galGridCustomValue (elem, operation, value){

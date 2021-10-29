@@ -81,7 +81,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="col-md-12" style="margin-top: 10px">
+                                    <div class="col-md-12" style="margin-top: 10px" id="followup_form">
                                         <div class="panel panel-info">
                                             <div class="panel-heading text-center">FOLLOW UP</div>
                                             <div class="panel-body">
@@ -90,14 +90,14 @@
                                                     <div class="form-group col-md-6">
                                                         <label class="col-md-2 control-label" for="followuptime">Time</label>  
                                                         <div class="col-md-10">
-                                                            <input id="followuptime" name="followuptime" type="time" class="form-control input-lg">
+                                                            <input id="followuptime" name="followuptime" type="time" class="form-control">
                                                         </div>
                                                     </div>
 
                                                     <div class="form-group col-md-6">
                                                         <label class="col-md-2 control-label" for="followupdate">Date</label>  
                                                         <div class="col-md-10">
-                                                            <input id="followupdate" name="followupdate" type="date" class="form-control input-lg">
+                                                            <input id="followupdate" name="followupdate" type="date" class="form-control">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -168,7 +168,7 @@
                                 <div class="panel-heading text-center">Vital Sign</div>
                                 <div class="panel-body">
 
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12" style="width: auto;">
                                         <label class="control-label" for="height" style="padding-bottom:5px">Height</label>
                                         <div class="input-group">
                                             <input id="height" name="height" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
@@ -176,7 +176,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12" style="width: auto;">
                                         <label class="control-label" for="weight" style="padding-bottom:5px">Weight</label>
                                         <div class="input-group">
                                             <input id="weight" name="weight" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
@@ -184,12 +184,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12" style="width: auto;">
                                         <label class="control-label" for="bmi" style="padding-bottom:5px">BMI</label>
                                         <input id="bmi" name="bmi" type="number" class="form-control input-lg" rdonly>
                                     </div>
 
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12" style="width: auto;">
                                         <label class="control-label" for="bp" style="padding-bottom:5px">BP</label>
                                         <div class="input-group">
                                             <input id="bp_sys1" name="bp_sys1" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
@@ -198,12 +198,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12" style="width: auto;">
                                         <label class="control-label" for="pulse" style="padding-bottom:5px">Pulse Rate</label>
                                         <input id="pulse" name="pulse" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
                                     </div>
 
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12" style="width: auto;">
                                         <label class="control-label" for="temperature" style="padding-bottom:5px">Temperature</label>
                                         <div class="input-group">
                                             <input id="temperature" name="temperature" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
@@ -211,7 +211,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group col-md-12">
+                                    <div class="form-group col-md-12" style="width: auto;">
                                         <label class="control-label" for="respiration" style="padding-bottom:5px">Respiration</label>
                                         <input id="respiration" name="respiration" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
                                     </div>
@@ -255,9 +255,9 @@
                                             <th>Items</th>
                                             <th>Qty</th>
                                             <th>Remarks</th>
-                                            <th>Instruction</th>
                                             <th>Dosage</th>
                                             <th>Frequency</th>
+                                            <th>Instruction</th>
                                             <th>Indicator</th>
                                         </tr>
                                     </thead>

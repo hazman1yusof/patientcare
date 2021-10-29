@@ -66,13 +66,14 @@ $(document).ready(function () {
 				{ label: 'MRN', name: 'MRN', width: 9, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
 				{ label: ' ', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' },
 				{ label: 'Time', name: 'reg_time', width: 10 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
-				{ label: 'Name', name: 'Name', width: 12 ,classes: 'wrap' },
-				{ label: 'Payer', name: 'payer', width: 12 ,classes: 'wrap' },
+				{ label: 'Name', name: 'Name', width: 10 ,classes: 'wrap' },
+				{ label: 'Payer', name: 'payer', width: 10 ,classes: 'wrap' },
 				{ label: 'I/C', name: 'Newic', width: 15 ,classes: 'wrap' },
 				{ label: 'DOB', name: 'DOB', width: 12 ,classes: 'wrap' ,formatter: dateFormatter, unformat: dateUNFormatter},
 				{ label: 'HP', name: 'telhp', width: 13 ,classes: 'wrap' },
 				{ label: 'Sex', name: 'Sex', width: 6 ,classes: 'wrap' },
 				{ label: 'Mode', name: 'pyrmode', width: 8 ,classes: 'wrap'},
+				{ label: 'Seen', name: 'doctorstatus', width: 8 ,classes: 'wrap'},
 				{ label: 'idno', name: 'idno', hidden: true, key:true},
 				{ label: 'dob', name: 'dob', hidden: true },
 				{ label: 'RaceCode', name: 'RaceCode', hidden: true },
@@ -131,6 +132,7 @@ $(document).ready(function () {
 				{ label: 'HP', name: 'telhp', width: 10 ,classes: 'wrap' },
 				{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
 				{ label: 'Mode', name: 'pyrmode', width: 10 ,classes: 'wrap'},
+				{ label: 'Seen', name: 'doctorstatus', width: 10 ,classes: 'wrap',formatter: formatterstatus_tick},
 				{ label: 'idno', name: 'idno', hidden: true, key:true},
 				{ label: 'dob', name: 'dob', hidden: true },
 				{ label: 'RaceCode', name: 'RaceCode', hidden: true },
@@ -186,6 +188,14 @@ $(document).ready(function () {
 			refreshGrid("#jqGrid", urlParam);
 		},
 	});
+
+	function formatterstatus_tick(cellvalue, option, rowObject) {
+		if (cellvalue == 'SEEN') {
+			return '<span class="fa fa-check" ></span>';
+		}else{
+			return "";
+		}
+	}
 
 	function ordercompleteFormatter(cellvalue, option, rowObject) {
 		if (cellvalue == '1') {

@@ -40,7 +40,6 @@ $(document).ready(function () {
 	});
 
 	$("#save_doctorNote").click(function(){
-		// disableForm('#formDoctorNote');
 		if( $('#formDoctorNote').isValid({requiredFields: ''}, conf, true) ) {
 			saveForm_doctorNote(function(data){
 				$("#cancel_doctorNote").click();
@@ -61,7 +60,8 @@ $(document).ready(function () {
 	});
 
 	$("#cancel_doctorNote").click(function(){
-		disableForm('#formDoctorNote');
+		emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
+		disableForm('#formDoctorNote',['toggle_type']);
 		button_state_doctorNote($(this).data('oper'));
 		// dialog_mrn_edit.off();
 		$('#docnote_date_tbl tbody tr:eq(0)').click();	//to select first row
@@ -417,7 +417,7 @@ function populate_doctorNote(obj,rowdata){
 		recorddate:''
 	};
 
-    button_state_doctorNote('add');
+    // button_state_doctorNote('add');
 }
 
 //screen current patient//
@@ -498,7 +498,7 @@ function populate_doctorNote_emergency(obj,rowdata){
 		recorddate:''
 	};
 
-    button_state_doctorNote('add');
+    // button_state_doctorNote('add');
 }
 
 function on_toggling_curr_past(obj = curr_obj){
@@ -511,18 +511,18 @@ function on_toggling_curr_past(obj = curr_obj){
 			episno:obj.Episno,
 			date:$('#sel_date').val()
 		}
-		$('#primary_icd_form').show();
+		$('#primary_icd_form,#followup_form').show();
 		
 		addnotes.style.display = "none";
 		// enableFields();
-		$("#new_doctorNote").attr('disabled',false);
+		// $("#new_doctorNote").attr('disabled',false);
 		datable_medication.clear().draw();
 	}else if(document.getElementById("past").checked){
 		dateParam_docnote={
 			action:'get_table_date_past',
 			mrn:obj.MRN,
 		}
-		$('#primary_icd_form').hide();
+		$('#primary_icd_form,#followup_form').hide();
 
 		addnotes.style.display = "block";
 		disableOtherFields();
@@ -611,9 +611,10 @@ var docnote_date_tbl = $('#docnote_date_tbl').DataTable({
         {'data': 'mrn'},
         {'data': 'episno'},
         {'data': 'date', 'width': '100%'},
+        {'data': 'adduser'},
     ]
     ,columnDefs: [
-        { targets: [0, 1], visible: false},
+        { targets: [0, 1, 3], visible: false},
     ],
     "drawCallback": function( settings ) {
     	$(this).find('tbody tr')[0].click();
@@ -629,9 +630,9 @@ var datable_medication = $('#medication_tbl').DataTable({
         {data: 'chg_desc', 'width': '30%'},
         {data: 'quantity'},
         {data: 'remarks'},
-        {data: 'ins_code'},
         {data: 'dos_code'},
         {data: 'fre_code'},
+        {data: 'ins_code'},
         {data: 'dru_code'},
     ]
 });
@@ -672,9 +673,9 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
     var data = docnote_date_tbl.row( this ).data();
 
     if(data == undefined){
+    	//xde record, terus tekan new
+		$("#new_doctorNote").click();
     	return;
-	}else if(disable_edit_date()){
-		return;
 	}
 	
 	//to highlight selected row
@@ -690,9 +691,17 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
     $(this).addClass('active');
 
     if(check_same_usr_edit(data)){
-    	button_state_doctorNote('edit');
+    	if(document.getElementById("past").checked){
+    		button_state_doctorNote('disableAll');
+    	}else{
+    		button_state_doctorNote('edit');
+    	}
     }else{
-    	button_state_doctorNote('add');
+    	if(document.getElementById("past").checked){
+    		button_state_doctorNote('disableAll');
+    	}else{
+    		button_state_doctorNote('add');
+    	}
     }
     doctornote_docnote.recorddate = data.date;
     doctornote_docnote.mrn = data.mrn;
@@ -725,18 +734,8 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
 
 });
 
-function disable_edit_date(){
-	// let disabled = false;
- //    let newact = $('#new_doctorNote').attr('disabled');
- //    let data_oper = $('#cancel_doctorNote').data('oper');
-
- //    if(newact == 'disabled' && data_oper == 'add'){
- //    	disabled = true;
- //    }
-    return false;
-}
-
 function check_same_usr_edit(data){
+	
 	let same = true;
     var adduser = data.adduser;
 

@@ -280,6 +280,11 @@ function emptyFormdata_div(div,except){
 	$(div+' textarea').val("");
 	$(div+' input').val("");
 
+	$( div+' input.error').css('border-color','rgb(204 204 204)');
+	$( div+' div.has-error' ).removeClass( "has-error" );
+	$( div+' input' ).removeClass( "error" );
+	$( div+' textarea' ).removeClass( "error" );
+
 	$(div+' .help-block').html('');
 	if(except!=null){
 		$.each(except, function( index, value ) {
@@ -1821,7 +1826,7 @@ function if_none(str){
 function SmoothScrollTo(id_or_Name, timelength){
   var timelength = timelength || 500;
   $('html, body').animate({
-      scrollTop: $(id_or_Name).offset().top-70
+      scrollTop: $(id_or_Name).offset().top-125
   }, timelength, function(){
 
   });
