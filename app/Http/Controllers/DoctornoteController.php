@@ -769,7 +769,8 @@ class DoctornoteController extends Controller
 
             $episode = DB::table('hisdb.episode')
                             ->where('mrn','=',$request->mrn)
-                            ->where('episno','=',$request->episno);
+                            ->where('episno','=',$request->episno)
+                            ->where('reg_date','=',$request->reg_date);
 
             if($episode->exists()){
                 $episode
@@ -778,11 +779,18 @@ class DoctornoteController extends Controller
                     ]);
 
             }else{
-
+                throw new \Exception("Patient doesnt exists");
             }
+            
+            DB::commit();
+
+            $responce = new stdClass();
+            $responce->data = 'success';
+
+
+            return json_encode($responce);
 
             
-             DB::commit();
 
         } catch (\Exception $e) {
             DB::rollback();

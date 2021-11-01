@@ -104,6 +104,8 @@ function refreshGrid(grid,urlParam,oper){
 		$(grid).jqGrid('setGridParam',{datatype:'json',url:urlParam.url+'?'+$.param(urlParam)}).trigger('reloadGrid', [{current:true}]);
 	}else if(oper == 'kosongkan'){
 		$(grid).jqGrid('setGridParam',{datatype:'local'}).trigger('reloadGrid');
+	}else if(urlParam == undefined){
+		$(grid).trigger('reloadGrid');
 	}else{
 		$(grid).jqGrid('setGridParam',{datatype:'json',url:urlParam.url+'?'+$.param(urlParam)}).trigger('reloadGrid',[{page:1}]);
 	}

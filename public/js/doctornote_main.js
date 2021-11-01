@@ -30,6 +30,13 @@ $(document).ready(function () {
 			$(".fc-today-button").html('<small class="mysmall">'+moment().format('ddd')+'</small><br/><b class="myb">'+moment().format('DD')+'</b>');
 			// $('div.fc-right').append('<p>sdssd</p>').insertAfter
 		},
+		eventAfterRender: function(event, element, view){
+			let d1 = new Date(event.start.format('YYYY-MM-DD'));
+			let d2 = new Date($('#sel_date').val());
+			if(d1.getTime() === d2.getTime()){
+				$('#no_of_pat').text(event.title.split(" ")[0]);
+			}
+		},
 		eventClick: function(event) {
 			var view = $('#calendar').fullCalendar('getView');
 			if(view.type == 'listMonth'){
@@ -58,7 +65,35 @@ $(document).ready(function () {
 		filterVal : [moment().format("YYYY-MM-DD")]
 	}
 
-	if($(window).width() <= 1024){
+	var istablet = $(window).width() <= 1024;
+	// istablet =  true;
+
+	if(istablet){
+
+		$('#calendar_div').hide();
+		$('.if_tablet').show();
+
+		$('#jqgrid_div').removeClass('eleven wide tablet eleven wide computer');
+		$('#jqgrid_div').addClass('sixteen wide tablet sixteen wide computer');
+
+		$('#button_calendar').calendar({
+			type: 'date',
+			today: true,
+			onChange: function(date){
+			},
+			onSelect: function(date,mode){
+
+				let new_date = date.toISOString().split('T')[0];
+
+				urlParam.filterVal[0] = new_date;
+
+				$('#sel_date').val(new_date);
+				refreshGrid("#jqGrid", urlParam);
+				$('#sel_date_span').text(new_date);
+			}
+
+		});
+		
 
 		$("#jqGrid").jqGrid({
 			datatype: "local",
@@ -66,14 +101,14 @@ $(document).ready(function () {
 				{ label: 'MRN', name: 'MRN', width: 9, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
 				{ label: ' ', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' },
 				{ label: 'Time', name: 'reg_time', width: 10 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
-				{ label: 'Name', name: 'Name', width: 10 ,classes: 'wrap' },
-				{ label: 'Payer', name: 'payer', width: 10 ,classes: 'wrap' },
+				{ label: 'Name', name: 'Name', width: 15 ,classes: 'wrap' },
+				{ label: 'Payer', name: 'payer', width: 15 ,classes: 'wrap' },
 				{ label: 'I/C', name: 'Newic', width: 15 ,classes: 'wrap' },
 				{ label: 'DOB', name: 'DOB', width: 12 ,classes: 'wrap' ,formatter: dateFormatter, unformat: dateUNFormatter},
-				{ label: 'HP', name: 'telhp', width: 13 ,classes: 'wrap' },
+				{ label: 'HP', name: 'telhp', width: 13 ,classes: 'wrap' , hidden:true},
 				{ label: 'Sex', name: 'Sex', width: 6 ,classes: 'wrap' },
 				{ label: 'Mode', name: 'pyrmode', width: 8 ,classes: 'wrap'},
-				{ label: 'Seen', name: 'doctorstatus', width: 8 ,classes: 'wrap'},
+				{ label: 'Seen', name: 'doctorstatus', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick},
 				{ label: 'idno', name: 'idno', hidden: true, key:true},
 				{ label: 'dob', name: 'dob', hidden: true },
 				{ label: 'RaceCode', name: 'RaceCode', hidden: true },
@@ -111,10 +146,14 @@ $(document).ready(function () {
 			ondblClickRow: function (rowid, iRow, iCol, e) {
 			},
 			gridComplete: function () {
-				$('#checkbox_completed').prop('disabled',true);
-				$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
-				// ordercompleteInit();
+				$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
 
+				let discharge_btn_data = $('#discharge_btn').data('idno');
+				if(discharge_btn_data == undefined || discharge_btn_data == 'none'){
+					$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+				}else{
+					$("#jqGrid").setSelection(discharge_btn_data);
+				}
 			},
 		});
 	}else{
@@ -172,9 +211,14 @@ $(document).ready(function () {
 			ondblClickRow: function (rowid, iRow, iCol, e) {
 			},
 			gridComplete: function () {
-				$('#checkbox_completed').prop('disabled',true);
-				$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
-				// ordercompleteInit();
+				$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
+
+				let discharge_btn_data = $('#discharge_btn').data('idno');
+				if(discharge_btn_data == undefined || discharge_btn_data == 'none'){
+					$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+				}else{
+					$("#jqGrid").setSelection(discharge_btn_data);
+				}
 
 			},
 		});

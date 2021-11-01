@@ -14,7 +14,7 @@ $(document).ready(function () {
 				       custom_value:galGridCustomValue 	
 				    },
 			},
-			{ label: 'Qty', name: 'quantity', width: 15 , align: 'right', editable:true, classes: 'input-lg',
+			{ label: 'Qty', name: 'quantity', width: 15 , align: 'right', editable:true, classes: 'input',
 				editrules:{required: true, custom:true, custom_func:cust_rules},
 				formatter: 'number',formatoptions:{decimalPlaces: 0, defaultValue: '1'}},
 			{ label: 'Remarks', name: 'remarks', width: 100, classes: 'wrap', editable:true,edittype:'textarea',editoptions: { rows: 4 }},
@@ -81,19 +81,25 @@ $(document).ready(function () {
 				$('#discharge_btn').click(function(){
 					let episno = selrowData('#jqGrid').Episno;
 					let mrn = selrowData('#jqGrid').MRN;
+					let idno = selrowData('#jqGrid').idno;
 					if(episno != undefined || episno != null ){
 						var r = confirm("Do you want to complete this patient order?");
 						if (r == true) {
+
+							$('button#discharge_btn').data('idno',idno);
+
 							var postobj={
 		    					_token : $('#_token').val(),
 						        episno: episno,
-						        mrn: mrn
+						        mrn: mrn,
+						        reg_date: $('#sel_date').val()
 						    }
 
 							$.post( "./doctornote/form?action=submit_patient", postobj , function( data ) {
 		        	
 						    },'json').done(function(data) {
-						        
+						    	SmoothScrollToTop();
+						        refreshGrid("#jqGrid");
 						    }).fail(function(data){
 						        
 						    });
@@ -252,27 +258,27 @@ $(document).ready(function () {
 
 	function chgcodeCustomEdit(val,opt){
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="chgcode" type="text" mytype="chgcode" class="form-control input-lg" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('chgcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="chgcode" type="text" mytype="chgcode" class="form-control input" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('chgcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
 	}
 
 	function instructionCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="instruction" type="text" mytype="inscode" class="form-control input-lg" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('inscode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="instruction" type="text" mytype="inscode" class="form-control input" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('inscode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
 	}
 
 	function doscodeCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="doscode" type="text" mytype="dosecode" class="form-control input-lg" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('dosecode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="doscode" type="text" mytype="dosecode" class="form-control input" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('dosecode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
 	}
 
 	function frequencyCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="frequency" type="text" mytype="freqcode" class="form-control input-lg" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('freqcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="frequency" type="text" mytype="freqcode" class="form-control input" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('freqcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
 	}
 
 	function drugindicatorCustomEdit(val,opt){  	
 		val = (val == "undefined") ? "" : val;
-		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="drugindicator" type="text" mytype="drugindcode" class="form-control input-lg" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('drugindcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="drugindicator" type="text" mytype="drugindcode" class="form-control input" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('drugindcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
 	}
 
     function galGridCustomValue (elem, operation, value){

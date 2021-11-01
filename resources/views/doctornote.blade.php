@@ -34,7 +34,7 @@
 .ui-jqgrid .inline-edit-cell {
     height: 46 px;
     padding: 10 px 16 px;
-    font-size: 15px;
+    font-size: 13px;
     line-height: 1.3333333;
     border-radius: 6 px;
 }
@@ -162,30 +162,47 @@ table#medication_tbl th {
     background-color: #fff !important;
     color: #1a1a1a;
 }
-
+<!-- 
 .input-lg{
     font-size: 16px !important;
 }
-
+ -->
 @endsection
 
 @section('content')
 
     <input type="hidden" id="curr_user" value="{{ Auth::user()->username }}">
     <input type="hidden" id="doctornote_route" value="{{route('doctornote_route')}}">
-    <div class="ui stackable two column grid">
-        <div class="five wide tablet five wide computer column"><div class="ui orange segment" style="z-index:100">
-            <div id="calendar"></div>
-        </div></div>
 
-        <div class="eleven wide tablet eleven wide computer right floated column" style="margin:0px;">
+    
+
+    <div class="ui stackable two column grid">
+        <div class="five wide tablet five wide computer column" id="calendar_div">
+            <div class="ui orange segment" style="z-index:100">
+                <div id="calendar"></div>
+            </div>
+        </div>
+
+        <div class="eleven wide tablet eleven wide computer right floated column" style="margin:0px;"  id="jqgrid_div">
             <div class="ui teal segment" style="padding-bottom: 40px;">
+                
+                <div class="if_tablet left floated" style="display:none;">
+                    <div class="ui calendar" id="button_calendar">
+                        <button class="ui teal mini icon button">
+                            <i class="calendar alternate outline icon"></i> Select date
+                        </button><span id="sel_date_span" style="margin-left: 10px;color: teal;font-weight: 700;">{{Carbon\Carbon::now("Asia/Kuala_Lumpur")->format('d/m/Y')}}</span>
+                    </div>
+                </div>
+
                 <h2 class="h2">Patient List</h2>
                 <table id="jqGrid" class="table table-striped"></table>
                 <div id="jqGridPager"></div>
+                <a class="ui grey label left floated" style="margin-top: 8px;">
+                    <i class="user icon"></i>
+                    Patient : <span id="no_of_pat">0</span>
+                </a>
+
                 <div style="float: right;padding: 5px 4px 10px 10px;">
-                    <!-- <i class="btn play icon" id="timer_play" style="position: inherit;color: black; padding: 5px 50px 10px 10px;"><small>Play</small></i>
-                    <i class="btn stop icon" id="timer_stop" style="position: inherit;color: black; padding: 5px 50px 10px 10px;"><small>Stop</small></i> -->
 
                     <div class="mini basic ui buttons">
                       <button id="timer_play" class="ui disabled icon button">
