@@ -95,7 +95,7 @@
                                                     </div>
 
                                                     <div class="form-group col-md-6">
-                                                        <label class="col-md-2 control-label" for="followupdate">Date</label>  
+                                                        <label class="col-md-2 control-label" for="followupdate">Date and Time</label>  
                                                         <div class="col-md-10">
                                                             <input id="followupdate" name="followupdate" type="date" class="form-control">
                                                         </div>

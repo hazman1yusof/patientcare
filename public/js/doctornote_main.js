@@ -182,7 +182,7 @@ $(document).ready(function () {
 			],
 			autowidth: true,
 			viewrecords: true,
-			sortorder: "reg_time",
+			sortorder: "episode.reg_time",
 			sortorder: "desc",
 			width: 900,
 			height: 365,

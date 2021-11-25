@@ -610,7 +610,7 @@ var docnote_date_tbl = $('#docnote_date_tbl').DataTable({
     "columns": [
         {'data': 'mrn'},
         {'data': 'episno'},
-        {'data': 'date', 'width': '100%'},
+        {'data': 'Date and Time', 'width': '100%'},
         {'data': 'adduser'},
     ]
     ,columnDefs: [

@@ -14,10 +14,10 @@ $(document).ready(function () {
 				       custom_value:galGridCustomValue 	
 				    },
 			},
-			{ label: 'Qty', name: 'quantity', width: 15 , align: 'right', editable:true, classes: 'input',
+			{ label: 'Qty', name: 'quantity', width: 35 , align: 'right', editable:true, classes: 'input',
 				editrules:{required: true, custom:true, custom_func:cust_rules},
 				formatter: 'number',formatoptions:{decimalPlaces: 0, defaultValue: '1'}},
-			{ label: 'Remarks', name: 'remarks', width: 100, classes: 'wrap', editable:true,edittype:'textarea',editoptions: { rows: 4 }},
+			{ label: 'Remarks', name: 'remarks', width: 80, classes: 'wrap', editable:true,edittype:'textarea',editoptions: { rows: 4 }},
 			{ label: 'dos_code', name: 'dos_code', hidden: true },
 			{ label: 'Dosage', name: 'dos_desc', classes: 'wrap', width: 40 , editable:true,
 				editrules:{required: false},

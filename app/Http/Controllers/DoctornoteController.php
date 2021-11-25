@@ -109,8 +109,14 @@ class DoctornoteController extends Controller
                 ->select(['pat_mast.idno','pat_mast.CompCode','episode.MRN','episode.Episno','pat_mast.Name','pat_mast.Call_Name','pat_mast.addtype','pat_mast.Address1','pat_mast.Address2','pat_mast.Address3','pat_mast.Postcode','pat_mast.citycode','pat_mast.AreaCode','pat_mast.StateCode','pat_mast.CountryCode','pat_mast.telh','pat_mast.telhp','pat_mast.telo','pat_mast.Tel_O_Ext','pat_mast.ptel','pat_mast.ptel_hp','pat_mast.ID_Type','pat_mast.idnumber','pat_mast.Newic','pat_mast.Oldic','pat_mast.icolor','pat_mast.Sex','pat_mast.DOB','pat_mast.Religion','pat_mast.AllergyCode1','pat_mast.AllergyCode2','pat_mast.Century','pat_mast.Citizencode','pat_mast.OccupCode','pat_mast.Staffid','pat_mast.MaritalCode','pat_mast.LanguageCode','pat_mast.TitleCode','pat_mast.RaceCode','pat_mast.bloodgrp','pat_mast.Accum_chg','pat_mast.Accum_Paid','pat_mast.first_visit_date','pat_mast.Reg_Date','pat_mast.last_visit_date','pat_mast.last_episno','pat_mast.PatStatus','pat_mast.Confidential','pat_mast.Active','pat_mast.FirstIpEpisNo','pat_mast.FirstOpEpisNo','pat_mast.AddUser','pat_mast.AddDate','pat_mast.Lastupdate','pat_mast.LastUser','pat_mast.OffAdd1','pat_mast.OffAdd2','pat_mast.OffAdd3','pat_mast.OffPostcode','pat_mast.MRFolder','pat_mast.MRLoc','pat_mast.MRActive','pat_mast.OldMrn','pat_mast.NewMrn','pat_mast.Remarks','pat_mast.RelateCode','pat_mast.ChildNo','pat_mast.CorpComp','pat_mast.Email','pat_mast.Email_official','pat_mast.CurrentEpis','pat_mast.NameSndx','pat_mast.BirthPlace','pat_mast.TngID','pat_mast.PatientImage','pat_mast.pAdd1','pat_mast.pAdd2','pat_mast.pAdd3','pat_mast.pPostCode','pat_mast.DeptCode','pat_mast.DeceasedDate','pat_mast.PatientCat','pat_mast.PatType','pat_mast.PatClass','pat_mast.upduser','pat_mast.upddate','pat_mast.recstatus','pat_mast.loginid','pat_mast.pat_category','pat_mast.idnumber_exp','episode.doctorstatus','episode.reg_time','episode.payer','episode.pyrmode'])
                 ->leftJoin('hisdb.episode','episode.mrn','=','pat_mast.MRN')
                 ->where('pat_mast.compcode','=',session('compcode'))
-                ->where('episode.reg_date' ,'=', $request->filterVal[0])
-                ->orderBy('episode.reg_time', 'desc');
+                ->where('episode.reg_date' ,'=', $request->filterVal[0]);
+                
+
+                if(!empty($request->sidx)){
+                    $table_patm = $table_patm->orderBy($request->sidx, $request->sord);
+                }else{
+                    $table_patm = $table_patm->orderBy('episode.reg_time', 'desc');
+                }
 
         //////////paginate/////////
         $paginate = $table_patm->paginate($request->rows);
@@ -569,7 +575,8 @@ class DoctornoteController extends Controller
             $data = [];
 
             foreach ($pathealth_obj as $key => $value) {
-                $date['date'] =  $value->adddate.' '.$value->recordtime;
+
+                $date['date'] =  Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y').' '.$value->recordtime;
                 $date['mrn'] = $value->mrn;
                 $date['episno'] = $value->episno;
                 $date['adduser'] = $value->adduser;
@@ -601,7 +608,7 @@ class DoctornoteController extends Controller
             $data = [];
 
             foreach ($patexam_obj as $key => $value) {
-                $date['date'] =  explode(" ",$value->adddate)[0].' '.$value->recordtime;
+                $date['date'] =  Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y').' '.$value->recordtime;
                 $date['mrn'] = $value->mrn;
                 $date['episno'] = $value->episno;
                 $date['adduser'] = $value->adduser;
