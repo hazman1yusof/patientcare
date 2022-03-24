@@ -588,13 +588,9 @@ class defaultController extends Controller{
         }
     }
 
-    public static function mydump($obj,$line='null'){
-        dd([
-            $line,
-            $obj->toSql(),
-            $obj->getBindings()
-        ]);
-
+    public static function getQueries($builder){
+        $addSlashes = str_replace('?', "'?'", $builder->toSql());
+        return vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings());
     }
 
 }

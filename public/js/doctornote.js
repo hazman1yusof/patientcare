@@ -420,11 +420,31 @@ function populate_doctorNote(obj,rowdata){
     // button_state_doctorNote('add');
 }
 
+function empty_currDoctorNote(){
+	emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
+
+	//panel header
+	$('#name_show_doctorNote').text('');
+	$('#mrn_show_doctorNote').text('');
+	$('#sex_show_doctorNote').text('');
+	$('#dob_show_doctorNote').text('');
+	$('#age_show_doctorNote').text('');
+	$('#race_show_doctorNote').text('');
+	$('#religion_show_doctorNote').text('');
+	$('#occupation_show_doctorNote').text('');
+	$('#citizenship_show_doctorNote').text('');
+	$('#area_show_doctorNote').text('');
+
+	//formDoctorNote
+	$('#mrn_doctorNote').val('');
+	$("#episno_doctorNote").val('');
+}
+
 //screen current patient//
 function populate_currDoctorNote(obj){
 	curr_obj=obj;
 	
-	emptyFormdata(errorField,"#formDoctorNote");
+	emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
 
 	//panel header
 	$('#name_show_doctorNote').text(obj.Name);
@@ -454,7 +474,7 @@ function populate_currDoctorNote(obj){
 		recorddate:''
 	};
 
-    // button_state_doctorNote('add');
+    button_state_doctorNote('add');
 
     docnote_date_tbl.ajax.url( "./doctornote/table?"+$.param(dateParam_docnote) ).load(function(data){
 		emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
@@ -610,7 +630,7 @@ var docnote_date_tbl = $('#docnote_date_tbl').DataTable({
     "columns": [
         {'data': 'mrn'},
         {'data': 'episno'},
-        {'data': 'Date and Time', 'width': '100%'},
+        {'data': 'date', 'width': '100%'},
         {'data': 'adduser'},
     ]
     ,columnDefs: [

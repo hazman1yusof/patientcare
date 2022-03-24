@@ -141,14 +141,14 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                                             </div>
                                         </div>
                                     </td>
-                                    <td>{{ @$item->description }}</td>
-                                    <td>{{ @$item->doctor }}</td>
-                                    <td>{{ @$item->dosecode }}</td>
-                                    <td>{{ @$item->freqcode }}</td>
-                                    <td>{{ @$item->instcode }}</td>
-                                    <td>{{ @$item->remark }}</td>
-                                    <td class='alnright'>{{ @$item->qty }}</td>
-                                    <td>@if(!empty($item->date)){{\Carbon\Carbon::parse($item->date)->format('d-m-Y')}}@endif</td>
+                                    <td>{{ @$item->chg_desc }}</td>
+                                    <td>{{ @$item->admdoctor }}</td>
+                                    <td>{{ @$item->dos_desc }}</td>
+                                    <td>{{ @$item->fre_desc }}</td>
+                                    <td>{{ @$item->ins_desc }}</td>
+                                    <td>{{ @$item->remarks }}</td>
+                                    <td class='alnright'>{{ @$item->quantity }}</td>
+                                    <td>@if(!empty($item->trxdate)){{\Carbon\Carbon::parse($item->trxdate)->format('d-m-Y')}}@endif</td>
                                     <td>
                                         <a
                                             href="https://medicsoft.com.my/patientcare/resources/views/print_detail.php?id={{ $item->id }}"
@@ -169,24 +169,24 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                                             <div class="meta" style="margin: 30px 0 10px 0">
                                               <span>2 days ago</span>
                                             </div>
-                                            <p>Epis Type: {{ @$item->freqcode }}</p>
-                                            <p>Adm Date/Time: {{ @$item->date }}</p>
+                                            <p>Epis Type: {{ @$item->fre_code }}</p>
+                                            <p>Adm Date/Time: {{ @$item->trxdate }}</p>
                                             <p>Sex/Race/DOB: -</p>
                                             <p>PS. No.: -</p>
                                             <p>War/Bed: -</p>
-                                            <p>TRX Date: {{ @$item->date }}</p>
-                                            <p>Charge Code: {{ @$item->chgcode }}</p>
-                                            <p>Description: {{ @$item->description }}</p>
-                                            <p>Dose Code: {{ @$item->dosecode }}</p>
-                                            <p>InstCode: {{ @$item->instcode }}</p>
-                                            <p>DoseDescription: {{ @$item->dosedescription }}</p>
-                                            <p>FreqDescription: {{ @$item->freqdescription }}</p>
-                                            <p>InstDescription: {{ @$item->inst_description }}</p>
-                                            <p>Duration: {{ @$item->duration }}</p>
-                                            <p>Remark: {{ @$item->remark }}</p>
-                                            <p>Duration2: {{ @$item->duration2 }}</p>
-                                            <p>Quantity: {{ @$item->qty }}</p>
-                                            <p>Doctor: {{ @$item->doctor }}</p>
+                                            <p>TRX Date: {{ @$item->trxdate }}</p>
+                                            <p>Charge Code: {{ @$item->chg_code }}</p>
+                                            <p>Description: {{ @$item->chg_desc }}</p>
+                                            <p>Dose Code: {{ @$item->dos_code }}</p>
+                                            <p>InstCode: {{ @$item->ins_code }}</p>
+                                            <p>DoseDescription: {{ @$item->dos_desc }}</p>
+                                            <p>FreqDescription: {{ @$item->fre_desc }}</p>
+                                            <p>InstDescription: {{ @$item->ins_desc }}</p>
+                                            <p>Duration: {{ @$item->dru_desc }}</p>
+                                            <p>Remark: {{ @$item->remarks }}</p>
+                                            <p>Duration2: {{ @$item->dru_desc }}</p>
+                                            <p>Quantity: {{ @$item->quantity }}</p>
+                                            <p>Doctor: {{ @$item->admdoctor }}</p>
                                             <a
                                                 href="https://medicsoft.com.my/patientcare/resources/views/print_detail.php?id={{ $item->id }}"
                                                 class="btn btn-sm btn-primary text-white"

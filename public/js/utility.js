@@ -1825,10 +1825,10 @@ function if_none(str){
 	return (str)?str:'NONE';
 }
 
-function SmoothScrollTo(id_or_Name, timelength){
+function SmoothScrollTo(id_or_Name, timelength,minustop=125){
   var timelength = timelength || 500;
   $('html, body').animate({
-      scrollTop: $(id_or_Name).offset().top-125
+      scrollTop: $(id_or_Name).offset().top-minustop
   }, timelength, function(){
 
   });

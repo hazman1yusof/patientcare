@@ -19,36 +19,40 @@ class DialysisController extends Controller
     public function index(Request $request){ 
         // dd(Auth::user());
 
-        $navbar = $this->navbar();
+        // $navbar = $this->navbar();
 
-        // $emergency = DB::table('episode')
-        //                 ->whereMonth('reg_date', '=', now()->month)
-        //                 ->get();
+        // // $emergency = DB::table('episode')
+        // //                 ->whereMonth('reg_date', '=', now()->month)
+        // //                 ->get();
 
-        // $events = $this->getEvent($emergency);
+        // // $events = $this->getEvent($emergency);
 
-        if(!empty($request->username)){
-            $user = DB::table('users')
-                    ->where('username','=',$request->username);
-            if($user->exists()){
-                $user = User::where('username',$request->username);
-                Auth::login($user->first());
-            }
-        }
-        return view('dialysis',compact('navbar'));
+        // if(!empty($request->username)){
+        //     $user = DB::table('users')
+        //             ->where('username','=',$request->username);
+        //     if($user->exists()){
+        //         $user = User::where('username',$request->username);
+        //         Auth::login($user->first());
+        //     }
+        // }
+        return view('dialysis');
     }
 
     public function dialysis_event(Request $request){
-        $date_event = DB::table('episode')
-                        ->whereBetween('reg_date', [$request->start,$request->end])
-                        ->get();
-
+        $emergency = DB::table('hisdb.episode')
+                        ->whereRaw(
+                          "(reg_date >= ? AND reg_date <= ?)", 
+                          [
+                             $request->start, 
+                             $request->end
+                         ])->get();
+        
         $events = [];
 
         for ($i=1; $i <= 31; $i++) {
             $days = 0;
             $reg_date;
-            foreach ($date_event as $key => $value) {
+            foreach ($emergency as $key => $value) {
                 $day = Carbon::createFromFormat('Y-m-d',$value->reg_date);
                 if($day->day == $i){
                     $reg_date = $value->reg_date;
@@ -90,7 +94,7 @@ class DialysisController extends Controller
         if(!empty($request->date)){
             $carbon = new Carbon($request->date);
 
-            $post = DB::table('dialysis')
+            $post = DB::table('hisdb.dialysis')
                     ->where('mrn','=',$request->mrn)
                     ->whereYear('start_date', '=', $carbon->year)
                     ->whereMonth('start_date', '=', $carbon->month)
@@ -108,7 +112,7 @@ class DialysisController extends Controller
             $datefrom = new Carbon($request->datefrom);
             $dateto = new Carbon($request->dateto);
 
-            $post = DB::table('dialysis')
+            $post = DB::table('hisdb.dialysis')
                     ->where('mrn','=',$request->mrn)
                     ->whereBetween('start_date', [$datefrom, $dateto])
                     ->take(3)
@@ -125,7 +129,7 @@ class DialysisController extends Controller
         if(!empty($request->date)){
             $carbon = new Carbon($request->date);
 
-            $post = DB::table('dialysis')
+            $post = DB::table('hisdb.dialysis')
                     ->where('mrn','=',$request->mrn)
                     ->whereDate('start_date', '=', $carbon)
                     ->get();
@@ -138,7 +142,7 @@ class DialysisController extends Controller
 
     public function save_dialysis(Request $request){
 
-        $table = DB::table('dialysis');
+        $table = DB::table('hisdb.dialysis');
         try {
             if($request->oper == 'add'){
                 $array_insert = [
@@ -186,7 +190,7 @@ class DialysisController extends Controller
 
     public function transaction_save(Request $request){
         try {
-            $table = DB::table('chargetrx');
+            $table = DB::table('hisdb.chargetrx');
 
             if($request->oper == 'edit'){
                 $table->where('mrn','=',$request->mrn)
@@ -236,7 +240,7 @@ class DialysisController extends Controller
 
     public function change_status(Request $request){
         try {
-            $table = DB::table('episode')
+            $table = DB::table('hisdb.episode')
                         ->where('mrn','=',$request->mrn)
                         ->where('episno','=',$request->episno)
                         ->update([
@@ -254,6 +258,15 @@ class DialysisController extends Controller
 
             return response('Error'.$e, 500);
         }
+    }
+
+    public static function mydump($obj,$line='null'){
+        dd([
+            $line,
+            $obj->toSql(),
+            $obj->getBindings()
+        ]);
+
     }
 
 }

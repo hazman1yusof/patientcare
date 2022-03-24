@@ -335,6 +335,30 @@ function pop_item_select(type,id,rowid,ontab=false){
 	$('#mdl_item_selector').modal({
 		'closable':false,
 		onHidden : function(){
+        	switch(id){
+	        	case rowid+'_chg_desc':
+    	        	delay(function(){
+    					$('#jqGrid_trans input#'+rowid+'_quantity').select().focus();
+    				}, 10 );
+	        		break;
+	        	case rowid+'_dos_desc':
+    	        	delay(function(){
+    					$('#jqGrid_trans input#'+rowid+'_fre_desc').select().focus();
+    				}, 10 );
+	        		break;
+	        	case rowid+'_fre_desc':
+    	        	delay(function(){
+    					$('#jqGrid_trans input#'+rowid+'_ins_desc').select().focus();
+    				}, 10 );
+	        		break;
+	        	case rowid+'_ins_desc':
+    	        	delay(function(){
+    					$('#jqGrid_trans input#'+rowid+'_dru_desc').select().focus();
+    				}, 10 );
+	        		break;
+	        	case rowid+'_dru_desc':
+	        		break;
+	        }
 	        $('#tbl_item_select').html('');
 	        selecter.destroy();
 	    },
@@ -368,6 +392,7 @@ function pop_item_select(type,id,rowid,ontab=false){
                 if(ontab==true){
                     selecter.search( text_val ).draw();
                 }
+                $("#tbl_item_select_filter #input[type='search'][aria-controls='tbl_item_select']").select().focus();
                 
                 if(selecter.page.info().recordsDisplay == 1){
                     // $('#tbl_item_select tbody tr:eq(0)').dblclick();
@@ -395,14 +420,14 @@ function pop_item_select(type,id,rowid,ontab=false){
         $('#mdl_item_selector').modal('hide');
     });
         
-    $("#mdl_item_selector").on('hidden.bs.modal', function () {
-        $('#tbl_item_select').html('');
-        selecter.destroy();
-        $('#add_new_adm,#adm_save,#new_occup_save,#new_title_save,#new_areacode_save').off('click');
-        type = "";
-        item = "";
-        // obj.blurring = true;
-    });
+//     $("#mdl_item_selector").on('hidden.bs.modal', function () {
+//         $('#tbl_item_select').html('');
+//         selecter.destroy();
+//         
+//         type = "";
+//         item = "";
+//         // obj.blurring = true;
+//     });
 }
 
 function get_url(type){
@@ -434,4 +459,9 @@ function get_trans_tbl_data(){
 
 	datable_medication.rows.add(data).draw();
 
+}
+
+function empty_transaction(){
+	hide_tran_button(true);
+	refreshGrid("#jqGrid_trans", urlParam_trans,'kosongkan');
 }

@@ -2,6 +2,18 @@ $(document).ready(function () {
 
 	disableForm('form#daily_form');
 
+	$("#tab_daily").on("shown.bs.collapse", function(){
+		SmoothScrollTo('#tab_daily', 300,90);
+	});
+
+	$("#tab_weekly").on("shown.bs.collapse", function(){
+		SmoothScrollTo('#tab_weekly', 300,90);
+	});
+
+	$("#tab_monthly").on("shown.bs.collapse", function(){
+		SmoothScrollTo('#tab_monthly', 300,90);
+	});
+
 	$('#submit').click(function(){
 
 		if($('form#daily_form').form('validate form')) {
@@ -22,7 +34,8 @@ $(document).ready(function () {
 					$('#edit_dia').prop('disabled',false);
 					disableForm('form#daily_form');
 					$('#toTop').click();
-					toastr.success('Dialysis data saved!',{timeOut: 1000})
+					toastr.success('Dialysis data saved!',{timeOut: 1000});
+					SmoothScrollTo('#tab_daily', 300,90);
 				}
 			},'json');
 		}
@@ -245,10 +258,20 @@ function populatedialysis(data,seldate){
 	$('#addnew_dia').prop('disabled',false);
 	disableForm('form#daily_form');
 	$('#seldate').val(seldate);
-	$('span.metal').text(data.p_name+' - MRN:'+data.e_mrn);
-	$('#mrn').val(data.e_mrn);
-	$('#episno').val(data.e_episno);
+	$('span.metal').text(data.Name+' - MRN:'+data.MRN);
+	$('#mrn').val(data.MRN);
+	$('#episno').val(data.Episno);
 	load_daily_dia(seldate);
+	emptyFormdata([],'form#daily_form');
+}
+
+function empty_dialysis(){
+	$('#edit_dia,#addnew_dia').prop('disabled',true);
+	disableForm('form#daily_form');
+	$('#seldate').val('');
+	$('span.metal').text('');
+	$('#mrn').val('');
+	$('#episno').val('');
 	emptyFormdata([],'form#daily_form');
 }
 

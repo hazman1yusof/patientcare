@@ -67,6 +67,8 @@
 
         <a class="item @if(Request::is('userlist') || Request::is('user/*')) {{'active'}} @endif" href="{{ url('/userlist')}}"><i style="float: left" class="big user icon"></i>User</a>
 
+        <a class="item @if(Request::is('dialysis') || Request::is('dialysis/*')) {{'active'}} @endif" href="{{ url('/dialysis')}}"><i style="float: left" class="big procedures icon"></i>Dialysis</a>
+
     @elseif (Auth::user()->groupid == 'MR')
 
         <a class="item {{(Request::is('dashboard') ? 'active' : '')}}" href="{{url('/dashboard')}}"><i style="float: left" class="home inverted icon big link"></i>Dashboard</a>
@@ -105,6 +107,8 @@
         <a class="item @if(Request::is('eis') || Request::is('eis/*')) {{'active'}} @endif" href="{{ url('/eis')}}"><i style="float: left" class="chart bar big link icon"></i>Episode Statistics</a>
 
         <a class="item @if(Request::is('reveis') || Request::is('reveis/*')) {{'active'}} @endif" href="{{ url('/reveis')}}"><i style="float: left" class="chart line big link icon"></i>Revenue By Services</a>
+
+        <a class="item @if(Request::is('dialysis') || Request::is('dialysis/*')) {{'active'}} @endif" href="{{ url('/dialysis')}}"><i style="float: left" class="big procedures icon"></i>Dialysis</a>
         
     @endif
     <a class="item" href=".\logout"><i style="float: left" class="plug inverted big icon link"></i>Log Out</a>

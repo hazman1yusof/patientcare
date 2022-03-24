@@ -50,4 +50,23 @@ class DashboardController extends Controller
 
         }
     }
+
+    
+
+    public function redirect()
+    {
+        if(Auth::user()->groupid == 'patient'){
+            return redirect('/chat');
+        }else if(strtoupper(Auth::user()->groupid) == 'DOCTOR'){
+            return redirect('/doctornote');
+        }else if(strtoupper(Auth::user()->groupid) == 'CLINICAL'){
+            return redirect('/doctornote');
+        }else if(strtoupper(Auth::user()->groupid) == 'ADMIN'){
+            return redirect('/doctornote');
+        }else if(strtoupper(Auth::user()->groupid) == 'MR'){
+            return redirect('/doctornote');
+        }else{
+            return redirect('/doctornote');
+        }
+    }
 }

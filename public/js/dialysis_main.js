@@ -49,65 +49,54 @@ $(document).ready(function () {
 	});
 
 	var urlParam = {
-		action: 'get_table_default',
-		url: $('#util_tab').val(),
-		field: '',
-		fixPost:'true',
-		table_name:['episode as e','pat_mast as p'],
-		join_type:['LEFT JOIN'],
-		join_onCol:['e.mrn'],
-		join_onVal:['p.mrn'],
-		filterCol:['e.reg_date'],
-		filterVal:[moment().format('YYYY-MM-DD')],
+		action: 'get_table_doctornote',
+		url: $('#doctornote_route').val(),
+		filterVal : [moment().format("YYYY-MM-DD")]
 	}
 
 	$("#jqGrid").jqGrid({
 		datatype: "local",
 		colModel: [
-			{ label: 'MRN', name: 'e_mrn', width: 7, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
-			{ label: 'Epis. No', name: 'e_episno', width: 5 ,align: 'right',classes: 'wrap' },
-			{ label: 'Time', name: 'e_reg_time', width: 8 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
-			{ label: 'Name', name: 'p_name', width: 18 ,classes: 'wrap' },
-			{ label: 'Payer', name: 'e_payer', width: 18 ,classes: 'wrap' },
-			{ label: 'I/C', name: 'p_Newic', width: 12 ,classes: 'wrap' },
-			{ label: 'DOB', name: 'p_DOB', width: 10 ,classes: 'wrap' ,formatter: dateFormatter, unformat: dateUNFormatter},
-			{ label: 'Handphone', name: 'p_telhp', width: 10 ,classes: 'wrap' },
-			{ label: 'Sex', name: 'p_Sex', width: 5 ,classes: 'wrap' },
-			{ label: 'Pay Mode', name: 'e_pyrmode', width: 10 ,classes: 'wrap'},
-			{ label: 'Completed', name: 'e_ordercomplete', width: 11,formatter: ordercompleteFormatter, unformat: ordercompleteUNFormatter },
-			{ label: 'idno', name: 'e_idno', hidden: true, key:true},
-			{ label: 'Time', name: 'e_reg_time', hidden: true },
+			{ label: 'MRN', name: 'MRN', width: 9, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
+			{ label: ' ', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' },
+			{ label: 'Time', name: 'reg_time', width: 10 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
+			{ label: 'Name', name: 'Name', width: 15 ,classes: 'wrap' },
+			{ label: 'Payer', name: 'payer', width: 15 ,classes: 'wrap' },
+			{ label: 'I/C', name: 'Newic', width: 15 ,classes: 'wrap' },
+			{ label: 'DOB', name: 'DOB', width: 12 ,classes: 'wrap' ,formatter: dateFormatter, unformat: dateUNFormatter},
+			{ label: 'HP', name: 'telhp', width: 13 ,classes: 'wrap' , hidden:true},
+			{ label: 'Sex', name: 'Sex', width: 6 ,classes: 'wrap' },
+			{ label: 'Mode', name: 'pyrmode', width: 8 ,classes: 'wrap'},
+			{ label: 'Seen', name: 'doctorstatus', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick},
+			{ label: 'idno', name: 'idno', hidden: true, key:true},
+			{ label: 'dob', name: 'dob', hidden: true },
+			{ label: 'RaceCode', name: 'RaceCode', hidden: true },
+			{ label: 'religion', name: 'religion', hidden: true },
+			{ label: 'OccupCode', name: 'OccupCode', hidden: true },
+			{ label: 'Citizencode', name: 'Citizencode', hidden: true },
+			{ label: 'AreaCode', name: 'AreaCode', hidden: true },
 		],
 		autowidth: true,
 		viewrecords: true,
 		width: 900,
 		height: 365,
 		rowNum: 30,
-		sortname: 'e_idno',
+		sortname: 'idno',
 		sortorder: "desc",
 		onSelectRow:function(rowid, selected){
-
 			populatedialysis(selrowData('#jqGrid'),urlParam.filterVal[0]);
 			hide_tran_button(false);
-			urlParam_trans.filterVal[0] = selrowData('#jqGrid').e_mrn;
-			urlParam_trans.filterVal[1] = selrowData('#jqGrid').e_episno;
+			urlParam_trans.mrn = selrowData('#jqGrid').MRN;
+			urlParam_trans.episno = selrowData('#jqGrid').Episno;
 			addmore_onadd = false;
 			refreshGrid("#jqGrid_trans", urlParam_trans);
-
-			if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
-				$('#checkbox_completed').prop('disabled',true);
-				$('#checkbox_completed').prop('checked', true);
-				hide_tran_button(true);
-			}else{//kalau belum completed
-				$('#checkbox_completed').prop('disabled',false);
-				$('#checkbox_completed').prop('checked', false);
-				hide_tran_button(false);
-			}
 
 		},
 		ondblClickRow: function (rowid, iRow, iCol, e) {
 		},
 		gridComplete: function () {
+			empty_dialysis();
+			empty_transaction();
 			$('#checkbox_completed').prop('disabled',true);
 			$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
 			ordercompleteInit();
@@ -122,6 +111,14 @@ $(document).ready(function () {
 			refreshGrid("#jqGrid", urlParam);
 		},
 	});
+
+	function formatterstatus_tick(cellvalue, option, rowObject) {
+		if (cellvalue == 'SEEN') {
+			return '<span class="fa fa-check" ></span>';
+		}else{
+			return "";
+		}
+	}
 
 	function ordercompleteFormatter(cellvalue, option, rowObject) {
 		if (cellvalue == '1') {
@@ -182,8 +179,8 @@ $(document).ready(function () {
 					        	var param = {
 									_token: $("#_token").val(),
 									action: 'change_status',
-									mrn: rowdata.e_mrn,
-									episno: rowdata.e_episno,
+									mrn: rowdata.MRN,
+									episno: rowdata.Episno,
 								}
 
 								$.post( "./change_status?"+$.param(param),{}, function( data ){

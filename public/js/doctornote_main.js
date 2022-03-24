@@ -146,11 +146,16 @@ $(document).ready(function () {
 			ondblClickRow: function (rowid, iRow, iCol, e) {
 			},
 			gridComplete: function () {
+				hide_tran_button(true);
 				$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
+				empty_currDoctorNote();
+				empty_transaction();
 
 				let discharge_btn_data = $('#discharge_btn').data('idno');
 				if(discharge_btn_data == undefined || discharge_btn_data == 'none'){
-					$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+					if(!$("button#timer_play").hasClass("disabled")){
+						$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+					}
 				}else{
 					$("#jqGrid").setSelection(discharge_btn_data);
 				}
@@ -211,11 +216,16 @@ $(document).ready(function () {
 			ondblClickRow: function (rowid, iRow, iCol, e) {
 			},
 			gridComplete: function () {
+				hide_tran_button(true);
 				$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
+				empty_currDoctorNote();
+				empty_transaction();
 
 				let discharge_btn_data = $('#discharge_btn').data('idno');
 				if(discharge_btn_data == undefined || discharge_btn_data == 'none'){
-					$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+					if(!$("button#timer_play").hasClass("disabled")){
+						$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+					}
 				}else{
 					$("#jqGrid").setSelection(discharge_btn_data);
 				}

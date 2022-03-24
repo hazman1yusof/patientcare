@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', "ChatController@show");
+Route::get('/', "DashboardController@redirect");
 
 Route::get('/login', 'SessionController@index')->name('login');
 

@@ -95,13 +95,13 @@ class SessionController extends Controller
                 Auth::login($user->first(),$remember);
                 if(Auth::user()->groupid == 'patient'){
                     return redirect('/chat');
-                }else if(Auth::user()->groupid == 'doctor'){
+                }else if(strtoupper(Auth::user()->groupid) == 'DOCTOR'){
                     return redirect('/doctornote');
-                }else if(Auth::user()->groupid == 'clinical'){
+                }else if(strtoupper(Auth::user()->groupid) == 'CLINICAL'){
                     return redirect('/emergency');
-                }else if(Auth::user()->groupid == 'admin'){
+                }else if(strtoupper(Auth::user()->groupid) == 'ADMIN'){
                     return redirect('/dashboard');
-                }else if(Auth::user()->groupid == 'MR'){
+                }else if(strtoupper(Auth::user()->groupid) == 'MR'){
                     return redirect('/dashboard');
                 }else{
                     return redirect('/dashboard');

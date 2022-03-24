@@ -14,7 +14,10 @@
 					</div>
 					<div class="field">
 						<label>Password</label>
-						<input placeholder="Password" type="password" name="password">
+						<div class="ui icon input">
+						  <input placeholder="Password" type="password" name="password" id="inputPassword">
+						  <i id="showpwd" class="eye link icon"></i>
+						</div>
 					</div>
 					<!-- <div class="ui stackable two column grid">
 						<div class="ui checkbox column">
