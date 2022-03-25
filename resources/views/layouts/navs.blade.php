@@ -11,8 +11,10 @@
     </div>
 </div>
 
+
+
 <div class="ui sidebar inverted vertical menu sidemenu">
-    @if (Auth::user()->groupid == 'patient')
+    @if (strtoupper(Auth::user()->groupid) == 'PATIENT')
         <a class="item {{(Request::is('appointment') ? 'active' : '')}}" href="{{url('/appointment')}}"><i style="float: left" class="calendar alternate outline inverted icon big link"></i>Appointment</a>
 
         @if(Auth::user()->televideo == 'true')
@@ -25,14 +27,14 @@
 
         <a class="item @if(Request::is('prescription') || Request::is('prescription/*')) {{'active'}} @endif" href="{{ url('/prescription')}}"><i style="float: left" class="hospital inverted big link icon"></i>Prescription</a>
 
-    @elseif (Auth::user()->groupid == 'doctor')
+    @elseif (strtoupper(Auth::user()->groupid) == 'DOCTOR')
         <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
 
         <a class="item {{(Request::is('doctornote') ? 'active' : '')}}" href="{{ url('/doctornote')}}"><i style="float: left" class="stethoscope inverted big icon link"></i>Doctor Note</a>
 
         <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
 
-    @elseif (Auth::user()->groupid == 'clinical')
+    @elseif (strtoupper(Auth::user()->groupid) == 'CLINICAL')
         <a class="item {{(Request::is('dashboard') ? 'active' : '')}}" href="{{url('/dashboard')}}"><i style="float: left" class="home inverted icon big link"></i>Dashboard</a>
 
         <a class="item {{(Request::is('appointment') ? 'active' : '')}}" href="{{url('/appointment')}}"><i style="float: left" class="calendar alternate outline inverted icon big link"></i>Appointment</a>
@@ -44,7 +46,7 @@
         <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
 
 
-    @elseif (Auth::user()->groupid == 'admin')
+    @elseif (strtoupper(Auth::user()->groupid) == 'ADMIN')
         <a class="item {{(Request::is('dashboard') ? 'active' : '')}}" href="{{url('/dashboard')}}"><i style="float: left" class="home inverted icon big link"></i>Dashboard</a>
 
         <a class="item {{(Request::is('appointment') ? 'active' : '')}}" href="{{url('/appointment')}}"><i style="float: left" class="calendar alternate outline inverted icon big link"></i>Appointment</a>
@@ -69,7 +71,7 @@
 
         <a class="item @if(Request::is('dialysis') || Request::is('dialysis/*')) {{'active'}} @endif" href="{{ url('/dialysis')}}"><i style="float: left" class="big procedures icon"></i>Dialysis</a>
 
-    @elseif (Auth::user()->groupid == 'MR')
+    @elseif (strtoupper(Auth::user()->groupid) == 'MR')
 
         <a class="item {{(Request::is('dashboard') ? 'active' : '')}}" href="{{url('/dashboard')}}"><i style="float: left" class="home inverted icon big link"></i>Dashboard</a>
 
