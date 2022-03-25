@@ -138,7 +138,7 @@ class DoctornoteController extends Controller
         }
 
         $table_chgtrx = DB::table('hisdb.chargetrx as trx') //ambil dari patmast balik
-                            ->select('trx.auditno',
+                            ->select('trx.id',
                                 'trx.chgcode as chg_code',
                                 'trx.quantity',
                                 'trx.remarks',
@@ -160,7 +160,8 @@ class DoctornoteController extends Controller
                             ->leftJoin('hisdb.instruction','instruction.inscode','=','trx.instruction')
                             ->leftJoin('hisdb.freq','freq.freqcode','=','trx.frequency')
                             ->leftJoin('hisdb.dose','dose.dosecode','=','trx.doscode')
-                            ->leftJoin('hisdb.drugindicator','drugindicator.drugindcode','=','trx.drugindicator');
+                            ->leftJoin('hisdb.drugindicator','drugindicator.drugindcode','=','trx.drugindicator')
+                            ->orderBy('trx.id','desc');
 
         //////////paginate/////////
         $paginate = $table_chgtrx->paginate($request->rows);
@@ -208,11 +209,16 @@ class DoctornoteController extends Controller
             if($request->oper == 'edit'){
                 $table->where('mrn','=',$request->mrn)
                         ->where('episno','=',$request->episno)
-                        ->where('auditno','=',$request->t_auditno);
+                        ->where('id','=',$request->id);
 
                 $array_edit = [
-                    'chgcode' => $request->t_chgcode,
-                    'quantity' => $request->t_quantity,
+                    'chgcode' => $request->chg_desc,
+                    'quantity' => $request->quantity,
+                    'instruction' => $request->ins_desc,
+                    'doscode' => $request->dos_desc,
+                    'frequency' => $request->fre_desc,
+                    'drugindicator' => $request->dru_desc,
+                    'remarks' => $request->remarks,
                     'lastuser' => Auth::user()->username,
                     'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
                 ];
