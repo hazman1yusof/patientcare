@@ -330,7 +330,7 @@ table#medication_tbl th {
         </div>
     </div>
 
-    <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="transaction_panel">
+    <!-- <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="transaction_panel">
         <div class="panel-heading clearfix collapsed" id="toggle_trans" data-toggle="collapse" data-target="#tab_trans">
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
@@ -346,7 +346,7 @@ table#medication_tbl th {
                 @include('transaction_charges')
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- <div class="eight wide tablet eleven wide computer column" style="margin:0px;">
         <div class="ui teal segment" id="jqGrid_trans_c">
@@ -405,6 +405,7 @@ table#medication_tbl th {
     <script type="text/javascript" src="{{ asset('js/doctornote.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dieteticCareNotes.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/transaction_diet.js') }}"></script>
 @endsection
 
 

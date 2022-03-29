@@ -156,6 +156,7 @@ class DoctornoteController extends Controller
                             ->where('trx.mrn' ,'=', $request->mrn)
                             ->where('trx.episno' ,'=', $request->episno)
                             ->where('trx.compcode','=',session('compcode'))
+                            ->where('trx.isudept','=',$request->isudept)
                             ->leftJoin('hisdb.chgmast','chgmast.chgcode','=','trx.chgcode')
                             ->leftJoin('hisdb.instruction','instruction.inscode','=','trx.instruction')
                             ->leftJoin('hisdb.freq','freq.freqcode','=','trx.frequency')
@@ -239,6 +240,7 @@ class DoctornoteController extends Controller
                     'remarks' => $request->remarks,
                     'billflag' => '0',
                     'quantity' => $request->quantity,
+                    'isudept' => $request->isudept,
                     'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
                     'lastuser' => Auth::user()->username,
                     'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")

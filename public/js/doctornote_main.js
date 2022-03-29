@@ -128,8 +128,11 @@ $(document).ready(function () {
 				hide_tran_button(false);
 				urlParam_trans.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans.episno = selrowData('#jqGrid').Episno;
+				urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
+				urlParam_trans_diet.episno = selrowData('#jqGrid').Episno;
 				addmore_onadd = false;
 				refreshGrid("#jqGrid_trans", urlParam_trans);
+				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
 	            populate_currDoctorNote(selrowData('#jqGrid'));
 	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
 
@@ -199,8 +202,11 @@ $(document).ready(function () {
 				hide_tran_button(false);
 				urlParam_trans.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans.episno = selrowData('#jqGrid').Episno;
+				urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
+				urlParam_trans_diet.episno = selrowData('#jqGrid').Episno;
 				addmore_onadd = false;
 				refreshGrid("#jqGrid_trans", urlParam_trans);
+				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
 	            populate_currDoctorNote(selrowData('#jqGrid'));
 	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
 

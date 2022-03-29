@@ -7,6 +7,7 @@ $(document).ready(function () {
 		colModel: [
 			{ label: 'id', name: 'id', hidden: true,key:true },
 			{ label: 'chg_code', name: 'chg_code', hidden: true },
+			{ label: 'isudept', name: 'isudept', hidden: true },
 			{ label: 'Code', name: 'chg_desc', width: 40, editable:true, classes: 'wrap',
 				editrules:{required: true, custom:true, custom_func:cust_rules},
 				edittype:'custom',	editoptions:
@@ -114,10 +115,10 @@ $(document).ready(function () {
 	addParamField('#jqGrid_trans',false,urlParam_trans,[]);
 	jqgrid_label_align_right('#jqGrid_trans');
 
-	$("#tab_trans").on("shown.bs.collapse", function(){
-		SmoothScrollTo('#tab_trans', 300);
-		$("#jqGrid_trans").jqGrid ('setGridWidth', Math.floor($("#jqGrid_trans_c")[0].offsetWidth-$("#jqGrid_trans_c")[0].offsetLeft-14));
-	});
+	// $("#tab_trans").on("shown.bs.collapse", function(){
+	// 	SmoothScrollTo('#tab_trans', 300);
+	// 	$("#jqGrid_trans").jqGrid ('setGridWidth', Math.floor($("#jqGrid_trans_c")[0].offsetWidth-$("#jqGrid_trans_c")[0].offsetLeft-14));
+	// });
 
 
 	// $("#jqGrid_trans").jqGrid('navGrid', '#jqGrid_transPager', {
@@ -144,7 +145,7 @@ $(document).ready(function () {
 					t_isudept:$('#user_dept').val()
 				});
 
-			$("#jqGrid_trans input[name='chgcode'],#jqGrid_trans input[name='instruction'],#jqGrid_trans input[name='doscode'],#jqGrid_trans input[name='frequency'],#jqGrid_trans input[name='drugindicator']").on('keydown',{data:this},onTab);
+			$("#jqGrid_trans input[name='chgcode'],#jqGrid_trans input[name='dosecode'],#jqGrid_trans input[name='freqcode'],#jqGrid_trans input[name='inscode'],#jqGrid_trans input[name='drugindcode']").on('keydown',{data:this},onTab);
 
 			// $("input[name='t_quantity']").keydown(function(e) {//when click tab, auto save
 			// 	var code = e.keyCode || e.which;
@@ -166,6 +167,7 @@ $(document).ready(function () {
 					mrn: selrow.MRN,
 		    		episno: selrow.Episno,
 		    		trxdate: $('#sel_date').val(),
+		    		isudept: 'CLINIC',
 				});
 
 
@@ -189,12 +191,12 @@ $(document).ready(function () {
         	let selrow_tran = selrowData('#jqGrid_trans');
 
         	$("#jqGrid_trans input[name='chgcode']").val(selrow_tran.chg_code);
-        	$("#jqGrid_trans input[name='instruction']").val(selrow_tran.ins_code);
-        	$("#jqGrid_trans input[name='doscode']").val(selrow_tran.dos_code);
-        	$("#jqGrid_trans input[name='frequency']").val(selrow_tran.fre_code);
-        	$("#jqGrid_trans input[name='drugindicator']").val(selrow_tran.dru_code);
-			
-			$("#jqGrid_trans input[name='chgcode'],#jqGrid_trans input[name='instruction'],#jqGrid_trans input[name='doscode'],#jqGrid_trans input[name='frequency'],#jqGrid_trans input[name='drugindicator']").on('keydown',{data:this},onTab);
+        	$("#jqGrid_trans input[name='inscode']").val(selrow_tran.ins_code);
+        	$("#jqGrid_trans input[name='dosecode']").val(selrow_tran.dos_code);
+        	$("#jqGrid_trans input[name='freqcode']").val(selrow_tran.fre_code);
+        	$("#jqGrid_trans input[name='drugindcode']").val(selrow_tran.dru_code);
+
+			$("#jqGrid_trans input[name='chgcode'],#jqGrid_trans input[name='dosecode'],#jqGrid_trans input[name='freqcode'],#jqGrid_trans input[name='inscode'],#jqGrid_trans input[name='drugindcode']").on('keydown',{data:this},onTab);
         },
         aftersavefunc: function (rowid, response, options) {
 			refreshGrid("#jqGrid_trans", urlParam_trans);
@@ -212,6 +214,7 @@ $(document).ready(function () {
 		    		episno: selrow.Episno,
 		    		id: selrow_trans.id,
 		    		trxdate: $('#sel_date').val(),
+		    		isudept: 'CLINIC',
 				});
 
 
@@ -305,6 +308,7 @@ $(document).ready(function () {
 var addmore_onadd = false;
 var urlParam_trans = {
 	url:'./doctornote/table',
+	isudept:'CLINIC',
 	action: 'get_transaction_table',
 }
 
@@ -397,12 +401,12 @@ function pop_item_select(type,id,rowid,ontab=false){
                 }
               } ],
 
-            "fnInitComplete": function(oSettings, json) {
+            "initComplete": function(oSettings, json) {
 
-                if(ontab==true){
-                    selecter.search( text_val );
-                }
-                $("#tbl_item_select_filter #input[type='search'][aria-controls='tbl_item_select']").select().focus();
+    	        delay(function(){
+                    selecter.search(text_val).draw();
+                	$("#tbl_item_select_filter #input[type='search'][aria-controls='tbl_item_select']").select().focus();
+    			}, 10 );
                 
                 // if(selecter.page.info().recordsDisplay == 1){
                 //     // $('#tbl_item_select tbody tr:eq(0)').dblclick();

@@ -536,7 +536,7 @@ function on_toggling_curr_past(obj = curr_obj){
 		addnotes.style.display = "none";
 		// enableFields();
 		// $("#new_doctorNote").attr('disabled',false);
-		datable_medication.clear().draw();
+		// datable_medication.clear().draw();
 	}else if(document.getElementById("past").checked){
 		dateParam_docnote={
 			action:'get_table_date_past',
@@ -641,26 +641,27 @@ var docnote_date_tbl = $('#docnote_date_tbl').DataTable({
     }
 });
 
-var datable_medication = $('#medication_tbl').DataTable({
-	"ajax": "",
-	"sDom": "",
-    "responsive": true,
-	"paging":false,
-    "columns": [
-        {data: 'chg_desc', 'width': '30%'},
-        {data: 'quantity'},
-        {data: 'remarks'},
-        {data: 'dos_code'},
-        {data: 'fre_code'},
-        {data: 'ins_code'},
-        {data: 'dru_code'},
-    ]
-});
+// var datable_medication = $('#medication_tbl').DataTable({
+// 	"ajax": "",
+// 	"sDom": "",
+//     "responsive": true,
+// 	"paging":false,
+//     "columns": [
+//         {data: 'chg_desc', 'width': '30%'},
+//         {data: 'quantity'},
+//         {data: 'remarks'},
+//         {data: 'dos_code'},
+//         {data: 'fre_code'},
+//         {data: 'ins_code'},
+//         {data: 'dru_code'},
+//     ]
+// });
 
 $('#tab_doctornote').on('shown.bs.collapse', function () {
 	SmoothScrollTo('#tab_doctornote', 300);
-	datable_medication.columns.adjust();
+	// datable_medication.columns.adjust();
 	$('div#docnote_date_tbl_sticky').show();
+	$("#jqGrid_trans").jqGrid ('setGridWidth', Math.floor($("#jqGrid_trans_c")[0].offsetWidth-$("#jqGrid_trans_c")[0].offsetLeft-14));
 
 	// $('div#docnote_date_tbl_sticky').waypoint({
 	// 	handler: function(direction) {
@@ -747,8 +748,8 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
 			refreshGrid('#jqGridAddNotes',urlParam_AddNotes,'add_notes');
 			getBMI();
 
-			datable_medication.clear().draw();
-			datable_medication.rows.add(data.transaction.rows).draw();
+			// datable_medication.clear().draw();
+			// datable_medication.rows.add(data.transaction.rows).draw();
 		}
 	});
 

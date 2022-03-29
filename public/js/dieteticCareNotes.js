@@ -134,7 +134,8 @@ $(document).ready(function () {
 	//bmi calculator ends
 
 	$("#tab_diet").on("shown.bs.collapse", function(){
-		SmoothScrollTo("#tab_diet", 300);	
+		SmoothScrollTo("#tab_diet", 300);
+		$("#jqGrid_trans_diet").jqGrid ('setGridWidth', Math.floor($("#jqGrid_trans_diet_c")[0].offsetWidth-$("#jqGrid_trans_diet_c")[0].offsetLeft-14));
         var urlparam_dietetic_date_tbl={
 			action:'get_table_date_dietetic',
 			mrn:$("#mrn_dieteticCareNotes_fup").val(),

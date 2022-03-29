@@ -339,4 +339,12 @@
 		</div>
 
 	</form>
+
+	<div class="col-md-12">
+        <div class="panel panel-info">
+            <div class="panel-heading text-center" id="jqGrid_trans_diet_c">Order Entry</div>
+            <table id="jqGrid_trans_diet" class="table table-striped"></table>
+            <div id="jqGrid_transPager_diet"></div>
+        </div>
+    </div>
 </div>

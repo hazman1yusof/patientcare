@@ -247,8 +247,8 @@
 
                     <div class="col-md-12">
                         <div class="panel panel-info">
-                            <div class="panel-heading text-center">Medication</div>
-                            <div class="panel-body" style="height: 250px;overflow: auto;padding: 0px;">
+                            <div class="panel-heading text-center" id="jqGrid_trans_c">Order Entry</div>
+                            <!-- <div class="panel-body" style="height: 250px;overflow: auto;padding: 0px;">
                                 <table id="medication_tbl" class="ui selectable celled table" style="width: 100%;">
                                     <thead>
                                         <tr>
@@ -262,7 +262,9 @@
                                         </tr>
                                     </thead>
                                 </table>
-                            </div>
+                            </div> -->
+                            <table id="jqGrid_trans" class="table table-striped"></table>
+                            <div id="jqGrid_transPager"></div>
                         </div>
                     </div>
 
