@@ -27,7 +27,7 @@ $(document).ready(function () {
 			saveForm_dieteticCareNotes(function(){
 				$("#cancel_dieteticCareNotes").data('oper','edit');
 				$("#cancel_dieteticCareNotes").click();
-				button_state_dieteticCareNotes('disable_ncase');
+				button_state_dieteticCareNotes('edit');
 				// $("#jqGridPagerRefresh").click();
 			});
 		}else{
@@ -363,7 +363,7 @@ function populate_dieteticCareNotes_currpt(obj){
     }).done(function(data){
     	if(!$.isEmptyObject(data)){
 			autoinsert_rowdata_dieteticCareNotes("#formDieteticCareNotes",data.patdietncase);
-			button_state_dieteticCareNotes('disable_ncase');
+			button_state_dieteticCareNotes('edit');
 			getBMI_ncase();
 			disableFields_dieteticCareNotes();
         }else{

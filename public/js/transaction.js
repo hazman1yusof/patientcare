@@ -386,6 +386,7 @@ function pop_item_select(type,id,rowid,ontab=false){
             "pagingType" : "numbers",
             "search": {
                         "smart": true,
+                        "search": text_val
                       },
             "columns": [
                         {'data': 'code'}, 
@@ -402,16 +403,10 @@ function pop_item_select(type,id,rowid,ontab=false){
               } ],
 
             "initComplete": function(oSettings, json) {
-
-    	        delay(function(){
-                    selecter.search(text_val).draw();
-                	$("#tbl_item_select_filter #input[type='search'][aria-controls='tbl_item_select']").select().focus();
-    			}, 10 );
-                
-                // if(selecter.page.info().recordsDisplay == 1){
-                //     // $('#tbl_item_select tbody tr:eq(0)').dblclick();
-                // }
-            }
+		        delay(function(){
+                	$('div.dataTables_filter input', selecter.table().container()).get(0).focus();
+	        	}, 10 );
+            },
     });
 
 
