@@ -131,6 +131,7 @@ $(document).ready(function () {
 				addmore_onadd = false;
 				refreshGrid("#jqGrid_trans", urlParam_trans);
 	            populate_currDoctorNote(selrowData('#jqGrid'));
+	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
 
 				if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
 					$('#checkbox_completed').prop('disabled',true);
@@ -201,6 +202,7 @@ $(document).ready(function () {
 				addmore_onadd = false;
 				refreshGrid("#jqGrid_trans", urlParam_trans);
 	            populate_currDoctorNote(selrowData('#jqGrid'));
+	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
 
 				if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
 					$('#checkbox_completed').prop('disabled',true);

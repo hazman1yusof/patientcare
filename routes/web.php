@@ -146,6 +146,12 @@ Route::post('/doctornote/form','DoctornoteController@form');
 Route::post('/doctornote_transaction_save', "DoctornoteController@transaction_save");
 
 
+//// Dietetic Care Notes page ///
+Route::get('/dieteticCareNotes','DieteticCareNotesController@show');
+Route::get('/dieteticCareNotes/table','DieteticCareNotesController@table');
+Route::post('/dieteticCareNotes/form','DieteticCareNotesController@form');
+
+
 //stisla ??
 Route::name('js.')->group(function() {
     Route::get('dynamic.js', 'JsController@dynamic')->name('dynamic');

@@ -29,6 +29,10 @@ class PreviewController extends Controller
         }
         // $previews = DB::table('patresult')->where('mrn','=',$request->mrn)->get();
 
+        if(strtoupper(Auth::user()->groupid) != 'PATIENT'){
+            return abort(404);
+        }
+
         return view('preview',compact('user'));
     }
 

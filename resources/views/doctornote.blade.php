@@ -108,7 +108,7 @@
     padding: 0px 8px !important;
 }
 
-.panel-heading#toggle_doctornote, .panel-heading#toggle_trans{
+.panel-heading#toggle_doctornote, .panel-heading#toggle_trans, .panel-heading#toggle_diet{
     position: sticky;
     top: 40px;
     z-index: 3;
@@ -227,9 +227,9 @@ table#medication_tbl th {
         <div class="panel-heading clearfix collapsed" id="toggle_doctornote" >
 
         <div class="col-md-3" id="docnote_date_tbl_sticky" style="display: none;position: absolute;
-    padding: 0 0 0 0;
-    top: 98px;
-    left: 5px;">
+            padding: 0 0 0 0;
+            top: 98px;
+            left: 5px;">
             <div class="panel panel-info">
                 <div class="panel-body" style="max-height: 300px;overflow-y: scroll;">
                     <table id="docnote_date_tbl" class="ui celled table" style="width: 100%;">
@@ -294,6 +294,38 @@ table#medication_tbl th {
         <div id="tab_doctornote" class="panel-collapse collapse">
             <div class="panel-body" style="overflow-y: auto;height: 550px;" id="tab_doctornote_sticky">
                 @include('doctornote_div')
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="diet_panel">
+        <div class="panel-heading clearfix collapsed" id="toggle_diet" data-toggle="collapse" data-target="#tab_diet">
+
+        <b>NAME: <span id="name_show_dieteticCareNotes"></span></b><br>
+        MRN: <span id="mrn_show_dieteticCareNotes"></span>
+        SEX: <span id="sex_show_dieteticCareNotes"></span>
+        DOB: <span id="dob_show_dieteticCareNotes"></span>
+        AGE: <span id="age_show_dieteticCareNotes"></span>
+        RACE: <span id="race_show_dieteticCareNotes"></span>
+        RELIGION: <span id="religion_show_dieteticCareNotes"></span><br>
+        OCCUPATION: <span id="occupation_show_dieteticCareNotes"></span>
+        CITIZENSHIP: <span id="citizenship_show_dieteticCareNotes"></span>
+        AREA: <span id="area_show_dieteticCareNotes"></span> 
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div style="position: absolute;
+                        padding: 0 0 0 0;
+                        right: 50px;
+                        top: 48px;">
+            <h5><strong>Dietetic Care Notes</strong>&nbsp;&nbsp;
+                <span class="metal"></span></h5>
+        </div> 
+        </div>
+
+        <div id="tab_diet" class="panel-collapse collapse">
+            <div class="panel-body">
+                @include('dieteticCareNotes')
             </div>
         </div>
     </div>
@@ -372,6 +404,7 @@ table#medication_tbl th {
 	<script type="text/javascript" src="{{ asset('js/doctornote_main.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/doctornote.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dieteticCareNotes.js') }}"></script>
 @endsection
 
 
