@@ -126,6 +126,7 @@ $(document).ready(function () {
 				
 				$('button#timer_stop').click();
 				hide_tran_button(false);
+				hide_tran_button_diet(false);
 				urlParam_trans.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans.episno = selrowData('#jqGrid').Episno;
 				urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
@@ -140,10 +141,12 @@ $(document).ready(function () {
 					$('#checkbox_completed').prop('disabled',true);
 					$('#checkbox_completed').prop('checked', true);
 					hide_tran_button(true);
+					hide_tran_button_diet(true);
 				}else{//kalau belum completed
 					$('#checkbox_completed').prop('disabled',false);
 					$('#checkbox_completed').prop('checked', false);
 					hide_tran_button(false);
+					hide_tran_button_diet(false);
 				}
 
 			},
@@ -151,9 +154,12 @@ $(document).ready(function () {
 			},
 			gridComplete: function () {
 				hide_tran_button(true);
+				hide_tran_button_diet(true);
 				$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
 				empty_currDoctorNote();
 				empty_transaction();
+				empty_dietcarenote();
+				empty_transaction_diet();
 
 				let discharge_btn_data = $('#discharge_btn').data('idno');
 				if(discharge_btn_data == undefined || discharge_btn_data == 'none'){
@@ -200,6 +206,7 @@ $(document).ready(function () {
 				
 				$('button#timer_stop').click();
 				hide_tran_button(false);
+				hide_tran_button_diet(false);
 				urlParam_trans.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans.episno = selrowData('#jqGrid').Episno;
 				urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
@@ -214,10 +221,12 @@ $(document).ready(function () {
 					$('#checkbox_completed').prop('disabled',true);
 					$('#checkbox_completed').prop('checked', true);
 					hide_tran_button(true);
+					hide_tran_button_diet(true);
 				}else{//kalau belum completed
 					$('#checkbox_completed').prop('disabled',false);
 					$('#checkbox_completed').prop('checked', false);
 					hide_tran_button(false);
+					hide_tran_button_diet(false);
 				}
 
 			},
@@ -225,9 +234,12 @@ $(document).ready(function () {
 			},
 			gridComplete: function () {
 				hide_tran_button(true);
+				hide_tran_button_diet(true);
 				$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
 				empty_currDoctorNote();
 				empty_transaction();
+				empty_dietcarenote();
+				empty_transaction_diet();
 
 				let discharge_btn_data = $('#discharge_btn').data('idno');
 				if(discharge_btn_data == undefined || discharge_btn_data == 'none'){

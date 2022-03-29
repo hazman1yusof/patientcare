@@ -422,6 +422,7 @@ function populate_doctorNote(obj,rowdata){
 
 function empty_currDoctorNote(){
 	emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
+	// button_state_doctorNote('empty');
 
 	//panel header
 	$('#name_show_doctorNote').text('');
@@ -438,6 +439,8 @@ function empty_currDoctorNote(){
 	//formDoctorNote
 	$('#mrn_doctorNote').val('');
 	$("#episno_doctorNote").val('');
+
+	docnote_date_tbl.clear().draw();
 }
 
 //screen current patient//
@@ -449,14 +452,14 @@ function populate_currDoctorNote(obj){
 	//panel header
 	$('#name_show_doctorNote').text(obj.Name);
 	$('#mrn_show_doctorNote').text(("0000000" + obj.MRN).slice(-7));
-	$('#sex_show_doctorNote').text(obj.sex);
+	$('#sex_show_doctorNote').text(if_none(obj.Sex).toUpperCase());
 	$('#dob_show_doctorNote').text(dob_chg(obj.DOB));
 	$('#age_show_doctorNote').text(dob_age(obj.DOB)+' (YRS)');
-	$('#race_show_doctorNote').text(obj.RaceCode);
-	$('#religion_show_doctorNote').text(if_none(obj.religion));
-	$('#occupation_show_doctorNote').text(if_none(obj.OccupCode));
-	$('#citizenship_show_doctorNote').text(obj.Citizencode);
-	$('#area_show_doctorNote').text(obj.AreaCode);
+	$('#race_show_doctorNote').text(if_none(obj.RaceCode).toUpperCase());
+	$('#religion_show_doctorNote').text(if_none(obj.religion).toUpperCase());
+	$('#occupation_show_doctorNote').text(if_none(obj.OccupCode).toUpperCase());
+	$('#citizenship_show_doctorNote').text(if_none(obj.Citizencode).toUpperCase());
+	$('#area_show_doctorNote').text(if_none(obj.AreaCode).toUpperCase());
 
 	//formDoctorNote
 	$('#mrn_doctorNote').val(obj.MRN);

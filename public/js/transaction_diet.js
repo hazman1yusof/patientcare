@@ -231,7 +231,7 @@ $(document).ready(function () {
 		editParams: myEditOptions_diet_edit
 	});
 
-	hide_tran_button(true);
+	hide_tran_button_diet(true);
 
  //    function showdetail(cellvalue, options, rowObject){
 	// 	var field,table,case_;
@@ -306,7 +306,7 @@ var urlParam_trans_diet = {
 	action: 'get_transaction_table',
 }
 
-function hide_tran_button(hide=true){
+function hide_tran_button_diet(hide=true){
 	if(hide){
 		$('#jqGrid_trans_diet_iladd,#jqGrid_trans_diet_iledit,#jqGrid_trans_ilsave,#jqGrid_trans_ilcancel').hide();
 	}else{
@@ -468,7 +468,8 @@ function get_trans_tbl_data(){
 
 }
 
-function empty_transaction(){
-	hide_tran_button(true);
+
+function empty_transaction_diet(){
+	hide_tran_button_diet(true);
 	refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet,'kosongkan');
 }

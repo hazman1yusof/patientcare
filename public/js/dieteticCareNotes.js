@@ -323,25 +323,31 @@ function button_state_dieteticCareNotes(state){
 			$("#toggle_dieteticCareNotes").attr('data-toggle','collapse');
 			$('#edit_dieteticCareNotes,#new_dieteticCareNotes,#save_dieteticCareNotes,#cancel_dieteticCareNotes').attr('disabled',true);
 			break;
+		case 'empty_fup':
+			$("#toggle_dieteticCareNotes").removeAttr('data-toggle');
+			$('#cancel_dieteticCareNotes_fup').data('oper','add_fup');
+			$('#new_dieteticCareNotes_fup,#save_dieteticCareNotes_fup,#cancel_dieteticCareNotes_fup,#edit_dieteticCareNotes_fup').attr('disabled',true);
+			break;
 	}
 }
 
 //screen current patient//
 function populate_dieteticCareNotes_currpt(obj){
+
 	emptyFormdata_div("#formDieteticCareNotes");
 	emptyFormdata_div("#formDieteticCareNotes_fup");
 
 	//panel header
 	$('#name_show_dieteticCareNotes').text(obj.Name);
 	$('#mrn_show_dieteticCareNotes').text(("0000000" + obj.MRN).slice(-7));
-	$('#sex_show_dieteticCareNotes').text(if_none(obj.sex).toUpperCase());
+	$('#sex_show_dieteticCareNotes').text(if_none(obj.Sex).toUpperCase());
 	$('#dob_show_dieteticCareNotes').text(dob_chg(obj.DOB));
 	$('#age_show_dieteticCareNotes').text(dob_age(obj.DOB)+' (YRS)');
-	$('#race_show_dieteticCareNotes').text(if_none(obj.raceDesc).toUpperCase());
-	$('#religion_show_dieteticCareNotes').text(if_none(obj.religionDesc).toUpperCase());
-	$('#occupation_show_dieteticCareNotes').text(if_none(obj.occupDesc).toUpperCase());
-	$('#citizenship_show_dieteticCareNotes').text(if_none(obj.cityDesc).toUpperCase());
-	$('#area_show_dieteticCareNotes').text(if_none(obj.areaDesc).toUpperCase());
+	$('#race_show_dieteticCareNotes').text(if_none(obj.RaceCode).toUpperCase());
+	$('#religion_show_dieteticCareNotes').text(if_none(obj.religion).toUpperCase());
+	$('#occupation_show_dieteticCareNotes').text(if_none(obj.OccupCode).toUpperCase());
+	$('#citizenship_show_dieteticCareNotes').text(if_none(obj.Citizencode).toUpperCase());
+	$('#area_show_dieteticCareNotes').text(if_none(obj.AreaCode).toUpperCase());
 
 	//formDieteticCareNotes
 	$('#mrn_dieteticCareNotes,#mrn_dieteticCareNotes_fup').val(obj.MRN);
@@ -444,8 +450,6 @@ function saveForm_dieteticCareNotes(callback){
         }).get()
 	);
 
-	console.log(values);
-
     $.post( "./dieteticCareNotes/form?"+$.param(saveParam), $.param(postobj)+'&'+$.param(values) , function( data ) {
         
     },'json').fail(function(data) {
@@ -507,6 +511,32 @@ function saveForm_dieteticCareNotes_fup(callback){
         callback();
     });
 }
+
+function empty_dietcarenote(){
+	emptyFormdata_div("#formDieteticCareNotes");
+	emptyFormdata_div("#formDieteticCareNotes_fup");
+	button_state_dieteticCareNotes('empty');
+	button_state_dieteticCareNotes('empty_fup');
+
+	//panel header
+	$('#name_show_dieteticCareNotes').text('');
+	$('#mrn_show_dieteticCareNotes').text('');
+	$('#sex_show_dieteticCareNotes').text('');
+	$('#dob_show_dieteticCareNotes').text('');
+	$('#age_show_dieteticCareNotes').text('');
+	$('#race_show_dieteticCareNotes').text('');
+	$('#religion_show_dieteticCareNotes').text('');
+	$('#occupation_show_dieteticCareNotes').text('');
+	$('#citizenship_show_dieteticCareNotes').text('');
+	$('#area_show_dieteticCareNotes').text('');
+
+	//formDieteticCareNotes
+	$('#mrn_dieteticCareNotes,#mrn_dieteticCareNotes_fup').val('');
+	$("#episno_dieteticCareNotes,#episno_dieteticCareNotes_fup").val('');
+
+	dietetic_date_tbl.clear().draw();
+}
+
 
 
 
