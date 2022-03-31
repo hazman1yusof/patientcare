@@ -162,6 +162,10 @@ table#medication_tbl th {
     background-color: #fff !important;
     color: #1a1a1a;
 }
+
+.input-group-addon{
+    padding: 2px !important;
+}
 <!-- 
 .input-lg{
     font-size: 16px !important;
