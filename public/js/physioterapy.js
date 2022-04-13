@@ -23,8 +23,11 @@ $(document).ready(function () {
 		let mrn = $('#mrn_phys').val();
 		let episno = $("#episno_phys").val();
 		let type = $(this).data('type');
+		console.log($('#save_phys').prop('disabled'));
 		if(mrn.trim() == '' || episno.trim() == '' || type.trim() == ''){
 			alert('Please choose Patient First');
+		}else if($('#save_phys').prop('disabled')){
+			alert('Edit this patient first');
 		}else{
 			var win = window.open('http://foxitweb.test/pdf?mrn='+mrn+'&episno='+episno+'&type='+type, '_blank');
 			if (win) {
@@ -43,12 +46,24 @@ $(document).ready(function () {
 				$('.ui.checkbox.phys').checkbox('set unchecked');
 			}
 	    },
+	    onUnchecked: function() {
+			$('#category_phys').val('Physioteraphy');
+			if($('.ui.checkbox.phys').checkbox('is unchecked')){
+				$('.ui.checkbox.phys').checkbox('set checked');
+			}
+	    },
 	});
 	$('.ui.checkbox.phys').checkbox({
 		onChecked: function() {
 			$('#category_phys').val('Physioteraphy');
 			if($('.ui.checkbox.rehab').checkbox('is checked')){
 				$('.ui.checkbox.rehab').checkbox('set unchecked');
+			}
+	    },
+	    onUnchecked: function() {
+			$('#category_phys').val('Rehabilitation');
+			if($('.ui.checkbox.rehab').checkbox('is unchecked')){
+				$('.ui.checkbox.rehab').checkbox('set checked');
 			}
 	    },
 	});
@@ -91,11 +106,25 @@ $(document).ready(function () {
 
 	$("#save_phys").click(function(){
 		// disableForm('#formphys');
-		if( $('#formphys').isValid({requiredFields: ''}, conf, true) ) {
+
+		if($('#category_phys').val().trim() == "" ){
+			alert('Please select either Rehabilitation or Physioteraphy');
+		}else if( $('#formphys').isValid({requiredFields: ''}, conf, true) ) {
 			saveForm_phys(function(){
 				$("#cancel_phys").data('oper','edit');
 				$("#cancel_phys").click();
 				button_state_phys('edit');
+				var dateParam_phys={
+					action:'get_table_date_phys',
+					type:$('.ui.radio.checkbox').val(),
+					mrn:$('#mrn_phys').val(),
+					episno:$("#episno_phys").val(),
+				}
+
+			    phys_date_tbl.ajax.url( "./phys/table?"+$.param(dateParam_phys) ).load(function(data){
+					// emptyFormdata_div("#formphys",['#mrn_phys','#episno_phys']);
+					// $('#phys_date_tbl tbody tr:eq(0)').click();	//to select first row
+			    });
 			});
 		}else{
 			enableForm('#formphys');
