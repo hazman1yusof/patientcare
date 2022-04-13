@@ -371,7 +371,6 @@ function populate_dieteticCareNotes_currpt(obj){
 			autoinsert_rowdata_dieteticCareNotes("#formDieteticCareNotes",data.patdietncase);
 			button_state_dieteticCareNotes('edit');
 			getBMI_ncase();
-			disableFields_dieteticCareNotes();
         }else{
 			button_state_dieteticCareNotes('add');
         }

@@ -108,7 +108,7 @@
     padding: 0px 8px !important;
 }
 
-.panel-heading#toggle_doctornote, .panel-heading#toggle_trans, .panel-heading#toggle_diet{
+.panel-heading#toggle_doctornote, .panel-heading#toggle_trans, .panel-heading#toggle_diet, .panel-heading#toggle_userfile{
     position: sticky;
     top: 40px;
     z-index: 3;
@@ -227,6 +227,38 @@ table#medication_tbl th {
     <input id="sel_date" name="sel_date" value="{{ \Carbon\Carbon::now()->toDateString() }}" type="hidden">
     <input id="_token" name="_token" value="{{ csrf_token() }}" type="hidden">
 
+    <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="userfile_panel">
+        <div class="panel-heading clearfix collapsed" id="toggle_userfile" data-toggle="collapse" data-target="#tab_userfile">
+
+        <b>NAME: <span id="name_show_userfile"></span></b><br>
+        MRN: <span id="mrn_show_userfile"></span>
+        SEX: <span id="sex_show_userfile"></span>
+        DOB: <span id="dob_show_userfile"></span>
+        AGE: <span id="age_show_userfile"></span>
+        RACE: <span id="race_show_userfile"></span>
+        RELIGION: <span id="religion_show_userfile"></span><br>
+        OCCUPATION: <span id="occupation_show_userfile"></span>
+        CITIZENSHIP: <span id="citizenship_show_userfile"></span>
+        AREA: <span id="area_show_userfile"></span> 
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div style="position: absolute;
+                        padding: 0 0 0 0;
+                        right: 50px;
+                        top: 48px;">
+            <h5><strong>Document Imaging</strong>&nbsp;&nbsp;
+                <span class="metal"></span></h5>
+        </div> 
+        </div>
+
+        <div id="tab_userfile" class="panel-collapse collapse">
+            <div class="panel-body" style="overflow-y: auto;height: 650px;">
+                @include('userfile_div')
+            </div>
+        </div>
+    </div>
+
     <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="doctornote_panel">
         <div class="panel-heading clearfix collapsed" id="toggle_doctornote" >
 
@@ -296,7 +328,7 @@ table#medication_tbl th {
         </div>
 
         <div id="tab_doctornote" class="panel-collapse collapse">
-            <div class="panel-body" style="overflow-y: auto;height: 550px;" id="tab_doctornote_sticky">
+            <div class="panel-body" style="overflow-y: auto;height: 650px;" id="tab_doctornote_sticky">
                 @include('doctornote_div')
             </div>
         </div>
@@ -328,8 +360,40 @@ table#medication_tbl th {
         </div>
 
         <div id="tab_diet" class="panel-collapse collapse">
-            <div class="panel-body">
+            <div class="panel-body" style="overflow-y: auto;height: 650px;">
                 @include('dieteticCareNotes')
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="phys_panel">
+        <div class="panel-heading clearfix collapsed" id="toggle_phys" data-toggle="collapse" data-target="#tab_phys">
+
+        <b>NAME: <span id="name_show_phys"></span></b><br>
+        MRN: <span id="mrn_show_phys"></span>
+        SEX: <span id="sex_show_phys"></span>
+        DOB: <span id="dob_show_phys"></span>
+        AGE: <span id="age_show_phys"></span>
+        RACE: <span id="race_show_phys"></span>
+        RELIGION: <span id="religion_show_phys"></span><br>
+        OCCUPATION: <span id="occupation_show_phys"></span>
+        CITIZENSHIP: <span id="citizenship_show_phys"></span>
+        AREA: <span id="area_show_phys"></span> 
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div style="position: absolute;
+                        padding: 0 0 0 0;
+                        right: 50px;
+                        top: 48px;">
+            <h5><strong>Rehabilitation</strong>&nbsp;&nbsp;
+                <span class="metal"></span></h5>
+        </div> 
+        </div>
+
+        <div id="tab_phys" class="panel-collapse collapse">
+            <div class="panel-body" style="overflow-y: auto;height: 650px;">
+                @include('physioterapy')
             </div>
         </div>
     </div>
@@ -405,10 +469,12 @@ table#medication_tbl th {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script type="text/ecmascript" src="{{ asset('assets/waypoints/lib/jquery.waypoints.min.js') }}/"></script>
     <script type="text/ecmascript" src="{{ asset('assets/form-validator/jquery.form-validator.min.js') }}/"></script>
+    <script type="text/javascript" src="{{ asset('js/userfile.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/doctornote.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dieteticCareNotes.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction_diet.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/physioterapy.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/doctornote_main.js') }}"></script>
 @endsection
 

@@ -20,14 +20,11 @@ class PreviewController extends Controller
 
     public function preview(Request $request)
     {   
-        //$navbar = $this->navbar();
         if(!empty($request->mrn)){
             $user = DB::table('hisdb.pat_mast')->where('mrn','=',$request->mrn)->first();
         }else{
-            // $user = DB::table('pat_mast')->where('loginid','=',Auth::user()->username)->first();
             $user = DB::table('hisdb.pat_mast')->where('mrn','=',Auth::user()->mrn)->first();
         }
-        // $previews = DB::table('patresult')->where('mrn','=',$request->mrn)->get();
 
         if(strtoupper(Auth::user()->groupid) != 'PATIENT'){
             return abort(404);
@@ -74,7 +71,6 @@ class PreviewController extends Controller
 
     public function upload(Request $request)
     {   
-        // $navbar = $this->navbar();
         $episode = DB::table('hisdb.episode')->select('mrn','reg_date','reg_time')->where('mrn','=',$request->mrn)->where('episno','=',$request->episno)->first();
         $patient = DB::table('hisdb.pat_mast')->select('Name','newic','DOB')->where('mrn','=',$request->mrn)->first();
         $patresult = DB::table('hisdb.patresult')->where('mrn','=',$request->mrn)->get();
