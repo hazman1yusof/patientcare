@@ -44,9 +44,6 @@
 				<div class="ui form">
 					<div class="ui grid">
 						<div class="eight wide column">
-						</div> 
-
-						<div class="six wide column">
 							<div class="inline fields">
 								<div class="field">
 							      <div class="ui radio checkbox checked pastcurr">
@@ -61,6 +58,10 @@
 							      </div>
 							    </div>
 							</div>
+						</div> 
+
+						<div class="six wide column">
+							
 						</div>
 					</div>
 				</div>
