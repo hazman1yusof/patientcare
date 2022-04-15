@@ -104,9 +104,9 @@ $(document).ready(function () {
 				{ label: 'Name', name: 'Name', width: 15 ,classes: 'wrap' },
 				{ label: 'Payer', name: 'payer', width: 15 ,classes: 'wrap' },
 				{ label: 'I/C', name: 'Newic', width: 15 ,classes: 'wrap' },
-				{ label: 'Rehab', name: 'Rehab', width: 8 ,classes: 'wrap' },
-				{ label: 'Physio', name: 'Physio', width: 8 ,classes: 'wrap' },
-				{ label: 'Diet', name: 'Diet', width: 8 ,classes: 'wrap' },
+				{ label: 'Rehab', name: 'reff_rehab', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2 },
+				{ label: 'Physio', name: 'reff_physio', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2 },
+				{ label: 'Diet', name: 'reff_diet', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2 },
 				{ label: 'HP', name: 'telhp', width: 13 ,classes: 'wrap' , hidden:true},
 				{ label: 'Sex', name: 'Sex', width: 6 ,classes: 'wrap' },
 				{ label: 'Mode', name: 'pyrmode', width: 8 ,classes: 'wrap'},
@@ -189,9 +189,9 @@ $(document).ready(function () {
 				{ label: 'Name', name: 'Name', width: 18 ,classes: 'wrap' },
 				{ label: 'Payer', name: 'payer', width: 18 ,classes: 'wrap' },
 				{ label: 'I/C', name: 'Newic', width: 12 ,classes: 'wrap' },
-				{ label: 'Rehab', name: 'Rehab', width: 8 ,classes: 'wrap' },
-				{ label: 'Physio', name: 'Physio', width: 8 ,classes: 'wrap' },
-				{ label: 'Diet', name: 'Diet', width: 8 ,classes: 'wrap' },
+				{ label: 'Rehab', name: 'reff_rehab', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2 },
+				{ label: 'Physio', name: 'reff_physio', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2 },
+				{ label: 'Diet', name: 'reff_diet', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2 },
 				{ label: 'HP', name: 'telhp', width: 10 ,classes: 'wrap' },
 				{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
 				{ label: 'Mode', name: 'pyrmode', width: 10 ,classes: 'wrap'},
@@ -284,6 +284,14 @@ $(document).ready(function () {
 
 	function formatterstatus_tick(cellvalue, option, rowObject) {
 		if (cellvalue == 'SEEN') {
+			return '<span class="fa fa-check" ></span>';
+		}else{
+			return "";
+		}
+	}
+
+	function formatterstatus_tick2(cellvalue, option, rowObject) {
+		if (cellvalue != null && cellvalue.toUpperCase() == 'YES') {
 			return '<span class="fa fa-check" ></span>';
 		}else{
 			return "";

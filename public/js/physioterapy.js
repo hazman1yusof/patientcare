@@ -294,7 +294,6 @@ function empty_currphys(){
 }
 
 function populate_phys(obj){
-	
 	emptyFormdata_div("#formphys",['#mrn_phys','#episno_phys']);
 	$('.ui.checkbox.box').checkbox('set unchecked');
 

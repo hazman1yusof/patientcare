@@ -74,6 +74,20 @@
     color:#f2711c;
 }
 
+.angle.down.icon.large,.angle.up.icon.large{
+    float:right;
+}
+
+.ui.secondary.segment.collapsed .angle.up.icon.large,
+.ui.secondary.segment .angle.down.icon.large {
+    display: none;
+}
+
+.ui.secondary.segment.collapsed .angle.down.icon.large,
+.ui.secondary.segment .angle.up.icon.large {
+    display: inline-block;
+}
+
 .glyphicon-chevron-up,.glyphicon-chevron-down{
     float:right;
 }
