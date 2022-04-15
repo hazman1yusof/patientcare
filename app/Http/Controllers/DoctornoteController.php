@@ -584,7 +584,7 @@ class DoctornoteController extends Controller
 
             foreach ($pathealth_obj as $key => $value) {
 
-                $date['date'] =  Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y').' '.$value->recordtime;
+                $date['date'] =  Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y');
                 $date['mrn'] = $value->mrn;
                 $date['episno'] = $value->episno;
                 $date['adduser'] = $value->adduser;
@@ -616,7 +616,7 @@ class DoctornoteController extends Controller
             $data = [];
 
             foreach ($patexam_obj as $key => $value) {
-                $date['date'] =  Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y').' '.$value->recordtime;
+                $date['date'] =  Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y');
                 $date['mrn'] = $value->mrn;
                 $date['episno'] = $value->episno;
                 $date['adduser'] = $value->adduser;
@@ -650,14 +650,13 @@ class DoctornoteController extends Controller
 
         $pathistory_obj = DB::table('hisdb.pathistory')
             ->where('compcode','=',session('compcode'))
-            ->where('mrn','=',$request->mrn)
-            ->where('recorddate','=',$request->recorddate);
+            ->where('mrn','=',$request->mrn);
 
         $patexam_obj = DB::table('hisdb.patexam')
             ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno)
-            ->where('recorddate','=',$request->recorddate);
+            ->where('recorddate','=',Carbon::createFromFormat('d-m-Y', $request->recorddate)->format('Y-m-d'));
 
         $episdiag_obj = DB::table('hisdb.episdiag')
             ->where('compcode','=',session('compcode'))

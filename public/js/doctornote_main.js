@@ -104,9 +104,9 @@ $(document).ready(function () {
 				{ label: 'Name', name: 'Name', width: 15 ,classes: 'wrap' },
 				{ label: 'Payer', name: 'payer', width: 15 ,classes: 'wrap' },
 				{ label: 'I/C', name: 'Newic', width: 15 ,classes: 'wrap' },
-				{ label: 'Rehab', name: 'reff_rehab', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2 },
-				{ label: 'Physio', name: 'reff_physio', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2 },
-				{ label: 'Diet', name: 'reff_diet', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2 },
+				{ label: 'Rehab', name: 'reff_rehab', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
+				{ label: 'Physio', name: 'reff_physio', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
+				{ label: 'Diet', name: 'reff_diet', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
 				{ label: 'HP', name: 'telhp', width: 13 ,classes: 'wrap' , hidden:true},
 				{ label: 'Sex', name: 'Sex', width: 6 ,classes: 'wrap' },
 				{ label: 'Mode', name: 'pyrmode', width: 8 ,classes: 'wrap'},
@@ -189,9 +189,9 @@ $(document).ready(function () {
 				{ label: 'Name', name: 'Name', width: 18 ,classes: 'wrap' },
 				{ label: 'Payer', name: 'payer', width: 18 ,classes: 'wrap' },
 				{ label: 'I/C', name: 'Newic', width: 12 ,classes: 'wrap' },
-				{ label: 'Rehab', name: 'reff_rehab', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2 },
-				{ label: 'Physio', name: 'reff_physio', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2 },
-				{ label: 'Diet', name: 'reff_diet', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2 },
+				{ label: 'Rehab', name: 'reff_rehab', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
+				{ label: 'Physio', name: 'reff_physio', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
+				{ label: 'Diet', name: 'reff_diet', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
 				{ label: 'HP', name: 'telhp', width: 10 ,classes: 'wrap' },
 				{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
 				{ label: 'Mode', name: 'pyrmode', width: 10 ,classes: 'wrap'},
@@ -270,7 +270,7 @@ $(document).ready(function () {
 	$("#jqGrid").jqGrid('setGroupHeaders', {
 		useColSpanStyle: true, 
 		groupHeaders:[
-			{startColumnName: 'Rehab', numberOfColumns: 3, titleText: '<em>Referral</em>'},
+			{startColumnName: 'reff_rehab', numberOfColumns: 3, titleText: '<em>Referral</em>'},
 		]
 	});
 	addParamField('#jqGrid',true,urlParam,['action']);
@@ -295,6 +295,14 @@ $(document).ready(function () {
 			return '<span class="fa fa-check" ></span>';
 		}else{
 			return "";
+		}
+	}
+
+	function UNformatterstatus_tick2(cellvalue, option, rowObject) {
+		if ($(rowObject).children().length) {
+			return 'YES';
+		}else{
+			return "NO";
 		}
 	}
 

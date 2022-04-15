@@ -1,6 +1,17 @@
 <div class="ui segments">
 <div class="ui secondary segment" style="position:relative; padding: 30px;">
 
+	<div class="inline field" style="position:absolute;top: 10px; left: 10px;">
+		<div class="ui checkbox rehab box">
+	      <input type="checkbox" class="hidden" name="Rehabilitation" value="Rehabilitation">
+	      <label>Rehabilitation</label>
+	    </div>
+		<div class="ui checkbox phys box">
+	      <input type="checkbox" class="hidden" name="Physioteraphy" value="Physioteraphy">
+	      <label>Physioteraphy</label>
+	    </div>
+	</div>
+
 	<div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
 		id="btn_grp_edit_phys_ncase"
 		style="position: absolute;
@@ -26,16 +37,7 @@
 <div class="ui segment">
 <form id="formphys_ncase">
 
-	<div class="inline field" style="position:absolute;top: -50px; left: 10px;">
-		<div class="ui checkbox rehab box">
-	      <input type="checkbox" class="hidden" name="Rehabilitation" value="Rehabilitation">
-	      <label>Rehabilitation</label>
-	    </div>
-		<div class="ui checkbox phys box">
-	      <input type="checkbox" class="hidden" name="Physioteraphy" value="Physioteraphy">
-	      <label>Physioteraphy</label>
-	    </div>
-	</div>
+	
 
 	<input id="category_phys_ncase" name="category" type="hidden">
 	<div class="ui segments">

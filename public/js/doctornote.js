@@ -44,12 +44,12 @@ $(document).ready(function () {
 			saveForm_doctorNote(function(data){
 				$("#cancel_doctorNote").click();
     			docnote_date_tbl.ajax.url( "./doctornote/table?"+$.param(dateParam_docnote) ).load(function(){
-    				docnote_date_tbl.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
-					    var currow = this.data();
-					    if(currow.idno == data.idno){
-			    			$(this.node()).addClass('active');
-					    }
-					});
+    	// 			docnote_date_tbl.rows().every( function ( rowIdx, tableLoop, rowLoop ) {
+					//     var currow = this.data();
+					//     if(currow.idno == data.idno){
+			  //   			$(this.node()).addClass('active');
+					//     }
+					// });
     			});
 			});
 		}else{
@@ -382,43 +382,6 @@ function button_state_doctorNote(state){
 }
 
 var dateParam_docnote,doctornote_docnote,curr_obj;
-//screen bedmanagement//
-function populate_doctorNote(obj,rowdata){
-	curr_obj=obj;
-	
-	emptyFormdata(errorField,"#formDoctorNote");
-
-	//panel header
-	$('#name_show_doctorNote').text(obj.name);
-	$('#mrn_show_doctorNote').text(("0000000" + obj.mrn).slice(-7));
-	$('#sex_show_doctorNote').text(obj.sex);
-	$('#dob_show_doctorNote').text(dob_chg(obj.dob));
-	$('#age_show_doctorNote').text(obj.age+ ' (YRS)');
-	$('#race_show_doctorNote').text(obj.race);
-	$('#religion_show_doctorNote').text(if_none(obj.religion));
-	$('#occupation_show_doctorNote').text(if_none(obj.occupation));
-	$('#citizenship_show_doctorNote').text(obj.citizen);
-	$('#area_show_doctorNote').text(obj.area);
-
-	//formDoctorNote
-	$('#mrn_doctorNote').val(obj.mrn);
-	$("#episno_doctorNote").val(obj.episno);
-
-	// check if its current
-	on_toggling_curr_past(obj);
-
-	urlParam_AddNotes.filterVal[0] = obj.mrn;
-	urlParam_AddNotes.filterVal[1] = obj.episno;
-
-	doctornote_docnote={
-		action:'get_table_doctornote_div',
-		mrn:obj.mrn,
-		episno:obj.episno,
-		recorddate:''
-	};
-
-    // button_state_doctorNote('add');
-}
 
 function empty_currDoctorNote(){
 	emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
@@ -481,47 +444,9 @@ function populate_currDoctorNote(obj){
 
     docnote_date_tbl.ajax.url( "./doctornote/table?"+$.param(dateParam_docnote) ).load(function(data){
 		emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
-		$('#docnote_date_tbl tbody tr:eq(0)').click();	//to select first row
+		// $('#docnote_date_tbl tbody tr:eq(0)').click();	//to select first row
     });
 
-}
-
-//screen emergency//
-function populate_doctorNote_emergency(obj,rowdata){
-	curr_obj=obj;
-	
-	emptyFormdata(errorField,"#formDoctorNote");
-
-	//panel header
-	// $('#name_show_doctorNote').text(obj.a_pat_name);
-	// $('#mrn_show_doctorNote').text(("0000000" + obj.a_mrn).slice(-7));
-	// $('#sex_show_doctorNote').text(obj.sex);
-	// $('#dob_show_doctorNote').text(dob_chg(obj.dob));
-	// $('#age_show_doctorNote').text(obj.age+ ' (YRS)');
-	// $('#race_show_doctorNote').text(obj.race);
-	// $('#religion_show_doctorNote').text(if_none(obj.religion));
-	// $('#occupation_show_doctorNote').text(if_none(obj.occupation));
-	// $('#citizenship_show_doctorNote').text(obj.citizen);
-	// $('#area_show_doctorNote').text(obj.area);
-
-	//formDoctorNote
-	// $('#mrn_doctorNote').val(obj.a_mrn);
-	// $("#episno_doctorNote").val(obj.a_Episno);
-
-	// check if its current
-	// on_toggling_curr_past(obj);
-
-	urlParam_AddNotes.filterVal[0] = obj.mrn;
-	urlParam_AddNotes.filterVal[1] = obj.episno;
-
-	doctornote_docnote={
-		action:'get_table_doctornote_div',
-		mrn:obj.mrn,
-		episno:obj.episno,
-		recorddate:''
-	};
-
-    // button_state_doctorNote('add');
 }
 
 function on_toggling_curr_past(obj = curr_obj){
@@ -640,7 +565,11 @@ var docnote_date_tbl = $('#docnote_date_tbl').DataTable({
         { targets: [0, 1, 3], visible: false},
     ],
     "drawCallback": function( settings ) {
-    	$(this).find('tbody tr')[0].click();
+    	if(settings.aoData.length>0){
+    		$(this).find('tbody tr')[0].click();
+    	}else{
+    		button_state_doctorNote('add');
+    	}
     }
 });
 
@@ -695,12 +624,6 @@ $("input[name=toggle_type]").on('click', function () {
 
 $('#docnote_date_tbl tbody').on('click', 'tr', function () { 
     var data = docnote_date_tbl.row( this ).data();
-
-    if(data == undefined){
-    	//xde record, terus tekan new
-		$("#new_doctorNote").click();
-    	return;
-	}
 	
 	//to highlight selected row
 	if($(this).hasClass('selected')) {
@@ -714,19 +637,19 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
     $('#docnote_date_tbl tbody tr').removeClass('active');
     $(this).addClass('active');
 
-    if(check_same_usr_edit(data)){
-    	if(document.getElementById("past").checked){
-    		button_state_doctorNote('disableAll');
-    	}else{
-    		button_state_doctorNote('edit');
-    	}
-    }else{
-    	if(document.getElementById("past").checked){
-    		button_state_doctorNote('disableAll');
-    	}else{
-    		button_state_doctorNote('add');
-    	}
-    }
+    // if(check_same_usr_edit(data)){
+    // 	if(document.getElementById("past").checked){
+    // 		button_state_doctorNote('disableAll');
+    // 	}else{
+    // 		button_state_doctorNote('edit');
+    // 	}
+    // }else{
+    // 	if(document.getElementById("past").checked){
+    // 		button_state_doctorNote('disableAll');
+    // 	}else{
+    // 		button_state_doctorNote('add');
+    // 	}
+    // }
     doctornote_docnote.recorddate = data.date;
     doctornote_docnote.mrn = data.mrn;
     doctornote_docnote.episno = data.episno;
@@ -751,6 +674,7 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
 			refreshGrid('#jqGridAddNotes',urlParam_AddNotes,'add_notes');
 			getBMI();
 
+    		button_state_doctorNote('edit');
 			// datable_medication.clear().draw();
 			// datable_medication.rows.add(data.transaction.rows).draw();
 		}

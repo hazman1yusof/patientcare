@@ -8,6 +8,7 @@ $(document).ready(function () {
 		button_state_phys_ncase('wait');
 		enableForm('#formphys_ncase');
 		rdonly('#formphys_ncase');
+
 	});
 
 	$("#edit_phys_ncase").click(function(){
@@ -113,6 +114,13 @@ function populate_phys_ncase(obj){
 	
 	$("#formphys_ncase input[type=radio][value=no]").prop("checked", true); 
 	emptyFormdata_div("#formphys_ncase");
+
+	console.log(obj);
+	if(obj.reff_rehab=='YES'){
+		$('.ui.checkbox.rehab').checkbox('set checked');
+	}else if(obj.reff_physio=='YES'){
+		$('.ui.checkbox.phys').checkbox('set checked');
+	}
 
 	var phys_ncase_urlparam={
 		action:'get_table_phys_ncase'

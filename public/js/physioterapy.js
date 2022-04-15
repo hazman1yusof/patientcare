@@ -264,7 +264,11 @@ var phys_date_tbl = $('#phys_date_tbl').DataTable({
         { targets: [0, 1, 3], visible: false},
     ],
     "drawCallback": function( settings ) {
-    	$(this).find('tbody tr')[0].click();
+    	if(settings.aoData.length>0){
+    		$(this).find('tbody tr')[0].click();
+    	}else{
+    		button_state_phys('add');
+    	}
     }
 });
 
@@ -329,10 +333,7 @@ function populate_phys(obj){
 		date:$('#sel_date').val()
 	}
 
-    phys_date_tbl.ajax.url( "./phys/table?"+$.param(dateParam_phys) ).load(function(data){
-		// emptyFormdata_div("#formphys",['#mrn_phys','#episno_phys']);
-		// $('#phys_date_tbl tbody tr:eq(0)').click();	//to select first row
-    });
+    phys_date_tbl.ajax.url( "./phys/table?"+$.param(dateParam_phys) ).load();
 
 }
 
