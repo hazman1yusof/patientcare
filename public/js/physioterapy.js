@@ -1,7 +1,7 @@
 
 $(document).ready(function () {
 	$('.menu .item').tab();
-	$('.ui.radio.checkbox').checkbox({
+	$('.ui.radio.checkbox.pastcurr').checkbox({
 		onChange: function() {
 			var type = $(this).val();
 	    	var dateParam_phys={
@@ -23,13 +23,21 @@ $(document).ready(function () {
 		let mrn = $('#mrn_phys').val();
 		let episno = $("#episno_phys").val();
 		let type = $(this).data('type');
-		console.log($('#save_phys').prop('disabled'));
+		let istablet = $(window).width() <= 1024;
+
 		if(mrn.trim() == '' || episno.trim() == '' || type.trim() == ''){
 			alert('Please choose Patient First');
 		}else if($('#save_phys').prop('disabled')){
 			alert('Edit this patient first');
 		}else{
-			var win = window.open('http://foxitweb.test/pdf?mrn='+mrn+'&episno='+episno+'&type='+type, '_blank');
+			if(istablet){
+				let filename = type+'_'+mrn+'_'+episno+'.pdf';
+				let url = $('#urltodiagram').val() + filename;
+				var win = window.open(url, '_blank');
+			}else{
+				var win = window.open('http://foxitweb.test/pdf?mrn='+mrn+'&episno='+episno+'&type='+type, '_blank');
+			}
+
 			if (win) {
 			    win.focus();
 			} else {
@@ -42,12 +50,14 @@ $(document).ready(function () {
 	$('.ui.checkbox.rehab').checkbox({
 		onChecked: function() {
 			$('#category_phys').val('Rehabilitation');
+			$('#category_phys_ncase').val('Rehabilitation');
 			if($('.ui.checkbox.phys').checkbox('is checked')){
 				$('.ui.checkbox.phys').checkbox('set unchecked');
 			}
 	    },
 	    onUnchecked: function() {
 			$('#category_phys').val('Physioteraphy');
+			$('#category_phys_ncase').val('Physioteraphy');
 			if($('.ui.checkbox.phys').checkbox('is unchecked')){
 				$('.ui.checkbox.phys').checkbox('set checked');
 			}
@@ -56,12 +66,14 @@ $(document).ready(function () {
 	$('.ui.checkbox.phys').checkbox({
 		onChecked: function() {
 			$('#category_phys').val('Physioteraphy');
+			$('#category_phys_ncase').val('Physioteraphy');
 			if($('.ui.checkbox.rehab').checkbox('is checked')){
 				$('.ui.checkbox.rehab').checkbox('set unchecked');
 			}
 	    },
 	    onUnchecked: function() {
 			$('#category_phys').val('Rehabilitation');
+			$('#category_phys_ncase').val('Rehabilitation');
 			if($('.ui.checkbox.rehab').checkbox('is unchecked')){
 				$('.ui.checkbox.rehab').checkbox('set checked');
 			}
@@ -159,7 +171,6 @@ $(document).ready(function () {
 
 		disableForm('#formphys');
 		emptyFormdata_div("#formphys",['#mrn_phys','#episno_phys']);
-		$('.ui.checkbox.box').checkbox('set unchecked');
 	    $('#phys_date_tbl tbody tr').removeClass('active');
 	    $(this).addClass('active');
 
@@ -186,14 +197,6 @@ $(document).ready(function () {
 
 	    });
 
-	});
-
-	$("a.ui.card").click(function(){
-		$.get( "http://foxitweb.test/open", function( data ) {
-			
-		},'json').done(function(data) {
-			
-		});
 	});
 });
 
@@ -267,6 +270,7 @@ var phys_date_tbl = $('#phys_date_tbl').DataTable({
 
 function empty_currphys(){
 	emptyFormdata_div("#formphys",['#mrn_phys','#episno_phys']);
+	empty_currphys_ncase();
 	$('.ui.checkbox.box').checkbox('set unchecked');
 	// button_state_phys('empty');
 
@@ -290,7 +294,6 @@ function empty_currphys(){
 }
 
 function populate_phys(obj){
-	curr_obj=obj;
 	
 	emptyFormdata_div("#formphys",['#mrn_phys','#episno_phys']);
 	$('.ui.checkbox.box').checkbox('set unchecked');
@@ -311,30 +314,13 @@ function populate_phys(obj){
 	$('#mrn_phys').val(obj.MRN);
 	$("#episno_phys").val(obj.Episno);
 
-	var phys_urlparam={
-		action:'get_table_phys',
-		mrn:obj.MRN,
-		episno:obj.Episno,
-	};
+	populate_phys_ncase(obj);
+
     var postobj={
     	_token : $('#_token').val(),
     	mrn:obj.MRN,
     	episno:obj.Episno
     };
-
-	$.post( "./phys/form?"+$.param(phys_urlparam), $.param(postobj), function( data ) {
-        
-    },'json').fail(function(data) {
-        alert('there is an error');
-    }).done(function(data){
-    	if(!$.isEmptyObject(data)){
-			autoinsert_rowdata_phys("#formphys",data.patrehab);
-			button_state_phys('edit');
-        }else{
-			button_state_phys('add');
-        }
-
-	});
 
 	var dateParam_phys={
 		action:'get_table_date_phys',
@@ -353,14 +339,6 @@ function populate_phys(obj){
 
 function autoinsert_rowdata_phys(form,rowData){
 	$.each(rowData, function( index, value ) {
-
-		if(index == 'category'){
-			if(value=='Rehabilitation'){
-				$('.ui.checkbox.rehab').checkbox('set checked');
-			}else if(value=='Physioteraphy'){
-				$('.ui.checkbox.phys').checkbox('set checked');
-			}
-		}
 
 		var input=$(form+" [name='"+index+"']");
 		if(input.is("[type=radio]")){

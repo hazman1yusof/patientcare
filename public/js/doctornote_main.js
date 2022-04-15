@@ -99,18 +99,20 @@ $(document).ready(function () {
 			datatype: "local",
 			colModel: [
 				{ label: 'MRN', name: 'MRN', width: 9, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
-				{ label: ' ', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' },
+				{ label: ' ', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' , hidden:true},
 				{ label: 'Time', name: 'reg_time', width: 10 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
 				{ label: 'Name', name: 'Name', width: 15 ,classes: 'wrap' },
 				{ label: 'Payer', name: 'payer', width: 15 ,classes: 'wrap' },
 				{ label: 'I/C', name: 'Newic', width: 15 ,classes: 'wrap' },
-				{ label: 'DOB', name: 'DOB', width: 12 ,classes: 'wrap' ,formatter: dateFormatter, unformat: dateUNFormatter},
+				{ label: 'Rehab', name: 'Rehab', width: 8 ,classes: 'wrap' },
+				{ label: 'Physio', name: 'Physio', width: 8 ,classes: 'wrap' },
+				{ label: 'Diet', name: 'Diet', width: 8 ,classes: 'wrap' },
 				{ label: 'HP', name: 'telhp', width: 13 ,classes: 'wrap' , hidden:true},
 				{ label: 'Sex', name: 'Sex', width: 6 ,classes: 'wrap' },
 				{ label: 'Mode', name: 'pyrmode', width: 8 ,classes: 'wrap'},
 				{ label: 'Seen', name: 'doctorstatus', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick},
 				{ label: 'idno', name: 'idno', hidden: true, key:true},
-				{ label: 'dob', name: 'dob', hidden: true },
+				{ label: 'DOB', name: 'DOB', hidden: true },
 				{ label: 'RaceCode', name: 'RaceCode', hidden: true },
 				{ label: 'religion', name: 'religion', hidden: true },
 				{ label: 'OccupCode', name: 'OccupCode', hidden: true },
@@ -164,6 +166,7 @@ $(document).ready(function () {
 				empty_dietcarenote();
 				empty_transaction_diet();
 				empty_userfile();
+				empty_currphys();
 
 				let discharge_btn_data = $('#discharge_btn').data('idno');
 				if(discharge_btn_data == undefined || discharge_btn_data == 'none'){
@@ -181,18 +184,20 @@ $(document).ready(function () {
 			datatype: "local",
 			colModel: [
 				{ label: 'MRN', name: 'MRN', width: 7, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
-				{ label: 'Epis. No', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' },
+				{ label: 'Epis. No', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' , hidden:true},
 				{ label: 'Time', name: 'reg_time', width: 8 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
 				{ label: 'Name', name: 'Name', width: 18 ,classes: 'wrap' },
 				{ label: 'Payer', name: 'payer', width: 18 ,classes: 'wrap' },
 				{ label: 'I/C', name: 'Newic', width: 12 ,classes: 'wrap' },
-				{ label: 'DOB', name: 'DOB', width: 10 ,classes: 'wrap' ,formatter: dateFormatter, unformat: dateUNFormatter},
+				{ label: 'Rehab', name: 'Rehab', width: 8 ,classes: 'wrap' },
+				{ label: 'Physio', name: 'Physio', width: 8 ,classes: 'wrap' },
+				{ label: 'Diet', name: 'Diet', width: 8 ,classes: 'wrap' },
 				{ label: 'HP', name: 'telhp', width: 10 ,classes: 'wrap' },
 				{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
 				{ label: 'Mode', name: 'pyrmode', width: 10 ,classes: 'wrap'},
-				{ label: 'Seen', name: 'doctorstatus', width: 10 ,classes: 'wrap',formatter: formatterstatus_tick},
+				{ label: 'Seen', name: 'doctorstatus', width: 5 ,classes: 'wrap',formatter: formatterstatus_tick},
 				{ label: 'idno', name: 'idno', hidden: true, key:true},
-				{ label: 'dob', name: 'dob', hidden: true },
+				{ label: 'DOB', name: 'DOB', hidden: true },
 				{ label: 'RaceCode', name: 'RaceCode', hidden: true },
 				{ label: 'religion', name: 'religion', hidden: true },
 				{ label: 'OccupCode', name: 'OccupCode', hidden: true },
@@ -247,6 +252,7 @@ $(document).ready(function () {
 				empty_dietcarenote();
 				empty_transaction_diet();
 				empty_userfile();
+				empty_currphys();
 
 				let discharge_btn_data = $('#discharge_btn').data('idno');
 				if(discharge_btn_data == undefined || discharge_btn_data == 'none'){
@@ -261,6 +267,12 @@ $(document).ready(function () {
 		});
 
 	}
+	$("#jqGrid").jqGrid('setGroupHeaders', {
+		useColSpanStyle: true, 
+		groupHeaders:[
+			{startColumnName: 'Rehab', numberOfColumns: 3, titleText: '<em>Referral</em>'},
+		]
+	});
 	addParamField('#jqGrid',true,urlParam,['action']);
 	/////////////////////////start grid pager/////////////////////////////////////////////////////////
 	$("#jqGrid").jqGrid('navGrid', '#jqGridPager', {

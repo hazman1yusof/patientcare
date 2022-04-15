@@ -59,6 +59,36 @@
 												<label class="control-label" for="ncase_fam_medical_his" style="padding-bottom:5px">Family Medical History</label>
 												<textarea id="ncase_fam_medical_his" name="ncase_fam_medical_his" type="text" class="form-control input-lg" rows="3"></textarea>
 											</div>
+
+											<div class="col-md-6">
+												<label class="control-label" for="ncase_medication" style="padding-bottom:5px">Medication</label>
+												<textarea id="ncase_medication" name="ncase_medication" type="text" class="form-control input-lg" rows="3"></textarea>
+											</div>
+										</div>
+									</div>
+
+
+									<div class='col-md-12'>
+										<div class="form-group">
+											<div class="col-md-6">
+												<label class="control-label" for="ncase_phyfind" style="padding-bottom:5px">Physical findings</label>
+												<textarea id="ncase_phyfind" name="ncase_phyfind" type="text" class="form-control input-lg" rows="3"></textarea>
+											</div>
+											
+											<div class="col-md-6">
+												<label class="control-label" for="ncase_phyact" style="padding-bottom:5px">Mobility / Physical Activity</label>
+												<textarea id="ncase_phyact" name="ncase_phyact" type="text" class="form-control input-lg" rows="3"></textarea>
+											</div>
+										</div>
+									</div>
+
+
+									<div class='col-md-12'>
+										<div class="form-group">
+											<div class="col-md-6">
+												<label class="control-label" for="ncase_remark" style="padding-bottom:5px">Remarks</label>
+												<textarea id="ncase_remark" name="ncase_remark" type="text" class="form-control input-lg" rows="3"></textarea>
+											</div>
 										</div>
 									</div>
 
@@ -91,7 +121,7 @@
 
 					<div class="col-md-2" style="padding:0 0 0 0">
 						<div class="panel panel-info">
-							<div class="panel-heading text-center">Anthropometric Measurement</div>
+							<div class="panel-heading text-center">Vital Sign</div>
 							<div class="panel-body">
 
 								<div class="form-group col-md-12" style="width: auto;">
@@ -122,6 +152,27 @@
 								</div>
 
 								<div class="form-group col-md-12" style="width: auto;">
+									<label class="control-label" for="ncase_gxt" style="padding-bottom:5px">GXT</label>
+									<div class="input-group">
+										<input id="ncase_gxt" name="ncase_gxt" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
+										<span class="input-group-addon">mmOL</span>
+									</div>
+								</div>
+
+								<div class="form-group col-md-12" style="width: auto;">
+									<label class="control-label" for="ncase_painscore" style="padding-bottom:5px">Pain Score</label>
+									<div class="input-group">
+										<input id="ncase_painscore" name="ncase_painscore" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
+										<span class="input-group-addon">/10</span>
+									</div>
+								</div>
+
+							</div>
+
+							<div class="panel-heading text-center">Anthropometric Measurement</div>
+							<div class="panel-body">
+
+								<div class="form-group col-md-12" style="width: auto;">
 									<label class="control-label" for="ncase_height" style="padding-bottom:5px">Height</label>
 									<div class="input-group">
 										<input id="ncase_height" name="ncase_height" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
@@ -143,19 +194,8 @@
 								</div>
 
 								<div class="form-group col-md-12" style="width: auto;">
-									<label class="control-label" for="ncase_gxt" style="padding-bottom:5px">GXT</label>
-									<div class="input-group">
-										<input id="ncase_gxt" name="ncase_gxt" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
-										<span class="input-group-addon">mmOL</span>
-									</div>
-								</div>
-
-								<div class="form-group col-md-12" style="width: auto;">
-									<label class="control-label" for="ncase_painscore" style="padding-bottom:5px">Pain Score</label>
-									<div class="input-group">
-										<input id="ncase_painscore" name="ncase_painscore" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
-										<span class="input-group-addon">/10</span>
-									</div>
+									<label class="control-label" for="ncase_ibw" style="padding-bottom:5px">IBW</label>
+									<input id="ncase_ibw" name="ncase_ibw" type="number" class="form-control input-lg" rdonly>
 								</div>
 
 							</div>
@@ -258,7 +298,7 @@
 
 						<div class="col-md-3" style="padding:0 0 0 0">
 							<div class="panel panel-info">
-								<div class="panel-heading text-center">Anthropometric Measurement</div>
+								<div class="panel-heading text-center">Vital Sign</div>
 								<div class="panel-body">
 
 									<div class="form-group col-md-12" style="width: auto;">
@@ -289,6 +329,27 @@
 									</div>
 
 									<div class="form-group col-md-12" style="width: auto;">
+										<label class="control-label" for="fup_gxt" style="padding-bottom:5px">GXT</label>
+										<div class="input-group">
+											<input id="fup_gxt" name="fup_gxt" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
+											<span class="input-group-addon">mmOL</span>
+										</div>
+									</div>
+
+									<div class="form-group col-md-12" style="width: auto;">
+										<label class="control-label" for="fup_painscore" style="padding-bottom:5px">Pain Score</label>
+										<div class="input-group">
+											<input id="fup_painscore" name="fup_painscore" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
+											<span class="input-group-addon">/10</span>
+										</div>
+									</div>
+
+								</div>
+									
+								<div class="panel-heading text-center">Anthropometric Measurement</div>
+								<div class="panel-body">
+
+									<div class="form-group col-md-12" style="width: auto;">
 										<label class="control-label" for="fup_height" style="padding-bottom:5px">Height</label>
 										<div class="input-group">
 											<input id="fup_height" name="fup_height" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
@@ -310,20 +371,10 @@
 									</div>
 
 									<div class="form-group col-md-12" style="width: auto;">
-										<label class="control-label" for="fup_gxt" style="padding-bottom:5px">GXT</label>
-										<div class="input-group">
-											<input id="fup_gxt" name="fup_gxt" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
-											<span class="input-group-addon">mmOL</span>
-										</div>
+										<label class="control-label" for="fup_ibw" style="padding-bottom:5px">IBW</label>
+										<input id="fup_ibw" name="fup_ibw" type="number" class="form-control input-lg" rdonly>
 									</div>
 
-									<div class="form-group col-md-12" style="width: auto;">
-										<label class="control-label" for="fup_painscore" style="padding-bottom:5px">Pain Score</label>
-										<div class="input-group">
-											<input id="fup_painscore" name="fup_painscore" type="number" class="form-control input-lg floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
-											<span class="input-group-addon">/10</span>
-										</div>
-									</div>
 									
 								</div>
 							</div>

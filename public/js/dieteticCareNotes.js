@@ -242,10 +242,13 @@ function getBMI_ncase() {
 	var ncase_myBMI = (ncase_weight / ncase_height / ncase_height) * 10000;
 
     var ncase_bmi = ncase_myBMI.toFixed(2);
+    var ncase_ibw = ncase_bmi * Math.pow(ncase_height/100, 2)
 
     if (isNaN(ncase_bmi)) ncase_bmi = 0;
+    if (isNaN(ncase_ibw)) ncase_ibw = 0;
 
-    $('#ncase_bmi').val((ncase_bmi));
+    $('#ncase_bmi').val(ncase_bmi);
+    $('#ncase_ibw').val(ncase_ibw.toFixed(2));
 }
 
 function getBMI_fup() {
@@ -255,10 +258,13 @@ function getBMI_fup() {
 	var fup_myBMI = (fup_weight / fup_height / fup_height) * 10000;
 
     var fup_bmi = fup_myBMI.toFixed(2);
+    var fup_ibw = fup_bmi * Math.pow(fup_height/100, 2)
 
     if (isNaN(fup_bmi)) fup_bmi = 0;
+    if (isNaN(fup_ibw)) fup_ibw = 0;
 
-    $('#fup_bmi').val((fup_bmi));
+    $('#fup_bmi').val(fup_bmi);
+    $('#fup_ibw').val(fup_ibw.toFixed(2));
 }
 //bmi calculator ends
 

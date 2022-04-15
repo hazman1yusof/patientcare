@@ -280,7 +280,7 @@ function emptyFormdata_div(div,except){
 	}
 
 	$(div+' textarea').val("");
-	$(div+' input').val("");
+	$(div+' input[type=text]').val("");
 
 	$( div+' input.error').css('border-color','rgb(204 204 204)');
 	$( div+' div.has-error' ).removeClass( "has-error" );

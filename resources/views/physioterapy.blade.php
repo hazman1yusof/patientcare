@@ -1,42 +1,42 @@
 
 <div class='col-md-12' style="padding:0 0 15px 0">
-	<div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
-		id="btn_grp_edit_phys"
-		style="position: absolute;
-				padding: 0 0 0 0;
-				right: 40px;
-				top: 5px;
-				z-index: 1000;">
-		<button type="button" class="btn btn-default" id="new_phys">
-			<span class="fa fa-plus-square-o"></span> New
-		</button>
-		<button type="button" class="btn btn-default" id="edit_phys">
-			<span class="fa fa-edit fa-lg"></span> Edit
-		</button>
-		<button type="button" class="btn btn-default" data-oper='add' id="save_phys">
-			<span class="fa fa-save fa-lg"></span> Save
-		</button>
-		<button type="button" class="btn btn-default" id="cancel_phys">
-			<span class="fa fa-ban fa-lg" aria-hidden="true"> </span> Cancel
-		</button>
-	</div>
+	<input type="hidden" id="urltodiagram" value="url('/upload/pdf/')">
+    @include('physioterapy_ncaseform')
 
-	<div class="ui grid">
+	<div class="ui grid" style="position: relative; padding-top: 30px;">
 
+		<div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
+			id="btn_grp_edit_phys"
+			style="position: absolute;
+					padding: 0 0 0 0;
+					right: 40px;
+					top: 55px;
+					z-index: 1000;">
+			<button type="button" class="btn btn-default" id="new_phys">
+				<span class="fa fa-plus-square-o"></span> New
+			</button>
+			<button type="button" class="btn btn-default" id="edit_phys">
+				<span class="fa fa-edit fa-lg"></span> Edit
+			</button>
+			<button type="button" class="btn btn-default" data-oper='add' id="save_phys">
+				<span class="fa fa-save fa-lg"></span> Save
+			</button>
+			<button type="button" class="btn btn-default" id="cancel_phys">
+				<span class="fa fa-ban fa-lg" aria-hidden="true"> </span> Cancel
+			</button>
+		</div>
 
 		<div class="three wide column">
-			<div class="segment">
-				<table id="phys_date_tbl" class="ui celled table" style="width: 100%;">
-					<thead>
-						<tr>
-							<th class="scope">mrn</th>
-							<th class="scope">episno</th>
-							<th class="scope">Date</th>
-							<th class="scope">Add User</th>
-						</tr>
-					</thead>
-				</table>
-			</div>
+			<table id="phys_date_tbl" class="ui celled table" style="width: 100%;">
+				<thead>
+					<tr>
+						<th class="scope">mrn</th>
+						<th class="scope">episno</th>
+						<th class="scope">Date</th>
+						<th class="scope">Add User</th>
+					</tr>
+				</thead>
+			</table>
 		</div>
 
 		<div class="thirteen wide column">
@@ -49,13 +49,13 @@
 						<div class="six wide column">
 							<div class="inline fields">
 								<div class="field">
-							      <div class="ui radio checkbox checked">
+							      <div class="ui radio checkbox checked pastcurr">
 							        <input type="radio" name="fruit" checked="" tabindex="0" class="hidden" value="Current">
 							        <label>Current</label>
 							      </div>
 							    </div>
 								<div class="field">
-							      <div class="ui radio checkbox">
+							      <div class="ui radio checkbox pastcurr">
 							        <input type="radio" name="fruit" tabindex="0" class="hidden" value="Past">
 							        <label>Past History</label>
 							      </div>
@@ -71,18 +71,6 @@
 			    <input id="mrn_phys" name="mrn_phys" type="hidden">
 			    <input id="episno_phys" name="episno_phys" type="hidden">
 			    <input id="category_phys" name="category" type="hidden">
-
-
-				<div class="inline field" style="position: absolute;top: 20px;left: 30px;z-index: 1000;">
-					<div class="ui checkbox rehab box">
-				      <input type="checkbox" class="hidden" name="Rehabilitation" value="Rehabilitation">
-				      <label>Rehabilitation</label>
-				    </div>
-					<div class="ui checkbox phys box">
-				      <input type="checkbox" class="hidden" name="Physioteraphy" value="Physioteraphy">
-				      <label>Physioteraphy</label>
-				    </div>
-				</div>
 
 				<div id="phys" class="ui top attached tabular menu">
 					<a class="item active" data-tab="subass">Subjective Assesment</a>
@@ -245,16 +233,7 @@
 					  	<div class="eight wide column">
 							<div class="ui form">
 							<div class="field">
-							    <label>Goals (Short Term)</label>
-							    <textarea rows="6" cols="50" name="short" ></textarea>
-							</div>
-							</div>
-					  	</div>
-
-					  	<div class="eight wide column">
-							<div class="ui form">
-							<div class="field">
-							    <label>Goals (LongTerm)</label>
+							    <label>Goals</label>
 							    <textarea rows="6" cols="50" name="long_" ></textarea>
 							</div>
 							</div>
@@ -298,12 +277,12 @@
 								      <img src="{{ asset('img/bodydia1.png') }}" >
 								    </div>
 								</a>
-								<a class="ui card bodydia" data-type='BL'>
+								<a class="ui card bodydia" data-type='BR'>
 									<div class="image">
 								      <img src="{{ asset('img/bodydia2.png') }}">
 								    </div>
 								</a>
-								<a class="ui card bodydia" data-type='BR'>
+								<a class="ui card bodydia" data-type='BL'>
 									<div class="image">
 								      <img src="{{ asset('img/bodydia3.png') }}">
 								    </div>

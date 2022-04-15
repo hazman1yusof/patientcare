@@ -83,6 +83,10 @@ class DieteticCareNotesController extends defaultController
                         'medical_his' => $request->ncase_medical_his,
                         'surgical_his' => $request->ncase_surgical_his,
                         'fam_medical_his' => $request->ncase_fam_medical_his,
+                        'ncase_medication' => $request->ncase_medication,
+                        'ncase_phyfind' => $request->ncase_phyfind,
+                        'ncase_phyact' => $request->ncase_phyact,
+                        'ncase_remark' => $request->ncase_remark,
                         'history' => $request->ncase_history,
                         'diagnosis' => $request->ncase_diagnosis,
                         'intervention' => $request->ncase_intervention,  
@@ -126,6 +130,10 @@ class DieteticCareNotesController extends defaultController
                     'medical_his' => $request->ncase_medical_his,
                     'surgical_his' => $request->ncase_surgical_his,
                     'fam_medical_his' => $request->ncase_fam_medical_his,
+                    'ncase_medication' => $request->ncase_medication,
+                    'ncase_phyfind' => $request->ncase_phyfind,
+                    'ncase_phyact' => $request->ncase_phyact,
+                    'ncase_remark' => $request->ncase_remark,
                     'history' => $request->ncase_history,
                     'diagnosis' => $request->ncase_diagnosis,
                     'intervention' => $request->ncase_intervention,  
@@ -246,7 +254,7 @@ class DieteticCareNotesController extends defaultController
     public function get_table_dieteticCareNotes(Request $request){
         
         $patdietncase_obj = DB::table('hisdb.patdietncase')
-                    ->select('medical_his as ncase_medical_his','surgical_his as ncase_surgical_his','fam_medical_his as ncase_fam_medical_his','history as ncase_history','diagnosis as ncase_diagnosis','intervention as ncase_intervention','temperature as ncase_temperature','pulse as ncase_pulse','respiration as ncase_respiration','bp_sys1 as ncase_bp_sys1','bp_dias2 as ncase_bp_dias2','height as ncase_height','weight as ncase_weight','gxt as ncase_gxt','painscore as ncase_painscore')
+                    ->select('medical_his as ncase_medical_his','surgical_his as ncase_surgical_his','fam_medical_his as ncase_fam_medical_his','history as ncase_history','diagnosis as ncase_diagnosis','intervention as ncase_intervention','temperature as ncase_temperature','pulse as ncase_pulse','respiration as ncase_respiration','bp_sys1 as ncase_bp_sys1','bp_dias2 as ncase_bp_dias2','height as ncase_height','weight as ncase_weight','gxt as ncase_gxt','painscore as ncase_painscore','ncase_medication','ncase_phyfind','ncase_phyact','ncase_remark')
                     ->where('compcode','=',session('compcode'))
                     ->where('mrn','=',$request->mrn);
 

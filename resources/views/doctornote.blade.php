@@ -178,8 +178,6 @@ table#medication_tbl th {
     <input type="hidden" id="curr_user" value="{{ Auth::user()->username }}">
     <input type="hidden" id="doctornote_route" value="{{route('doctornote_route')}}">
 
-    
-
     <div class="ui stackable two column grid">
         <div class="five wide tablet five wide computer column" id="calendar_div">
             <div class="ui orange segment" style="z-index:100">
@@ -475,6 +473,7 @@ table#medication_tbl th {
     <script type="text/javascript" src="{{ asset('js/dieteticCareNotes.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction_diet.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/physioterapy.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/physioterapy_ncase.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/doctornote_main.js') }}"></script>
 @endsection
 
