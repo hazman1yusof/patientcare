@@ -51,10 +51,10 @@
 				<table class="ui celled table">
 				  	<thead>
 					    <tr>
-					    	<th>No.</th>
-					    	<th>Medical Condition</th>
-					    	<th>Answer</th>
-					    	<th>Details</th>
+					    	<th width="5%">No.</th>
+					    	<th width="60%">Medical Condition</th>
+					    	<th width="12%">Answer</th>
+					    	<th width="28%">Details</th>
 					  	</tr>
 					</thead>
 				  	<tbody>
@@ -660,6 +660,13 @@
 						</tr>
 				  	</tbody>
 				</table>
+
+				<input id="risk_phys_ncase" name="risk" type="hidden">
+				<div class="three ui buttons">
+				  <button class="ui toggle button low" type="button" data-risk='low'>Low Risk</button>
+				  <button class="ui toggle button moderate" type="button" data-risk='moderate'>Moderate Risk</button>
+				  <button class="ui toggle button high" type="button" data-risk='high'>High Risk</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -683,8 +690,64 @@
 			<h4 style="text-align:center;margin-top:3px">POSTURAL ASSESSMENT</h4>
 		</div>
 		<div class="ui segment collapse" id="phys_post">
-			<div class="ui form">
-				<div class="field"><textarea rows="6" cols="50" name="posassmt" ></textarea></div>
+			<div class="ui grid">
+				<div class="thirteen wide column">
+					<div class="ui four cards" >
+						<a class="ui card bodydia" data-type='BF'>
+							<div class="image">
+						      <img src="{{ asset('img/bodydia1.png') }}" >
+						    </div>
+						</a>
+						<a class="ui card bodydia" data-type='BR'>
+							<div class="image">
+						      <img src="{{ asset('img/bodydia2.png') }}">
+						    </div>
+						</a>
+						<a class="ui card bodydia" data-type='BL'>
+							<div class="image">
+						      <img src="{{ asset('img/bodydia3.png') }}">
+						    </div>
+						</a>
+						<a class="ui card bodydia" data-type='BB'>
+							<div class="image">
+						      <img src="{{ asset('img/bodydia4.png') }}">
+						    </div>
+						</a>
+					</div>
+				</div>
+
+				<div class="three wide column">
+					<div class="ui form">
+						<div class="field">
+						    <label>VAS</label>
+						    <input type="text" name="vas" placeholder="VAS">
+						</div>
+						<div class="field">
+						    <label>Aggravating Factors</label>
+						    <input type="text" name="aggr" placeholder="Aggravating Factors">
+						</div>
+						<div class="field">
+						    <label>Easing Factors</label>
+						    <input type="text" name="easing" placeholder="Easing Factors">
+						</div>
+						<div class="field">
+						    <label>Type Of Pain</label>
+						    <input type="text" name="pain" placeholder="Type Of Pain">
+						</div>
+						<div class="field">
+						    <label>24 Hours Behaviour</label>
+						    <input type="text" name="behaviour" placeholder="24 Hours Behaviour">
+						</div>
+						<div class="field">
+						    <label>Irritability</label>
+						    <input type="text" name="irritability" placeholder="Irritability">
+						</div>
+						<div class="field">
+						    <label>Severity</label>
+						    <input type="text" name="severity" placeholder="Severity">
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -693,7 +756,7 @@
 		<div class="ui secondary segment collapsed" data-toggle="collapse" data-target="#phys_elec">
 			<i class="angle down icon large"></i>
 			<i class="angle up icon large"></i>
-			<h4 style="text-align:center;margin-top:3px">ELECTROCARDIOGRAM (EKG)</h4>
+			<h4 style="text-align:center;margin-top:3px">ELECTROCARDIOGRAM (EKG) NOTES</h4>
 		</div>
 		<div class="ui segment collapse" id="phys_elec">
 			<div class="ui form">

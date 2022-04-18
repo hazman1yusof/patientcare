@@ -101,8 +101,9 @@ $(document).ready(function () {
 				{ label: 'MRN', name: 'MRN', width: 9, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
 				{ label: ' ', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' , hidden:true},
 				{ label: 'Time', name: 'reg_time', width: 10 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
-				{ label: 'Name', name: 'Name', width: 15 ,classes: 'wrap' },
-				{ label: 'Payer', name: 'payer', width: 15 ,classes: 'wrap' },
+				{ label: 'Name', name: 'Name', width: 12 ,classes: 'wrap' },
+				{ label: 'Payer', name: 'payer', width: 12 ,classes: 'wrap' },
+				{ label: 'Dept', name: 'regdept', width: 8 ,classes: 'wrap' },
 				{ label: 'I/C', name: 'Newic', width: 15 ,classes: 'wrap' },
 				{ label: 'Rehab', name: 'reff_rehab', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
 				{ label: 'Physio', name: 'reff_physio', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
@@ -134,9 +135,12 @@ $(document).ready(function () {
 				urlParam_trans.episno = selrowData('#jqGrid').Episno;
 				urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans_diet.episno = selrowData('#jqGrid').Episno;
+				urlParam_trans_phys.mrn = selrowData('#jqGrid').MRN;
+				urlParam_trans_phys.episno = selrowData('#jqGrid').Episno;
 				addmore_onadd = false;
 				refreshGrid("#jqGrid_trans", urlParam_trans);
 				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
+				refreshGrid("#jqGrid_trans_diet", urlParam_trans_phys);
 	            populate_currDoctorNote(selrowData('#jqGrid'));
 	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
 	            populate_userfile(selrowData('#jqGrid'));
@@ -186,8 +190,9 @@ $(document).ready(function () {
 				{ label: 'MRN', name: 'MRN', width: 7, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
 				{ label: 'Epis. No', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' , hidden:true},
 				{ label: 'Time', name: 'reg_time', width: 8 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
-				{ label: 'Name', name: 'Name', width: 18 ,classes: 'wrap' },
-				{ label: 'Payer', name: 'payer', width: 18 ,classes: 'wrap' },
+				{ label: 'Name', name: 'Name', width: 12 ,classes: 'wrap' },
+				{ label: 'Payer', name: 'payer', width: 12 ,classes: 'wrap' },
+				{ label: 'Dept', name: 'regdept', width: 8 ,classes: 'wrap' },
 				{ label: 'I/C', name: 'Newic', width: 12 ,classes: 'wrap' },
 				{ label: 'Rehab', name: 'reff_rehab', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
 				{ label: 'Physio', name: 'reff_physio', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
@@ -220,9 +225,12 @@ $(document).ready(function () {
 				urlParam_trans.episno = selrowData('#jqGrid').Episno;
 				urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans_diet.episno = selrowData('#jqGrid').Episno;
+				urlParam_trans_phys.mrn = selrowData('#jqGrid').MRN;
+				urlParam_trans_phys.episno = selrowData('#jqGrid').Episno;
 				addmore_onadd = false;
 				refreshGrid("#jqGrid_trans", urlParam_trans);
 				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
+				refreshGrid("#jqGrid_trans_diet", urlParam_trans_phys);
 	            populate_currDoctorNote(selrowData('#jqGrid'));
 	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
 	            populate_userfile(selrowData('#jqGrid'));

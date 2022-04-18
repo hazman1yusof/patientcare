@@ -77,7 +77,7 @@
 					<a class="item active" data-tab="subass">Subjective Assesment</a>
 					<a class="item" data-tab="objass">Objective Assesment</a>
 					<a class="item" data-tab="analys">Analysis/Plan/Evaluation</a>
-					<a class="item" data-tab="boddia">Body Diagram</a>
+					<a class="item" data-tab="ordentry">Order Entry</a>
 				</div>
 
 				<div class="ui bottom attached tab raised segment active" data-tab="subass">
@@ -95,7 +95,7 @@
 							<div class="ui form">
 							<div class="field">
 							    <label>Present History</label>
-							    <textarea rows="6" cols="50" name="history" ></textarea>
+							    <textarea rows="6" cols="50" name="presenthistory" ></textarea>
 							</div>
 							</div>
 						</div>
@@ -104,7 +104,7 @@
 							<div class="ui form">
 							<div class="field">
 							    <label>Past History</label>
-							    <textarea rows="6" cols="50" name="past" ></textarea>
+							    <textarea rows="6" cols="50" name="pasthistory" ></textarea>
 							</div>
 							</div>
 						</div>
@@ -269,66 +269,9 @@
 					</div>
 				</div>
 				
-				<div class="ui bottom attached tab raised segment" data-tab="boddia">
-					<div class="ui grid">
-						<div class="thirteen wide column">
-							<div class="ui four cards" >
-								<a class="ui card bodydia" data-type='BF'>
-									<div class="image">
-								      <img src="{{ asset('img/bodydia1.png') }}" >
-								    </div>
-								</a>
-								<a class="ui card bodydia" data-type='BR'>
-									<div class="image">
-								      <img src="{{ asset('img/bodydia2.png') }}">
-								    </div>
-								</a>
-								<a class="ui card bodydia" data-type='BL'>
-									<div class="image">
-								      <img src="{{ asset('img/bodydia3.png') }}">
-								    </div>
-								</a>
-								<a class="ui card bodydia" data-type='BB'>
-									<div class="image">
-								      <img src="{{ asset('img/bodydia4.png') }}">
-								    </div>
-								</a>
-							</div>
-						</div>
-
-						<div class="three wide column">
-							<div class="ui form">
-								<div class="field">
-								    <label>VAS</label>
-								    <input type="text" name="vas" placeholder="VAS">
-								</div>
-								<div class="field">
-								    <label>Aggravating Factors</label>
-								    <input type="text" name="aggr" placeholder="Aggravating Factors">
-								</div>
-								<div class="field">
-								    <label>Easing Factors</label>
-								    <input type="text" name="easing" placeholder="Easing Factors">
-								</div>
-								<div class="field">
-								    <label>Type Of Pain</label>
-								    <input type="text" name="pain" placeholder="Type Of Pain">
-								</div>
-								<div class="field">
-								    <label>24 Hours Behaviour</label>
-								    <input type="text" name="behaviour" placeholder="24 Hours Behaviour">
-								</div>
-								<div class="field">
-								    <label>Irritability</label>
-								    <input type="text" name="irritability" placeholder="Irritability">
-								</div>
-								<div class="field">
-								    <label>Severity</label>
-								    <input type="text" name="severity" placeholder="Severity">
-								</div>
-							</div>
-						</div>
-					</div>
+				<div class="ui bottom attached tab raised segment" data-tab="ordentry">
+		            <table id="jqGrid_trans_phys" class="table table-striped"></table>
+		            <div id="jqGrid_transPager_phys"></div>
 				</div>
 				
 			</form>

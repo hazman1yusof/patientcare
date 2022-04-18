@@ -17,6 +17,13 @@ $(document).ready(function () {
 		rdonly('#formphys_ncase');
 	});
 
+	$(".ui.toggle.button").click(function(){
+		$('.ui.toggle.button').removeClass('active');
+		$(this).addClass('active');
+		$('#risk_phys_ncase').val($(this).data('risk'));
+	});
+
+
 	$("#save_phys_ncase").click(function(){
 		// disableForm('#formphys_ncase');
 
@@ -154,6 +161,16 @@ function autoinsert_rowdata_phys_ncase(form,rowData){
 				$('.ui.checkbox.rehab').checkbox('set checked');
 			}else if(value=='Physioteraphy'){
 				$('.ui.checkbox.phys').checkbox('set checked');
+			}
+		}
+
+		if(index == 'risk'){
+			if(value=='low'){
+				$('.ui.toggle.button.low').addClass('active');
+			}else if(value=='moderate'){
+				$('.ui.toggle.button.moderate').addClass('active');
+			}else if(value=='high'){
+				$('.ui.toggle.button.high').addClass('active');
 			}
 		}
 
