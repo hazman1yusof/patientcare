@@ -88,6 +88,7 @@ Route::get('/chat2', "ChatController@show2");
 //dari msoftweb
 Route::get('/preview','PreviewController@preview');
 Route::get('/preview/data','PreviewController@previewdata');
+Route::get('/localpreview','WebserviceController@localpreview');
 
 Route::get('/previewvideo/{id}','PreviewController@previewvideo');
 

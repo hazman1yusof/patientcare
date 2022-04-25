@@ -18,7 +18,6 @@ $(document).ready(function () {
 	    }
 	});
 
-
 	$('a.ui.card.bodydia').click(function(){
 		let mrn = $('#mrn_phys').val();
 		let episno = $("#episno_phys").val();
@@ -78,6 +77,18 @@ $(document).ready(function () {
 				$('.ui.checkbox.rehab').checkbox('set checked');
 			}
 	    },
+	});
+
+	$('.ui.checkbox.referdiet').checkbox({
+		onChecked: function() {
+			$('#referdiet_phys').val('yes');
+			$('#referdiet_ncase').val('yes');
+	    },
+	    onUnchecked: function() {
+			$('#referdiet_phys').val('no');
+			$('#referdiet_ncase').val('no');
+	    },
+
 	});
 
 	$('#tab_phys').on('shown.bs.collapse', function () {
@@ -189,7 +200,12 @@ $(document).ready(function () {
 	        alert('there is an error');
 	    }).done(function(data){
 	    	if(!$.isEmptyObject(data)){
-				autoinsert_rowdata_phys("#formphys",data.patrehab);
+	    		if(!$.isEmptyObject(data.patrehab)){
+					autoinsert_rowdata_phys("#formphys",data.patrehab);
+	    		}
+	    		if(!$.isEmptyObject(data.patrehabncase)){
+					autoinsert_rowdata_phys("#formphys",data.patrehabncase);
+	    		}
 				button_state_phys('edit');
 	        }else{
 				button_state_phys('add');
@@ -267,7 +283,7 @@ var phys_date_tbl = $('#phys_date_tbl').DataTable({
     	if(settings.aoData.length>0){
     		$(this).find('tbody tr')[0].click();
     	}else{
-    		button_state_phys('add');
+    		// button_state_phys('add');
     	}
     }
 });
@@ -276,7 +292,7 @@ function empty_currphys(){
 	emptyFormdata_div("#formphys",['#mrn_phys','#episno_phys']);
 	empty_currphys_ncase();
 	$('.ui.checkbox.box').checkbox('set unchecked');
-	// button_state_phys('empty');
+	button_state_phys('empty');
 
 	//panel header
 	$('#name_show_phys').text('');
@@ -316,7 +332,7 @@ function populate_phys(obj){
 	//formphys
 	$('#mrn_phys').val(obj.MRN);
 	$("#episno_phys").val(obj.Episno);
-
+	
 	populate_phys_ncase(obj);
 
     var postobj={
@@ -332,6 +348,8 @@ function populate_phys(obj){
 		episno:obj.Episno,
 		date:$('#sel_date').val()
 	}
+
+	button_state_phys_ncase('add');
 
     phys_date_tbl.ajax.url( "./phys/table?"+$.param(dateParam_phys) ).load();
 

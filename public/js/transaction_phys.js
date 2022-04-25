@@ -1,5 +1,12 @@
 $(document).ready(function () {
 
+
+	$("#phys a.item[data-tab=ordentry]").on('click', function () {
+		delay(function(){
+			$("#jqGrid_trans_phys").jqGrid ('setGridWidth', Math.floor($("#jqGrid_trans_phys_c")[0].offsetWidth-$("#jqGrid_trans_phys_c")[0].offsetLeft-14));
+		}, 50 );
+	});
+
 	// var fdl = new faster_detail_load();
 	$("#jqGrid_trans_phys").jqGrid({
 		datatype: "local",
@@ -68,48 +75,9 @@ $(document).ready(function () {
 			}
 		},
 		loadComplete: function () {
-			// get_trans_tbl_data();
-			if(addmore_onadd == true){
+			if(addmore_onadd_phys == true){
 				$('#jqGrid_trans_phys_iladd').click();
 			}
-			if($('#jqGrid_trans_physPager_right').data('loaded') == undefined){
-				let button = `
-								<button type="button" class="btn btn-sm btn-success" id="discharge_btn_phys">Submit</button>
-							`;
-				$('#jqGrid_trans_physPager_right').html(button);
-				$('#jqGrid_trans_physPager_right').data('loaded','loaded');
-
-				$('#discharge_btn_phys').click(function(){
-					let episno = selrowData('#jqGrid').Episno;
-					let mrn = selrowData('#jqGrid').MRN;
-					let idno = selrowData('#jqGrid').idno;
-					if(episno != undefined || episno != null ){
-						var r = confirm("Do you want to complete this patient order?");
-						if (r == true) {
-
-							$('button#discharge_btn_phys').data('idno',idno);
-
-							var postobj={
-		    					_token : $('#_token').val(),
-						        episno: episno,
-						        mrn: mrn,
-						        reg_date: $('#sel_date').val()
-						    }
-
-							$.post( "./doctornote/form?action=submit_patient", postobj , function( data ) {
-		        	
-						    },'json').done(function(data) {
-						    	SmoothScrollToTop();
-						        refreshGrid("#jqGrid");
-						    }).fail(function(data){
-						        
-						    });
-						}
-					}
-					
-				});
-			}
-			// fdl.set_array().reset();
 		},
 	});
 	addParamField('#jqGrid_trans_phys',false,urlParam_trans_phys,[]);
@@ -123,7 +91,7 @@ $(document).ready(function () {
 		    "episno": selrowData('#jqGrid').Episno,
         },
         oneditfunc: function (rowid) {
-        	addmore_onadd = true;
+        	addmore_onadd_phys = true;
         	let selrow = selrowData('#jqGrid');
 
 			$("#jqGrid_trans_phys input[name='chgcode'],#jqGrid_trans_phys input[name='dosecode'],#jqGrid_trans_phys input[name='freqcode'],#jqGrid_trans_phys input[name='inscode'],#jqGrid_trans_phys input[name='drugindcode']").on('keydown',{data:this},onTab);
@@ -269,7 +237,7 @@ $(document).ready(function () {
 
 });
 
-var addmore_onadd = false;
+var addmore_onadd_phys = false;
 var urlParam_trans_phys = {
 	url:'./doctornote/table',
 	isudept:'phys',
@@ -278,9 +246,9 @@ var urlParam_trans_phys = {
 
 function hide_tran_button_phys(hide=true){
 	if(hide){
-		$('#jqGrid_trans_phys_iladd,#jqGrid_trans_phys_iledit,#jqGrid_trans_ilsave,#jqGrid_trans_ilcancel').hide();
+		$('#jqGrid_trans_phys_iladd,#jqGrid_trans_phys_iledit,#jqGrid_trans_phys_ilsave,#jqGrid_trans_phys_ilcancel').hide();
 	}else{
-		$('#jqGrid_trans_phys_iladd,#jqGrid_trans_phys_iledit,#jqGrid_trans_ilsave,#jqGrid_trans_ilcancel').show();
+		$('#jqGrid_trans_phys_iladd,#jqGrid_trans_phys_iledit,#jqGrid_trans_phys_ilsave,#jqGrid_trans_phys_ilcancel').show();
 	}
 }
 

@@ -50,6 +50,33 @@ $(document).ready(function () {
 	});
 
 	button_state_phys_ncase('empty');
+
+	$('a.ui.card.bodydia_ncase').click(function(){
+		let mrn = $('#mrn_phys').val();
+		let type = $(this).data('type');
+		let istablet = $(window).width() <= 1024;
+
+		if(mrn.trim() == '' || type.trim() == ''){
+			alert('Please choose Patient First');
+		}else if($('#save_phys_ncase').prop('disabled')){
+			alert('Edit this patient first');
+		}else{
+			if(istablet){
+				let filename = type+'_'+mrn+'_.pdf';
+				let url = $('#urltodiagram').val() + filename;
+				var win = window.open(url, '_blank');
+			}else{
+				var win = window.open('http://foxitweb.test/pdf?mrn='+mrn+'&episno=&type='+type, '_blank');
+			}
+
+			if (win) {
+			    win.focus();
+			} else {
+			    alert('Please allow popups for this website');
+			}
+		}
+		
+	});
 	
 });
 
@@ -61,6 +88,7 @@ function saveForm_phys_ncase(callback){
 
     var postobj={
     	mrn:$('#mrn_phys').val(),
+    	episno:$('#episno_phys').val(),
     	_token : $('#_token').val(),
     };
 
@@ -112,8 +140,10 @@ function button_state_phys_ncase(state){
 }
 
 function empty_currphys_ncase(){
+	button_state_phys_ncase('empty');
 	$("#formphys_ncase input[type=radio][value=no]").prop("checked", true); 
 	emptyFormdata_div("#formphys_ncase");
+	$('.ui.toggle.button').removeClass('active');
 }
 
 function populate_phys_ncase(obj){
@@ -122,12 +152,20 @@ function populate_phys_ncase(obj){
 	$("#formphys_ncase input[type=radio][value=no]").prop("checked", true); 
 	emptyFormdata_div("#formphys_ncase");
 
-	console.log(obj);
 	if(obj.reff_rehab=='YES'){
 		$('.ui.checkbox.rehab').checkbox('set checked');
+		$('#category_phys').val('Rehabilitation');
+		$('#category_phys_ncase').val('Rehabilitation');
 	}else if(obj.reff_physio=='YES'){
 		$('.ui.checkbox.phys').checkbox('set checked');
+		$('#category_phys').val('Physioteraphy');
+		$('#category_phys_ncase').val('Physioteraphy');
+	}else if(obj.reff_diet=='YES'){
+		$('.ui.checkbox.referdiet').checkbox('set checked');
+		$('#referdiet_phys').val('yes');
+		$('#referdiet_ncase').val('yes');
 	}
+
 
 	var phys_ncase_urlparam={
 		action:'get_table_phys_ncase'

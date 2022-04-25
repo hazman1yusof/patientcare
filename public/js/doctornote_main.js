@@ -126,11 +126,14 @@ $(document).ready(function () {
 			height: 365,
 			rowNum: 30,
 			onSelectRow:function(rowid, selected){
-				
+				if(checkifedited()){
+					return false;
+				}
 				empty_userfile();
 				$('button#timer_stop').click();
 				hide_tran_button(false);
 				hide_tran_button_diet(false);
+				hide_tran_button_phys(false);
 				urlParam_trans.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans.episno = selrowData('#jqGrid').Episno;
 				urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
@@ -140,7 +143,7 @@ $(document).ready(function () {
 				addmore_onadd = false;
 				refreshGrid("#jqGrid_trans", urlParam_trans);
 				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
-				refreshGrid("#jqGrid_trans_diet", urlParam_trans_phys);
+				refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
 	            populate_currDoctorNote(selrowData('#jqGrid'));
 	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
 	            populate_userfile(selrowData('#jqGrid'));
@@ -151,24 +154,29 @@ $(document).ready(function () {
 					$('#checkbox_completed').prop('checked', true);
 					hide_tran_button(true);
 					hide_tran_button_diet(true);
+					hide_tran_button_phys(true);
 				}else{//kalau belum completed
 					$('#checkbox_completed').prop('disabled',false);
 					$('#checkbox_completed').prop('checked', false);
 					hide_tran_button(false);
 					hide_tran_button_diet(false);
+					hide_tran_button_phys(false);
 				}
 
 			},
 			ondblClickRow: function (rowid, iRow, iCol, e) {
 			},
 			gridComplete: function () {
+				$('.jqgridsegment').removeClass('loading');
 				hide_tran_button(true);
 				hide_tran_button_diet(true);
+				hide_tran_button_phys(true);
 				$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
 				empty_currDoctorNote();
 				empty_transaction();
-				empty_dietcarenote();
 				empty_transaction_diet();
+				empty_transaction_phys();
+				empty_dietcarenote();
 				empty_userfile();
 				empty_currphys();
 
@@ -217,10 +225,14 @@ $(document).ready(function () {
 			height: 365,
 			rowNum: 30,
 			onSelectRow:function(rowid, selected){
+				if(checkifedited()){
+					return false;
+				}
 				empty_userfile();
 				$('button#timer_stop').click();
 				hide_tran_button(false);
 				hide_tran_button_diet(false);
+				hide_tran_button_phys(false);
 				urlParam_trans.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans.episno = selrowData('#jqGrid').Episno;
 				urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
@@ -230,7 +242,7 @@ $(document).ready(function () {
 				addmore_onadd = false;
 				refreshGrid("#jqGrid_trans", urlParam_trans);
 				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
-				refreshGrid("#jqGrid_trans_diet", urlParam_trans_phys);
+				refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
 	            populate_currDoctorNote(selrowData('#jqGrid'));
 	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
 	            populate_userfile(selrowData('#jqGrid'));
@@ -241,24 +253,29 @@ $(document).ready(function () {
 					$('#checkbox_completed').prop('checked', true);
 					hide_tran_button(true);
 					hide_tran_button_diet(true);
+					hide_tran_button_phys(true);
 				}else{//kalau belum completed
 					$('#checkbox_completed').prop('disabled',false);
 					$('#checkbox_completed').prop('checked', false);
 					hide_tran_button(false);
 					hide_tran_button_diet(false);
+					hide_tran_button_phys(false);
 				}
 
 			},
 			ondblClickRow: function (rowid, iRow, iCol, e) {
 			},
 			gridComplete: function () {
+				$('.jqgridsegment').removeClass('loading');
 				hide_tran_button(true);
 				hide_tran_button_diet(true);
+				hide_tran_button_phys(true);
 				$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
 				empty_currDoctorNote();
 				empty_transaction();
-				empty_dietcarenote();
 				empty_transaction_diet();
+				empty_transaction_phys();
+				empty_dietcarenote();
 				empty_userfile();
 				empty_currphys();
 
@@ -365,6 +382,7 @@ $(document).ready(function () {
 
 	function timer_start_tbl(){
 		fetch_tbl = setInterval(function(){
+			$('.jqgridsegment').addClass('loading');
 			refreshGrid("#jqGrid", urlParam);
 		}, 5000);
 	}
@@ -430,6 +448,57 @@ $(document).ready(function () {
 			}
 		});
 		
+	}
+
+	function checkifedited(){
+		if(!$('#save_doctorNote').is(':disabled')){
+			if(!$('#tab_doctornote').hasClass('in')){
+				$('#toggle_doctornote').click();
+			}
+			gotobtm("#tab_doctornote",'#save_doctorNote','#cancel_doctorNote');
+		}else if(!$('#save_dieteticCareNotes').is(':disabled')){
+			if(!$('#tab_diet').hasClass('in')){
+				$('#toggle_diet').click();
+			}
+			gotobtm("#tab_diet",'#save_diet','#cancel_diet');
+		}else if(!$('#save_phys_ncase').is(':disabled')){
+			if(!$('#tab_phys').hasClass('in')){
+				$('#toggle_phys').click();
+			}
+			gotobtm("#save_phys_ncase",'#save_phys_ncase','#cancel_phys_ncase');
+		}else if(!$('#save_phys').is(':disabled')){
+			if(!$('#tab_phys').hasClass('in')){
+				$('#toggle_phys').click();
+			}
+			gotobtm("#save_phys",'#save_phys','#cancel_phys');
+		}else{
+			return false;
+		}
+		return true;
+	}
+
+	function gotobtm(tab,save,cancel){
+		SmoothScrollTo(tab, 300, function(){
+			$.confirm({
+				closeIcon: true,
+			    title: 'Confirm',
+			    content: 'Do you wish to save or cancel your changes?',
+			    buttons: {
+			        Save:{
+			        	btnClass: 'btn-green',
+			        	action: function () {
+				        	$(save).click();
+			        	}
+			        },
+			        Cancel: {
+			        	action: function () {
+				        	$(cancel).click();
+				        },
+			        },
+			    }
+
+			});
+		});
 	}
 
 });

@@ -358,8 +358,8 @@ function button_state_doctorNote(state){
 		case 'edit':
 			$("#toggle_doctorNote").attr('data-toggle','collapse');
 			$('#cancel_doctorNote').data('oper','edit');
-			$("#edit_doctorNote,#new_doctorNote").attr('disabled',false);
-			$('#save_doctorNote,#cancel_doctorNote').attr('disabled',true);
+			$("#edit_doctorNote").attr('disabled',false);
+			$('#save_doctorNote,#cancel_doctorNote,#new_doctorNote').attr('disabled',true);
 			break;
 		case 'wait':
 			dialog_icd.on();
@@ -385,7 +385,7 @@ var dateParam_docnote,doctornote_docnote,curr_obj;
 
 function empty_currDoctorNote(){
 	emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
-	// button_state_doctorNote('empty');
+	button_state_doctorNote('empty');
 
 	//panel header
 	$('#name_show_doctorNote').text('');
@@ -568,26 +568,10 @@ var docnote_date_tbl = $('#docnote_date_tbl').DataTable({
     	if(settings.aoData.length>0){
     		$(this).find('tbody tr')[0].click();
     	}else{
-    		button_state_doctorNote('add');
+    		// button_state_doctorNote('add');
     	}
     }
 });
-
-// var datable_medication = $('#medication_tbl').DataTable({
-// 	"ajax": "",
-// 	"sDom": "",
-//     "responsive": true,
-// 	"paging":false,
-//     "columns": [
-//         {data: 'chg_desc', 'width': '30%'},
-//         {data: 'quantity'},
-//         {data: 'remarks'},
-//         {data: 'dos_code'},
-//         {data: 'fre_code'},
-//         {data: 'ins_code'},
-//         {data: 'dru_code'},
-//     ]
-// });
 
 $('#tab_doctornote').on('shown.bs.collapse', function () {
 	SmoothScrollTo('#tab_doctornote', 300);
@@ -595,16 +579,6 @@ $('#tab_doctornote').on('shown.bs.collapse', function () {
 	$('div#docnote_date_tbl_sticky').show();
 	$("#jqGrid_trans").jqGrid ('setGridWidth', Math.floor($("#jqGrid_trans_c")[0].offsetWidth-$("#jqGrid_trans_c")[0].offsetLeft-14));
 
-	// $('div#docnote_date_tbl_sticky').waypoint({
-	// 	handler: function(direction) {
-	// 	    if(direction == 'down'){
-	// 		    $('div#docnote_date_tbl_sticky').addClass( "sticky_div" );
-	// 		}else{
-	// 		    $('div#docnote_date_tbl_sticky').removeClass( "sticky_div" );
-	// 		}
-	// 	},
-	// 	context: '#tab_doctornote_sticky',
-	// });
 });
 
 $('#tab_doctornote').on('hide.bs.collapse', function () {

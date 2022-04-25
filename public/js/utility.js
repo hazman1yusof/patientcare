@@ -1825,13 +1825,16 @@ function if_none(str){
 	return (str)?str:'NONE';
 }
 
-function SmoothScrollTo(id_or_Name, timelength,minustop=125){
+function SmoothScrollTo(id_or_Name, timelength,callback,minustop=120){
   var timelength = timelength || 500;
   $('html, body').animate({
       scrollTop: $(id_or_Name).offset().top-minustop
   }, timelength, function(){
-
+  	
   });
+  if (callback !== undefined) {
+    callback();
+  }
 }
 
 function SmoothScrollToTop(){

@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-    var mom;
     function formatDate_mom(date,format,returnformat = 'DD-MM-YYYY'){
         mom = moment(date, format);
         return mom.format(returnformat);

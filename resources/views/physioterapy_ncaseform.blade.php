@@ -10,6 +10,11 @@
 	      <input type="checkbox" class="hidden" name="Physioteraphy" value="Physioteraphy">
 	      <label>Physioteraphy</label>
 	    </div>
+
+		<div class="ui checkbox toggle right aligned referdiet box" style="padding-left:80px">
+		  <input type="checkbox" class="hidden" name="referdiet" value="referdiet">
+		  <label>Refer to Dietician</label>
+		</div>
 	</div>
 
 	<div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
@@ -37,8 +42,7 @@
 <div class="ui segment">
 <form id="formphys_ncase">
 
-	
-
+	<input id="referdiet_ncase" name="referdiet" type="hidden" value="no">
 	<input id="category_phys_ncase" name="category" type="hidden">
 	<div class="ui segments">
 		<div class="ui secondary segment collapsed" data-toggle="collapse" data-target="#phys_mcond">
@@ -693,22 +697,22 @@
 			<div class="ui grid">
 				<div class="thirteen wide column">
 					<div class="ui four cards" >
-						<a class="ui card bodydia" data-type='BF'>
+						<a class="ui card bodydia_ncase" data-type='BF'>
 							<div class="image">
 						      <img src="{{ asset('img/bodydia1.png') }}" >
 						    </div>
 						</a>
-						<a class="ui card bodydia" data-type='BR'>
+						<a class="ui card bodydia_ncase" data-type='BR'>
 							<div class="image">
 						      <img src="{{ asset('img/bodydia2.png') }}">
 						    </div>
 						</a>
-						<a class="ui card bodydia" data-type='BL'>
+						<a class="ui card bodydia_ncase" data-type='BL'>
 							<div class="image">
 						      <img src="{{ asset('img/bodydia3.png') }}">
 						    </div>
 						</a>
-						<a class="ui card bodydia" data-type='BB'>
+						<a class="ui card bodydia_ncase" data-type='BB'>
 							<div class="image">
 						      <img src="{{ asset('img/bodydia4.png') }}">
 						    </div>
@@ -760,7 +764,23 @@
 		</div>
 		<div class="ui segment collapse" id="phys_elec">
 			<div class="ui form">
-				<div class="field"><textarea rows="6" cols="50" name="electrodg" ></textarea></div>
+				<div class="field">
+					<label>ECG Interpretation</label>
+					<textarea rows="6" cols="50" name="electrodg" ></textarea>
+				</div>
+
+				<p>Stress Test Interpretation</p>
+				<div class="inline field">
+					<label>Protocol</label>
+					<input type="text" name="protocol" placeholder="Protocol">
+					<label style="padding-left:20px">Equipment</label>
+					<input type="text" name="equipment" placeholder="Equipment">
+				</div>
+
+				<div class="field">
+					<label>Recommendation</label>
+					<textarea rows="6" cols="50" name="recommendation" ></textarea>
+				</div>
 			</div>
 		</div>
 	</div>

@@ -17,6 +17,17 @@ class WebserviceController extends Controller
     {
 
     }
+    
+    public function localpreview(Request $request)
+    {   
+        if(!empty($request->mrn)){
+            $user = DB::table('hisdb.pat_mast')->where('mrn','=',$request->mrn)->first();
+        }else{
+            return abort(404);
+        }
+
+        return view('preview',compact('user'));
+    }
 
     public function login(Request $request){//http://patientcare.test/webservice/login?page=dialysis&username=farid&dept=webservice
         switch ($request->page) {

@@ -1,190 +1,6 @@
 @extends('layouts.main')
 
 @section('style')
-
-.wrap{
-    word-wrap: break-word;
-    white-space: pre-line !important;
-    vertical-align: top !important;
-}
-    
-.fc-toolbar .fc-center h2{
-    color:#f2711c;
-    margin-top:15px;
-}
-
-.fc-toolbar .fc-right {
-    float: right;
-}
-
-.fc-unthemed td.fc-today {
-    background: rgb(251 189 8 / 0.2);
-}
-
-.selected_day {
-    background: rgb(251 189 8 / 1) !important;
-}
-
-.h2 {
-    text-align: center;
-    color: #00b5ad !important;
-    font-size: large !important;
-}
-
-.ui-jqgrid .inline-edit-cell {
-    height: 46 px;
-    padding: 10 px 16 px;
-    font-size: 13px;
-    line-height: 1.3333333;
-    border-radius: 6 px;
-}
-.fc-event {
-    position: relative;
-    display: block;
-    font-size: .85em;
-    line-height: 1!important;
-    border-radius: 50px !important;
-    text-align: center !important;
-    border: 1px solid #3a87ad;
-    width: 10px;
-}
-
-.fc-listMonth-button:before{
-    font-family: "FontAwesome";  
-    content: "\f03a";
-    padding-right: 5px;
-}
-
-.fc-month-button:before{
-    font-family: "FontAwesome";
-    content: "\f073";
-    padding-right: 5px;
-}
-
-.fc-button{
-    height: 2.8em !important;
-}
-
-.myb{
-    font-size: large;
-}
-
-.mysmall{
-    font-weight: 900;
-    color:#f2711c;
-}
-
-.angle.down.icon.large,.angle.up.icon.large{
-    float:right;
-}
-
-.ui.secondary.segment.collapsed .angle.up.icon.large,
-.ui.secondary.segment .angle.down.icon.large {
-    display: none;
-}
-
-.ui.secondary.segment.collapsed .angle.down.icon.large,
-.ui.secondary.segment .angle.up.icon.large {
-    display: inline-block;
-}
-
-.glyphicon-chevron-up,.glyphicon-chevron-down{
-    float:right;
-}
-
-.panel-heading.collapsed .glyphicon-chevron-up,
-.panel-heading .glyphicon-chevron-down {
-    display: none;
-}
-
-.panel-heading.collapsed .glyphicon-chevron-down,
-.panel-heading .glyphicon-chevron-up {
-    display: inline-block;
-}
-
-.table.diatbl{
-    font-size: 11px;
-    width: 85% !important;
-    margin: auto;
-}
-
-.table.diatbl td{
-    padding: 4px !important;
-}
-
-.ui.form.diaform {
-    font-size: smaller;
-    width: 85% !important;
-    margin: auto;
-}
-
-.ui.form.diaform div.field{
-    padding: 0px 8px !important;
-}
-
-.panel-heading#toggle_doctornote, .panel-heading#toggle_trans, .panel-heading#toggle_diet, .panel-heading#toggle_userfile{
-    position: sticky;
-    top: 40px;
-    z-index: 3;
-}
-
-#showSidebar{
-    background: rgb(255 255 255 / 0%) !mportant;
-}
-
-.metal{
-    font-size: 0.8em;
-    color: rgba(0,0,0,.4);
-}
-table#jqGrid, table#jqGrid_trans{
-    font-size: 11px;
-}
-.help-block {
-    display: block;
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
-    color: #737373;
-}
-.ui.checkbox.completed{
-    position: absolute;
-    top: 10px;
-    right: 20px;
-}
-
-.sticky_div{
-    position: fixed !important;
-    top: 130px;
-    left: 19px;
-}
-
-table#medication_tbl tbody td {
-    font-size:12px;
-}
-
-table#medication_tbl {
-  position: relative;
-}
-
-table#medication_tbl th {
-  background: white;
-  position: sticky;
-  top: 0; /* Don't forget this, required for the stickiness */
-  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.4);
-}
-
-.form-control[disabled] {
-    background-color: #fff !important;
-    color: #1a1a1a;
-}
-
-.input-group-addon{
-    padding: 2px !important;
-}
-<!-- 
-.input-lg{
-    font-size: 16px !important;
-}
- -->
 @endsection
 
 @section('content')
@@ -200,7 +16,7 @@ table#medication_tbl th {
         </div>
 
         <div class="eleven wide tablet eleven wide computer right floated column" style="margin:0px;"  id="jqgrid_div">
-            <div class="ui teal segment" style="padding-bottom: 40px;">
+            <div class="ui teal segment jqgridsegment" style="padding-bottom: 40px;">
                 
                 <div class="if_tablet left floated" style="display:none;">
                     <div class="ui calendar" id="button_calendar">
@@ -265,14 +81,14 @@ table#medication_tbl th {
         </div>
 
         <div id="tab_userfile" class="panel-collapse collapse">
-            <div class="panel-body" style="overflow-y: auto;height: 650px;">
+            <div class="panel-body paneldiv">
                 @include('userfile_div')
             </div>
         </div>
     </div>
 
     <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="doctornote_panel">
-        <div class="panel-heading clearfix collapsed" id="toggle_doctornote" >
+        <div class="panel-heading clearfix collapsed" >
 
         <div class="col-md-3" id="docnote_date_tbl_sticky" style="display: none;position: absolute;
             padding: 0 0 0 0;
@@ -307,7 +123,7 @@ table#medication_tbl th {
         AREA: <span id="area_show_doctorNote"></span> 
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_doctornote"></i>
-        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_doctornote"></i >
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_doctornote" id="toggle_doctornote"></i >
         <div style="position: absolute;
                         padding: 0 0 0 0;
                         right: 320px;
@@ -340,14 +156,14 @@ table#medication_tbl th {
         </div>
 
         <div id="tab_doctornote" class="panel-collapse collapse">
-            <div class="panel-body" style="overflow-y: auto;height: 650px;" id="tab_doctornote_sticky">
+            <div class="panel-body paneldiv" id="tab_doctornote_sticky">
                 @include('doctornote_div')
             </div>
         </div>
     </div>
 
     <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="diet_panel">
-        <div class="panel-heading clearfix collapsed" id="toggle_diet" data-toggle="collapse" data-target="#tab_diet">
+        <div class="panel-heading clearfix collapsed" role="tab" id="toggle_diet" data-toggle="collapse" data-target="#tab_diet">
 
         <b>NAME: <span id="name_show_dieteticCareNotes"></span></b><br>
         MRN: <span id="mrn_show_dieteticCareNotes"></span>
@@ -372,14 +188,14 @@ table#medication_tbl th {
         </div>
 
         <div id="tab_diet" class="panel-collapse collapse">
-            <div class="panel-body" style="overflow-y: auto;height: 650px;">
+            <div class="panel-body paneldiv">
                 @include('dieteticCareNotes')
             </div>
         </div>
     </div>
 
     <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="phys_panel">
-        <div class="panel-heading clearfix collapsed" id="toggle_phys" data-toggle="collapse" data-target="#tab_phys">
+        <div class="panel-heading clearfix collapsed" role="tab" id="toggle_phys" data-toggle="collapse" data-target="#tab_phys">
 
         <b>NAME: <span id="name_show_phys"></span></b><br>
         MRN: <span id="mrn_show_phys"></span>
@@ -404,56 +220,23 @@ table#medication_tbl th {
         </div>
 
         <div id="tab_phys" class="panel-collapse collapse">
-            <div class="panel-body" style="overflow-y: auto;height: 650px;">
+            <div class="panel-body paneldiv">
                 @include('physioterapy')
             </div>
         </div>
     </div>
 
-    <!-- <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="transaction_panel">
-        <div class="panel-heading clearfix collapsed" id="toggle_trans" data-toggle="collapse" data-target="#tab_trans">
-
-        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
-        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
-        <div>
-            <h5><strong>Order Entry</strong>&nbsp;&nbsp;
-                <span class="metal"></span></h5>
-        </div> 
-        </div>
-
-        <div id="tab_trans" class="panel-collapse collapse">
-            <div class="panel-body">
-                @include('transaction_charges')
-            </div>
-        </div>
-    </div> -->
-
-    <!-- <div class="eight wide tablet eleven wide computer column" style="margin:0px;">
-        <div class="ui teal segment" id="jqGrid_trans_c">
-            <h2 class="h2">Patient List</h2>
-            <table id="jqGrid_trans" class="table table-striped"></table>
-            <div id="jqGrid_transPager"></div>
-        </div>
-    </div> -->
-
 @include('itemselector')
 @endsection
 
 @section('css')
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
-
+    <link rel="stylesheet" href="{{asset('css/doctornote.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" crossorigin="anonymous">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" crossorigin="anonymous">
-<!-- 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
-
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/fullcalendar-3.7.0/fullcalendar.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/trirand/css/trirand/ui.jqgrid-bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/se/dt-1.11.3/datatables.min.css"/>
-    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css"> -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -465,16 +248,11 @@ table#medication_tbl th {
 @endsection
 
 @section('js')
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
-
     <script type="text/ecmascript" src="{{ asset('assets/trirand/i18n/grid.locale-en.js') }}"></script>
     <script type="text/ecmascript" src="{{ asset('assets/trirand/jquery.jqGrid.min.js') }}"></script>
     <script type="text/ecmascript" src="{{ asset('assets/fullcalendar-3.7.0/fullcalendar.min.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/se/dt-1.11.3/datatables.min.js"></script>
-    <!-- <script type="text/javascript" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script> -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script type="text/ecmascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -484,8 +262,9 @@ table#medication_tbl th {
     <script type="text/javascript" src="{{ asset('js/userfile.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/doctornote.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/dieteticCareNotes.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction_diet.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/transaction_phys.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dieteticCareNotes.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/physioterapy.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/physioterapy_ncase.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/doctornote_main.js') }}"></script>

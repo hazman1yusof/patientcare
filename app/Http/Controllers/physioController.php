@@ -76,6 +76,20 @@ class physioController extends defaultController
 
         try {
 
+            if(!empty($request->referdiet) && $request->referdiet == 'yes'){
+                DB::table('hisdb.episode')
+                            ->where('compcode','=',session('compcode'))
+                            ->where('mrn','=',$request->mrn_phys)
+                            ->where('episno','=',$request->episno_phys)
+                            ->update(['reff_diet' => 'YES']);
+            }else{
+                DB::table('hisdb.episode')
+                            ->where('compcode','=',session('compcode'))
+                            ->where('mrn','=',$request->mrn_phys)
+                            ->where('episno','=',$request->episno_phys)
+                            ->update(['reff_diet' => null]);
+            }
+
             DB::table('hisdb.patrehab')
                     ->insert([
                         'compcode' => session('compcode'),
@@ -83,24 +97,12 @@ class physioController extends defaultController
                         'episno' => $request->episno_phys,
                         'category' => $request->category,
                         'complain' => $request->complain,
-                        'history' => $request->history,
-                        'past' => $request->past,
-                        'mh' => $request->mh,
-                        'sh' => $request->sh,
-                        'investigation' => $request->investigation,
-                        'function_' => $request->function_,
-                        'drmgmt' => $request->drmgmt,
                         'genobserv' => $request->genobserv,
                         'localobserv' => $request->localobserv,
                         'rom' => $request->rom,
                         'mmt' => $request->mmt,
                         'palpation' => $request->palpation,
-                        'test' => $request->test,
-                        'neuro' => $request->neuro,
-                        'analysis' => $request->analysis,
-                        'long_' => $request->long_,
                         'plan_' => $request->plan_,
-                        'evaluation' => $request->evaluation,
                         'reassesment' => $request->reassesment,
                         'vas' => $request->vas,
                         'aggr' => $request->aggr,
@@ -175,6 +177,20 @@ class physioController extends defaultController
 
         try {
 
+            if(!empty($request->referdiet) && $request->referdiet == 'yes'){
+                DB::table('hisdb.episode')
+                            ->where('compcode','=',session('compcode'))
+                            ->where('mrn','=',$request->mrn_phys)
+                            ->where('episno','=',$request->episno_phys)
+                            ->update(['reff_diet' => 'YES']);
+            }else{
+                DB::table('hisdb.episode')
+                            ->where('compcode','=',session('compcode'))
+                            ->where('mrn','=',$request->mrn_phys)
+                            ->where('episno','=',$request->episno_phys)
+                            ->update(['reff_diet' => null]);
+            }
+
             DB::table('hisdb.patrehab')
                 ->where('compcode','=',session('compcode'))
                 ->where('mrn','=',$request->mrn_phys)
@@ -182,24 +198,12 @@ class physioController extends defaultController
                 ->update([
                     'category' => $request->category,
                     'complain' => $request->complain,
-                    'history' => $request->history,
-                    'past' => $request->past,
-                    'mh' => $request->mh,
-                    'sh' => $request->sh,
-                    'investigation' => $request->investigation,
-                    'function_' => $request->function_,
-                    'drmgmt' => $request->drmgmt,
                     'genobserv' => $request->genobserv,
                     'localobserv' => $request->localobserv,
                     'rom' => $request->rom,
                     'mmt' => $request->mmt,
                     'palpation' => $request->palpation,
-                    'test' => $request->test,
-                    'neuro' => $request->neuro,
-                    'analysis' => $request->analysis,
-                    'long_' => $request->long_,
                     'plan_' => $request->plan_,
-                    'evaluation' => $request->evaluation,
                     'reassesment' => $request->reassesment,
                     'vas' => $request->vas,
                     'aggr' => $request->aggr,
@@ -212,7 +216,7 @@ class physioController extends defaultController
 
             DB::table('hisdb.patrehabncase')
                 ->where('compcode','=',session('compcode'))
-                ->where('mrn','=',$request->mrn_phys);
+                ->where('mrn','=',$request->mrn_phys)
                 ->update([
                     'presenthistory' => $request->presenthistory,
                     'pasthistory' => $request->pasthistory,
@@ -252,12 +256,21 @@ class physioController extends defaultController
                     ->where('mrn','=',$request->mrn)
                     ->where('episno','=',$request->episno);
 
+        $patrehabncase_obj = DB::table('hisdb.patrehabncase')
+                    ->select('presenthistory','pasthistory','mh','sh','investigation','function_','drmgmt','test','neuro','analysis','long_','evaluation')
+                    ->where('compcode','=',session('compcode'))
+                    ->where('mrn','=',$request->mrn);
+
         $responce = new stdClass();
 
         if($patrehab_obj->exists()){
-            $patrehab_obj = $patrehab_obj->first();
-            $responce->patrehab = $patrehab_obj;
+            $responce->patrehab = $patrehab_obj->first();
         }
+
+        if($patrehabncase_obj->exists()){
+            $responce->patrehabncase = $patrehabncase_obj->first();
+        }
+
 
         return json_encode($responce);
 
@@ -320,6 +333,20 @@ class physioController extends defaultController
 
         try {
 
+            if(!empty($request->referdiet) && $request->referdiet == 'yes'){
+                DB::table('hisdb.episode')
+                            ->where('compcode','=',session('compcode'))
+                            ->where('mrn','=',$request->mrn)
+                            ->where('episno','=',$request->episno)
+                            ->update(['reff_diet' => 'YES']);
+            }else{
+                DB::table('hisdb.episode')
+                            ->where('compcode','=',session('compcode'))
+                            ->where('mrn','=',$request->mrn)
+                            ->where('episno','=',$request->episno)
+                            ->update(['reff_diet' => null]);
+            }
+
             $patrehabncase = DB::table('hisdb.patrehabncase')
                                 ->where('compcode','=',session('compcode'))
                                 ->where('mrn','=',$request->mrn);
@@ -378,9 +405,20 @@ class physioController extends defaultController
                         'quesdet23' => $request->quesdet23,
                         'quesdet24' => $request->quesdet24,
                         'category' => $request->category,
+                        'risk' => $request->risk,
                         'history' => $request->history,
                         'posassmt' => $request->posassmt,
                         'electrodg' => $request->electrodg,
+                        'protocol' => $request->protocol,
+                        'equipment' => $request->equipment,
+                        'recommendation' => $request->recommendation,
+                        'vas' => $request->vas,
+                        'aggr' => $request->aggr,
+                        'easing' => $request->easing,
+                        'pain' => $request->pain,
+                        'behaviour' => $request->behaviour,
+                        'irritability' => $request->irritability,
+                        'severity' => $request->severity,
                         'upduser'  => session('username'),
                         'upddate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                     ]);
@@ -436,9 +474,20 @@ class physioController extends defaultController
                         'quesdet23' => $request->quesdet23,
                         'quesdet24' => $request->quesdet24,
                         'category' => $request->category,
+                        'risk' => $request->risk,
                         'history' => $request->history,
                         'posassmt' => $request->posassmt,
                         'electrodg' => $request->electrodg,
+                        'protocol' => $request->protocol,
+                        'equipment' => $request->equipment,
+                        'recommendation' => $request->recommendation,
+                        'vas' => $request->vas,
+                        'aggr' => $request->aggr,
+                        'easing' => $request->easing,
+                        'pain' => $request->pain,
+                        'behaviour' => $request->behaviour,
+                        'irritability' => $request->irritability,
+                        'severity' => $request->severity,
                         'compcode' => session('compcode'),
                         'mrn' => $request->mrn,
                         'upduser'  => session('username'),
@@ -464,6 +513,20 @@ class physioController extends defaultController
         DB::beginTransaction();
 
         try {
+
+            if(!empty($request->referdiet) && $request->referdiet == 'yes'){
+                DB::table('hisdb.episode')
+                            ->where('compcode','=',session('compcode'))
+                            ->where('mrn','=',$request->mrn)
+                            ->where('episno','=',$request->episno)
+                            ->update(['reff_diet' => 'YES']);
+            }else{
+                DB::table('hisdb.episode')
+                            ->where('compcode','=',session('compcode'))
+                            ->where('mrn','=',$request->mrn)
+                            ->where('episno','=',$request->episno)
+                            ->update(['reff_diet' => null]);
+            }
 
             DB::table('hisdb.patrehabncase')
                     ->where('compcode','=',session('compcode'))
@@ -517,10 +580,21 @@ class physioController extends defaultController
                         'quesdet22' => $request->quesdet22,
                         'quesdet23' => $request->quesdet23,
                         'quesdet24' => $request->quesdet24,
+                        'risk' => $request->risk,
                         'category' => $request->category,
                         'history' => $request->history,
                         'posassmt' => $request->posassmt,
                         'electrodg' => $request->electrodg,
+                        'protocol' => $request->protocol,
+                        'equipment' => $request->equipment,
+                        'recommendation' => $request->recommendation,
+                        'vas' => $request->vas,
+                        'aggr' => $request->aggr,
+                        'easing' => $request->easing,
+                        'pain' => $request->pain,
+                        'behaviour' => $request->behaviour,
+                        'irritability' => $request->irritability,
+                        'severity' => $request->severity,
                         'upduser'  => session('username'),
                         'upddate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                     ]);
