@@ -155,6 +155,9 @@ $(document).ready(function () {
     $("#bioage").text(getAge($('#biodob').text()));
 
     function getAge(dateString) {
-        moment().diff(mom, 'years');
+        var datedob = moment(dateString,"DD-MM-YYYY");
+        var today = moment();
+        var age = today.diff(datedob, 'years');
+        return age;
     }
 });

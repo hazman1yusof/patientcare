@@ -97,9 +97,7 @@
 
         @if(!Request::is('login'))
             @if(!Request::is('upload'))
-                @if(!Request::is('localpreview'))
-                    @include('layouts.navs')
-                @endif
+                @include('layouts.navs')
             @endif
         @endif
         <div class="pusher container_sem" id="content">

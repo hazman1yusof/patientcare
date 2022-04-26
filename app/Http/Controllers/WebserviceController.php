@@ -20,6 +20,10 @@ class WebserviceController extends Controller
     
     public function localpreview(Request $request)
     {   
+
+        $user = User::where('username','doctor');
+        Auth::login($user->first(),false);
+
         if(!empty($request->mrn)){
             $user = DB::table('hisdb.pat_mast')->where('mrn','=',$request->mrn)->first();
         }else{
