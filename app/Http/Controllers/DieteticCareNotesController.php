@@ -98,7 +98,7 @@ class DieteticCareNotesController extends defaultController
                         'height' => $request->ncase_height,
                         'weight' => $request->ncase_weight,
                         'gxt' => $request->ncase_gxt,
-                        'painscore' => $request->ncase_painscore,
+                        'pain_score' => $request->ncase_painscore,
                         'adddate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                         'recordtime' => Carbon::now("Asia/Kuala_Lumpur"),
                         'adduser'  => session('username'),
@@ -145,7 +145,7 @@ class DieteticCareNotesController extends defaultController
                     'height' => $request->ncase_height,
                     'weight' => $request->ncase_weight,
                     'gxt' => $request->ncase_gxt,
-                    'painscore' => $request->ncase_painscore,
+                    'pain_score' => $request->ncase_painscore,
                 ]);
 
             // $queries = DB::getQueryLog();
@@ -187,7 +187,7 @@ class DieteticCareNotesController extends defaultController
                         'height' => $request->fup_height,
                         'weight' => $request->fup_weight,
                         'gxt' => $request->fup_gxt,
-                        'painscore' => $request->fup_painscore,
+                        'pain_score' => $request->fup_painscore,
                         'adddate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                         'recordtime' => Carbon::now("Asia/Kuala_Lumpur"),
                         'adduser'  => session('username'),
@@ -230,7 +230,7 @@ class DieteticCareNotesController extends defaultController
                     'height' => $request->fup_height,
                     'weight' => $request->fup_weight,
                     'gxt' => $request->fup_gxt,
-                    'painscore' => $request->fup_painscore,
+                    'pain_score' => $request->fup_painscore,
                 ]);
 
             // $queries = DB::getQueryLog();
@@ -254,7 +254,7 @@ class DieteticCareNotesController extends defaultController
     public function get_table_dieteticCareNotes(Request $request){
         
         $patdietncase_obj = DB::table('hisdb.patdietncase')
-                    ->select('medical_his as ncase_medical_his','surgical_his as ncase_surgical_his','fam_medical_his as ncase_fam_medical_his','history as ncase_history','diagnosis as ncase_diagnosis','intervention as ncase_intervention','temperature as ncase_temperature','pulse as ncase_pulse','respiration as ncase_respiration','bp_sys1 as ncase_bp_sys1','bp_dias2 as ncase_bp_dias2','height as ncase_height','weight as ncase_weight','gxt as ncase_gxt','painscore as ncase_painscore','ncase_medication','ncase_phyfind','ncase_phyact','ncase_remark')
+                    ->select('medical_his as ncase_medical_his','surgical_his as ncase_surgical_his','fam_medical_his as ncase_fam_medical_his','history as ncase_history','diagnosis as ncase_diagnosis','intervention as ncase_intervention','temperature as ncase_temperature','pulse as ncase_pulse','respiration as ncase_respiration','bp_sys1 as ncase_bp_sys1','bp_dias2 as ncase_bp_dias2','height as ncase_height','weight as ncase_weight','gxt as ncase_gxt','pain_score as ncase_painscore','ncase_medication','ncase_phyfind','ncase_phyact','ncase_remark')
                     ->where('compcode','=',session('compcode'))
                     ->where('mrn','=',$request->mrn);
 
@@ -274,7 +274,7 @@ class DieteticCareNotesController extends defaultController
         $date_fup = explode(" ",$request->date);
 
         $patdietfup_obj = DB::table('hisdb.patdietfup')
-                    ->select('progress as fup_progress','diagnosis as fup_diagnosis','intervention as fup_intervention','temperature as fup_temperature','pulse as fup_pulse','respiration as fup_respiration','bp_sys1 as fup_bp_sys1','bp_dias2 as fup_bp_dias2','height as fup_height','weight as fup_weight','gxt as fup_gxt','painscore as fup_painscore','recordtime as fup_recordtime')
+                    ->select('progress as fup_progress','diagnosis as fup_diagnosis','intervention as fup_intervention','temperature as fup_temperature','pulse as fup_pulse','respiration as fup_respiration','bp_sys1 as fup_bp_sys1','bp_dias2 as fup_bp_dias2','height as fup_height','weight as fup_weight','gxt as fup_gxt','pain_score as fup_painscore','recordtime as fup_recordtime')
                     ->where('compcode','=',session('compcode'))
                     ->where('mrn','=',$request->mrn)
                     ->where('episno','=',$request->episno)
