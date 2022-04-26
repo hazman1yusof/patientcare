@@ -271,14 +271,13 @@ class DieteticCareNotesController extends defaultController
 
     public function get_table_dieteticCareNotes_fup(Request $request){
 
-        $date_fup = explode(" ",$request->date);
+        // $date_fup = Carbon::createFromFormat('d-m-Y', $request->date)->format('Y-m-d');
 
         $patdietfup_obj = DB::table('hisdb.patdietfup')
                     ->select('progress as fup_progress','diagnosis as fup_diagnosis','intervention as fup_intervention','temperature as fup_temperature','pulse as fup_pulse','respiration as fup_respiration','bp_sys1 as fup_bp_sys1','bp_dias2 as fup_bp_dias2','height as fup_height','weight as fup_weight','gxt as fup_gxt','pain_score as fup_painscore','recordtime as fup_recordtime')
                     ->where('compcode','=',session('compcode'))
                     ->where('mrn','=',$request->mrn)
-                    ->where('episno','=',$request->episno)
-                    ->where('recordtime','=',$date_fup[1]);
+                    ->where('episno','=',$request->episno);
 
         $responce = new stdClass();
 

@@ -283,7 +283,9 @@ var phys_date_tbl = $('#phys_date_tbl').DataTable({
     	if(settings.aoData.length>0){
     		$(this).find('tbody tr')[0].click();
     	}else{
-    		// button_state_phys('add');
+    		if(selrowData('#jqGrid').length != 0){
+    			button_state_phys('add');
+    		}
     	}
     }
 });
@@ -348,8 +350,6 @@ function populate_phys(obj){
 		episno:obj.Episno,
 		date:$('#sel_date').val()
 	}
-
-	button_state_phys_ncase('add');
 
     phys_date_tbl.ajax.url( "./phys/table?"+$.param(dateParam_phys) ).load();
 

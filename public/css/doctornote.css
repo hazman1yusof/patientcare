@@ -181,3 +181,7 @@ table#medication_tbl th {
     overflow-y: auto;
     height: calc(100vh - 125px);
 }
+
+.input-sm{
+    font-size: 13px !important;
+}

@@ -213,8 +213,13 @@ var dietetic_date_tbl = $('#dietetic_date_tbl').DataTable({
         { targets: [0, 1, 3], visible: false},
     ],
     "drawCallback": function( settings ) {
-    	button_state_dieteticCareNotes('add_fup');
+    	if(settings.aoData.length>0){
     	$(this).find('tbody tr')[0].click();
+    	}else{
+    		if(selrowData('#jqGrid').length != 0){
+    			button_state_dieteticCareNotes('add_fup');
+    		}
+    	}
     }
 });
 
@@ -317,8 +322,8 @@ function button_state_dieteticCareNotes(state){
 		case 'edit_fup':
 			$("#toggle_dieteticCareNotes").attr('data-toggle','collapse');
 			$('#cancel_dieteticCareNotes_fup').data('oper','edit_fup');
-			$("#edit_dieteticCareNotes_fup,#new_dieteticCareNotes_fup").attr('disabled',false);
-			$('#save_dieteticCareNotes_fup,#cancel_dieteticCareNotes_fup').attr('disabled',true);
+			$("#edit_dieteticCareNotes_fup").attr('disabled',false);
+			$('#save_dieteticCareNotes_fup,#cancel_dieteticCareNotes_fup,#new_dieteticCareNotes_fup').attr('disabled',true);
 			break;
 		case 'wait_fup':
 			$("#toggle_dieteticCareNotes").attr('data-toggle','collapse');
@@ -422,8 +427,6 @@ function saveForm_dieteticCareNotes(callback){
     	// idtype_edit : $('#idtype_edit').val()
 
     };
-
-    console.log($("form#formDieteticCareNotes").serializeArray())
 
 	values = $("#formDieteticCareNotes").serializeArray();
 	
