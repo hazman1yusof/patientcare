@@ -103,6 +103,9 @@
                                 <th class="scope">episno</th>
                                 <th class="scope">Date</th>
                                 <th class="scope">adduser</th>
+                                <th class="scope">adddate</th>
+                                <th class="scope">recordtime</th>
+                                <th class="scope">type</th>
                             </tr>
                         </thead>
                     </table>
