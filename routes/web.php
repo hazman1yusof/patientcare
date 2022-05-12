@@ -25,47 +25,52 @@ Route::get('/logout','SessionController@destroy');
 
 Route::get('/dashboard', "DashboardController@index")->name('dashboard');
 
-Route::get('/patient', "PatientController@index");
+// Route::get('/patient', "PatientController@index");
 
-Route::post('/patient', "PatientController@store");
+// Route::post('/patient', "PatientController@store");
 
-Route::put('/patient/{user}', "PatientController@update");
+// Route::put('/patient/{user}', "PatientController@update");
 
-Route::delete('/patient/{user}', "PatientController@destroy");
+// Route::delete('/patient/{user}', "PatientController@destroy");
 
-Route::get('/doctor', "doctorController@index");
+// Route::get('/doctor', "doctorController@index");
 
-Route::post('/doctor', "doctorController@store");
+// Route::post('/doctor', "doctorController@store");
 
-Route::put('/doctor/{user}', "doctorController@update");
+// Route::put('/doctor/{user}', "doctorController@update");
 
-Route::delete('/doctor/{user}', "doctorController@destroy");
+// Route::delete('/doctor/{user}', "doctorController@destroy");
 
-Route::get('/agent_detail/{user}', "doctorController@agent_detail");
+// Route::get('/agent_detail/{user}', "doctorController@agent_detail");
 
-Route::get('/settings', "SettingsController@index");
+// Route::get('/settings', "SettingsController@index");
 
-Route::get('/settings/change_password', "SettingsController@change_password");
+// Route::get('/settings/change_password', "SettingsController@change_password");
 
-Route::put('/settings/change_password/{user}', "SettingsController@update");
+// Route::put('/settings/change_password/{user}', "SettingsController@update");
 
-Route::post('/message', "MessageController@store");
+// Route::post('/message', "MessageController@store");
 
-Route::put('/message/{message}', "MessageController@update");
+// Route::put('/message/{message}', "MessageController@update");
 
-Route::get('/ticket/answer/{user}', "TicketController@answer");
+// Route::get('/ticket/answer/{user}', "TicketController@answer");
 
-Route::get('/ticket/create', "TicketController@create");
+// Route::get('/ticket/create', "TicketController@create");
 
-Route::post('/ticket/create', "TicketController@store");
+// Route::post('/ticket/create', "TicketController@store");
 
-Route::get('/ticket/{ticket}', "TicketController@show");
+// Route::get('/ticket/{ticket}', "TicketController@show");
 
-Route::get('/ticket', "TicketController@index")->name('ticket');
+// Route::get('/ticket', "TicketController@index")->name('ticket');
 
-Route::post('/ticket', "TicketController@store");
+// Route::post('/ticket', "TicketController@store");
 
-Route::put('/ticket/{ticket}', "TicketController@update");
+// Route::put('/ticket/{ticket}', "TicketController@update");
+
+
+Route::get('/user_maintenance', "UserMaintenanceController@show");
+Route::get('/user_maintenance/table', "UserMaintenanceController@table");
+Route::post('/user_maintenance/form', "UserMaintenanceController@form");
 
 Route::get('/pivot', "PivotController@show");
 
@@ -124,14 +129,14 @@ Route::get('/util/get_value_default','defaultController@get_value_default')->nam
 Route::get('/util/get_table_default','defaultController@get_table_default')->name('util_tab');
 
 //user
-Route::get('/userlist','UserController@index')->name('userlist');
-Route::get('/user/{id}','UserController@edit')->name('user');
-Route::post('/user/{id}','UserController@update');
-Route::get('/user','UserController@create');
-Route::post('/user','UserController@store');
-Route::get('/user/delete/{id}','UserController@destroy');
-Route::get('/user/editpassword/{id}','UserController@editpassword');
-Route::post('/user/editpassword/{id}','UserController@updatepassword');
+// Route::get('/userlist','UserController@index')->name('userlist');
+// Route::get('/user/{id}','UserController@edit')->name('user');
+// Route::post('/user/{id}','UserController@update');
+// Route::get('/user','UserController@create');
+// Route::post('/user','UserController@store');
+// Route::get('/user/delete/{id}','UserController@destroy');
+// Route::get('/user/editpassword/{id}','UserController@editpassword');
+// Route::post('/user/editpassword/{id}','UserController@updatepassword');
 
 //pivot
 Route::get('/dashboard','eisController@dashboard')->name('dashboard');

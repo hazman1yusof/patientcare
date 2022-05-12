@@ -10,9 +10,31 @@
         <input id="episno_doctorNote_past" name="episno_doctorNote_past" type="hidden">
 
         <div class="col-md-9" style="padding:0 0 0 5px; float: right;">
-            <div class="panel panel-info">
-                <div class="panel-body">
+            <div class="panel panel-info" style="position:relative;">
+                <div class="panel-heading text-center" style="position:sticky;z-index: 5;">Doctor Note
+                    <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
+                        id="btn_grp_edit_doctorNote"
+                        style="position: absolute;
+                                padding: 0 0 0 0;
+                                right: 50px;
+                                top: 5px;" 
 
+                    >
+                        <button type="button" class="btn btn-default" id="new_doctorNote">
+                            <span class="fa fa-plus-square-o"></span> New
+                        </button>
+                        <button type="button" class="btn btn-default" id="edit_doctorNote">
+                            <span class="fa fa-edit fa-lg"></span> Edit
+                        </button>
+                        <button type="button" class="btn btn-default" data-oper='add' id="save_doctorNote">
+                            <span class="fa fa-save fa-lg"></span> Save
+                        </button>
+                        <button type="button" class="btn btn-default" id="cancel_doctorNote">
+                            <span class="fa fa-ban fa-lg" aria-hidden="true"> </span> Cancel
+                        </button>
+                    </div>
+                </div>
+                <div class="panel-body">
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="remarks">Patient Complaint</label>
                         <div class="col-md-6">

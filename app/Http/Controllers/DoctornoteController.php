@@ -57,7 +57,6 @@ class DoctornoteController extends Controller
 
     public function form(Request $request)
     {   
-        DB::enableQueryLog();
         switch($request->action){
             case 'save_table_doctornote':
 
@@ -209,6 +208,7 @@ class DoctornoteController extends Controller
     }
 
     public function transaction_save(Request $request){
+        DB::beginTransaction();
         try {
             $table = DB::table('hisdb.chargetrx');
 
@@ -292,20 +292,6 @@ class DoctornoteController extends Controller
             $recorddate->month($seldate->month);
             $recorddate->year($seldate->year);
 
-            DB::table('hisdb.patexam')
-                    ->insert([
-                        'compcode' => session('compcode'),
-                        'mrn' => $request->mrn_doctorNote,
-                        'episno' => $request->episno_doctorNote,
-                        'examination' => $request->examination,
-                        'adduser'  => session('username'),
-                        'adddate'  => $recorddate,
-                        'lastuser'  => session('username'),
-                        'lastupdate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
-                        'recorddate' => $recorddate,
-                        'recordtime' => Carbon::now("Asia/Kuala_Lumpur"),
-                    ]);
-
             DB::table('hisdb.pathealth')
                     ->insert([
                         'compcode' => session('compcode'),
@@ -328,6 +314,37 @@ class DoctornoteController extends Controller
                         'lastupdate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                         'recordtime' => Carbon::now("Asia/Kuala_Lumpur"),
                     ]);
+
+            if(!empty($request->examination)){
+
+                $patexam = DB::table('hisdb.patexam')
+                    ->where('compcode','=',session('compcode'))
+                    ->where('mrn','=',$request->mrn_doctorNote)
+                    ->where('episno','=',$request->episno_doctorNote);
+
+                if($patexam->exists()){
+                    $patexam
+                        ->update([
+                            'examination' => $request->examination,
+                            'lastuser'  => session('username'),
+                            'lastupdate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
+                        ]);
+                }else{
+                    DB::table('hisdb.patexam')
+                        ->insert([
+                            'compcode' => session('compcode'),
+                            'mrn' => $request->mrn_doctorNote,
+                            'episno' => $request->episno_doctorNote,
+                            'examination' => $request->examination,
+                            'adduser'  => session('username'),
+                            'adddate'  => $recorddate,
+                            'lastuser'  => session('username'),
+                            'lastupdate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
+                            'recorddate' => $recorddate,
+                            'recordtime' => Carbon::now("Asia/Kuala_Lumpur"),
+                        ]);
+                }
+            }
 
             $pathistory = DB::table('hisdb.pathistory')
                 ->where('compcode','=',session('compcode'))
@@ -430,8 +447,7 @@ class DoctornoteController extends Controller
             $patexam = DB::table('hisdb.patexam')
                 ->where('compcode','=',session('compcode'))
                 ->where('mrn','=',$request->mrn_doctorNote)
-                ->where('episno','=',$request->episno_doctorNote)
-                ->where('recordtime','=',$request->recordtime);
+                ->where('episno','=',$request->episno_doctorNote);
 
             $pathealth = DB::table('hisdb.pathealth')
                 ->where('compcode','=',session('compcode'))
@@ -741,8 +757,7 @@ class DoctornoteController extends Controller
         $patexam_obj = DB::table('hisdb.patexam')
             ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
-            ->where('episno','=',$request->episno)
-            ->where('recordtime','=',$request->recordtime);
+            ->where('episno','=',$request->episno);
 
         $episdiag_obj = DB::table('hisdb.episdiag')
             ->where('compcode','=',session('compcode'))

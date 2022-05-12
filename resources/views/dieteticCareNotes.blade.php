@@ -1,212 +1,213 @@
 
-<div class='col-md-12' style="padding:0 0 15px 0">
-	<form class='form-horizontal' style='width:99%' id='formDieteticCareNotes'>
+<div class='ui column'>
+	<div class="ui segments" style="position: relative;">
+		<div class="ui secondary segment" style="position:sticky; z-index: 2;
+">DIETETIC CARE NOTES	
 
-		<div class='col-md-12'>
-			<div class="panel panel-default">
-				<div class="panel-heading text-center">DIETETIC CARE NOTES	
-
-					<div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
-						id="btn_grp_edit_dieteticCareNotes"
-						style="position: absolute;
-								padding: 0 0 0 0;
-								right: 40px;
-								top: 5px;">
-						<button type="button" class="btn btn-default" id="new_dieteticCareNotes">
-							<span class="fa fa-plus-square-o"></span> New
-						</button>
-						<button type="button" class="btn btn-default" id="edit_dieteticCareNotes">
-							<span class="fa fa-edit fa-lg"></span> Edit
-						</button>
-						<button type="button" class="btn btn-default" data-oper='add' id="save_dieteticCareNotes">
-							<span class="fa fa-save fa-lg"></span> Save
-						</button>
-						<button type="button" class="btn btn-default" id="cancel_dieteticCareNotes">
-							<span class="fa fa-ban fa-lg" aria-hidden="true"> </span> Cancel
-						</button>
-					</div>
-
-				</div>
-				<div class="panel-body">
-
-					<input id="mrn_dieteticCareNotes" name="mrn_dieteticCareNotes" type="hidden">
-					<input id="episno_dieteticCareNotes" name="episno_dieteticCareNotes" type="hidden">
-
-					<div class='col-md-10'>
-
-						<div class="col-md-12">
-							<div class="panel panel-info">
-								<div class="panel-heading text-center">ASSESSMENT</div>
-								<div class="panel-body">
-
-									<div class='col-md-12'>
-										<div class="form-group">
-											<div class="col-md-6">
-												<label class="control-label" for="ncase_medical_his" style="padding-bottom:5px">Medical History</label>
-												<textarea id="ncase_medical_his" name="ncase_medical_his" type="text" class="form-control input-sm" rows="3"></textarea>
-											</div>
-										
-											<div class="col-md-6">
-												<label class="control-label" for="ncase_surgical_his" style="padding-bottom:5px">Surgical History</label>
-												<textarea id="ncase_surgical_his" name="ncase_surgical_his" type="text" class="form-control input-sm" rows="3"></textarea>
-											</div>
-										</div>
-									</div>
-
-									<div class='col-md-12'>
-										<div class="form-group">
-											<div class="col-md-6">
-												<label class="control-label" for="ncase_fam_medical_his" style="padding-bottom:5px">Family Medical History</label>
-												<textarea id="ncase_fam_medical_his" name="ncase_fam_medical_his" type="text" class="form-control input-sm" rows="3"></textarea>
-											</div>
-
-											<div class="col-md-6">
-												<label class="control-label" for="ncase_medication" style="padding-bottom:5px">Medication</label>
-												<textarea id="ncase_medication" name="ncase_medication" type="text" class="form-control input-sm" rows="3"></textarea>
-											</div>
-										</div>
-									</div>
-
-
-									<div class='col-md-12'>
-										<div class="form-group">
-											<div class="col-md-6">
-												<label class="control-label" for="ncase_phyfind" style="padding-bottom:5px">Physical findings</label>
-												<textarea id="ncase_phyfind" name="ncase_phyfind" type="text" class="form-control input-sm" rows="3"></textarea>
-											</div>
-											
-											<div class="col-md-6">
-												<label class="control-label" for="ncase_phyact" style="padding-bottom:5px">Mobility / Physical Activity</label>
-												<textarea id="ncase_phyact" name="ncase_phyact" type="text" class="form-control input-sm" rows="3"></textarea>
-											</div>
-										</div>
-									</div>
-
-
-									<div class='col-md-12'>
-										<div class="form-group">
-											<div class="col-md-6">
-												<label class="control-label" for="ncase_remark" style="padding-bottom:5px">Remarks</label>
-												<textarea id="ncase_remark" name="ncase_remark" type="text" class="form-control input-sm" rows="3"></textarea>
-											</div>
-										</div>
-									</div>
-
-								</div>
-							</div>
-						</div>
-
-						<div class='col-md-12'>
-							<div class="form-group">
-								<div class="col-md-6">
-									<label class="control-label" for="ncase_history" style="padding-bottom:5px">Diet History/Summary</label>
-									<textarea id="ncase_history" name="ncase_history" type="text" class="form-control input-sm" rows="10"></textarea>
-								</div>
-							
-								<div class="col-md-6">
-									<label class="control-label" for="ncase_diagnosis" style="padding-bottom:5px">Nutrition Diagnosis</label>
-									<textarea id="ncase_diagnosis" name="ncase_diagnosis" type="text" class="form-control input-sm" rows="10"></textarea>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<div class="col-md-6">
-									<label class="control-label" for="ncase_intervention" style="padding-bottom:5px">Nutrition Intervention/Plan</label>
-									<textarea id="ncase_intervention" name="ncase_intervention" type="text" class="form-control input-sm" rows="10"></textarea>
-								</div>
-							</div>
-						</div>
-
-					</div>
-
-					<div class="col-md-2" style="padding:0 0 0 0">
-						<div class="panel panel-info">
-							<div class="panel-heading text-center">Vital Sign</div>
-							<div class="panel-body">
-
-								<div class="form-group col-md-12" style="width: auto;">
-									<label class="control-label" for="ncase_temperature" style="padding-bottom:5px">Temperature</label>
-									<div class="input-group">
-										<input id="ncase_temperature" name="ncase_temperature" type="number" class="form-control input-sm floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
-										<span class="input-group-addon">°C</span>
-									</div>
-								</div>
-
-								<div class="form-group col-md-12" style="width: auto;">
-									<label class="control-label" for="ncase_pulse" style="padding-bottom:5px">Pulse</label>
-									<input id="ncase_pulse" name="ncase_pulse" type="number" class="form-control input-sm floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
-								</div>
-
-								<div class="form-group col-md-12" style="width: auto;">
-									<label class="control-label" for="ncase_respiration" style="padding-bottom:5px">Respiration</label>
-									<input id="ncase_respiration" name="ncase_respiration" type="number" class="form-control input-sm floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
-								</div>
-
-								<div class="form-group col-md-12" style="width: auto;">
-									<label class="control-label" for="ncase_bp" style="padding-bottom:5px">Blood Pressure</label>
-									<div class="input-group">
-										<input id="ncase_bp_sys1" name="ncase_bp_sys1" type="number" class="form-control input-sm floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
-										<input id="ncase_bp_dias2" name="ncase_bp_dias2" type="number" class="form-control input-sm floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
-										<span class="input-group-addon">mmHg</span>
-									</div>
-								</div>
-
-								<div class="form-group col-md-12" style="width: auto;">
-									<label class="control-label" for="ncase_gxt" style="padding-bottom:5px">GXT</label>
-									<div class="input-group">
-										<input id="ncase_gxt" name="ncase_gxt" type="number" class="form-control input-sm floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
-										<span class="input-group-addon">mmOL</span>
-									</div>
-								</div>
-
-								<div class="form-group col-md-12" style="width: auto;">
-									<label class="control-label" for="ncase_painscore" style="padding-bottom:5px">Pain Score</label>
-									<div class="input-group">
-										<input id="ncase_painscore" name="ncase_painscore" type="number" class="form-control input-sm floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
-										<span class="input-group-addon">/10</span>
-									</div>
-								</div>
-
-							</div>
-
-							<div class="panel-heading text-center">Anthropometric Measurement</div>
-							<div class="panel-body">
-
-								<div class="form-group col-md-12" style="width: auto;">
-									<label class="control-label" for="ncase_height" style="padding-bottom:5px">Height</label>
-									<div class="input-group">
-										<input id="ncase_height" name="ncase_height" type="number" class="form-control input-sm floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
-										<span class="input-group-addon">cm</span>
-									</div>
-								</div>
-
-								<div class="form-group col-md-12" style="width: auto;">
-									<label class="control-label" for="ncase_weight" style="padding-bottom:5px">Weight</label>
-									<div class="input-group">
-										<input id="ncase_weight" name="ncase_weight" type="number" class="form-control input-sm floatNumberField" pattern="^\d*(\.\d{0,2})?$" onkeydown="return event.keyCode !== 69" onKeyPress="if(this.value.length==6) return false;">
-										<span class="input-group-addon">kg</span>
-									</div>
-								</div>
-
-								<div class="form-group col-md-12" style="width: auto;">
-									<label class="control-label" for="ncase_bmi" style="padding-bottom:5px">BMI</label>
-									<input id="ncase_bmi" name="ncase_bmi" type="number" class="form-control input-sm" rdonly>
-								</div>
-
-								<div class="form-group col-md-12" style="width: auto;">
-									<label class="control-label" for="ncase_ibw" style="padding-bottom:5px">IBW</label>
-									<input id="ncase_ibw" name="ncase_ibw" type="number" class="form-control input-sm" rdonly>
-								</div>
-
-							</div>
-						</div>
-					</div>
-
-				</div>
+			<div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
+				id="btn_grp_edit_dieteticCareNotes"
+				style="position: absolute;
+						padding: 0 0 0 0;
+						right: 40px;
+						top: 5px;">
+				<button type="button" class="btn btn-default" id="new_dieteticCareNotes">
+					<span class="fa fa-plus-square-o"></span> New
+				</button>
+				<button type="button" class="btn btn-default" id="edit_dieteticCareNotes">
+					<span class="fa fa-edit fa-lg"></span> Edit
+				</button>
+				<button type="button" class="btn btn-default" data-oper='add' id="save_dieteticCareNotes">
+					<span class="fa fa-save fa-lg"></span> Save
+				</button>
+				<button type="button" class="btn btn-default" id="cancel_dieteticCareNotes">
+					<span class="fa fa-ban fa-lg" aria-hidden="true"> </span> Cancel
+				</button>
 			</div>
+
 		</div>
 
-	</form>
+		<div class="ui segment">
+			<form id="formDieteticCareNotes" class="ui form">
+
+				<input id="mrn_dieteticCareNotes" name="mrn_dieteticCareNotes" type="hidden">
+				<input id="episno_dieteticCareNotes" name="episno_dieteticCareNotes" type="hidden">
+
+				<div class='ui grid'>
+					<div class="twelve wide column">
+						<div class="ui grid">
+							<div class="sixteen wide column">
+								<div class="ui segments">
+									<div class="ui secondary segment">ASSESSMENT</div>
+									<div class="ui segment">
+										<div class="ui grid">
+											<div class="eight wide column">
+												<div class="field">
+												    <label>Medical History</label>
+												    <textarea rows="3" cols="50" name="ncase_medical_his" id="ncase_medical_his" ></textarea>
+												</div>
+											</div>
+
+											<div class="eight wide column">
+												<div class="field">
+												    <label>Surgical History</label>
+												    <textarea rows="3" cols="50" name="ncase_surgical_his" id="ncase_surgical_his" ></textarea>
+												</div>
+											</div>
+
+											<div class="eight wide column">
+												<div class="field">
+												    <label>Family Medical History</label>
+												    <textarea rows="3" cols="50" name="ncase_fam_medical_his" id="ncase_fam_medical_his" ></textarea>
+												</div>
+											</div>
+
+											<div class="eight wide column">
+												<div class="field">
+												    <label>Medication</label>
+												    <textarea rows="3" cols="50" name="ncase_medication" id="ncase_medication" ></textarea>
+												</div>
+											</div>
+
+											<div class="eight wide column">
+												<div class="field">
+												    <label>Physical findings</label>
+												    <textarea rows="3" cols="50" name="ncase_phyfind" id="ncase_phyfind" ></textarea>
+												</div>
+											</div>
+
+											<div class="eight wide column">
+												<div class="field">
+												    <label>Mobility / Physical Activity</label>
+												    <textarea rows="3" cols="50" name="ncase_phyact" id="ncase_phyact" ></textarea>
+												</div>
+											</div>
+
+											<div class="eight wide column">
+												<div class="field">
+												    <label>Remarks</label>
+												    <textarea rows="3" cols="50" name="ncase_remark" id="ncase_remark" ></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class='sixteen wide column'>
+								<div class="ui grid">
+									<div class="eight wide column">
+										<div class="field">
+										    <label>Diet History/Summary</label>
+										    <textarea rows="3" cols="50" name="ncase_history" id="ncase_history" ></textarea>
+										</div>
+									</div>
+									<div class="eight wide column">
+										<div class="field">
+										    <label>Nutrition Diagnosis</label>
+										    <textarea rows="3" cols="50" name="ncase_diagnosis" id="ncase_diagnosis" ></textarea>
+										</div>
+									</div>
+									<div class="eight wide column">
+										<div class="field">
+										    <label>Nutrition Intervention/Plan</label>
+										    <textarea rows="3" cols="50" name="ncase_intervention" id="ncase_intervention" ></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="four wide column">
+						<div class="ui segments">
+							<div class="ui secondary segment">Vital Sign</div>
+							<div class="ui segment">
+								<div class="field">
+									<label>Medical History</label>
+									<div class="ui right labeled input">
+									  <input type="text" onKeyPress="if(this.value.length==6) return false;" id="ncase_temperature" name="ncase_temperature">
+									  <div class="ui basic label">°C</div>
+									</div>
+								</div>
+
+								<div class="field">
+									<label>Pulse</label>
+									<input type="text" onKeyPress="if(this.value.length==6) return false;" id="ncase_pulse" name="ncase_pulse">
+								</div>
+
+								<div class="field">
+									<label>Respiration</label>
+									<input type="text" onKeyPress="if(this.value.length==6) return false;" id="ncase_respiration" name="ncase_respiration">
+								</div>
+
+								<div class="field">
+									<label>Blood Pressure</label>
+									<div class="ui right labeled input">
+									  <input type="text" onKeyPress="if(this.value.length==6) return false;" id="ncase_bp_sys1" name="ncase_bp_sys1" style="width:25%">
+									  <input type="text" onKeyPress="if(this.value.length==6) return false;" id="ncase_bp_dias2" name="ncase_bp_dias2" style="width:25%">
+									  <div class="ui basic label">mmHg</div>
+									</div>
+								</div>
+
+								<div class="field">
+									<label>GXT</label>
+									<div class="ui right labeled input">
+									  <input type="text" onKeyPress="if(this.value.length==6) return false;" id="ncase_gxt" name="ncase_gxt">
+									  <div class="ui basic label">mmOL</div>
+									</div>
+								</div>
+
+								<div class="field">
+									<label>Pain Score</label>
+									<div class="ui right labeled input">
+									  <input type="text" onKeyPress="if(this.value.length==6) return false;" id="ncase_painscore" name="ncase_painscore">
+									  <div class="ui basic label">/10</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div class="ui segments">
+							<div class="ui secondary segment">Anthropometric Measurement</div>
+							<div class="ui segment">
+								<div class="field">
+									<label>Height</label>
+									<div class="ui right labeled input">
+									  <input type="text" onKeyPress="if(this.value.length==6) return false;" id="ncase_height" name="ncase_height">
+									  <div class="ui basic label">CM</div>
+									</div>
+								</div>
+
+								<div class="field">
+									<label>Weight</label>
+									<div class="ui right labeled input">
+									  <input type="text" onKeyPress="if(this.value.length==6) return false;" id="ncase_weight" name="ncase_weight">
+									  <div class="ui basic label">KG</div>
+									</div>
+								</div>
+
+								<div class="field">
+									<label>BMI</label>
+									<input type="text" onKeyPress="if(this.value.length==6) return false;" id="ncase_bmi" name="ncase_bmi">
+								</div>
+
+								<div class="field">
+									<label>IBW</label>
+									<input type="text" onKeyPress="if(this.value.length==6) return false;" id="ncase_ibw" name="ncase_ibw">
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</form>
+
+		</div>
+	</div>
+		
+
+	
 
 	<form class='form-horizontal' style='width:99%' id='formDieteticCareNotes_fup'>
 

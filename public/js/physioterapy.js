@@ -18,6 +18,10 @@ $(document).ready(function () {
 	    }
 	});
 
+	$("button.refreshbtn_phys").click(function(){
+		populate_phys(selrowData('#jqGrid'));
+	});
+
 	$('a.ui.card.bodydia').click(function(){
 		let mrn = $('#mrn_phys').val();
 		let episno = $("#episno_phys").val();
@@ -53,6 +57,7 @@ $(document).ready(function () {
 			if($('.ui.checkbox.phys').checkbox('is checked')){
 				$('.ui.checkbox.phys').checkbox('set unchecked');
 			}
+			phys_phase('rehab');
 	    },
 	    onUnchecked: function() {
 			$('#category_phys').val('Physioteraphy');
@@ -60,6 +65,7 @@ $(document).ready(function () {
 			if($('.ui.checkbox.phys').checkbox('is unchecked')){
 				$('.ui.checkbox.phys').checkbox('set checked');
 			}
+			phys_phase('phys');
 	    },
 	});
 	$('.ui.checkbox.phys').checkbox({
@@ -69,6 +75,7 @@ $(document).ready(function () {
 			if($('.ui.checkbox.rehab').checkbox('is checked')){
 				$('.ui.checkbox.rehab').checkbox('set unchecked');
 			}
+			phys_phase('phys');
 	    },
 	    onUnchecked: function() {
 			$('#category_phys').val('Rehabilitation');
@@ -76,8 +83,18 @@ $(document).ready(function () {
 			if($('.ui.checkbox.rehab').checkbox('is unchecked')){
 				$('.ui.checkbox.rehab').checkbox('set checked');
 			}
+			phys_phase('rehab');
 	    },
 	});
+
+	function phys_phase(phase){
+		if(phase == 'rehab'){
+			$('a.item[data-tab=subass]').click();
+			$('a.item[data-tab=bodydiag]').hide();
+		}else{
+			$('a.item[data-tab=bodydiag]').show();
+		}
+	}
 
 	$('.ui.checkbox.referdiet').checkbox({
 		onChecked: function() {

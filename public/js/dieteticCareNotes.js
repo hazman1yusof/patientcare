@@ -4,6 +4,10 @@ $(document).ready(function () {
 	disableForm('#formDieteticCareNotes');
 	disableForm('#formDieteticCareNotes_fup');
 
+	$("button.refreshbtn_diet").click(function(){
+		populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
+	});
+
 	$("#new_dieteticCareNotes").click(function(){
 		button_state_dieteticCareNotes('wait');
 		enableForm('#formDieteticCareNotes');

@@ -34,6 +34,27 @@
 
         <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
 
+    @elseif (strtoupper(Auth::user()->groupid) == 'REHABILITATION')
+        <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
+
+        <a class="item {{(Request::is('doctornote') ? 'active' : '')}}" href="{{ url('/doctornote')}}"><i style="float: left" class="stethoscope inverted big icon link"></i>Doctor Note</a>
+
+        <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
+
+    @elseif (strtoupper(Auth::user()->groupid) == 'PHYSIOTERAPHY')
+        <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
+
+        <a class="item {{(Request::is('doctornote') ? 'active' : '')}}" href="{{ url('/doctornote')}}"><i style="float: left" class="stethoscope inverted big icon link"></i>Doctor Note</a>
+
+        <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
+
+    @elseif (strtoupper(Auth::user()->groupid) == 'DIETICIAN')
+        <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
+
+        <a class="item {{(Request::is('doctornote') ? 'active' : '')}}" href="{{ url('/doctornote')}}"><i style="float: left" class="stethoscope inverted big icon link"></i>Doctor Note</a>
+
+        <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
+
     @elseif (strtoupper(Auth::user()->groupid) == 'CLINICAL')
         <a class="item {{(Request::is('dashboard') ? 'active' : '')}}" href="{{url('/dashboard')}}"><i style="float: left" class="home inverted icon big link"></i>Dashboard</a>
 

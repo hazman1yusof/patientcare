@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    $("button.refreshbtn_userfile").click(function(){
+        empty_userfile();
+        populate_userfile(selrowData('#jqGrid'));
+    });
+
 	$("#tab_userfile").on("shown.bs.collapse", function(){
         DataTable_preview.columns.adjust();
 		SmoothScrollTo("#tab_userfile", 300);
@@ -9,6 +14,10 @@ $(document).ready(function () {
     function preview_load_data(){
     	let mrn = $('#userfile_mrn').val();
         DataTable_preview.clear().draw();
+        
+        if(mrn.trim().length == 0){
+            return false;
+        }
 
         var urlParam={
             action:'preview value',
@@ -155,13 +164,26 @@ var DataTable_preview = $('#tablePreview').DataTable({
 
 function empty_userfile(){
     DataTable_preview.clear().draw();
-    $("#tab_userfile").collapse('hide');
+    $("#tab_userfile").collapse('hide')
+    $('#userfile_mrn').val('');
+    
+    //panel header
+    $('#name_show_userfile').text('');
+    $('#mrn_show_userfile').text('');
+    $('#sex_show_userfile').text('');
+    $('#dob_show_userfile').text('');
+    $('#age_show_userfile').text('');
+    $('#race_show_userfile').text('');
+    $('#religion_show_userfile').text('');
+    $('#occupation_show_userfile').text('');
+    $('#citizenship_show_userfile').text('');
+    $('#area_show_userfile').text('');
 }
 
 
 //screen current patient//
 function populate_userfile(obj){
-    $('#userfile_mrn').val(obj.MRN);   
+    $('#userfile_mrn').val(obj.MRN);
     //panel header
     $('#name_show_userfile').text(obj.Name);
     $('#mrn_show_userfile').text(("0000000" + obj.MRN).slice(-7));

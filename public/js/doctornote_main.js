@@ -501,4 +501,27 @@ $(document).ready(function () {
 		});
 	}
 
+	user_groupid();
+	function user_groupid(){
+		var groupid = $('#user_groupid').val().toUpperCase();
+
+		$('#btn_grp_edit_doctorNote, #btn_grp_edit_phys, #btn_grp_edit_phys_ncase, #btn_grp_edit_dieteticCareNotes, #btn_grp_edit_dieteticCareNotes_fup').hide();
+		switch(groupid) {
+		  case 'DOCTOR':
+		    $('#btn_grp_edit_doctorNote').show();
+		    break;
+		  case 'PHYSIOTERAPHY':
+		    $('#btn_grp_edit_phys').show();
+		    break;
+		  case 'REHABILITATION':
+		    $('#btn_grp_edit_phys_ncase').show();
+		    break;
+		  case 'DIETICIAN':
+		    $('#btn_grp_edit_dieteticCareNotes, #btn_grp_edit_dieteticCareNotes_fup').show();
+		    break;
+		  default:
+		    // code block
+		}
+	}
+
 });

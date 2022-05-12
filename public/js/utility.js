@@ -132,6 +132,7 @@ function disableForm(formName, except){
 function enableForm(formName, except){
 	$(formName+' textarea').prop("disabled",false);
 	$(formName+' input').prop("disabled",false);
+	$(formName+' input').prop("readonly",false);
 	$(formName+' input[type=radio]').prop("disabled",false);
 	$(formName+' input[type=checkbox]').prop("disabled",false);
 	$(formName+' select').prop("disabled",false);
@@ -328,7 +329,7 @@ function saveFormdata(grid,dialog,form,oper,saveParam,urlParam,obj,callback,uppe
 	}).fail(function(data) {
 		errorText(dialog.substr(1),data.responseText);
 		$('.ui-dialog-buttonset button[role=button]').prop('disabled',false);
-	}).success(function(data){
+	}).done(function(data){
 		if(grid!=null){
 			if (callback !== undefined) {
 				callback();

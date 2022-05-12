@@ -7,6 +7,7 @@
 
     <input type="hidden" id="curr_user" value="{{ Auth::user()->username }}">
     <input type="hidden" id="doctornote_route" value="{{route('doctornote_route')}}">
+    <input type="hidden" id="user_groupid" value="{{Auth::user()->groupid}}">
 
     <div class="ui stackable two column grid">
         <div class="five wide tablet five wide computer column" id="calendar_div">
@@ -70,7 +71,16 @@
         AREA: <span id="area_show_userfile"></span> 
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
-        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >     
+        <div style="position: absolute;
+                        padding: 0 0 0 0;
+                        right: 0px;
+                        top: 0px;
+                        z-index: 1000;">
+            <button class="ui icon tertiary button refreshbtn_userfile">
+              <i class="sync alternate icon"></i>
+            </button>
+        </div> 
         <div style="position: absolute;
                         padding: 0 0 0 0;
                         right: 50px;
@@ -88,7 +98,7 @@
     </div>
 
     <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="doctornote_panel">
-        <div class="panel-heading clearfix collapsed" >
+        <div class="panel-heading clearfix collapsed" id="toggle_doctornote">
 
         <div class="col-md-3" id="docnote_date_tbl_sticky" style="display: none;position: absolute;
             padding: 0 0 0 0;
@@ -126,36 +136,27 @@
         AREA: <span id="area_show_doctorNote"></span> 
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_doctornote"></i>
-        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_doctornote" id="toggle_doctornote"></i >
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_doctornote" ></i >
+        
         <div style="position: absolute;
                         padding: 0 0 0 0;
-                        right: 320px;
+                        right: 0px;
+                        top: 0px;
+                        z-index: 1000;">
+            <button class="ui icon tertiary button refreshbtn_doctornote">
+              <i class="sync alternate icon"></i>
+            </button>
+        </div> 
+
+        <div id='doctornote_title' style="position: absolute;
+                        padding: 0 0 0 0;
+                        right: 50px;
                         top: 48px;">
             <h5><strong>Doctor Note</strong>&nbsp;&nbsp;
                 <span class="metal"></span></h5>
         </div> 
 
-            <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
-                id="btn_grp_edit_doctorNote"
-                style="position: absolute;
-                        padding: 0 0 0 0;
-                        right: 60px;
-                        top: 40px;" 
-
-            >
-                <button type="button" class="btn btn-default" id="new_doctorNote">
-                    <span class="fa fa-plus-square-o"></span> New
-                </button>
-                <button type="button" class="btn btn-default" id="edit_doctorNote">
-                    <span class="fa fa-edit fa-lg"></span> Edit
-                </button>
-                <button type="button" class="btn btn-default" data-oper='add' id="save_doctorNote">
-                    <span class="fa fa-save fa-lg"></span> Save
-                </button>
-                <button type="button" class="btn btn-default" id="cancel_doctorNote">
-                    <span class="fa fa-ban fa-lg" aria-hidden="true"> </span> Cancel
-                </button>
-            </div>
+            
         </div>
 
         <div id="tab_doctornote" class="panel-collapse collapse">
@@ -181,6 +182,15 @@
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
         <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div style="position: absolute;
+                        padding: 0 0 0 0;
+                        right: 0px;
+                        top: 0px;
+                        z-index: 1000;">
+            <button class="ui icon tertiary button refreshbtn_diet">
+              <i class="sync alternate icon"></i>
+            </button>
+        </div> 
         <div style="position: absolute;
                         padding: 0 0 0 0;
                         right: 50px;
@@ -212,7 +222,16 @@
         AREA: <span id="area_show_phys"></span> 
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
-        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i > 
+        <div style="position: absolute;
+                        padding: 0 0 0 0;
+                        right: 0px;
+                        top: 0px;
+                        z-index: 1000;">
+            <button class="ui icon tertiary button refreshbtn_phys">
+              <i class="sync alternate icon"></i>
+            </button>
+        </div> 
         <div style="position: absolute;
                         padding: 0 0 0 0;
                         right: 50px;
@@ -240,7 +259,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/trirand/css/trirand/ui.jqgrid-bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/se/dt-1.11.3/datatables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -260,7 +278,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script type="text/ecmascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
-    <script type="text/ecmascript" src="{{ asset('assets/waypoints/lib/jquery.waypoints.min.js') }}/"></script>
     <script type="text/ecmascript" src="{{ asset('assets/form-validator/jquery.form-validator.min.js') }}/"></script>
     <script type="text/javascript" src="{{ asset('js/userfile.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/doctornote.js') }}"></script>

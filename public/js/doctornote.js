@@ -20,6 +20,10 @@ $(document).ready(function () {
 
 	disableForm('#formDoctorNote',['toggle_type']);
 
+	$("button.refreshbtn_doctornote").click(function(){
+		populate_currDoctorNote(selrowData('#jqGrid'));
+	});
+
 	$("#new_doctorNote").click(function(){
     	// $('#docnote_date_tbl tbody tr').removeClass('active');
 		$('#cancel_doctorNote').data('oper','add');

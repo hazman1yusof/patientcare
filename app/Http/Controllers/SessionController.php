@@ -97,6 +97,12 @@ class SessionController extends Controller
                     return redirect('/chat');
                 }else if(strtoupper(Auth::user()->groupid) == 'DOCTOR'){
                     return redirect('/doctornote');
+                }else if(strtoupper(Auth::user()->groupid) == 'REHABILITATION'){
+                    return redirect('/doctornote');
+                }else if(strtoupper(Auth::user()->groupid) == 'PHYSIOTERAPHY'){
+                    return redirect('/doctornote');
+                }else if(strtoupper(Auth::user()->groupid) == 'DIETICIAN'){
+                    return redirect('/doctornote');
                 }else if(strtoupper(Auth::user()->groupid) == 'CLINICAL'){
                     return redirect('/emergency');
                 }else if(strtoupper(Auth::user()->groupid) == 'ADMIN'){
