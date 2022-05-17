@@ -186,3 +186,9 @@ table#medication_tbl th {
 .input-sm{
     font-size: 13px !important;
 }
+
+.bluecloudsegment{
+    position:sticky !important; 
+    z-index: 2 !important; 
+    background: #deedf7 !important;
+}

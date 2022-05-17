@@ -1,5 +1,6 @@
 
-<div class="ui secondary segment" id="rehab_segment" style="position:sticky; padding: 30px; z-index: 100;">
+<div class="ui secondary segment bluecloudsegment" id="rehab_segment" style="
+    padding: 30px !important; ">
 
 	<div class="inline field" style="position:absolute;top: 10px; left: 10px;">
 		<div class="ui checkbox rehab box">
@@ -17,13 +18,24 @@
 		</div>
 	</div>
 
-	<div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
+	<div class="ui small blue icon buttons" id="btn_grp_edit_phys_ncase" style="position: absolute;
+				padding: 0 0 0 0;
+				right: 40px;
+				top: 14px;
+				z-index: 2;">
+	  <button class="ui button" id="new_phys_ncase"><span class="fa fa-plus-square-o"></span> New</button>
+	  <button class="ui button" id="edit_phys_ncase"><span class="fa fa-edit fa-lg"></span> Edit</button>
+	  <button class="ui button" id="save_phys_ncase"><span class="fa fa-save fa-lg"></span> Save</button>
+	  <button class="ui button" id="cancel_phys_ncase"><span class="fa fa-ban fa-lg"></span> Cancel</button>
+	</div>
+
+	<!-- <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
 		id="btn_grp_edit_phys_ncase"
 		style="position: absolute;
 				padding: 0 0 0 0;
 				right: 40px;
 				top: 10px;
-				z-index: 1000;">
+				z-index: 2;">
 		<button type="button" class="btn btn-default" id="new_phys_ncase">
 			<span class="fa fa-plus-square-o"></span> New
 		</button>
@@ -36,7 +48,7 @@
 		<button type="button" class="btn btn-default" id="cancel_phys_ncase">
 			<span class="fa fa-ban fa-lg" aria-hidden="true"> </span> Cancel
 		</button>
-	</div>
+	</div> -->
 </div>
 
 <div class="ui segment">

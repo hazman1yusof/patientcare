@@ -25,48 +25,6 @@ Route::get('/logout','SessionController@destroy');
 
 Route::get('/dashboard', "DashboardController@index")->name('dashboard');
 
-// Route::get('/patient', "PatientController@index");
-
-// Route::post('/patient', "PatientController@store");
-
-// Route::put('/patient/{user}', "PatientController@update");
-
-// Route::delete('/patient/{user}', "PatientController@destroy");
-
-// Route::get('/doctor', "doctorController@index");
-
-// Route::post('/doctor', "doctorController@store");
-
-// Route::put('/doctor/{user}', "doctorController@update");
-
-// Route::delete('/doctor/{user}', "doctorController@destroy");
-
-// Route::get('/agent_detail/{user}', "doctorController@agent_detail");
-
-// Route::get('/settings', "SettingsController@index");
-
-// Route::get('/settings/change_password', "SettingsController@change_password");
-
-// Route::put('/settings/change_password/{user}', "SettingsController@update");
-
-// Route::post('/message', "MessageController@store");
-
-// Route::put('/message/{message}', "MessageController@update");
-
-// Route::get('/ticket/answer/{user}', "TicketController@answer");
-
-// Route::get('/ticket/create', "TicketController@create");
-
-// Route::post('/ticket/create', "TicketController@store");
-
-// Route::get('/ticket/{ticket}', "TicketController@show");
-
-// Route::get('/ticket', "TicketController@index")->name('ticket');
-
-// Route::post('/ticket', "TicketController@store");
-
-// Route::put('/ticket/{ticket}', "TicketController@update");
-
 
 Route::get('/user_maintenance', "UserMaintenanceController@show");
 Route::get('/user_maintenance/table', "UserMaintenanceController@table");
@@ -85,10 +43,6 @@ Route::post('/transaction_save', "DialysisController@transaction_save");
 
 Route::get('/prescription', "PrescriptionController@index");
 Route::get('/prescription/{id}', "PrescriptionController@detail");
-
-
-Route::get('/chat', "ChatController@show");
-Route::get('/chat2', "ChatController@show2");
 
 //dari msoftweb
 Route::get('/preview','PreviewController@preview');
@@ -128,16 +82,6 @@ Route::get('/webservice/login','WebserviceController@login');
 Route::get('/util/get_value_default','defaultController@get_value_default')->name('util_val');
 Route::get('/util/get_table_default','defaultController@get_table_default')->name('util_tab');
 
-//user
-// Route::get('/userlist','UserController@index')->name('userlist');
-// Route::get('/user/{id}','UserController@edit')->name('user');
-// Route::post('/user/{id}','UserController@update');
-// Route::get('/user','UserController@create');
-// Route::post('/user','UserController@store');
-// Route::get('/user/delete/{id}','UserController@destroy');
-// Route::get('/user/editpassword/{id}','UserController@editpassword');
-// Route::post('/user/editpassword/{id}','UserController@updatepassword');
-
 //pivot
 Route::get('/dashboard','eisController@dashboard')->name('dashboard');
 Route::get('/store_dashb','WebserviceController@store_dashb');
@@ -162,9 +106,3 @@ Route::post('/dieteticCareNotes/form','DieteticCareNotesController@form');
 Route::get('/phys','physioController@show');
 Route::get('/phys/table','physioController@table');
 Route::post('/phys/form','physioController@form');
-
-
-//stisla ??
-Route::name('js.')->group(function() {
-    Route::get('dynamic.js', 'JsController@dynamic')->name('dynamic');
-});
