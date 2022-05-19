@@ -7,7 +7,7 @@
 
 		<div class="ui grid" style="position: relative; padding-top: 30px; margin: 0px 5px 0px 5px;">
 
-			<div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
+			<!-- <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
 				id="btn_grp_edit_phys"
 				style="position: absolute;
 						padding: 0 0 0 0;
@@ -26,7 +26,7 @@
 				<button type="button" class="btn btn-default" id="cancel_phys">
 					<span class="fa fa-ban fa-lg" aria-hidden="true"> </span> Cancel
 				</button>
-			</div>
+			</div> -->
 
 			<div class="three wide column">
 				<table id="phys_date_tbl" class="ui celled table" style="width: 100%;">

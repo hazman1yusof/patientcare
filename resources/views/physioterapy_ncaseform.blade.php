@@ -736,31 +736,31 @@
 						<div class="ui form">
 							<div class="field">
 							    <label>VAS</label>
-							    <input type="text" name="vas" placeholder="VAS">
+							    <input type="text" name="vas_ncase" placeholder="VAS">
 							</div>
 							<div class="field">
 							    <label>Aggravating Factors</label>
-							    <input type="text" name="aggr" placeholder="Aggravating Factors">
+							    <input type="text" name="aggr_ncase" placeholder="Aggravating Factors">
 							</div>
 							<div class="field">
 							    <label>Easing Factors</label>
-							    <input type="text" name="easing" placeholder="Easing Factors">
+							    <input type="text" name="easing_ncase" placeholder="Easing Factors">
 							</div>
 							<div class="field">
 							    <label>Type Of Pain</label>
-							    <input type="text" name="pain" placeholder="Type Of Pain">
+							    <input type="text" name="pain_ncase" placeholder="Type Of Pain">
 							</div>
 							<div class="field">
 							    <label>24 Hours Behaviour</label>
-							    <input type="text" name="behaviour" placeholder="24 Hours Behaviour">
+							    <input type="text" name="behaviour_ncase" placeholder="24 Hours Behaviour">
 							</div>
 							<div class="field">
 							    <label>Irritability</label>
-							    <input type="text" name="irritability" placeholder="Irritability">
+							    <input type="text" name="irritability_ncase" placeholder="Irritability">
 							</div>
 							<div class="field">
 							    <label>Severity</label>
-							    <input type="text" name="severity" placeholder="Severity">
+							    <input type="text" name="severity_ncase" placeholder="Severity">
 							</div>
 						</div>
 					</div>

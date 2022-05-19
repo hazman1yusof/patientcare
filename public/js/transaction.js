@@ -74,7 +74,7 @@ $(document).ready(function () {
 			}
 			if($('#jqGrid_transPager_right').data('loaded') == undefined){
 				let button = `
-								<button type="button" class="btn btn-sm btn-success" id="discharge_btn">Submit</button>
+								<button type="button" class="btn btn-sm btn-success" id="discharge_btn">Patient Complete</button>
 							`;
 				$('#jqGrid_transPager_right').html(button);
 				$('#jqGrid_transPager_right').data('loaded','loaded');

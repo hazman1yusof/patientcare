@@ -1,4 +1,3 @@
-
 <div class='ui column'>
 	<div class="ui segments" style="position: relative;">
 		<div class="ui secondary segment bluecloudsegment">

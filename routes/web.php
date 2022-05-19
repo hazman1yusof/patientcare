@@ -106,3 +106,8 @@ Route::post('/dieteticCareNotes/form','DieteticCareNotesController@form');
 Route::get('/phys','physioController@show');
 Route::get('/phys/table','physioController@table');
 Route::post('/phys/form','physioController@form');
+
+//// phys Care Notes page ///
+Route::get('/nursing','NursingController@show');
+Route::get('/nursing/table','NursingController@table');
+Route::post('/nursing/form','NursingController@form');

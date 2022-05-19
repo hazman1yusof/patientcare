@@ -51,9 +51,9 @@ class physioController extends defaultController
 
                 switch($request->oper){
                     case 'add':
-                        return $this->add_ncase($request);
+                        return $this->add($request);
                     case 'edit':
-                        return $this->edit_ncase($request);
+                        return $this->edit($request);
                     default:
                         return 'error happen..';
                 }
@@ -79,21 +79,92 @@ class physioController extends defaultController
             if(!empty($request->referdiet) && $request->referdiet == 'yes'){
                 DB::table('hisdb.episode')
                             ->where('compcode','=',session('compcode'))
-                            ->where('mrn','=',$request->mrn_phys)
-                            ->where('episno','=',$request->episno_phys)
+                            ->where('mrn','=',$request->mrn)
+                            ->where('episno','=',$request->episno)
                             ->update(['reff_diet' => 'YES']);
             }else{
                 DB::table('hisdb.episode')
                             ->where('compcode','=',session('compcode'))
-                            ->where('mrn','=',$request->mrn_phys)
-                            ->where('episno','=',$request->episno_phys)
+                            ->where('mrn','=',$request->mrn)
+                            ->where('episno','=',$request->episno)
                             ->update(['reff_diet' => null]);
             }
+
+            DB::table('hisdb.patrehabncase')
+                    ->insert([
+                        'ques1' => $request->ques1,
+                        'ques2' => $request->ques2,
+                        'ques3' => $request->ques3,
+                        'ques4' => $request->ques4,
+                        'ques5' => $request->ques5,
+                        'ques6' => $request->ques6,
+                        'ques7' => $request->ques7,
+                        'ques8' => $request->ques8,
+                        'ques9' => $request->ques9,
+                        'ques10' => $request->ques10,
+                        'ques11' => $request->ques11,
+                        'ques12' => $request->ques12,
+                        'ques13' => $request->ques13,
+                        'ques14' => $request->ques14,
+                        'ques15' => $request->ques15,
+                        'ques16' => $request->ques16,
+                        'ques17' => $request->ques17,
+                        'ques18' => $request->ques18,
+                        'ques19' => $request->ques19,
+                        'ques20' => $request->ques20,
+                        'ques21' => $request->ques21,
+                        'ques22' => $request->ques22,
+                        'ques23' => $request->ques23,
+                        'ques24' => $request->ques24,
+                        'quesdet1' => $request->quesdet1,
+                        'quesdet2' => $request->quesdet2,
+                        'quesdet3' => $request->quesdet3,
+                        'quesdet4' => $request->quesdet4,
+                        'quesdet5' => $request->quesdet5,
+                        'quesdet6' => $request->quesdet6,
+                        'quesdet7' => $request->quesdet7,
+                        'quesdet8' => $request->quesdet8,
+                        'quesdet9' => $request->quesdet9,
+                        'quesdet10' => $request->quesdet10,
+                        'quesdet11' => $request->quesdet11,
+                        'quesdet12' => $request->quesdet12,
+                        'quesdet13' => $request->quesdet13,
+                        'quesdet14' => $request->quesdet14,
+                        'quesdet15' => $request->quesdet15,
+                        'quesdet16' => $request->quesdet16,
+                        'quesdet17' => $request->quesdet17,
+                        'quesdet18' => $request->quesdet18,
+                        'quesdet19' => $request->quesdet19,
+                        'quesdet20' => $request->quesdet20,
+                        'quesdet21' => $request->quesdet21,
+                        'quesdet22' => $request->quesdet22,
+                        'quesdet23' => $request->quesdet23,
+                        'quesdet24' => $request->quesdet24,
+                        'category' => $request->category,
+                        'risk' => $request->risk,
+                        'history' => $request->history,
+                        'posassmt' => $request->posassmt,
+                        'electrodg' => $request->electrodg,
+                        'protocol' => $request->protocol,
+                        'equipment' => $request->equipment,
+                        'recommendation' => $request->recommendation,
+                        'vas_ncase' => $request->vas_ncase,
+                        'aggr_ncase' => $request->aggr_ncase,
+                        'easing_ncase' => $request->easing_ncase,
+                        'pain_ncase' => $request->pain_ncase,
+                        'behaviour_ncase' => $request->behaviour_ncase,
+                        'irritability_ncase' => $request->irritability_ncase,
+                        'severity_ncase' => $request->severity_ncase,
+                        'compcode' => session('compcode'),
+                        'mrn' => $request->mrn,
+                        'upduser'  => session('username'),
+                        'upddate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
+                    ]);
 
             DB::table('hisdb.patrehab')
                     ->insert([
                         'compcode' => session('compcode'),
-                        'mrn' => $request->mrn_phys,
+                        'mrn' => $request->mrn,
                         'episno' => $request->episno_phys,
                         'category' => $request->category,
                         'complain' => $request->complain,
@@ -117,51 +188,10 @@ class physioController extends defaultController
                         'adddate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                     ]);
 
-
-            $patrehabncase = DB::table('hisdb.patrehabncase')
-                                ->where('compcode','=',session('compcode'))
-                                ->where('mrn','=',$request->mrn_phys);
-
-            if($patrehabncase->exists()){
-                $patrehabncase
-                    ->update([
-                        'presenthistory' => $request->presenthistory,
-                        'pasthistory' => $request->pasthistory,
-                        'mh' => $request->mh,
-                        'sh' => $request->sh,
-                        'investigation' => $request->investigation,
-                        'function_' => $request->function_,
-                        'drmgmt' => $request->drmgmt,
-                        'test' => $request->test,
-                        'neuro' => $request->neuro,
-                        'analysis' => $request->analysis,
-                        'long_' => $request->long_,
-                        'evaluation' => $request->evaluation
-                    ]);
-            }else{
-                DB::table('hisdb.patrehabncase')
-                    ->insert([
-                        'compcode' => session('compcode'),
-                        'mrn' => $request->mrn_phys,
-                        'presenthistory' => $request->presenthistory,
-                        'pasthistory' => $request->pasthistory,
-                        'mh' => $request->mh,
-                        'sh' => $request->sh,
-                        'investigation' => $request->investigation,
-                        'function_' => $request->function_,
-                        'drmgmt' => $request->drmgmt,
-                        'test' => $request->test,
-                        'neuro' => $request->neuro,
-                        'analysis' => $request->analysis,
-                        'long_' => $request->long_,
-                        'evaluation' => $request->evaluation
-                    ]);
-            }
-
             DB::commit();
             
             $responce = new stdClass();
-            $responce->mrn = $request->mrn_phys;
+            $responce->mrn = $request->mrn;
             return json_encode($responce);
 
         } catch (\Exception $e) {
@@ -180,21 +210,92 @@ class physioController extends defaultController
             if(!empty($request->referdiet) && $request->referdiet == 'yes'){
                 DB::table('hisdb.episode')
                             ->where('compcode','=',session('compcode'))
-                            ->where('mrn','=',$request->mrn_phys)
-                            ->where('episno','=',$request->episno_phys)
+                            ->where('mrn','=',$request->mrn)
+                            ->where('episno','=',$request->episno)
                             ->update(['reff_diet' => 'YES']);
             }else{
                 DB::table('hisdb.episode')
                             ->where('compcode','=',session('compcode'))
-                            ->where('mrn','=',$request->mrn_phys)
-                            ->where('episno','=',$request->episno_phys)
+                            ->where('mrn','=',$request->mrn)
+                            ->where('episno','=',$request->episno)
                             ->update(['reff_diet' => null]);
             }
 
+            DB::table('hisdb.patrehabncase')
+                    ->where('compcode','=',session('compcode'))
+                    ->where('mrn','=',$request->mrn)
+                    ->update([
+                        'ques1' => $request->ques1,
+                        'ques2' => $request->ques2,
+                        'ques3' => $request->ques3,
+                        'ques4' => $request->ques4,
+                        'ques5' => $request->ques5,
+                        'ques6' => $request->ques6,
+                        'ques7' => $request->ques7,
+                        'ques8' => $request->ques8,
+                        'ques9' => $request->ques9,
+                        'ques10' => $request->ques10,
+                        'ques11' => $request->ques11,
+                        'ques12' => $request->ques12,
+                        'ques13' => $request->ques13,
+                        'ques14' => $request->ques14,
+                        'ques15' => $request->ques15,
+                        'ques16' => $request->ques16,
+                        'ques17' => $request->ques17,
+                        'ques18' => $request->ques18,
+                        'ques19' => $request->ques19,
+                        'ques20' => $request->ques20,
+                        'ques21' => $request->ques21,
+                        'ques22' => $request->ques22,
+                        'ques23' => $request->ques23,
+                        'ques24' => $request->ques24,
+                        'quesdet1' => $request->quesdet1,
+                        'quesdet2' => $request->quesdet2,
+                        'quesdet3' => $request->quesdet3,
+                        'quesdet4' => $request->quesdet4,
+                        'quesdet5' => $request->quesdet5,
+                        'quesdet6' => $request->quesdet6,
+                        'quesdet7' => $request->quesdet7,
+                        'quesdet8' => $request->quesdet8,
+                        'quesdet9' => $request->quesdet9,
+                        'quesdet10' => $request->quesdet10,
+                        'quesdet11' => $request->quesdet11,
+                        'quesdet12' => $request->quesdet12,
+                        'quesdet13' => $request->quesdet13,
+                        'quesdet14' => $request->quesdet14,
+                        'quesdet15' => $request->quesdet15,
+                        'quesdet16' => $request->quesdet16,
+                        'quesdet17' => $request->quesdet17,
+                        'quesdet18' => $request->quesdet18,
+                        'quesdet19' => $request->quesdet19,
+                        'quesdet20' => $request->quesdet20,
+                        'quesdet21' => $request->quesdet21,
+                        'quesdet22' => $request->quesdet22,
+                        'quesdet23' => $request->quesdet23,
+                        'quesdet24' => $request->quesdet24,
+                        'risk' => $request->risk,
+                        'category' => $request->category,
+                        'history' => $request->history,
+                        'posassmt' => $request->posassmt,
+                        'electrodg' => $request->electrodg,
+                        'protocol' => $request->protocol,
+                        'equipment' => $request->equipment,
+                        'recommendation' => $request->recommendation,
+                        'vas_ncase' => $request->vas_ncase,
+                        'aggr_ncase' => $request->aggr_ncase,
+                        'easing_ncase' => $request->easing_ncase,
+                        'pain_ncase' => $request->pain_ncase,
+                        'behaviour_ncase' => $request->behaviour_ncase,
+                        'irritability_ncase' => $request->irritability_ncase,
+                        'severity_ncase' => $request->severity_ncase,
+                        'upduser'  => session('username'),
+                        'upddate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
+                    ]);
+
             DB::table('hisdb.patrehab')
                 ->where('compcode','=',session('compcode'))
-                ->where('mrn','=',$request->mrn_phys)
-                ->where('episno','=',$request->episno_phys)
+                ->where('mrn','=',$request->mrn)
+                ->where('episno','=',$request->episno)
                 ->update([
                     'category' => $request->category,
                     'complain' => $request->complain,
@@ -212,24 +313,6 @@ class physioController extends defaultController
                     'behaviour' => $request->behaviour,
                     'irritability' => $request->irritability,
                     'severity' => $request->severity,
-                ]);
-
-            DB::table('hisdb.patrehabncase')
-                ->where('compcode','=',session('compcode'))
-                ->where('mrn','=',$request->mrn_phys)
-                ->update([
-                    'presenthistory' => $request->presenthistory,
-                    'pasthistory' => $request->pasthistory,
-                    'mh' => $request->mh,
-                    'sh' => $request->sh,
-                    'investigation' => $request->investigation,
-                    'function_' => $request->function_,
-                    'drmgmt' => $request->drmgmt,
-                    'test' => $request->test,
-                    'neuro' => $request->neuro,
-                    'analysis' => $request->analysis,
-                    'long_' => $request->long_,
-                    'evaluation' => $request->evaluation
                 ]);
 
             // $queries = DB::getQueryLog();

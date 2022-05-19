@@ -144,7 +144,7 @@ $(document).ready(function () {
 	var myEditOptions_add = {
 		keys: true,
 		extraparam:{
-			"_token": $("#csrf_token").val()
+			"_token": $("#_token").val()
 		},
 		oneditfunc: function (rowid) {
 			$("#jqGridPagerDelete,#jqGridPagerRefresh_addnotes").hide();
@@ -673,23 +673,4 @@ function check_same_usr_edit(data){
     }
 
     return same;
-}
-
-function sticky_docnotetbl(on){
-	$('#tab_doctornote').off('scroll');
-	if(on){
-		var topDistance = $('#docnote_date_tbl_sticky').offset().top;
-		$('#tab_doctornote').on('scroll', function() {
-		    var scrollTop = $(this).scrollTop();
-			var bottomDistance = $('#jqGrid_ordcom_c').offset().top;
-		    if((topDistance+10) < scrollTop && (bottomDistance-280)>scrollTop){
-		    	$('#docnote_date_tbl_sticky').addClass( "sticky_div" );
-		    }else{
-		    	$('#docnote_date_tbl_sticky').removeClass( "sticky_div" );
-		    }
-		});
-	}else{
-		$('#tab_doctornote').off('scroll');
-	}
-	
 }

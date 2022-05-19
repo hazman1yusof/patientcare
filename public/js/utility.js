@@ -1847,6 +1847,14 @@ function SmoothScrollToTop(){
   });
 }
 
+function emptyobj_(obj){
+	if($.isEmptyObject(obj)){
+		return true;
+	}else{
+		return false;
+	}
+}
+
 /**
  * @constructor
  */

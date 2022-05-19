@@ -145,6 +145,7 @@ $(document).ready(function () {
 				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
 				refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
 	            populate_currDoctorNote(selrowData('#jqGrid'));
+	            populate_triage_currpt(selrowData('#jqGrid'));
 	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
 	            populate_userfile(selrowData('#jqGrid'));
 	            populate_phys(selrowData('#jqGrid'));
@@ -244,6 +245,7 @@ $(document).ready(function () {
 				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
 				refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
 	            populate_currDoctorNote(selrowData('#jqGrid'));
+	            populate_triage_currpt(selrowData('#jqGrid'));
 	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
 	            populate_userfile(selrowData('#jqGrid'));
 	            populate_phys(selrowData('#jqGrid'));
@@ -466,11 +468,6 @@ $(document).ready(function () {
 				$('#toggle_phys').click();
 			}
 			gotobtm("#save_phys_ncase",'#save_phys_ncase','#cancel_phys_ncase');
-		}else if(!$('#save_phys').is(':disabled')){
-			if(!$('#tab_phys').hasClass('in')){
-				$('#toggle_phys').click();
-			}
-			gotobtm("#save_phys",'#save_phys','#cancel_phys');
 		}else{
 			return false;
 		}
@@ -511,7 +508,8 @@ $(document).ready(function () {
 		    $('#btn_grp_edit_doctorNote').show();
 		    break;
 		  case 'PHYSIOTERAPHY':
-		    $('#btn_grp_edit_phys').show();
+		    // $('#btn_grp_edit_phys').show();
+		    $('#btn_grp_edit_phys_ncase').show();
 		    break;
 		  case 'REHABILITATION':
 		    $('#btn_grp_edit_phys_ncase').show();

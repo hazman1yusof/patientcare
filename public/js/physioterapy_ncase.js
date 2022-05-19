@@ -9,12 +9,18 @@ $(document).ready(function () {
 		enableForm('#formphys_ncase');
 		rdonly('#formphys_ncase');
 
+		enableForm('#formphys');
+		rdonly('#formphys');
+
 	});
 
 	$("#edit_phys_ncase").click(function(){
 		button_state_phys_ncase('wait');
 		enableForm('#formphys_ncase');
 		rdonly('#formphys_ncase');
+
+		enableForm('#formphys');
+		rdonly('#formphys');
 	});
 
 	$(".ui.toggle.button").click(function(){
@@ -34,6 +40,17 @@ $(document).ready(function () {
 				$("#cancel_phys_ncase").data('oper','edit');
 				$("#cancel_phys_ncase").click();
 				button_state_phys_ncase('edit');
+				var dateParam_phys={
+					action:'get_table_date_phys',
+					type:$('.ui.radio.checkbox').val(),
+					mrn:$('#mrn_phys').val(),
+					episno:$("#episno_phys").val(),
+				}
+
+			    phys_date_tbl.ajax.url( "./phys/table?"+$.param(dateParam_phys) ).load(function(data){
+					// emptyFormdata_div("#formphys",['#mrn_phys','#episno_phys']);
+					// $('#phys_date_tbl tbody tr:eq(0)').click();	//to select first row
+			    });
 			});
 		}else{
 			enableForm('#formphys_ncase');
@@ -44,6 +61,7 @@ $(document).ready(function () {
 
 	$("#cancel_phys_ncase").click(function(){
 		disableForm('#formphys_ncase');
+		disableForm('#formphys');
 		button_state_phys_ncase($(this).data('oper'));
 		// dialog_mrn_edit.off();
 
@@ -92,7 +110,8 @@ function saveForm_phys_ncase(callback){
     	_token : $('#_token').val(),
     };
 
-	values = $("#formphys_ncase").serializeArray();
+	var values = $("#formphys_ncase").serializeArray();
+	var values2 = $("#formphys").serializeArray();
 
 	values = values.concat(
         $('#formphys_ncase input[type=radio]:checked').map(
@@ -101,7 +120,7 @@ function saveForm_phys_ncase(callback){
         }).get()
     );
 
-    $.post( "./phys/form?"+$.param(saveParam), $.param(postobj)+'&'+$.param(values) , function( data ) {
+    $.post( "./phys/form?"+$.param(saveParam), $.param(postobj)+'&'+$.param(values)+'&'+$.param(values2) , function( data ) {
         
     },'json').fail(function(data) {
         // alert('there is an error');

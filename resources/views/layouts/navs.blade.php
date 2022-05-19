@@ -1,5 +1,5 @@
 <div class="ui fixed top menu sidemenu" id="sidemenu_topmenu">
-    <a class="item" id="showSidebar"><i class="sidebar inverted icon"></i></a>
+    <a class="item" id="showSidebar" style="padding: 20px 25px 15px 25px !important;"><i class="sidebar inverted icon"></i></a>
     <div class="right menu">
         <div class="ui dropdown item" style="color:white;">
           Hi, {{Auth::user()->name}} !<i class="dropdown icon"></i>
