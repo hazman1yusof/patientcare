@@ -5,17 +5,17 @@
 <div class="ui container content">
 	<div class="ui centered grid">
 		<div class="column" style="max-width: 550px;">
-			<form class="ui form" method="POST">
+			<form class="ui form" method="POST" autocomplete="off">
 				{{ csrf_field() }}
 				<div class="ui attached tall stacked teal segment">
 					<div class="field">
 						<label>Username</label>
-						<input placeholder="Username" type="text" name="username">
+						<input placeholder="Username" type="text" name="username" autocomplete="off">
 					</div>
 					<div class="field">
 						<label>Password</label>
 						<div class="ui icon input">
-						  <input placeholder="Password" type="password" name="password" id="inputPassword">
+						  <input placeholder="Password" type="password" name="password" id="inputPassword" autocomplete="off">
 						  <i id="showpwd" class="eye link icon"></i>
 						</div>
 					</div>
