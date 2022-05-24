@@ -4,7 +4,7 @@
         <div class="ui dropdown item" style="color:white;">
           Hi, {{Auth::user()->name}} !<i class="dropdown icon"></i>
           <div class="menu">
-            <a class="item" href="{{ url('user/editpassword')}}/{{Auth::user()->id}}">Change Password</a>
+            <a class="item" href="{{ url('user_maintenance/')}}/{{Auth::user()->id}}">Change Password</a>
             <a class="item" href="{{ url('/logout')}}">Log Out</a>
           </div>
         </div>
@@ -88,9 +88,7 @@
 
         <a class="item @if(Request::is('reveis') || Request::is('reveis/*')) {{'active'}} @endif" href="{{ url('/reveis')}}"><i style="float: left" class="chart line big link icon"></i>Revenue By Services</a>
 
-        <a class="item @if(Request::is('userlist') || Request::is('user/*')) {{'active'}} @endif" href="{{ url('/userlist')}}"><i style="float: left" class="big user icon"></i>User</a>
-
-        <a class="item @if(Request::is('dialysis') || Request::is('dialysis/*')) {{'active'}} @endif" href="{{ url('/dialysis')}}"><i style="float: left" class="big procedures icon"></i>Dialysis</a>
+        <a class="item @if(Request::is('user_maintenance') || Request::is('user_maintenance/*')) {{'active'}} @endif" href="{{ url('/user_maintenance')}}"><i style="float: left" class="big user icon"></i>User</a>
 
     @elseif (strtoupper(Auth::user()->groupid) == 'MR')
 

@@ -180,6 +180,7 @@ $(document).ready(function () {
 				empty_dietcarenote();
 				empty_userfile();
 				empty_currphys();
+				empty_formNursing();
 
 				let discharge_btn_data = $('#discharge_btn').data('idno');
 				if(discharge_btn_data == undefined || discharge_btn_data == 'none'){
@@ -280,6 +281,7 @@ $(document).ready(function () {
 				empty_dietcarenote();
 				empty_userfile();
 				empty_currphys();
+				empty_formNursing();
 
 				let discharge_btn_data = $('#discharge_btn').data('idno');
 				if(discharge_btn_data == undefined || discharge_btn_data == 'none'){

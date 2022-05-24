@@ -5,7 +5,7 @@ Edit Profile ({{ $user->name }})
 @endsection
 
 @section('content')
-<section class="section">
+<!-- <section class="section">
   <div class="section-header">
     <h1>Edit Profile</h1>
   </div>
@@ -75,11 +75,77 @@ Edit Profile ({{ $user->name }})
 
     </div>
   </div>
-</section>
+</section> -->
+<div class="ui container content">
+  <div class="ui centered grid">
+    <div class="column" style="max-width: 550px;">
+      <form class="ui form" method="POST" autocomplete="off">
+        {{ csrf_field() }}
+        <div class="ui attached tall stacked teal segment">
+          <div class="field">
+            <label>Username</label>
+            <input placeholder="Username" type="text" name="username" autocomplete="off" value="{{$user->username}}" readonly="readonly">
+          </div>
+          <div class="field">
+            <label>Name</label>
+            <input placeholder="Username" type="text" name="name" autocomplete="off" value="{{$user->name}}" readonly="readonly">
+          </div>
+          <div class="field">
+            <label>Old Password</label>
+            <div class="ui icon input">
+              <input placeholder="Password" type="password" name="password" id="inputPassword" autocomplete="off">
+              <i id="showpwd" class="eye link icon showpwd"></i>
+            </div>
+          </div>
+          <div class="field">
+            <label>New Password</label>
+            <div class="ui icon input">
+              <input placeholder="Password" type="password" name="password2" id="inputPassword2" autocomplete="off">
+              <i id="showpwd2" class="eye link icon"></i>
+            </div>
+          </div>
+          <!-- <div class="ui stackable two column grid">
+            <div class="ui checkbox column">
+              <input type="checkbox" tabindex="0" class="hidden" name="remember">
+              <label>Remember me</label>
+            </div>
+          </div> -->
+        </div>
+
+        <button class="ui fluid button teal" type="submit" style="margin-top: 10px">Change</button>
+        
+      </form>
+    </div>
+    
+  </div>
+  @if($errors->any())
+  <div class="ui centered grid">
+    <div class="ui error message">
+      <div class="header">{{$errors->first()}}</div>
+    </div>
+  </div>
+  @endif
+
+  @if(session()->has('success'))
+  <div class="ui centered grid">
+    <div class="ui success message">
+      <div class="header">{{session('success')}}</div>
+    </div>
+  </div>
+  @endif
+</div>
 @endsection
 
-
-
-@section('stylesheet')
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+@section('js')
+  <script src="{{ asset('js/editpassword.js') }}"></script>
 @endsection
+
+@section('_style')
+  body {
+      background-color: #DADADA;
+    }
+    body > .grid {
+      height: 100%;
+    }
+@endsection
+

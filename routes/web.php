@@ -23,12 +23,12 @@ Route::post('/signup', 'SessionController@signup');
 
 Route::get('/logout','SessionController@destroy');
 
-Route::get('/dashboard', "DashboardController@index")->name('dashboard');
-
-
 Route::get('/user_maintenance', "UserMaintenanceController@show");
 Route::get('/user_maintenance/table', "UserMaintenanceController@table");
 Route::post('/user_maintenance/form', "UserMaintenanceController@form");
+
+Route::get('/user_maintenance/{id}', "UserMaintenanceController@chg_password");
+Route::post('/user_maintenance/{id}', "UserMaintenanceController@chg_password_save");
 
 Route::get('/pivot', "PivotController@show");
 

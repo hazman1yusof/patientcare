@@ -820,20 +820,25 @@ function autoinsert_rowdata(form,rowData){
 }
 
 function empty_formNursing(){
-	
-	tri_color_set('empty');
-	$('#name_show_ti').text('');
-	$('#newic_show_ti').text('');
-	$('#sex_show_ti').text('');
-	$('#age_show_ti').text('');
-	$('#race_show_ti').text('');	
-	button_state_ti('empty');
-	// $("#cancel_ti, #cancel_ad, #cancel_tpa").click();
 
-	disableForm('#formTriageInfo');
-	emptyFormdata(errorField,'#formTriageInfo')
-	examination_nursing.empty().off().disable();
-	dialog_tri_col.off();
+	emptyFormdata('#formTriageInfo')
+
+	button_state_phys('empty');
+	$('#name_show_triage').text('');
+	$('#mrn_show_triage').text('');
+	$('#sex_show_triage').text('');
+	$('#dob_show_triage').text('');
+	$('#age_show_triage').text('');
+	$('#race_show_triage').text('');
+	$('#religion_show_triage').text('');
+	$('#occupation_show_triage').text('');
+	$('#citizenship_show_triage').text('');
+	$('#area_show_triage').text('');
+
+
+	$('#mrn_ti').val('');
+	$("#episno_ti").val('');
+
 
 }
 

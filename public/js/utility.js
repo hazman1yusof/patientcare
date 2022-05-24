@@ -322,7 +322,7 @@ function saveFormdata(grid,dialog,form,oper,saveParam,urlParam,obj,callback,uppe
 	$('.ui-dialog-buttonset button[role=button]').prop('disabled',true);
 	saveParam.oper=oper;
 
-	let serializedForm = trimmall(form,uppercase);
+	let serializedForm = trimmall(form,false);
 
 	$.post( saveParam.url+'?'+$.param(saveParam), serializedForm+'&'+$.param(obj) , function( data ) {
 		
