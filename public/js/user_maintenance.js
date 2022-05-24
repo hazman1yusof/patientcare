@@ -43,7 +43,7 @@ $(document).ready(function () {
 		}
 	}];
 
-	var oper;
+	var oper=null;
 	$("#dialogForm")
 	  .dialog({ 
 		width: 6/10 * $(window).width(),
@@ -120,7 +120,7 @@ $(document).ready(function () {
             {label:'Price View',name:'priceview', width:90, formatter:formatter, unformat:unformat, formatter:formatterstatus_tick2, unformat:unformatstatus_tick2, classes: 'center_td' },   
             {label:'programmenu',name:'programmenu',width:50,hidden:true},
             {label:'password',name:'password',width:50,hidden:true},
-            {label:'id',name:'id',width:50,hidden:true},
+            {label:'id',name:'id',width:50,hidden:false},
             {label:'ALcolor',name:'ALcolor',hidden:true},
             {label:'DiscPTcolor',name:'DiscPTcolor',hidden:true},
             {label:'CancelPTcolor',name:'CancelPTcolor',hidden:true},
@@ -143,6 +143,10 @@ $(document).ready(function () {
 			/*if(editedRow!=0){
 				$("#jqGrid").jqGrid('setSelection',editedRow,false);
 			}*/
+			if (oper == 'add' || oper == null || $("#jqGrid").jqGrid('getGridParam', 'selrow') == null) {
+				$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+			}
+			$('#' + $("#jqGrid").jqGrid('getGridParam', 'selrow')).focus();
 		},
 		
 	});
@@ -179,7 +183,7 @@ $(document).ready(function () {
 				}
 			}
 
-			var cntrlIsPressed = false;
+			var cntrlIsPressed = true;
 			$(document).keydown(function(event){
 			    if(event.which=="17") cntrlIsPressed = true;
 			});
@@ -203,9 +207,9 @@ $(document).ready(function () {
 			}else{
 				if(cntrlIsPressed){
 					var r= confirm("Data will be permanently deleted, continue?");
-					if(r==true)saveFormdata("#jqGrid","#dialogForm","#formdata",'del_hard',saveParam,urlParam,null,{'username':selRowId});
+					if(r==true)saveFormdata("#jqGrid","#dialogForm","#formdata",'del',saveParam,urlParam,{'id':selrowData('#jqGrid').id});
 				}else{
-					saveFormdata("#jqGrid","#dialogForm","#formdata",'del',saveParam,urlParam,null,{'id':selrowData('#jqGrid').id});
+					saveFormdata("#jqGrid","#dialogForm","#formdata",'del',saveParam,urlParam,{'id':selrowData('#jqGrid').id});
 				}
 			}	
 		},

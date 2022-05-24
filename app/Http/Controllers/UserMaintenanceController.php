@@ -173,11 +173,12 @@ class UserMaintenanceController extends defaultController
         try {
 
             $table = DB::table('sysdb.users')->where('id','=',$request->id);
-            $table->update([
-                'recstatus' => 'DEACTIVE',
-                'deluser' => session('username'),
-                'deldate' => Carbon::now(),
-            ]);
+            $table->delete();
+            // $table->update([
+            //     'recstatus' => 'DEACTIVE',
+            //     'deluser' => session('username'),
+            //     'deldate' => Carbon::now(),
+            // ]);
 
             DB::commit();
         } catch (\Exception $e) {
