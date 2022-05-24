@@ -140,6 +140,18 @@ class physioController extends defaultController
                         'quesdet22' => $request->quesdet22,
                         'quesdet23' => $request->quesdet23,
                         'quesdet24' => $request->quesdet24,
+                        'presenthistory' => $request->presenthistory,
+                        'pasthistory' => $request->pasthistory,
+                        'mh' => $request->mh,
+                        'sh' => $request->sh,
+                        'investigation' => $request->investigation,
+                        'function_' => $request->function_,
+                        'drmgmt' => $request->drmgmt,
+                        'test' => $request->test,
+                        'neuro' => $request->neuro,
+                        'analysis' => $request->analysis,
+                        'long_' => $request->long_,
+                        'evaluation' => $request->evaluation,
                         'category' => $request->category,
                         'risk' => $request->risk,
                         'history' => $request->history,
@@ -273,6 +285,18 @@ class physioController extends defaultController
                         'quesdet22' => $request->quesdet22,
                         'quesdet23' => $request->quesdet23,
                         'quesdet24' => $request->quesdet24,
+                        'presenthistory' => $request->presenthistory,
+                        'pasthistory' => $request->pasthistory,
+                        'mh' => $request->mh,
+                        'sh' => $request->sh,
+                        'investigation' => $request->investigation,
+                        'function_' => $request->function_,
+                        'drmgmt' => $request->drmgmt,
+                        'test' => $request->test,
+                        'neuro' => $request->neuro,
+                        'analysis' => $request->analysis,
+                        'long_' => $request->long_,
+                        'evaluation' => $request->evaluation,
                         'risk' => $request->risk,
                         'category' => $request->category,
                         'history' => $request->history,
@@ -340,7 +364,7 @@ class physioController extends defaultController
                     ->where('episno','=',$request->episno);
 
         $patrehabncase_obj = DB::table('hisdb.patrehabncase')
-                    ->select('presenthistory','pasthistory','mh','sh','investigation','function_','drmgmt','test','neuro','analysis','long_','evaluation')
+                    // ->select('presenthistory','pasthistory','mh','sh','investigation','function_','drmgmt','test','neuro','analysis','long_','evaluation')
                     ->where('compcode','=',session('compcode'))
                     ->where('mrn','=',$request->mrn);
 
