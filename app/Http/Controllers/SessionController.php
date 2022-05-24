@@ -116,7 +116,7 @@ class SessionController extends Controller
                 return back()->withErrors(['Try again, Password entered incorrect']);
             }
         }else{
-            return back()->withErrors(['Try again, Username doesnt exist']);
+            return back()->withErrors(['Try again, Username or Password incorrect']);
         }
     }
 

@@ -4,7 +4,7 @@
         <div class="ui dropdown item" style="color:white;">
           Hi, {{Auth::user()->name}} !<i class="dropdown icon"></i>
           <div class="menu">
-            <a class="item" href="{{ url('user/editpassword')}}/{{Auth::user()->id}}">Change Password</a>
+            <a class="item" href="{{ url('user_maintenance/')}}/{{Auth::user()->id}}">Change Password</a>
             <a class="item" href="{{ url('/logout')}}">Log Out</a>
           </div>
         </div>

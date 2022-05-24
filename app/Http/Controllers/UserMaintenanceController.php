@@ -136,7 +136,7 @@ class UserMaintenanceController extends defaultController
 
             $table = DB::table('sysdb.users')->where('id','=',$request->id);
             $table->update([
-                'username' => $request->username,
+                // 'username' => $request->username,
                 'name' => $request->name,
                 'groupid' => $request->groupid,
                 'deptcode' => $request->deptcode,
@@ -193,5 +193,30 @@ class UserMaintenanceController extends defaultController
             ->where('source','=','HIS')
             ->where('trantype','=','ALCOLOR')
             ->update(['pvalue1' => $request->bg_leave]);
+    }
+
+    public function chg_password($id){
+        $user = DB::table('sysdb.users')->where('id','=',$id)->first();
+        return view('users.editpassword',compact('user'));
+    }
+
+    public function chg_password_save($id,Request $request){
+        // $user = DB::table('sysdb.users')->where('id','=',$id)->first();
+
+        $user = User::where('username',request('username'))
+                    ->where('password',request('password'));
+
+        if($user->exists()){
+            $user_obj = DB::table('sysdb.users')->where('id','=',$id);
+
+            $user_obj->update([
+                'password' => request('password2')
+            ]);
+
+            return back()->withSuccess('Password Changed!');
+
+        }else{
+            return back()->withErrors(['Try again, Wrong Password']);
+        }
     }
 }

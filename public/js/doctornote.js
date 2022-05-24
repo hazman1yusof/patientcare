@@ -85,13 +85,13 @@ $(document).ready(function () {
 		  	}
 		}, 0);
 	});
-	
+
 	//bmi calculator
-	$('#height').keyup(function(event) {
+	$('form#formDoctorNote #height').blur(function(event) {
 		getBMI();
 	});
 
-	$('#weight').keyup(function(event) {
+	$('form#formDoctorNote #weight').blur(function(event) {
 		getBMI();
 	});
 	//bmi calculator ends
@@ -123,6 +123,7 @@ $(document).ready(function () {
 		sortorder: 'desc',
 		viewrecords: true,
 		loadonce: false,
+		scroll: true,
 		width: 900,
 		height: 200,
 		rowNum: 30,
@@ -248,8 +249,8 @@ $(document).ready(function () {
 
 //bmi calculator
 function getBMI() {
-    var height = parseFloat($("#height").val());
-    var weight = parseFloat($("#weight").val());
+    var height = parseFloat($("form#formDoctorNote #height").val());
+    var weight = parseFloat($("form#formDoctorNote #weight").val());
 
 	var myBMI = (weight / height / height) * 10000;
 
@@ -257,7 +258,7 @@ function getBMI() {
 
     if (isNaN(bmi)) bmi = 0;
 
-    $('#bmi').val((bmi));
+    $('form#formDoctorNote #bmi').val((bmi));
 }
 
 //to disable all input fields except additional note
@@ -598,7 +599,7 @@ $('#tab_doctornote').on('hide.bs.collapse', function () {
 });
 
 //to reload date table on radio btn click
-$("input[name=toggle_type]").on('click', function () {
+$("input[name=toggle_type]").on('change', function () {
 	event.stopPropagation();
 	on_toggling_curr_past(curr_obj);
 	docnote_date_tbl.ajax.url( "./doctornote/table?"+$.param(dateParam_docnote) ).load(function(data){

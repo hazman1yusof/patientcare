@@ -25,7 +25,7 @@
 <div class="ui column">
     <div class="ui segments" style="position: relative;">
         <div class="ui secondary segment bluecloudsegment">
-            <div class="ui form">
+            <div class="ui form" >
                 <div class="six wide column">
                     <div class="inline fields" style="margin-bottom: 0px;">
                         <label style="color: rgba(0,0,0,.6);">DOCTOR NOTES</label> 
@@ -238,8 +238,13 @@
                         </div>
                         
                         <div class="sixteen wide column" style="display:none" id="addnotes">
-                            <table id="jqGridAddNotes" class="table table-striped"></table>
-                            <div id="jqGridPagerAddNotes"></div>
+                            <div class="ui segments">
+                                <div class="ui secondary segment">Additional Notes</div>
+                                <div class="ui segment" id="jqGridAddNotes_c">
+                                    <table id="jqGridAddNotes" class="table table-striped"></table>
+                                    <div id="jqGridPagerAddNotes"></div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="sixteen wide column">

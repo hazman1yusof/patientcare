@@ -54,7 +54,6 @@ $(document).ready(function () {
 		height: 365,
 		rowNum: 30,
 		pager:'#jqGrid_transPager_diet',
-		viewrecords: true,
 		loadonce:false,
 		scroll: true,
 		sortname: 'id',
