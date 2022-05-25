@@ -84,7 +84,7 @@ $(document).ready(function () {
 	jqgrid_label_align_right('#jqGrid_trans_phys');
 
 	var myEditOptions_phys_add = {
-        keys: true,
+        keys: false,
         extraparam:{
 		    "_token": $("#_token").val(),
 		    "mrn": selrowData('#jqGrid').MRN,
@@ -124,7 +124,7 @@ $(document).ready(function () {
     };
 
     var myEditOptions_phys_edit = {
-        keys: true,
+        keys: false,
         extraparam:{
 		    "_token": $("#_token").val(),
 		    "mrn": selrowData('#jqGrid').MRN,

@@ -170,6 +170,12 @@ class DieteticCareNotesController extends defaultController
         DB::beginTransaction();
 
         try {
+            
+            $episode = DB::table('hisdb.episode')
+                            ->where('compcode','=',session('compcode'))
+                            ->where('mrn','=',$request->mrn_dieteticCareNotes_fup)
+                            ->where('episno','=',$request->episno_dieteticCareNotes_fup)
+                            ->update(['stats_diet' => 'SEEN']);
 
             DB::table('hisdb.patdietfup')
                     ->insert([
@@ -212,6 +218,12 @@ class DieteticCareNotesController extends defaultController
         DB::beginTransaction();
 
         try {
+            
+            $episode = DB::table('hisdb.episode')
+                            ->where('compcode','=',session('compcode'))
+                            ->where('mrn','=',$request->mrn_dieteticCareNotes_fup)
+                            ->where('episno','=',$request->episno_dieteticCareNotes_fup)
+                            ->update(['stats_diet' => 'SEEN']);
 
             DB::table('hisdb.patdietfup')
                 ->where('compcode','=',session('compcode'))

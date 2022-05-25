@@ -68,7 +68,7 @@ $(document).ready(function () {
 		},
 		loadComplete: function () {
 			// get_trans_tbl_data();
-			if(addmore_onadd == true){
+			if(addmore_onadd_diet == true){
 				$('#jqGrid_trans_diet_iladd').click();
 			}
 			if($('#jqGrid_trans_dietPager_right').data('loaded') == undefined){
@@ -128,14 +128,14 @@ $(document).ready(function () {
 	// });
 
 	var myEditOptions_diet_add = {
-        keys: true,
+        keys: false,
         extraparam:{
 		    "_token": $("#_token").val(),
 		    "mrn": selrowData('#jqGrid').MRN,
 		    "episno": selrowData('#jqGrid').Episno,
         },
         oneditfunc: function (rowid) {
-        	addmore_onadd = true;
+        	addmore_onadd_diet = true;
         	let selrow = selrowData('#jqGrid');
 
 			$("#jqGrid_trans_diet input[name='chgcode'],#jqGrid_trans_diet input[name='dosecode'],#jqGrid_trans_diet input[name='freqcode'],#jqGrid_trans_diet input[name='inscode'],#jqGrid_trans_diet input[name='drugindcode']").on('keydown',{data:this},onTab);
@@ -172,7 +172,7 @@ $(document).ready(function () {
     };
 
     var myEditOptions_diet_edit = {
-        keys: true,
+        keys: false,
         extraparam:{
 		    "_token": $("#_token").val(),
 		    "mrn": selrowData('#jqGrid').MRN,
@@ -298,7 +298,7 @@ $(document).ready(function () {
 
 });
 
-var addmore_onadd = false;
+var addmore_onadd_diet = false;
 var urlParam_trans_diet = {
 	url:'./doctornote/table',
 	isudept:'DIET',

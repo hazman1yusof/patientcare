@@ -9,6 +9,8 @@ $(document).ready(function () {
 	});
 
 	$("#new_dieteticCareNotes").click(function(){
+		hide_tran_button_diet(false);
+		$('#stats_diet').text('ATTEND');
 		button_state_dieteticCareNotes('wait');
 		enableForm('#formDieteticCareNotes');
 		rdonly('#formDieteticCareNotes');
@@ -17,6 +19,8 @@ $(document).ready(function () {
 	});
 
 	$("#edit_dieteticCareNotes").click(function(){
+		hide_tran_button_diet(false);
+		$('#stats_diet').text('ATTEND');
 		button_state_dieteticCareNotes('wait');
 		enableForm('#formDieteticCareNotes');
 		rdonly('#formDieteticCareNotes');
@@ -31,6 +35,7 @@ $(document).ready(function () {
 			saveForm_dieteticCareNotes(function(){
 				$("#cancel_dieteticCareNotes").data('oper','edit');
 				$("#cancel_dieteticCareNotes").click();
+				$('#stats_diet').text('SEEN');
 				button_state_dieteticCareNotes('edit');
 				// $("#jqGridPagerRefresh").click();
 			});
@@ -363,10 +368,13 @@ function populate_dieteticCareNotes_currpt(obj){
 	$('#occupation_show_dieteticCareNotes').text(if_none(obj.OccupCode).toUpperCase());
 	$('#citizenship_show_dieteticCareNotes').text(if_none(obj.Citizencode).toUpperCase());
 	$('#area_show_dieteticCareNotes').text(if_none(obj.AreaCode).toUpperCase());
+	$('#stats_diet').text(obj.stats_diet.toUpperCase());
 
 	//formDieteticCareNotes
 	$('#mrn_dieteticCareNotes,#mrn_dieteticCareNotes_fup').val(obj.MRN);
 	$("#episno_dieteticCareNotes,#episno_dieteticCareNotes_fup").val(obj.Episno);
+
+	$('#stats_diet').show();
 
 	var urlParam={
         action:'get_table_dieteticCareNotes',

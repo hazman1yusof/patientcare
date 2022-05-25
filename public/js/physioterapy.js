@@ -89,9 +89,13 @@ $(document).ready(function () {
 
 	function phys_phase(phase){
 		if(phase == 'rehab'){
+			$('#stats_rehab').show();
+			$('#stats_physio').hide();
 			$('a.item[data-tab=subass]').click();
 			$('a.item[data-tab=bodydiag]').hide();
 		}else{
+			$('#stats_physio').show();
+			$('#stats_rehab').hide();
 			$('a.item[data-tab=bodydiag]').show();
 		}
 	}
@@ -347,6 +351,8 @@ function populate_phys(obj){
 	$('#occupation_show_phys').text(if_none(obj.OccupCode).toUpperCase());
 	$('#citizenship_show_phys').text(if_none(obj.Citizencode).toUpperCase());
 	$('#area_show_phys').text(if_none(obj.AreaCode).toUpperCase());
+	$('#stats_rehab').text(obj.stats_rehab.toUpperCase());
+	$('#stats_physio').text(obj.stats_physio.toUpperCase());
 
 	//formphys
 	$('#mrn_phys').val(obj.MRN);

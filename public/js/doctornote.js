@@ -26,6 +26,7 @@ $(document).ready(function () {
 
 	$("#new_doctorNote").click(function(){
     	// $('#docnote_date_tbl tbody tr').removeClass('active');
+		hide_tran_button(true);
 		$('#cancel_doctorNote').data('oper','add');
 		button_state_doctorNote('wait');
 		enableForm('#formDoctorNote');
@@ -36,6 +37,7 @@ $(document).ready(function () {
 	});
 
 	$("#edit_doctorNote").click(function(){
+		hide_tran_button(true);
 		button_state_doctorNote('wait');
 		enableForm('#formDoctorNote');
 		rdonly('#formDoctorNote');

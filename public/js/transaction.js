@@ -72,43 +72,43 @@ $(document).ready(function () {
 			if(addmore_onadd == true){
 				$('#jqGrid_trans_iladd').click();
 			}
-			if($('#jqGrid_transPager_right').data('loaded') == undefined){
-				let button = `
-								<button type="button" class="btn btn-sm btn-success" id="discharge_btn">Patient Complete</button>
-							`;
-				$('#jqGrid_transPager_right').html(button);
-				$('#jqGrid_transPager_right').data('loaded','loaded');
+			// if($('#jqGrid_transPager_right').data('loaded') == undefined){
+			// 	let button = `
+			// 					<button type="button" class="btn btn-sm btn-success" id="discharge_btn">Patient Complete</button>
+			// 				`;
+			// 	$('#jqGrid_transPager_right').html(button);
+			// 	$('#jqGrid_transPager_right').data('loaded','loaded');
 
-				$('#discharge_btn').click(function(){
-					let episno = selrowData('#jqGrid').Episno;
-					let mrn = selrowData('#jqGrid').MRN;
-					let idno = selrowData('#jqGrid').idno;
-					if(episno != undefined || episno != null ){
-						var r = confirm("Do you want to complete this patient order?");
-						if (r == true) {
+			// 	$('#discharge_btn').click(function(){
+			// 		let episno = selrowData('#jqGrid').Episno;
+			// 		let mrn = selrowData('#jqGrid').MRN;
+			// 		let idno = selrowData('#jqGrid').idno;
+			// 		if(episno != undefined || episno != null ){
+			// 			var r = confirm("Do you want to complete this patient order?");
+			// 			if (r == true) {
 
-							$('button#discharge_btn').data('idno',idno);
+			// 				$('button#discharge_btn').data('idno',idno);
 
-							var postobj={
-		    					_token : $('#_token').val(),
-						        episno: episno,
-						        mrn: mrn,
-						        reg_date: $('#sel_date').val()
-						    }
+			// 				var postobj={
+		 //    					_token : $('#_token').val(),
+			// 			        episno: episno,
+			// 			        mrn: mrn,
+			// 			        reg_date: $('#sel_date').val()
+			// 			    }
 
-							$.post( "./doctornote/form?action=submit_patient", postobj , function( data ) {
+			// 				$.post( "./doctornote/form?action=submit_patient", postobj , function( data ) {
 		        	
-						    },'json').done(function(data) {
-						    	SmoothScrollToTop();
-						        refreshGrid("#jqGrid");
-						    }).fail(function(data){
+			// 			    },'json').done(function(data) {
+			// 			    	SmoothScrollToTop();
+			// 			        refreshGrid("#jqGrid");
+			// 			    }).fail(function(data){
 						        
-						    });
-						}
-					}
+			// 			    });
+			// 			}
+			// 		}
 					
-				});
-			}
+			// 	});
+			// }
 			// fdl.set_array().reset();
 		},
 	});
@@ -129,7 +129,7 @@ $(document).ready(function () {
 	// });
 
 	var myEditOptions_add = {
-        keys: true,
+        keys: false,
         extraparam:{
 		    "_token": $("#_token").val(),
 		    "mrn": selrowData('#jqGrid').MRN,
@@ -179,7 +179,7 @@ $(document).ready(function () {
     };
 
     var myEditOptions_edit = {
-        keys: true,
+        keys: false,
         extraparam:{
 		    "_token": $("#_token").val(),
 		    "mrn": selrowData('#jqGrid').MRN,

@@ -47,16 +47,16 @@ class physioController extends defaultController
                         return 'error happen..';
                 }
 
-            case 'save_table_phys_ncase':
+            // case 'save_table_phys_ncase':
 
-                switch($request->oper){
-                    case 'add':
-                        return $this->add($request);
-                    case 'edit':
-                        return $this->edit($request);
-                    default:
-                        return 'error happen..';
-                }
+            //     switch($request->oper){
+            //         case 'add':
+            //             return $this->add($request);
+            //         case 'edit':
+            //             return $this->edit($request);
+            //         default:
+            //             return 'error happen..';
+            //     }
 
             case 'get_table_phys':
                 return $this->get_table_phys($request);
@@ -76,18 +76,26 @@ class physioController extends defaultController
 
         try {
 
+            $episode = DB::table('hisdb.episode')
+                            ->where('compcode','=',session('compcode'))
+                            ->where('mrn','=',$request->mrn)
+                            ->where('episno','=',$request->episno);
+
+            $episode_obj = $episode->first();
+
+            if($request->category == 'Rehabilitation'){
+                $episode->update(['stats_rehab' => 'SEEN']);   
+
+            }else if($request->category == 'Physioteraphy'){
+                $episode->update(['stats_physio' => 'SEEN']); 
+
+            }
+
+
             if(!empty($request->referdiet) && $request->referdiet == 'yes'){
-                DB::table('hisdb.episode')
-                            ->where('compcode','=',session('compcode'))
-                            ->where('mrn','=',$request->mrn)
-                            ->where('episno','=',$request->episno)
-                            ->update(['reff_diet' => 'YES']);
+                $episode->update(['reff_diet' => 'YES']);
             }else{
-                DB::table('hisdb.episode')
-                            ->where('compcode','=',session('compcode'))
-                            ->where('mrn','=',$request->mrn)
-                            ->where('episno','=',$request->episno)
-                            ->update(['reff_diet' => null]);
+                $episode->update(['reff_diet' => null]);
             }
 
             DB::table('hisdb.patrehabncase')
@@ -219,18 +227,23 @@ class physioController extends defaultController
 
         try {
 
+            $episode = DB::table('hisdb.episode')
+                            ->where('compcode','=',session('compcode'))
+                            ->where('mrn','=',$request->mrn)
+                            ->where('episno','=',$request->episno);
+
+            $episode_obj = $episode->first();
+
+            if($request->category == 'Rehabilitation'){
+                $episode->update(['stats_rehab' => 'SEEN']);   
+            }else if($request->category == 'Physioteraphy'){
+                $episode->update(['stats_physio' => 'SEEN']); 
+            }
+
             if(!empty($request->referdiet) && $request->referdiet == 'yes'){
-                DB::table('hisdb.episode')
-                            ->where('compcode','=',session('compcode'))
-                            ->where('mrn','=',$request->mrn)
-                            ->where('episno','=',$request->episno)
-                            ->update(['reff_diet' => 'YES']);
+                $episode->update(['reff_diet' => 'YES']);
             }else{
-                DB::table('hisdb.episode')
-                            ->where('compcode','=',session('compcode'))
-                            ->where('mrn','=',$request->mrn)
-                            ->where('episno','=',$request->episno)
-                            ->update(['reff_diet' => null]);
+                $episode->update(['reff_diet' => null]);
             }
 
             DB::table('hisdb.patrehabncase')

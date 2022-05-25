@@ -16,6 +16,9 @@
 		  <input type="checkbox" class="hidden" name="referdiet" value="referdiet">
 		  <label>Refer to Dietician</label>
 		</div>
+
+		<a class="ui orange disabled label" id="stats_rehab" style="display: none;"></a>
+		<a class="ui orange disabled label" id="stats_physio" style="display: none;"></a>
 	</div>
 
 	<div class="ui small blue icon buttons" id="btn_grp_edit_phys_ncase" style="position: absolute;

@@ -111,7 +111,7 @@ $(document).ready(function () {
 				{ label: 'HP', name: 'telhp', width: 13 ,classes: 'wrap' , hidden:true},
 				{ label: 'Sex', name: 'Sex', width: 6 ,classes: 'wrap' },
 				{ label: 'Mode', name: 'pyrmode', width: 8 ,classes: 'wrap'},
-				{ label: 'Seen', name: 'doctorstatus', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick},
+				{ label: 'Seen', name: 'doctorstatus', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick,hidden: true },
 				{ label: 'idno', name: 'idno', hidden: true, key:true},
 				{ label: 'DOB', name: 'DOB', hidden: true },
 				{ label: 'RaceCode', name: 'RaceCode', hidden: true },
@@ -119,6 +119,10 @@ $(document).ready(function () {
 				{ label: 'OccupCode', name: 'OccupCode', hidden: true },
 				{ label: 'Citizencode', name: 'Citizencode', hidden: true },
 				{ label: 'AreaCode', name: 'AreaCode', hidden: true },
+				{ label: 'stats_doctor', name: 'stats_doctor', hidden: true },
+				{ label: 'stats_rehab', name: 'stats_rehab', hidden: true },
+				{ label: 'stats_physio', name: 'stats_physio', hidden: true },
+				{ label: 'stats_diet', name: 'stats_diet', hidden: true },
 			],
 			autowidth: true,
 			viewrecords: true,
@@ -131,9 +135,6 @@ $(document).ready(function () {
 				}
 				empty_userfile();
 				$('button#timer_stop').click();
-				hide_tran_button(false);
-				hide_tran_button_diet(false);
-				hide_tran_button_phys(false);
 				urlParam_trans.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans.episno = selrowData('#jqGrid').Episno;
 				urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
@@ -141,6 +142,8 @@ $(document).ready(function () {
 				urlParam_trans_phys.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans_phys.episno = selrowData('#jqGrid').Episno;
 				addmore_onadd = false;
+				addmore_onadd_phys = false;
+				addmore_onadd_diet = false;
 				refreshGrid("#jqGrid_trans", urlParam_trans);
 				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
 				refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
@@ -150,19 +153,19 @@ $(document).ready(function () {
 	            populate_userfile(selrowData('#jqGrid'));
 	            populate_phys(selrowData('#jqGrid'));
 
-				if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
-					$('#checkbox_completed').prop('disabled',true);
-					$('#checkbox_completed').prop('checked', true);
-					hide_tran_button(true);
-					hide_tran_button_diet(true);
-					hide_tran_button_phys(true);
-				}else{//kalau belum completed
-					$('#checkbox_completed').prop('disabled',false);
-					$('#checkbox_completed').prop('checked', false);
-					hide_tran_button(false);
-					hide_tran_button_diet(false);
-					hide_tran_button_phys(false);
-				}
+				// if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
+				// 	$('#checkbox_completed').prop('disabled',true);
+				// 	$('#checkbox_completed').prop('checked', true);
+				// 	hide_tran_button(true);
+				// 	hide_tran_button_diet(true);
+				// 	hide_tran_button_phys(true);
+				// }else{//kalau belum completed
+				// 	$('#checkbox_completed').prop('disabled',false);
+				// 	$('#checkbox_completed').prop('checked', false);
+				// 	hide_tran_button(false);
+				// 	hide_tran_button_diet(false);
+				// 	hide_tran_button_phys(false);
+				// }
 
 			},
 			ondblClickRow: function (rowid, iRow, iCol, e) {
@@ -210,7 +213,7 @@ $(document).ready(function () {
 				{ label: 'HP', name: 'telhp', width: 10 ,classes: 'wrap' },
 				{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
 				{ label: 'Mode', name: 'pyrmode', width: 10 ,classes: 'wrap'},
-				{ label: 'Seen', name: 'doctorstatus', width: 5 ,classes: 'wrap',formatter: formatterstatus_tick},
+				{ label: 'Seen', name: 'doctorstatus', width: 5 ,classes: 'wrap',formatter: formatterstatus_tick,hidden: true },
 				{ label: 'idno', name: 'idno', hidden: true, key:true},
 				{ label: 'DOB', name: 'DOB', hidden: true },
 				{ label: 'RaceCode', name: 'RaceCode', hidden: true },
@@ -218,6 +221,10 @@ $(document).ready(function () {
 				{ label: 'OccupCode', name: 'OccupCode', hidden: true },
 				{ label: 'Citizencode', name: 'Citizencode', hidden: true },
 				{ label: 'AreaCode', name: 'AreaCode', hidden: true },
+				{ label: 'stats_doctor', name: 'stats_doctor', hidden: true },
+				{ label: 'stats_rehab', name: 'stats_rehab', hidden: true },
+				{ label: 'stats_physio', name: 'stats_physio', hidden: true },
+				{ label: 'stats_diet', name: 'stats_diet', hidden: true },
 			],
 			autowidth: true,
 			viewrecords: true,
@@ -232,9 +239,6 @@ $(document).ready(function () {
 				}
 				empty_userfile();
 				$('button#timer_stop').click();
-				hide_tran_button(false);
-				hide_tran_button_diet(false);
-				hide_tran_button_phys(false);
 				urlParam_trans.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans.episno = selrowData('#jqGrid').Episno;
 				urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
@@ -242,6 +246,8 @@ $(document).ready(function () {
 				urlParam_trans_phys.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans_phys.episno = selrowData('#jqGrid').Episno;
 				addmore_onadd = false;
+				addmore_onadd_phys = false;
+				addmore_onadd_diet = false;
 				refreshGrid("#jqGrid_trans", urlParam_trans);
 				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
 				refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
@@ -251,19 +257,13 @@ $(document).ready(function () {
 	            populate_userfile(selrowData('#jqGrid'));
 	            populate_phys(selrowData('#jqGrid'));
 
-				if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
-					$('#checkbox_completed').prop('disabled',true);
-					$('#checkbox_completed').prop('checked', true);
-					hide_tran_button(true);
-					hide_tran_button_diet(true);
-					hide_tran_button_phys(true);
-				}else{//kalau belum completed
-					$('#checkbox_completed').prop('disabled',false);
-					$('#checkbox_completed').prop('checked', false);
-					hide_tran_button(false);
-					hide_tran_button_diet(false);
-					hide_tran_button_phys(false);
-				}
+				// if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
+				// 	$('#checkbox_completed').prop('disabled',true);
+				// 	$('#checkbox_completed').prop('checked', true);
+				// }else{//kalau belum completed
+				// 	$('#checkbox_completed').prop('disabled',false);
+				// 	$('#checkbox_completed').prop('checked', false);
+				// }
 
 			},
 			ondblClickRow: function (rowid, iRow, iCol, e) {

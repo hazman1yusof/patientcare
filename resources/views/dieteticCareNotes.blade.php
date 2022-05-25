@@ -2,6 +2,8 @@
 	<div class="ui segments" style="position: relative;">
 		<div class="ui secondary segment bluecloudsegment">
 			DIETETIC CARE NOTES	
+
+			<a class="ui orange disabled label" id="stats_diet" style="display: none;"></a>
 			<div class="ui small blue icon buttons" id="btn_grp_edit_dieteticCareNotes" style="position: absolute;
 						padding: 0 0 0 0;
 						right: 40px;
