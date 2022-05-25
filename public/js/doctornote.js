@@ -26,7 +26,6 @@ $(document).ready(function () {
 
 	$("#new_doctorNote").click(function(){
     	// $('#docnote_date_tbl tbody tr').removeClass('active');
-		hide_tran_button(true);
 		$('#cancel_doctorNote').data('oper','add');
 		button_state_doctorNote('wait');
 		enableForm('#formDoctorNote');
@@ -37,7 +36,6 @@ $(document).ready(function () {
 	});
 
 	$("#edit_doctorNote").click(function(){
-		hide_tran_button(true);
 		button_state_doctorNote('wait');
 		enableForm('#formDoctorNote');
 		rdonly('#formDoctorNote');
@@ -66,7 +64,7 @@ $(document).ready(function () {
 		disableForm('#formDoctorNote',['toggle_type']);
 		button_state_doctorNote($(this).data('oper'));
 		// dialog_mrn_edit.off();
-		$('#docnote_date_tbl tbody tr:eq(0)').click();	//to select first row
+		// $('#docnote_date_tbl tbody tr:eq(0)').click();	//to select first row
 	});
 
 	// to format number input to two decimal places (0.00)
@@ -346,6 +344,7 @@ dialog_icd.makedialog();
 
 button_state_doctorNote('empty');
 function button_state_doctorNote(state){
+	empty_transaction('add');
 	switch(state){
 		case 'empty':
 			$("#toggle_doctorNote").removeAttr('data-toggle');
@@ -365,6 +364,7 @@ function button_state_doctorNote(state){
 			$('#save_doctorNote,#cancel_doctorNote,#new_doctorNote').attr('disabled',true);
 			break;
 		case 'wait':
+			hide_tran_button(false);
 			dialog_icd.on();
 			$("#toggle_doctorNote").attr('data-toggle','collapse');
 			$("#save_doctorNote,#cancel_doctorNote").attr('disabled',false);

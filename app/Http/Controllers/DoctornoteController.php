@@ -237,7 +237,7 @@ class DoctornoteController extends Controller
                 ];
 
                 $table->update($array_edit);
-            }else{
+            }else if($request->oper == 'add'){
                 $array_insert = [
                     'compcode' => session('compcode'),
                     'mrn' => $request->mrn,
@@ -259,6 +259,10 @@ class DoctornoteController extends Controller
                 ];
 
                 $table->insert($array_insert);
+            }else if($request->oper == 'del'){
+                $table->where('mrn','=',$request->mrn)
+                        ->where('episno','=',$request->episno)
+                        ->where('id','=',$request->id)->delete();
             }
 
             

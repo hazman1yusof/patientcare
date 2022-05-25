@@ -68,46 +68,11 @@ $(document).ready(function () {
 		},
 		loadComplete: function () {
 			// get_trans_tbl_data();
+        	$('#jqGrid_trans_diet_ildelete').removeClass('ui-disabled');
 			if(addmore_onadd_diet == true){
 				$('#jqGrid_trans_diet_iladd').click();
 			}
-			if($('#jqGrid_trans_dietPager_right').data('loaded') == undefined){
-				let button = `
-								<button type="button" class="btn btn-sm btn-success" id="discharge_btn_diet">Submit</button>
-							`;
-				$('#jqGrid_trans_dietPager_right').html(button);
-				$('#jqGrid_trans_dietPager_right').data('loaded','loaded');
-
-				$('#discharge_btn_diet').click(function(){
-					let episno = selrowData('#jqGrid').Episno;
-					let mrn = selrowData('#jqGrid').MRN;
-					let idno = selrowData('#jqGrid').idno;
-					if(episno != undefined || episno != null ){
-						var r = confirm("Do you want to complete this patient order?");
-						if (r == true) {
-
-							$('button#discharge_btn_diet').data('idno',idno);
-
-							var postobj={
-		    					_token : $('#_token').val(),
-						        episno: episno,
-						        mrn: mrn,
-						        reg_date: $('#sel_date').val()
-						    }
-
-							$.post( "./doctornote/form?action=submit_patient", postobj , function( data ) {
-		        	
-						    },'json').done(function(data) {
-						    	SmoothScrollToTop();
-						        refreshGrid("#jqGrid");
-						    }).fail(function(data){
-						        
-						    });
-						}
-					}
-					
-				});
-			}
+			
 			// fdl.set_array().reset();
 		},
 	});
@@ -137,6 +102,7 @@ $(document).ready(function () {
         oneditfunc: function (rowid) {
         	addmore_onadd_diet = true;
         	let selrow = selrowData('#jqGrid');
+        	$('#jqGrid_trans_diet_ildelete').addClass('ui-disabled');
 
 			$("#jqGrid_trans_diet input[name='chgcode'],#jqGrid_trans_diet input[name='dosecode'],#jqGrid_trans_diet input[name='freqcode'],#jqGrid_trans_diet input[name='inscode'],#jqGrid_trans_diet input[name='drugindcode']").on('keydown',{data:this},onTab);
 
@@ -167,7 +133,7 @@ $(document).ready(function () {
 			$("#jqGrid_trans_diet").jqGrid('setGridParam', { editurl: editurl });
         },
         afterrestorefunc : function( response ) {
-			
+        	$('#jqGrid_trans_diet_ildelete').removeClass('ui-disabled');
 	    }
     };
 
@@ -182,6 +148,7 @@ $(document).ready(function () {
 
         	let selrow = selrowData('#jqGrid');
         	let selrow_tran = selrowData('#jqGrid_trans_diet');
+        	$('#jqGrid_trans_phys_ildelete').addClass('ui-disabled');
 
         	$("#jqGrid_trans_diet input[name='chgcode']").val(selrow_tran.chg_code);
         	$("#jqGrid_trans_diet input[name='inscode']").val(selrow_tran.ins_code);
@@ -214,7 +181,7 @@ $(document).ready(function () {
 			$("#jqGrid_trans_diet").jqGrid('setGridParam', { editurl: editurl });
         },
         afterrestorefunc : function( response ) {
-			
+        	$('#jqGrid_trans_diet_ildelete').removeClass('ui-disabled');
 	    }
     };
 
@@ -228,6 +195,50 @@ $(document).ready(function () {
 			addRowParams: myEditOptions_diet_add
 		},
 		editParams: myEditOptions_diet_edit
+	}).jqGrid('navButtonAdd', "#jqGrid_transPager_diet", {	
+		id: "jqGrid_trans_diet_ildelete",	
+		caption: "", cursor: "pointer", position: "last",	
+		buttonicon: "glyphicon glyphicon-trash",	
+		title: "Delete Selected Row",	
+		onClickButton: function () {	
+			var rowid = $("#jqGrid_trans_diet").jqGrid('getGridParam', 'selrow');	
+			if (!rowid) {	
+				alert('Please select row');	
+			} else {
+	        	let selrow = selrowData('#jqGrid');
+	        	let selrow_diet = selrowData('#jqGrid_trans_diet');
+				$.confirm({
+				    title: 'Confirm',
+				    content: 'Are you sure you want to delete this row?',
+				    buttons: {
+				        confirm:{
+				        	btnClass: 'btn-blue',
+				        	action: function () {
+					        	var param = {
+									_token: $("#_token").val(),
+									mrn: selrow.MRN,
+						    		episno: selrow.Episno,
+						    		id: selrow_diet.id,
+						    		oper: 'del'
+								}
+
+								$.post( "./doctornote_transaction_save",param, function( data ){
+									addmore_onadd_diet = false;
+									refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
+								},'json');
+					         }
+
+				        },
+				        cancel: {
+				        	action: function () {
+								
+					        },
+				        }
+				    }
+
+				});
+			}	
+		},	
 	});
 
 	hide_tran_button_diet(true);
@@ -307,9 +318,9 @@ var urlParam_trans_diet = {
 
 function hide_tran_button_diet(hide=true){
 	if(hide){
-		$('#jqGrid_trans_diet_iladd,#jqGrid_trans_diet_iledit,#jqGrid_trans_ilsave,#jqGrid_trans_ilcancel').hide();
+		$('#jqGrid_trans_diet_iladd,#jqGrid_trans_diet_iledit,#jqGrid_trans_diet_ilsave,#jqGrid_trans_diet_ilcancel,#jqGrid_trans_diet_ildelete').hide();
 	}else{
-		$('#jqGrid_trans_diet_iladd,#jqGrid_trans_diet_iledit,#jqGrid_trans_ilsave,#jqGrid_trans_ilcancel').show();
+		$('#jqGrid_trans_diet_iladd,#jqGrid_trans_diet_iledit,#jqGrid_trans_diet_ilsave,#jqGrid_trans_diet_ilcancel,#jqGrid_trans_diet_ildelete').show();
 	}
 }
 
@@ -468,7 +479,8 @@ function get_trans_tbl_data(){
 }
 
 
-function empty_transaction_diet(){
+function empty_transaction_diet(kosongkan = 'kosongkan'){
+	addmore_onadd_diet = false;
 	hide_tran_button_diet(true);
-	refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet,'kosongkan');
+	refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet,kosongkan);
 }

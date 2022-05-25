@@ -69,6 +69,7 @@ $(document).ready(function () {
 		},
 		loadComplete: function () {
 			// get_trans_tbl_data();
+        	$('#jqGrid_trans_ildelete').removeClass('ui-disabled');
 			if(addmore_onadd == true){
 				$('#jqGrid_trans_iladd').click();
 			}
@@ -138,6 +139,7 @@ $(document).ready(function () {
         oneditfunc: function (rowid) {
         	addmore_onadd = true;
         	let selrow = selrowData('#jqGrid');
+        	$('#jqGrid_trans_ildelete').addClass('ui-disabled');
 
 			$("#jqGrid_trans").jqGrid("setRowData", rowid, {
 					t_trxdate:$('#sel_date').val(),
@@ -174,7 +176,7 @@ $(document).ready(function () {
 			$("#jqGrid_trans").jqGrid('setGridParam', { editurl: editurl });
         },
         afterrestorefunc : function( response ) {
-			
+        	$('#jqGrid_trans_ildelete').removeClass('ui-disabled');
 	    }
     };
 
@@ -189,6 +191,7 @@ $(document).ready(function () {
 
         	let selrow = selrowData('#jqGrid');
         	let selrow_tran = selrowData('#jqGrid_trans');
+        	$('#jqGrid_trans_ildelete').addClass('ui-disabled');
 
         	$("#jqGrid_trans input[name='chgcode']").val(selrow_tran.chg_code);
         	$("#jqGrid_trans input[name='inscode']").val(selrow_tran.ins_code);
@@ -221,7 +224,7 @@ $(document).ready(function () {
 			$("#jqGrid_trans").jqGrid('setGridParam', { editurl: editurl });
         },
         afterrestorefunc : function( response ) {
-			
+        	$('#jqGrid_trans_ildelete').removeClass('ui-disabled');
 	    }
     };
 
@@ -235,6 +238,49 @@ $(document).ready(function () {
 			addRowParams: myEditOptions_add
 		},
 		editParams: myEditOptions_edit
+	}).jqGrid('navButtonAdd', "#jqGrid_transPager", {	
+		id: "jqGrid_trans_ildelete",	
+		caption: "", cursor: "pointer", position: "last",	
+		buttonicon: "glyphicon glyphicon-trash",	
+		title: "Delete Selected Row",	
+		onClickButton: function () {	
+			var rowid = $("#jqGrid_trans").jqGrid('getGridParam', 'selrow');	
+			if (!rowid) {	
+				alert('Please select row');	
+			} else {
+	        	let selrow = selrowData('#jqGrid');
+	        	let selrow_trans = selrowData('#jqGrid_trans');
+				$.confirm({
+				    title: 'Confirm',
+				    content: 'Are you sure you want to delete this row?',
+				    buttons: {
+				        confirm:{
+				        	btnClass: 'btn-blue',
+				        	action: function () {
+					        	var param = {
+									_token: $("#_token").val(),
+									mrn: selrow.MRN,
+						    		episno: selrow.Episno,
+						    		id: selrow_trans.id,
+						    		oper: 'del'
+								}
+
+								$.post( "./doctornote_transaction_save",param, function( data ){
+									refreshGrid("#jqGrid_trans", urlParam_trans);
+								},'json');
+					         }
+
+				        },
+				        cancel: {
+				        	action: function () {
+								
+					        },
+				        }
+				    }
+
+				});
+			}	
+		},	
 	});
 
 	hide_tran_button(true);
@@ -314,9 +360,9 @@ var urlParam_trans = {
 
 function hide_tran_button(hide=true){
 	if(hide){
-		$('#jqGrid_trans_iladd,#jqGrid_trans_iledit,#jqGrid_trans_ilsave,#jqGrid_trans_ilcancel').hide();
+		$('#jqGrid_trans_iladd,#jqGrid_trans_iledit,#jqGrid_trans_ilsave,#jqGrid_trans_ilcancel,#jqGrid_trans_ildelete').hide();
 	}else{
-		$('#jqGrid_trans_iladd,#jqGrid_trans_iledit,#jqGrid_trans_ilsave,#jqGrid_trans_ilcancel').show();
+		$('#jqGrid_trans_iladd,#jqGrid_trans_iledit,#jqGrid_trans_ilsave,#jqGrid_trans_ilcancel,#jqGrid_trans_ildelete').show();
 	}
 }
 
@@ -423,7 +469,7 @@ function pop_item_select(type,id,rowid,ontab=false){
         item = selecter.row( this ).data();
         $('input[name='+type+'][optid='+rowid+']').val(item["code"]);
         $('input[name='+type+'][optid='+rowid+']').parent().next().html(item["description"])
-        $("#jqGrid_trans").jqGrid('setRowData', rowid ,{m_description:item["description"]});
+        // $("#jqGrid_trans").jqGrid('setRowData', rowid ,{m_description:item["description"]});
             
         $('#mdl_item_selector').modal('hide');
     });
@@ -469,7 +515,8 @@ function get_trans_tbl_data(){
 
 }
 
-function empty_transaction(){
+function empty_transaction(kosongkan = 'kosongkan'){
+	addmore_onadd = false;
 	hide_tran_button(true);
-	refreshGrid("#jqGrid_trans", urlParam_trans,'kosongkan');
+	refreshGrid("#jqGrid_trans", urlParam_trans,kosongkan);
 }

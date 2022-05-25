@@ -9,7 +9,6 @@ $(document).ready(function () {
 	});
 
 	$("#new_dieteticCareNotes").click(function(){
-		hide_tran_button_diet(false);
 		$('#stats_diet').text('ATTEND');
 		button_state_dieteticCareNotes('wait');
 		enableForm('#formDieteticCareNotes');
@@ -19,7 +18,6 @@ $(document).ready(function () {
 	});
 
 	$("#edit_dieteticCareNotes").click(function(){
-		hide_tran_button_diet(false);
 		$('#stats_diet').text('ATTEND');
 		button_state_dieteticCareNotes('wait');
 		enableForm('#formDieteticCareNotes');
@@ -299,6 +297,7 @@ function disableFields_dieteticCareNotes() {
 
 button_state_dieteticCareNotes('empty');
 function button_state_dieteticCareNotes(state){
+	empty_transaction_diet('add');
 	switch(state){
 		case 'empty':
 			$("#toggle_dieteticCareNotes").removeAttr('data-toggle');
@@ -318,6 +317,7 @@ function button_state_dieteticCareNotes(state){
 			$('#save_dieteticCareNotes,#cancel_dieteticCareNotes,#new_dieteticCareNotes').attr('disabled',true);
 			break;
 		case 'wait':
+			hide_tran_button_diet(false);
 			$("#toggle_dieteticCareNotes").attr('data-toggle','collapse');
 			$("#save_dieteticCareNotes,#cancel_dieteticCareNotes").attr('disabled',false);
 			$('#edit_dieteticCareNotes,#new_dieteticCareNotes').attr('disabled',true);

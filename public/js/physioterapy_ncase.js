@@ -5,7 +5,6 @@ $(document).ready(function () {
 	$('.ui.radio.checkbox').checkbox();
 
 	$("#new_phys_ncase").click(function(){
-		hide_tran_button_phys(false);
 		$('#stats_rehab,#stats_physio').text('ATTEND');
 		button_state_phys_ncase('wait');
 		enableForm('#formphys_ncase');
@@ -17,7 +16,6 @@ $(document).ready(function () {
 	});
 
 	$("#edit_phys_ncase").click(function(){
-		hide_tran_button_phys(false);
 		$('#stats_rehab,#stats_physio').text('ATTEND');
 		button_state_phys_ncase('wait');
 		enableForm('#formphys_ncase');
@@ -138,6 +136,7 @@ function saveForm_phys_ncase(callback){
 }
 
 function button_state_phys_ncase(state){
+	empty_transaction_phys('add');
 	switch(state){
 		case 'empty':
 			// $("#toggle_phys_ncase").removeAttr('data-toggle');
@@ -157,6 +156,7 @@ function button_state_phys_ncase(state){
 			$('#save_phys_ncase,#cancel_phys_ncase,#new_phys_ncase').attr('disabled',true);
 			break;
 		case 'wait':
+			hide_tran_button_phys(false);
 			// $("#toggle_phys_ncase").attr('data-toggle','collapse');
 			$("#save_phys_ncase,#cancel_phys_ncase").attr('disabled',false);
 			$('#edit_phys_ncase,#new_phys_ncase').attr('disabled',true);

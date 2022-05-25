@@ -75,6 +75,7 @@ $(document).ready(function () {
 			}
 		},
 		loadComplete: function () {
+        	$('#jqGrid_trans_phys_ildelete').removeClass('ui-disabled');
 			if(addmore_onadd_phys == true){
 				$('#jqGrid_trans_phys_iladd').click();
 			}
@@ -93,6 +94,7 @@ $(document).ready(function () {
         oneditfunc: function (rowid) {
         	addmore_onadd_phys = true;
         	let selrow = selrowData('#jqGrid');
+        	$('#jqGrid_trans_phys_ildelete').addClass('ui-disabled');
 
 			$("#jqGrid_trans_phys input[name='chgcode'],#jqGrid_trans_phys input[name='dosecode'],#jqGrid_trans_phys input[name='freqcode'],#jqGrid_trans_phys input[name='inscode'],#jqGrid_trans_phys input[name='drugindcode']").on('keydown',{data:this},onTab);
 
@@ -119,7 +121,7 @@ $(document).ready(function () {
 			$("#jqGrid_trans_phys").jqGrid('setGridParam', { editurl: editurl });
         },
         afterrestorefunc : function( response ) {
-			
+        	$('#jqGrid_trans_phys_ildelete').removeClass('ui-disabled');
 	    }
     };
 
@@ -134,6 +136,7 @@ $(document).ready(function () {
 
         	let selrow = selrowData('#jqGrid');
         	let selrow_tran = selrowData('#jqGrid_trans_phys');
+        	$('#jqGrid_trans_phys_ildelete').addClass('ui-disabled');
 
         	$("#jqGrid_trans_phys input[name='chgcode']").val(selrow_tran.chg_code);
         	$("#jqGrid_trans_phys input[name='inscode']").val(selrow_tran.ins_code);
@@ -166,7 +169,7 @@ $(document).ready(function () {
 			$("#jqGrid_trans_phys").jqGrid('setGridParam', { editurl: editurl });
         },
         afterrestorefunc : function( response ) {
-			
+        	$('#jqGrid_trans_phys_ildelete').removeClass('ui-disabled');
 	    }
     };
 
@@ -180,6 +183,50 @@ $(document).ready(function () {
 			addRowParams: myEditOptions_phys_add
 		},
 		editParams: myEditOptions_phys_edit
+	}).jqGrid('navButtonAdd', "#jqGrid_transPager_phys", {	
+		id: "jqGrid_trans_phys_ildelete",	
+		caption: "", cursor: "pointer", position: "last",	
+		buttonicon: "glyphicon glyphicon-trash",	
+		title: "Delete Selected Row",	
+		onClickButton: function () {	
+			var rowid = $("#jqGrid_trans_phys").jqGrid('getGridParam', 'selrow');	
+			if (!rowid) {	
+				alert('Please select row');	
+			} else {
+	        	let selrow = selrowData('#jqGrid');
+	        	let selrow_phys = selrowData('#jqGrid_trans_phys');
+				$.confirm({
+				    title: 'Confirm',
+				    content: 'Are you sure you want to delete this row?',
+				    buttons: {
+				        confirm:{
+				        	btnClass: 'btn-blue',
+				        	action: function () {
+					        	var param = {
+									_token: $("#_token").val(),
+									mrn: selrow.MRN,
+						    		episno: selrow.Episno,
+						    		id: selrow_phys.id,
+						    		oper: 'del'
+								}
+
+								$.post( "./doctornote_transaction_save",param, function( data ){
+									addmore_onadd_phys = false;
+									refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
+								},'json');
+					         }
+
+				        },
+				        cancel: {
+				        	action: function () {
+								
+					        },
+				        }
+				    }
+
+				});
+			}	
+		},	
 	});
 
 	hide_tran_button_phys(true);
@@ -246,9 +293,9 @@ var urlParam_trans_phys = {
 
 function hide_tran_button_phys(hide=true){
 	if(hide){
-		$('#jqGrid_trans_phys_iladd,#jqGrid_trans_phys_iledit,#jqGrid_trans_phys_ilsave,#jqGrid_trans_phys_ilcancel').hide();
+		$('#jqGrid_trans_phys_iladd,#jqGrid_trans_phys_iledit,#jqGrid_trans_phys_ilsave,#jqGrid_trans_phys_ilcancel,#jqGrid_trans_phys_ildelete').hide();
 	}else{
-		$('#jqGrid_trans_phys_iladd,#jqGrid_trans_phys_iledit,#jqGrid_trans_phys_ilsave,#jqGrid_trans_phys_ilcancel').show();
+		$('#jqGrid_trans_phys_iladd,#jqGrid_trans_phys_iledit,#jqGrid_trans_phys_ilsave,#jqGrid_trans_phys_ilcancel,#jqGrid_trans_phys_ildelete').show();
 	}
 }
 
@@ -276,7 +323,8 @@ function get_trans_tbl_data(){
 }
 
 
-function empty_transaction_phys(){
+function empty_transaction_phys(kosongkan = 'kosongkan'){
+	addmore_onadd_phys = false
 	hide_tran_button_phys(true);
-	refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys,'kosongkan');
+	refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys,kosongkan);
 }
