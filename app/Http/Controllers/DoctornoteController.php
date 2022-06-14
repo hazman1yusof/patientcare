@@ -933,10 +933,11 @@ class DoctornoteController extends Controller
         //             ->first();
 
         $data = DB::table('hisdb.chgmast')
+                    ->select('chgcode as code','description as description')
                     ->where('compcode','=',session('compcode'))
                     // ->where('chggroup','=',$pharcode->pvalue1)
                     ->where('active','=',1)
-                    ->select('chgcode as code','description as description');
+                    ->orderBy('chgcode', 'ASC');
 
         if(!empty($request->search)){
             $data = $data->where('description','LIKE','%'.$request->search.'%')->first();
@@ -1019,6 +1020,7 @@ class DoctornoteController extends Controller
 
     public function doctornote_event(Request $request){
         $emergency = DB::table('hisdb.episode')
+                        ->where('compcode','=',session('compcode'))
                         ->whereRaw(
                           "(reg_date >= ? AND reg_date <= ?)", 
                           [

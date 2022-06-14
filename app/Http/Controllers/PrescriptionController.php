@@ -39,7 +39,7 @@ class PrescriptionController extends Controller
         $table_sysdb = DB::table('sysdb.sysparam')
                             ->where('compcode','=',session('compcode'))
                             ->where('source','=','OE')
-                            ->where('trantype','=','pharmacy')
+                            ->where('trantype','=','PHAR')
                             ->first();
 
         $table_prescription = DB::table('hisdb.chargetrx as trx') //ambil dari patmast balik
