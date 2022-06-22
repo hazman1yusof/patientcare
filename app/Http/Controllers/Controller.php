@@ -19,4 +19,14 @@ class Controller extends BaseController
     	return $navbar;
     }
 
+    public function index_of_occurance($val,$array) {
+        $occ_idx = [];
+        foreach($array as $key => $value){
+            if($value == $val){
+                array_push($occ_idx, $key);
+            }
+        }   
+        return $occ_idx;
+    }
+
 }
