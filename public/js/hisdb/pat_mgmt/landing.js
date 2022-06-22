@@ -119,12 +119,6 @@ $(document).ready(function() {
     }).on("loaded.rs.jquery.bootgrid", function(){
         counter = 0;
 
-        // var istablet = $(window).width() <= 1024;
-
-        // if(istablet){
-            
-        // }
-
         if(!$("#Scol").length){ //tambah search col kat atas utk search by field
             $(".actionBar").prepend(`
                 <select id='Scol' class='search form-group form-control' style='width: fit-content !important;'>

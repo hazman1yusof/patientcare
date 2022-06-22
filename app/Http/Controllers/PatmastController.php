@@ -164,7 +164,6 @@ class PatmastController extends defaultController
             return json_encode($responce);
 
         }else{
-
             // SELECT COUNT(*) FROM `pat_mast` WHERE idno <= 62863
             // if(!empty($request->lastidno)){
                 // $count_ = DB::table('hisdb.pat_mast')
@@ -249,6 +248,7 @@ class PatmastController extends defaultController
             $responce->rows = $paginate->items();
             $responce->sql = $table_patm->toSql();
             $responce->sql_bind = $table_patm->getBindings();
+            $responce->query = $this->getQueries($table_patm);
 
             return json_encode($responce);
 
@@ -991,21 +991,23 @@ class PatmastController extends defaultController
                     DB::table('debtor.debtormast')
                         ->insert([
                             'CompCode' => session('compcode'),
-                            'DebtorCode' => $epis_mrn,
+                            'DebtorCode' => str_pad($epis_mrn, 7, "0", STR_PAD_LEFT),
                             'Name' => $patmast_data->Name,
                             'Address1' => $patmast_data->Address1,
                             'Address2' => $patmast_data->Address2,
                             'Address3' => $patmast_data->Address3,
-                            'DebtorType' => "PR",
+                            'DebtorType' => "PT",
                             'DepCCode'  => $debtortype_data->depccode,
                             'DepGlAcc' => $debtortype_data->depglacc,
-                            'BillType' => $epis_type,
-                            // 'BillTypeOP' => "OP",
+                            'BillType' => "IP",
+                            'BillTypeOP' => "OP",
                             'ActDebCCode' => $debtortype_data->actdebccode,
                             'ActDebGlAcc' => $debtortype_data->actdebglacc,
                             'upduser' => session('username'),
                             'upddate' => Carbon::now("Asia/Kuala_Lumpur"),
-                            'RecStatus' => "A"
+                            'coverageip' => 999999999.99,
+                            'coverageop' => 999999999.99,
+                            'RecStatus' => "ACTIVE"
                         ]);
                 }else{
 
@@ -1183,10 +1185,15 @@ class PatmastController extends defaultController
                         'pvalue1' => 1,
                         'pvalue2' => Carbon::now("Asia/Kuala_Lumpur")->toDateString()
                     ]);
+
+                $current_pvalue1 = 1;
+            }else{
+                $current_pvalue1 = intval($queue_data->pvalue1);
             }
 
-                //tambah satu dkt queue sysparam
-            $current_pvalue1 = intval($queue_data->pvalue1);
+
+            //tambah satu dkt queue sysparam
+            
             $queue_obj
                 ->update([
                     'pvalue1' => $current_pvalue1+1

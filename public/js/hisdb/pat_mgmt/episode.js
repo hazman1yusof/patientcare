@@ -20,28 +20,37 @@
         // parent_close_disabled(false);
     });
 
-    function check_debtormast_exists(rowid){
+    function check_debtormast_exists(rowid,kosong){
+
+        if(!kosong){
+            console.log($('input[type="hidden"]#mrn_episode'))
+            $('#txt_epis_payer').val($("#txt_epis_name").text());
+            $('#hid_epis_payer').val($('input[type="hidden"]#mrn_episode').val());
+        }else{
+            $('#txt_epis_payer').val('');
+            $('#hid_epis_payer').val('');
+        }
 
         //check debtormast, kalau ada sama dgn mrn, paste
-        let obj_param = {
-               action:'check_debtormast',
-               mrn:$('input[type="hidden"]#mrn_episode').val(),
-               mrn_trailzero:('0000000' + $('input[type="hidden"]#mrn_episode').val()).slice(-7),
-           };
+        // let obj_param = {
+        //        action:'check_debtormast',
+        //        mrn:$('input[type="hidden"]#mrn_episode').val(),
+        //        mrn_trailzero:('0000000' + $('input[type="hidden"]#mrn_episode').val()).slice(-7),
+        //    };
 
-        $.get( "pat_mast/get_entry?"+$.param(obj_param), function( data ) {
+        // $.get( "pat_mast/get_entry?"+$.param(obj_param), function( data ) {
             
-        },'json').done(function(data) {
-            if(!$.isEmptyObject(data)){
-               $('#txt_epis_payer').val(data.data.name);
-               $('#hid_epis_payer').val(data.data.debtorcode);
+        // },'json').done(function(data) {
+        //     if(!$.isEmptyObject(data)){
+        //        $('#txt_epis_payer').val(data.data.name);
+        //        $('#hid_epis_payer').val(data.data.debtorcode);
                
-            }else{
+        //     }else{
 
-               $('#txt_epis_payer').val($("#txt_epis_name").val());
-               $('#hid_epis_payer').val($('input[type="hidden"]#mrn_episode').val());
-            }
-        });
+        //        $('#txt_epis_payer').val($("#txt_epis_name").val());
+        //        $('#hid_epis_payer').val($('input[type="hidden"]#mrn_episode').val());
+        //     }
+        // });
     }
 
     function get_epis_other_data(mrn){
@@ -147,6 +156,7 @@
 
     $('#txt_epis_fin').change(function (e){
         var iregin = $('#hid_epis_fin').val();
+        console.log(iregin);
         if (iregin == '0' || iregin == '') {
             disableEpisode(true);
         } else {  
@@ -158,10 +168,10 @@
             if (iregin == 'PT'){
                 $('#txt_epis_payer').prop('disabled',true);
                 pay_mode_arr = ['CASH','CARD','OPEN CARD','CONSULTANT GUARANTEE (PWD)'];
-                check_debtormast_exists($('#epis_rowid').val());
+                check_debtormast_exists($('#epis_rowid').val(),false);
             }else if(iregin == 'PR'){
                 pay_mode_arr = ['CASH','CARD','OPEN CARD','CONSULTANT GUARANTEE (PWD)'];
-                check_debtormast_exists($('#epis_rowid').val());
+                check_debtormast_exists($('#epis_rowid').val(),true);
             }else{
                 pay_mode_arr = ['PANEL', 'GUARANTEE LETTER', 'WAITING GL'];
             }
@@ -353,7 +363,7 @@
         }).success(function(data){
             $('#editEpisode').modal('hide');
             $("#load_from_addupd").data('info','true');
-            $("#load_from_addupd").data('oper',episoper);
+            $("#load_from_addupd").data('oper','edit');
             $("#grid-command-buttons").bootgrid('reload');
         });
     }
@@ -627,7 +637,7 @@
                 $('#hid_' + type).val(item["code"]);
                 $('#txt_' + type).val(item["description"]);            
                 
-                // $('#txt_' + type).change(); // <-- to activate onchange event if any
+                $('#txt_' + type).change(); // <-- to activate onchange event if any
                     
                 $('#mdl_item_selector').modal('hide');
             } );
