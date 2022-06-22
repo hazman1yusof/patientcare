@@ -109,8 +109,13 @@ class DoctornoteController extends Controller
 
                 $table_patm = $table_patm->leftJoin('hisdb.episode', function($join) use ($request){
                         $join = $join->on('episode.mrn', '=', 'pat_mast.MRN');
-                        $join = $join->whereNull('episode.episstatus')
-                                    ->orWhere('episode.episstatus','!=','C');
+                        $join = $join->where(
+                                function($query){
+                                    return $query
+                                            ->whereNull('episode.episstatus')
+                                            ->orWhere('episode.episstatus','!=','C');
+                                }
+                        );
                         
                     });
 

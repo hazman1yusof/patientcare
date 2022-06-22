@@ -83,9 +83,9 @@
         },'json').done(function(data) {
             if(!$.isEmptyObject(data)){
                 if($('#txt_epis_type').val() == 'IP'){
-                    $("form#form_episode input[name='bill_type']").val(data.data.pvalue1);
+                    $("#hid_epis_bill_type").val(data.data.pvalue1);
                 }else{
-                    $("form#form_episode input[name='bill_type']").val(data.data.pvalue2);
+                    $("#hid_epis_bill_type").val(data.data.pvalue2);
                 }
 
                 epis_desc_show.write_desc();
@@ -240,6 +240,7 @@
         
         // dbl click will return the description in text box and code into hidden input, dialog will be closed automatically
         $('#tbl_epis_billtype').on('dblclick', 'tr', function () {
+                myerrorIt_only('#txt_epis_bill_type',false);
                 let billtype_item = billtype_table.row( this ).data();              
                 $('#hid_epis_bill_type').val(billtype_item["billtype"]);
                 $('#txt_epis_bill_type').val(billtype_item["description"]);
