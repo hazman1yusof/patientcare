@@ -358,4 +358,16 @@ $(document).ready(function () {
 		});
 	}
 
+	$('#showpwd').click(function(){
+      if($('#showpwd_').hasClass('fa-eye-slash')){
+        $('#showpwd_').addClass('fa-eye');
+        $('#showpwd_').removeClass('fa-eye-slash');
+        $('#password').attr('type','text');
+      }else{
+        $('#showpwd_').addClass('fa-eye-slash');
+        $('#showpwd_').removeClass('fa-eye');
+        $('#password').attr('type','password');
+      }
+    });
+
 });

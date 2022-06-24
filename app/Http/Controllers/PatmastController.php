@@ -1037,20 +1037,20 @@ class PatmastController extends defaultController
             if(!$epispayer_obj->exists()){
                 //kalu xjumpa epispayer, buat baru
                 DB::table('hisdb.epispayer')
-                ->insert([
-                    'CompCode' => session('compcode'),
-                    'MRN' => $epis_mrn,
-                    'Episno' => $epis_no,
-                    'EpisTyCode' => $epis_type,
-                    'LineNo' => '1',
-                    'BillType' => $epis_billtype,
-                    'PayerCode' => $epis_payer,
-                    'Pay_Type' => $epis_fin,
-                    'AddDate' => Carbon::now("Asia/Kuala_Lumpur"),
-                    'AddUser' => session('username'),
-                    'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                    'LastUser' => session('username')
-                ]);
+                    ->insert([
+                        'CompCode' => session('compcode'),
+                        'MRN' => $epis_mrn,
+                        'Episno' => $epis_no,
+                        'EpisTyCode' => $epis_type,
+                        'LineNo' => '1',
+                        'BillType' => $epis_billtype,
+                        'PayerCode' => $epis_payer,
+                        'Pay_Type' => $epis_fin,
+                        'AddDate' => Carbon::now("Asia/Kuala_Lumpur"),
+                        'AddUser' => session('username'),
+                        'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                        'LastUser' => session('username')
+                    ]);
             }
 
             //CREATE NOK

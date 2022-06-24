@@ -35,27 +35,31 @@
 				<div class="form-group">
 				  <label class="col-md-2 control-label" for="username">Username</label>  
 				  <div class="col-md-4">
-				  	<input id="username" name="username" type="text" maxlength="30" class="form-control input-sm text-uppercase" data-validation="required" frozeOnEdit>
+				  	<input id="username" name="username" type="text" maxlength="30" class="form-control input-sm" data-validation="required" frozeOnEdit>
 				  </div>
                 </div>
 
 				<div class="form-group">
 				  <label class="col-md-2 control-label" for="name">Name</label>  
 				  <div class="col-md-10">
-				  	<input id="name" name="name" type="text" class="form-control input-sm text-uppercase" data-validation="required">
+				  	<input id="name" name="name" type="text" class="form-control input-sm" data-validation="required">
 				  </div>
                 </div>
 				
 				<div class="form-group">
 				  <label class="col-md-2 control-label" for="password">Password</label>  
+
 				  <div class="col-md-4">
-				  <input id="password" name="password" type="text" class="form-control input-sm" data-validation="required">
+					  <div class="input-group">
+					     <input id="password" name="password" type="password" class="form-control input-sm" data-validation="required">
+					     <a class="input-group-addon btn btn-default" id="showpwd"><span id="showpwd_" class="fa fa-eye-slash"></span></a>
+					   </div>
 				  </div>
 
 				  <label class="col-md-2 control-label" for="groupid">Group</label>  
 					<div class="col-md-4">
 					  <div class='input-group'>
-						<input id="groupid" name="groupid" type="text" class="form-control input-sm text-uppercase" data-validation="required">
+						<input id="groupid" name="groupid" type="text" class="form-control input-sm" data-validation="required">
 						<a class='input-group-addon btn btn-primary'><span class='fa fa-ellipsis-h'></span></a>
 					  </div>
 					  <span class="help-block"></span>
@@ -67,13 +71,13 @@
 
 				  <label class="col-md-2 control-label" for="programmenu">Menu</label>  
 				  <div class="col-md-4">
-				  <input id="programmenu" name="programmenu" type="text" maxlength="30" class="form-control input-sm text-uppercase">
+				  <input id="programmenu" name="programmenu" type="text" maxlength="30" class="form-control input-sm">
 				  </div>
 
 				  <label class="col-md-2 control-label" for="deptcode">Department</label>  
 					<div class="col-md-4">
 					  <div class='input-group'>
-						<input id="deptcode" name="deptcode" type="text" class="form-control input-sm text-uppercase">
+						<input id="deptcode" name="deptcode" type="text" class="form-control input-sm" data-validation="required" >
 						<a class='input-group-addon btn btn-primary'><span class='fa fa-ellipsis-h'></span></a>
 					  </div>
 					  <span class="help-block"></span>

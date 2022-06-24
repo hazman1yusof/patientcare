@@ -931,18 +931,20 @@ class DoctornoteController extends Controller
     }
 
     public function get_chgcode(Request $request){
-        // $pharcode = DB::table('sysdb.sysparam')
-        //             ->where('compcode','=',session('compcode'))
-        //             ->where('source','=','OE')
-        //             ->where('trantype','=','PHAR')
-        //             ->first();
+
+
 
         $data = DB::table('hisdb.chgmast')
                     ->select('chgcode as code','description as description')
                     ->where('compcode','=',session('compcode'))
-                    // ->where('chggroup','=',$pharcode->pvalue1)
-                    ->where('active','=',1)
-                    ->orderBy('chgcode', 'ASC');
+                    ->where('active','=',1);
+
+
+        if (Session::has('chggroup')){
+            $data = $data->where('chggroup','=',session('chggroup'));
+        }
+
+        $data = $data->orderBy('chgcode', 'ASC');
 
         if(!empty($request->search)){
             $data = $data->where('description','LIKE','%'.$request->search.'%')->first();
@@ -1033,8 +1035,15 @@ class DoctornoteController extends Controller
                              $request->end
                          ])
                         // ->whereIn('episode.episstatus', [null,'C','B'])
-                        ->whereNull('episode.episstatus')
-                        ->orWhere('episode.episstatus','!=','C')
+                        // ->whereNull('episode.episstatus')
+                        // ->orWhere('episode.episstatus','!=','C')
+                        ->where(
+                                function($query){
+                                    return $query
+                                            ->whereNull('episode.episstatus')
+                                            ->orWhere('episode.episstatus','!=','C');
+                                }
+                        );
                         ->get();
 
         return $events = $this->getEvent($emergency);

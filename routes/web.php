@@ -128,6 +128,7 @@ Route::post('/pat_mast/new_areacode_form','PatmastController@new_areacode_form')
 Route::post('/pat_mast/new_relationship_form','PatmastController@new_relationship_form');
 Route::post('/pat_mast/auto_save','PatmastController@auto_save');
 
+Route::post('/discharge/form','DischargeController@form');
 
 Route::post('/episode/save_doc','PatmastController@save_doc');
 Route::post('/episode/save_bed','PatmastController@save_bed');

@@ -36,38 +36,6 @@ class SessionController extends Controller
         return view('login');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
     public function login(Request $request)
     {   
         // $remember = (!empty($request->remember)) ? true:false;
@@ -94,12 +62,14 @@ class SessionController extends Controller
             if ($request->password == $user->first()->password) {
                 Auth::login($user->first(),$remember);
                 if(Auth::user()->groupid == 'patient'){
-                    return redirect('/chat');
+                    return redirect('/preview');
                 }else if(strtoupper(Auth::user()->groupid) == 'DOCTOR'){
                     return redirect('/doctornote');
                 }else if(strtoupper(Auth::user()->groupid) == 'REHABILITATION'){
+                    $this->setsession_($request);
                     return redirect('/doctornote');
                 }else if(strtoupper(Auth::user()->groupid) == 'PHYSIOTERAPHY'){
+                    $this->setsession_($request);
                     return redirect('/doctornote');
                 }else if(strtoupper(Auth::user()->groupid) == 'DIETICIAN'){
                     return redirect('/doctornote');
@@ -109,6 +79,8 @@ class SessionController extends Controller
                     return redirect('/dashboard');
                 }else if(strtoupper(Auth::user()->groupid) == 'MR'){
                     return redirect('/dashboard');
+                }else if(strtoupper(Auth::user()->groupid) == 'REGISTER'){
+                    return redirect('/mainlanding');
                 }else{
                     return redirect('/dashboard');
                 }
@@ -118,29 +90,6 @@ class SessionController extends Controller
         }else{
             return back()->withErrors(['Try again, Username or Password incorrect']);
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -155,5 +104,18 @@ class SessionController extends Controller
         Auth::logout();
         Session::flush();
         return redirect('/login');
+    }
+
+    public function setsession_(Request $request){
+        $chggroup = DB::table('sysdb.sysparam')
+                        ->where('compcode','=',Auth::user()->compcode)
+                        ->where('source','=','OE')
+                        ->where('trantype','=',Auth::user()->groupid);
+
+        if($chggroup->exists()){
+            $chggroup = $chggroup->first();
+            $request->session()->put('chggroup', $chggroup->pvalue1);
+        }
+
     }
 }

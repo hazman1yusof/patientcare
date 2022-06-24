@@ -117,6 +117,7 @@ $(document).ready(function() {
             }
         }
     }).on("loaded.rs.jquery.bootgrid", function(){
+        $("#btn_discharge").hide();
         counter = 0;
 
         if(!$("#Scol").length){ //tambah search col kat atas utk search by field
@@ -258,6 +259,12 @@ $(document).ready(function() {
         }else{
             $('#nursing_row,#jqGridTriageInfo_c').show();
             $('#antenatal_row,#jqGridAntenatal_c').hide();
+        }
+
+        if(rows[bootgrid_last_rowid].PatStatus == 1){
+            $("#btn_discharge").show();
+        }else{
+            $("#btn_discharge").hide();
         }
     });
     var bootgrid_last_rowid = 0;
@@ -661,6 +668,38 @@ $(document).ready(function() {
     $('#mdl_accomodation').on('show.bs.modal', function () {
         $(this).css('z-index',120);
         var accomodation_selecter_ = new accomodation_selecter();
+    });
+
+
+    ////////////////discharge////////////////
+
+    $("#btn_discharge").click(function(){
+        let rows = $("#grid-command-buttons").bootgrid("getCurrentRows");
+        
+        if(rows[bootgrid_last_rowid].PatStatus == 1){
+            if (confirm("Do you want to Discharge this patient?") == true) {
+
+                var obj={
+                    action : 'discharge_patient',
+                    mrn : rows[bootgrid_last_rowid].MRN,
+                    episno : rows[bootgrid_last_rowid].Episno,
+                    destination : 'web',
+                    _token : $('#csrf_token').val()
+                };
+
+                $.post( "discharge/form", obj , function( data ) {
+                    
+                }).fail(function(data) {
+
+                }).success(function(data){
+                    $("#load_from_addupd").data('info','true');
+                    $("#load_from_addupd").data('oper','edit');
+                    $("#grid-command-buttons").bootgrid('reload');
+                });
+            }
+        }
+
+        
     });
 
 

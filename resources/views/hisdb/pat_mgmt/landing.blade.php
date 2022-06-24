@@ -446,6 +446,8 @@
 			&nbsp;&nbsp;
 			<button id="btn_biometric" type="button" class="btn btn-default btn-md" >
 			<img src="img/biometric.png" width="22" /> Biometric </button>
+			&nbsp;&nbsp;
+			<button id="btn_discharge" type="button" class="btn btn-danger btn-md" style="display:none;"><span class="fa fa-paper-plane" aria-hidden="true"></span> Discharge</button>
 		</div>
 
 		@if (!Session::has('isdoctor') && request()->get('curpat') == 'true')
