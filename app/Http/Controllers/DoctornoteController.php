@@ -1043,7 +1043,7 @@ class DoctornoteController extends Controller
                                             ->whereNull('episode.episstatus')
                                             ->orWhere('episode.episstatus','!=','C');
                                 }
-                        );
+                        )
                         ->get();
 
         return $events = $this->getEvent($emergency);

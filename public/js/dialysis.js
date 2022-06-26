@@ -3,15 +3,21 @@ $(document).ready(function () {
 	disableForm('form#daily_form');
 
 	$("#tab_daily").on("shown.bs.collapse", function(){
-		SmoothScrollTo('#tab_daily', 300,90);
+		SmoothScrollTo('#tab_daily', 300,undefined,90);
 	});
 
 	$("#tab_weekly").on("shown.bs.collapse", function(){
-		SmoothScrollTo('#tab_weekly', 300,90);
+		SmoothScrollTo('#tab_weekly', 300,undefined,90);
 	});
 
 	$("#tab_monthly").on("shown.bs.collapse", function(){
-		SmoothScrollTo('#tab_monthly', 300,90);
+		SmoothScrollTo('#tab_monthly', 300,undefined,90);
+	});
+
+	$("#tab_trans").on("shown.bs.collapse", function(){
+		SmoothScrollTo('#tab_trans', 300,function(){
+			$("#jqGrid_trans").jqGrid ('setGridWidth', Math.floor($("#jqGrid_trans_c")[0].offsetWidth-$("#jqGrid_trans_c")[0].offsetLeft-14));
+		},90);
 	});
 
 	$('#submit').click(function(){
@@ -35,7 +41,7 @@ $(document).ready(function () {
 					disableForm('form#daily_form');
 					$('#toTop').click();
 					toastr.success('Dialysis data saved!',{timeOut: 1000});
-					SmoothScrollTo('#tab_daily', 300,90);
+					SmoothScrollTo('#tab_daily', 300,undefined,90);
 				}
 			},'json');
 		}
