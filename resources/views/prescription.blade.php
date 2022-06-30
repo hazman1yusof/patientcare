@@ -131,12 +131,12 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                                 </tr>
                             @endif
                             @foreach($table_prescription as $item)
-                                <tr data-id="{{ $item->id }}">
+                                <tr data-id="{{ @$item->id }}">
                                     <td>
                                         <div class="pretty p-icon p-round p-pulse">
-                                            <input type="checkbox" id="cb_{{ $item->id }}" data-id="{{ $item->id }}" />
+                                            <input type="checkbox" id="cb_{{ @$item->id }}" data-id="{{ @$item->id }}" />
                                             <div class="state p-primary">
-                                                <i class="huge check icon"></i>
+                                                <i class="huge check icon" style="display: none;"></i>
                                                 <label></label>
                                             </div>
                                         </div>
@@ -151,7 +151,7 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                                     <td>@if(!empty($item->trxdate)){{\Carbon\Carbon::parse($item->trxdate)->format('d-m-Y')}}@endif</td>
                                     <td>
                                         <a
-                                            href="https://medicsoft.com.my/patientcare/resources/views/print_detail.php?id={{ $item->id }}"
+                                            href="https://medicsoft.com.my/patientcare/resources/views/print_detail.php?id={{ @$item->id }}"
                                             class="btn btn-sm btn-primary text-white"
                                             target="_blank"
                                         >
@@ -161,7 +161,7 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                                 </tr>
                                 <tr>
                                     <td colspan="10" style="padding: 0; border-bottom: none;  border-top: none">
-                                        <div class="ui blue card" style="width: auto;display: none; margin: 20px;"  id="card_{{ $item->id }}" data-id="{{ $item->id }}">
+                                        <div class="ui blue card" style="width: auto;display: none; margin: 20px;"  id="card_{{ @$item->id }}" data-id="{{ @$item->id }}">
                                           <div class="content">
                                             <div class="header">
                                                 [ DETAIL PRESCRIPTION ]
@@ -188,7 +188,7 @@ Dashboard &raquo; Document Prescription | Apps Prescription
                                             <p>Quantity: {{ @$item->quantity }}</p>
                                             <p>Doctor: {{ @$item->admdoctor }}</p>
                                             <a
-                                                href="https://medicsoft.com.my/patientcare/resources/views/print_detail.php?id={{ $item->id }}"
+                                                href="https://medicsoft.com.my/patientcare/resources/views/print_detail.php?id={{ @$item->id }}"
                                                 class="btn btn-sm btn-primary text-white"
                                                 target="_blank"
                                             >

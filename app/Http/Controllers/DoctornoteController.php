@@ -224,6 +224,11 @@ class DoctornoteController extends Controller
         try {
             $table = DB::table('hisdb.chargetrx');
 
+            $chgmast = DB::table('hisdb.chgmast')
+                        ->where('compcode','=',session('compcode'))
+                        ->where('chgcode','=',$request->chg_desc)
+                        ->first();
+
             if($request->oper == 'edit'){
                 $table->where('mrn','=',$request->mrn)
                         ->where('episno','=',$request->episno)
@@ -231,6 +236,7 @@ class DoctornoteController extends Controller
 
                 $array_edit = [
                     'chgcode' => $request->chg_desc,
+                    'chggroup' =>  $chgmast->chggroup,
                     'quantity' => $request->quantity,
                     'instruction' => $request->ins_desc,
                     'doscode' => $request->dos_desc,
@@ -250,6 +256,7 @@ class DoctornoteController extends Controller
                     'trxtype' => 'OE',
                     'trxdate' => $request->trxdate,
                     'chgcode' => $request->chg_desc,
+                    'chggroup' =>  $chgmast->chggroup,
                     'instruction' => $request->ins_desc,
                     'doscode' => $request->dos_desc,
                     'frequency' => $request->fre_desc,
