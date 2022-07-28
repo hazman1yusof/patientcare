@@ -131,60 +131,60 @@ $(document).ready(function () {
 
 	disableForm('#formphys');
 
-	$("#new_phys").click(function(){
-		button_state_phys('wait');
-		enableForm('#formphys');
-		rdonly('#formphys');
-		// dialog_mrn_edit.on();
+	// $("#new_phys").click(function(){
+	// 	button_state_phys('wait');
+	// 	enableForm('#formphys');
+	// 	rdonly('#formphys');
+	// 	// dialog_mrn_edit.on();
 		
-	});
+	// });
 
-	$("#edit_phys").click(function(){
-		button_state_phys('wait');
-		enableForm('#formphys');
-		rdonly('#formphys');
-		// disableFields_phys();
-		// dialog_mrn_edit.on();
+	// $("#edit_phys").click(function(){
+	// 	button_state_phys('wait');
+	// 	enableForm('#formphys');
+	// 	rdonly('#formphys');
+	// 	// disableFields_phys();
+	// 	// dialog_mrn_edit.on();
 		
-	});
+	// });
 
-	$("#save_phys").click(function(){
-		// disableForm('#formphys');
+	// $("#save_phys").click(function(){
+	// 	// disableForm('#formphys');
 
-		if($('#category_phys').val().trim() == "" ){
-			alert('Please select either Rehabilitation or Physioteraphy');
-		}else if( $('#formphys').isValid({requiredFields: ''}, conf, true) ) {
-			saveForm_phys(function(){
-				$("#cancel_phys").data('oper','edit');
-				$("#cancel_phys").click();
-				button_state_phys('edit');
-				var dateParam_phys={
-					action:'get_table_date_phys',
-					type:$('.ui.radio.checkbox').val(),
-					mrn:$('#mrn_phys').val(),
-					episno:$("#episno_phys").val(),
-				}
+	// 	if($('#category_phys').val().trim() == "" ){
+	// 		alert('Please select either Rehabilitation or Physioteraphy');
+	// 	}else if( $('#formphys').isValid({requiredFields: ''}, conf, true) ) {
+	// 		saveForm_phys(function(){
+	// 			$("#cancel_phys").data('oper','edit');
+	// 			$("#cancel_phys").click();
+	// 			button_state_phys('edit');
+	// 			var dateParam_phys={
+	// 				action:'get_table_date_phys',
+	// 				type:$('.ui.radio.checkbox').val(),
+	// 				mrn:$('#mrn_phys').val(),
+	// 				episno:$("#episno_phys").val(),
+	// 			}
 
-			    phys_date_tbl.ajax.url( "./phys/table?"+$.param(dateParam_phys) ).load(function(data){
-					// emptyFormdata_div("#formphys",['#mrn_phys','#episno_phys']);
-					// $('#phys_date_tbl tbody tr:eq(0)').click();	//to select first row
-			    });
-			});
-		}else{
-			enableForm('#formphys');
-			rdonly('#formphys');
-		}
+	// 		    phys_date_tbl.ajax.url( "./phys/table?"+$.param(dateParam_phys) ).load(function(data){
+	// 				// emptyFormdata_div("#formphys",['#mrn_phys','#episno_phys']);
+	// 				// $('#phys_date_tbl tbody tr:eq(0)').click();	//to select first row
+	// 		    });
+	// 		});
+	// 	}else{
+	// 		enableForm('#formphys');
+	// 		rdonly('#formphys');
+	// 	}
 
-	});
+	// });
 
-	$("#cancel_phys").click(function(){
-		disableForm('#formphys');
-		button_state_phys($(this).data('oper'));
-		// dialog_mrn_edit.off();
+	// $("#cancel_phys").click(function(){
+	// 	disableForm('#formphys');
+	// 	button_state_phys($(this).data('oper'));
+	// 	// dialog_mrn_edit.off();
 
-	});
+	// });
 
-	button_state_phys('empty');
+	// button_state_phys('empty');
 
 	$('#phys_date_tbl tbody').on('click', 'tr', function () { 
 	    var data = phys_date_tbl.row( this ).data();
@@ -227,9 +227,9 @@ $(document).ready(function () {
 	    		if(!$.isEmptyObject(data.patrehabncase)){
 					autoinsert_rowdata_phys("#formphys",data.patrehabncase);
 	    		}
-				button_state_phys('edit');
+				// button_state_phys('edit');
 	        }else{
-				button_state_phys('add');
+				// button_state_phys('add');
 	        }
 
 	    });
@@ -259,33 +259,33 @@ function saveForm_phys(callback){
     });
 }
 
-function button_state_phys(state){
-	switch(state){
-		case 'empty':
-			// $("#toggle_phys").removeAttr('data-toggle');
-			$('#cancel_phys').data('oper','add');
-			$('#new_phys,#save_phys,#cancel_phys,#edit_phys').attr('disabled',true);
-			break;
-		case 'add':
-			// $("#toggle_phys").attr('data-toggle','collapse');
-			$('#cancel_phys').data('oper','add');
-			$("#new_phys").attr('disabled',false);
-			$('#save_phys,#cancel_phys,#edit_phys').attr('disabled',true);
-			break;
-		case 'edit':
-			// $("#toggle_phys").attr('data-toggle','collapse');
-			$('#cancel_phys').data('oper','edit');
-			$("#edit_phys").attr('disabled',false);
-			$('#save_phys,#cancel_phys,#new_phys').attr('disabled',true);
-			break;
-		case 'wait':
-			// $("#toggle_phys").attr('data-toggle','collapse');
-			$("#save_phys,#cancel_phys").attr('disabled',false);
-			$('#edit_phys,#new_phys').attr('disabled',true);
-			break;
-	}
+// function button_state_phys(state){
+// 	switch(state){
+// 		case 'empty':
+// 			// $("#toggle_phys").removeAttr('data-toggle');
+// 			$('#cancel_phys').data('oper','add');
+// 			$('#new_phys,#save_phys,#cancel_phys,#edit_phys').attr('disabled',true);
+// 			break;
+// 		case 'add':
+// 			// $("#toggle_phys").attr('data-toggle','collapse');
+// 			$('#cancel_phys').data('oper','add');
+// 			$("#new_phys").attr('disabled',false);
+// 			$('#save_phys,#cancel_phys,#edit_phys').attr('disabled',true);
+// 			break;
+// 		case 'edit':
+// 			// $("#toggle_phys").attr('data-toggle','collapse');
+// 			$('#cancel_phys').data('oper','edit');
+// 			$("#edit_phys").attr('disabled',false);
+// 			$('#save_phys,#cancel_phys,#new_phys').attr('disabled',true);
+// 			break;
+// 		case 'wait':
+// 			// $("#toggle_phys").attr('data-toggle','collapse');
+// 			$("#save_phys,#cancel_phys").attr('disabled',false);
+// 			$('#edit_phys,#new_phys').attr('disabled',true);
+// 			break;
+// 	}
 
-}
+// }
 
 var phys_date_tbl = $('#phys_date_tbl').DataTable({
 	"ajax": "",
@@ -305,7 +305,7 @@ var phys_date_tbl = $('#phys_date_tbl').DataTable({
     		$(this).find('tbody tr')[0].click();
     	}else{
     		if(selrowData('#jqGrid').length != 0){
-    			button_state_phys('add');
+    			// button_state_phys('add');
     		}
     	}
     }
@@ -315,7 +315,7 @@ function empty_currphys(){
 	emptyFormdata_div("#formphys",['#mrn_phys','#episno_phys']);
 	empty_currphys_ncase();
 	$('.ui.checkbox.box').checkbox('set unchecked');
-	button_state_phys('empty');
+	// button_state_phys('empty');
 
 	//panel header
 	$('#name_show_phys').text('');

@@ -2,7 +2,6 @@
 $(document).ready(function () {
 
 	disableForm('#formphys_ncase');
-	$('.ui.radio.checkbox').checkbox();
 
 	$("#new_phys_ncase").click(function(){
 		$('#stats_rehab,#stats_physio').text('ATTEND');
@@ -39,13 +38,14 @@ $(document).ready(function () {
 			alert('Please select either Rehabilitation or Physioteraphy');
 		}else if( $('#formphys_ncase').isValid({requiredFields: ''}, conf, true) ) {
 			saveForm_phys_ncase(function(){
+
 				$("#cancel_phys_ncase").data('oper','edit');
 				$("#cancel_phys_ncase").click();
 				$('#stats_rehab,#stats_physio').text('SEEN');
 				button_state_phys_ncase('edit');
 				var dateParam_phys={
 					action:'get_table_date_phys',
-					type:$('.ui.radio.checkbox').val(),
+					type:$("input[type=radio][name=pastcurr]:checked").val(),
 					mrn:$('#mrn_phys').val(),
 					episno:$("#episno_phys").val(),
 				}
@@ -190,7 +190,22 @@ function populate_phys_ncase(obj){
 		$('#category_phys').val('Physioteraphy');
 		$('#category_phys_ncase').val('Physioteraphy');
 		$('#stats_physio').show();
-	}else if(obj.reff_diet=='YES'){
+	}else{
+		if($('#user_groupid').val() == 'REHABILITATION'){
+			$('.ui.checkbox.rehab').checkbox('set checked');
+			$('#category_phys').val('Rehabilitation');
+			$('#category_phys_ncase').val('Rehabilitation');
+			$('#stats_rehab').show();
+		}else if($('#user_groupid').val() == 'PHYSIOTERAPHY'){
+			$('.ui.checkbox.phys').checkbox('set checked');
+			$('#category_phys').val('Physioteraphy');
+			$('#category_phys_ncase').val('Physioteraphy');
+			$('#stats_physio').show();
+		}
+	} 
+
+
+	if(obj.reff_diet=='YES'){
 		$('.ui.checkbox.referdiet').checkbox('set checked');
 		$('#referdiet_phys').val('yes');
 		$('#referdiet_ncase').val('yes');

@@ -49,13 +49,13 @@
 								<div class="inline fields">
 									<div class="field">
 								      <div class="ui radio checkbox checked pastcurr">
-								        <input type="radio" name="fruit" checked="" tabindex="0" class="hidden" value="Current">
+								        <input type="radio" name="pastcurr" checked="" tabindex="0" class="hidden" value="Current">
 								        <label>Current</label>
 								      </div>
 								    </div>
 									<div class="field">
 								      <div class="ui radio checkbox pastcurr">
-								        <input type="radio" name="fruit" tabindex="0" class="hidden" value="Past">
+								        <input type="radio" name="pastcurr" tabindex="0" class="hidden" value="Past">
 								        <label>Past History</label>
 								      </div>
 								    </div>

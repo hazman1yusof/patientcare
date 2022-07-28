@@ -36,18 +36,7 @@ class physioController extends defaultController
     {   
         DB::enableQueryLog();
         switch($request->action){
-            case 'save_table_phys':
-
-                switch($request->oper){
-                    case 'add':
-                        return $this->add($request);
-                    case 'edit':
-                        return $this->edit($request);
-                    default:
-                        return 'error happen..';
-                }
-
-            // case 'save_table_phys_ncase':
+            // case 'save_table_phys':
 
             //     switch($request->oper){
             //         case 'add':
@@ -57,6 +46,17 @@ class physioController extends defaultController
             //         default:
             //             return 'error happen..';
             //     }
+
+            case 'save_table_phys_ncase':
+
+                switch($request->oper){
+                    case 'add':
+                        return $this->add($request);
+                    case 'edit':
+                        return $this->edit($request);
+                    default:
+                        return 'error happen..';
+                }
 
             case 'get_table_phys':
                 return $this->get_table_phys($request);
@@ -410,7 +410,7 @@ class physioController extends defaultController
             ->where('e.mrn','=',$request->mrn);
 
         if($request->type == 'Current'){
-            $phys_obj = $phys_obj->where('e.episno','=',$request->episno)->orderBy('p.adddate','desc');
+            $phys_obj = $phys_obj->where('p.episno','=',$request->episno)->orderBy('p.adddate','desc');
         }else{
             $phys_obj = $phys_obj->orderBy('p.adddate','desc');
         }

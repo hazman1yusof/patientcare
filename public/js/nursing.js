@@ -823,7 +823,7 @@ function empty_formNursing(){
 
 	emptyFormdata('#formTriageInfo')
 
-	button_state_phys('empty');
+	button_state_ti('empty');
 	$('#name_show_triage').text('');
 	$('#mrn_show_triage').text('');
 	$('#sex_show_triage').text('');
