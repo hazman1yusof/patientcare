@@ -429,7 +429,7 @@
 
                 $('#txt_epis_fin').change();
 
-                epis_desc_show.write_desc();
+                epis_desc_show.write_desc(['epis_payer']);
             }else{
                 alert('MRN not found')
             }
@@ -813,9 +813,12 @@
             }
         }
 
-        this.write_desc = function(){
+        this.write_desc = function(except){
             self=this;
             obj.forEach(function(elem){
+                if(except.includes(elem.id)){
+                    return;
+                }
                 if($(elem.code).val().trim() != ""){
                     $(elem.desc).val(self.get_desc($(elem.code).val(),elem.id,elem.desc));
                 }

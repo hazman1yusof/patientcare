@@ -107,6 +107,8 @@ Route::get('/phys','physioController@show');
 Route::get('/phys/table','physioController@table');
 Route::post('/phys/form','physioController@form');
 
+Route::get('/graph','graphController@get_graph');
+
 //// phys Care Notes page ///
 Route::get('/nursing','NursingController@show');
 Route::get('/nursing/table','NursingController@table');

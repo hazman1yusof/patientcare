@@ -2188,7 +2188,7 @@ class PatmastController extends defaultController
 
         $debtormast = DB::table('debtor.debtormast')
                 ->where('compcode','=',session('compcode'))
-                ->where('debtorcode','=',$epispayer->payercode)
+                ->where('debtorcode','=',str_pad($epispayer->payercode, 7, "0", STR_PAD_LEFT))
                 // ->where('debtortype','=',$epispayer->pay_type)
                 ->first();
 
