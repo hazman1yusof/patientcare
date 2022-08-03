@@ -47,12 +47,18 @@ class CardiographController extends Controller
     }
 
     public function get_graph_cardio(Request $request){
+
+        $bio = DB::table('hisdb.pat_mast')
+                        ->where('mrn',$request->mrn)
+                        // ->where('compcode',session('compcode'))
+                        ->first();
+
         $patcardio = DB::table('hisdb.patcardio')
                             ->where('exercise',$request->exercise)
                             ->where('mrn',$request->mrn)
                             ->get();
 
-        return view('cardiograph',compact('patcardio'));
+        return view('cardiograph',compact('patcardio','bio'));
     }
 
     public function save_cardiograph(Request $request){

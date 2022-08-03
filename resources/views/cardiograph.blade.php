@@ -17,6 +17,9 @@
     <script src="{{ asset('assets/moment.js') }}"></script>
 	<script src="{{ asset('plugins/flot/bootstrap/js/bootstrap.min.js') }}"></script>
 
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <script type="text/javascript">
     	var patcardio = [];
 
@@ -44,6 +47,25 @@
 <body>
 
 	<div id="content">
+
+		<div class="panel panel-default">
+		  <div class="panel-heading" style="position: relative;">
+		  	<b>NAME: {{$bio->Name}}</b><br>
+	        MRN: {{$bio->MRN}}
+	        SEX: {{$bio->Sex}}
+	        DOB: {{$bio->DOB}}
+	        AGE: 
+	        RACE: {{$bio->RaceCode}}
+	        RELIGION: {{$bio->Religion}}
+	        OCCUPATION: {{$bio->OccupCode}}
+	        CITIZENSHIP: {{$bio->Citizencode}}
+	        AREA: {{$bio->AreaCode}}
+
+	        <a class="btn btn-default" style="position:absolute;top: 10px;right: 10px;">
+			  <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print
+			</a>
+		  </div>
+		</div>
 
 		<div class="demo-container">
 			<div id="placeholder" class="demo-placeholder"></div>

@@ -2,7 +2,7 @@
 $(document).ready(function () {
 
     $("<div id='tooltip'></div>").css({
-        'font-size' : '0.8rem',
+        'font-size' : '1.2rem',
         'font-weight' : 'bold',
         'border-radius' : '.28571429rem',
         position: "absolute",
