@@ -107,7 +107,9 @@ Route::get('/phys','physioController@show');
 Route::get('/phys/table','physioController@table');
 Route::post('/phys/form','physioController@form');
 
-Route::get('/graph','graphController@get_graph');
+Route::get('/cardiograph','CardiographController@get_graph');
+Route::get('/cardiograph/table','CardiographController@table');
+Route::post('/cardiograph/form','CardiographController@form');
 
 //// phys Care Notes page ///
 Route::get('/nursing','NursingController@show');

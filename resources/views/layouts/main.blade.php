@@ -19,6 +19,11 @@
             body{
                 /*height: auto !important;*/
             }
+
+            div.ui-jqgrid-bdiv{
+                overflow-x: hidden !important;
+            }
+
             @yield('style')
 
             .preloader {

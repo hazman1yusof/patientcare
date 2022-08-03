@@ -307,6 +307,7 @@
     <script type="text/javascript" src="{{ asset('js/transaction.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction_diet.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction_phys.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/phys_cardiograph.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/doctornote.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/nursing.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dieteticCareNotes.js') }}"></script>

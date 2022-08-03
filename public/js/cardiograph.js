@@ -1,6 +1,18 @@
 
 $(document).ready(function () {
 
+    $("<div id='tooltip'></div>").css({
+        'font-size' : '0.8rem',
+        'font-weight' : 'bold',
+        'border-radius' : '.28571429rem',
+        position: "absolute",
+        display: "none",
+        border: "2px solid #bababc",
+        padding: "2px",
+        "background-color": "#bababc",
+        opacity: 0.70
+    }).appendTo("body");
+
     var sis_dis_arr = patcardio.reduce(function(accum,value,i){
         let diff = (parseFloat(value.bp_s) - parseFloat(value.bp_d)) / 2;
         let center = parseFloat(value.bp_s) - parseFloat(diff);
@@ -52,12 +64,15 @@ $(document).ready(function () {
         yerr: {show:true, upperCap: drawArrow2, lowerCap: drawArrow, radius: 5, lineWidth: 0.5}
     };
 
+    var xlength = (hr_arr.length>10)? hr_arr.length + 0.5:10.5;
+
 
     var data = [
         {color: "blue", lines: {show: false, lineWidth: 0.5}, points: data_points, data: sis_dis_arr, label: "Blood Pressure", yaxis: 1},
         {color: "red", lines: {show: true, lineWidth: 0.5}, points: {show:true}, data: hr_arr, label: "HR", yaxis: 1},
         {color: "green", lines: {show: true, lineWidth: 0.5}, points: {show:true}, data: speed_arr, label: "speed", yaxis: 2},
         {color: "orange", lines: {show: true, lineWidth: 0.5}, points: {show:true}, data: rpe_arr, label: "rpe", yaxis: 2},
+        {lines: {show: false}, data: date_arr}
     ]
 
     plot = $.plot($("#placeholder"), data , {
@@ -71,12 +86,12 @@ $(document).ready(function () {
         },
         xaxes: [{
             min: 0.5,
-            max: 9.5,
-            ticks: tick_y(9),
+            max: xlength,
+            ticks: tick_y(10),
             position: 'top'
         }],
         yaxes: [{
-                    min: 30-40,
+                    min: 30,
                     max: 180+20,
                     ticks: tick_yaxis(180,30-40,nbsp(17))
                 },{
@@ -90,8 +105,68 @@ $(document).ready(function () {
 
 
     plot_time_date(plot,date_arr);
-    plot_btm(plot,date_arr)
+    // plot_btm(plot,date_arr)
     legend_tepi1(plot);
+
+    var updateLegendTimeout = null;
+    var latestPosition = null;
+    $("#placeholder").bind("plothover",  function (event, pos, item) {
+        latestPosition = pos;
+        if (!updateLegendTimeout) {
+            updateLegendTimeout = setTimeout(updateLegend, 50);
+        }
+    });
+
+    $("#placeholder").mouseout(function() {
+        $("#tooltip").hide();
+    });
+
+    function updateLegend() {
+        updateLegendTimeout = null;
+        var pos = latestPosition;
+        var axes = plot.getAxes();
+        if (pos.x < axes.xaxis.min || pos.x > axes.xaxis.max ||pos.y < axes.yaxis.min || pos.y > axes.yaxis.max) {
+            $("#tooltip").hide(); return;
+        }
+        var i, j, arr = [], dataset = plot.getData();
+
+        for (i = 0; i < dataset.length; ++i) {
+            var series = dataset[i];
+            // Find the nearest points, x-wise
+            for (j = 1; j < series.data.length; ++j) {
+                if (series.data[j][0] > pos.x + .5 ) {
+                    break;
+                }
+            }
+            var y,p1 = series.data[j - 1],p2 = series.data[j];
+            if (p1 == null) {
+                y = p2;
+            } else if (p2 == null) {
+                y = p1;
+            } else {
+                y = p1;
+            }
+            arr[i] = y;
+        }
+
+        let sistole = parseFloat(arr[0][1]) + parseFloat(arr[0][2]),
+            diastole = parseFloat(arr[0][1]) -  parseFloat(arr[0][2]),
+            hr = arr[1][1],
+            speed = arr[2][1],
+            rpe = arr[3][1],
+            date = arr[4][1]
+
+        $("#tooltip").html(`<b>Date: </b><span class='Date'>`+date+`<hr>`
+                    +`</span><b class='blue'>Sistole: </b><span>`+sistole
+                    +`</span><br/><b class='blue'>Diastole: </b><span>`+diastole
+                    +`</span><br/><b class='red'>Hear Rate: </b><span>`+hr
+                    +`</span><br/><b class='green'>Speed: </b><span>`+speed
+                    +`</span><br/><b class='orange'>RPE: </b><span>`+rpe
+                    +`</span>`)
+        .css({top: pos.pageY+20, left: pos.pageX+20})
+        .fadeIn(500);
+
+    }
 
 
 	
@@ -218,7 +293,7 @@ function markings(){
     var markings = [
         { color: "#f6f6f6", yaxis: { from: 180 } },
         { color: "#f6f6f6", yaxis: { to: 30 } },
-        { color: "#000", lineWidth: 2, yaxis: { from: 30, to: 30 } },
+        // { color: "#000", lineWidth: 2, yaxis: { from: 30, to: 30 } },
         { color: "#000", lineWidth: 2, yaxis: { from: 180, to: 180 } }
     ];
 

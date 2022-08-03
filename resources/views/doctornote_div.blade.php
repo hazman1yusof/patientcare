@@ -110,27 +110,27 @@
                                 <div class="ui segment">
                                     <div class="field">
                                         <label>History of Presenting Complaint</label>
-                                        <textarea id="clinicnote" name="clinicnote" type="text" rows="12"></textarea>
+                                        <textarea id="clinicnote" name="clinicnote"></textarea>
                                     </div>
                                     <div class="field">
                                         <label>Past Medical History</label>
-                                        <textarea id="pmh" name="pmh" type="text" rows="3"></textarea>
+                                        <textarea id="pmh" name="pmh"></textarea>
                                     </div>
                                     <div class="field">
                                         <label>Drug History</label>
-                                        <textarea id="drugh" name="drugh" type="text" rows="3"></textarea>
+                                        <textarea id="drugh" name="drugh"></textarea>
                                     </div>
                                     <div class="field">
                                         <label>Allergy History</label>
-                                        <textarea id="allergyh" name="allergyh" type="text" rows="3"></textarea>
+                                        <textarea id="allergyh" name="allergyh"></textarea>
                                     </div>
                                     <div class="field">
                                         <label>Social History</label>
-                                        <textarea id="socialh" name="socialh" type="text" rows="3"></textarea>
+                                        <textarea id="socialh" name="socialh"></textarea>
                                     </div>
                                     <div class="field">
                                         <label>Family History</label>
-                                        <textarea id="fmh" name="fmh" type="text" rows="3"></textarea>
+                                        <textarea id="fmh" name="fmh"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -154,14 +154,14 @@
                             <div class="ui segments">
                                 <div class="ui secondary segment">Physical Examination</div>
                                 <div class="ui segment">
-                                    <textarea id="examination" name="examination" type="text" rows="3"></textarea>
+                                    <textarea id="examination" name="examination"></textarea>
                                 </div>
                             </div>
 
                             <div class="ui segments">
                                 <div class="ui secondary segment">Diagnosis</div>
                                 <div class="ui segment">
-                                    <textarea id="diagfinal" name="diagfinal" type="text" rows="3"></textarea>
+                                    <textarea id="diagfinal" name="diagfinal"></textarea>
                                     <div class='field'>
                                         <label>Primary ICD</label>
                                         <div class="ui action input">
@@ -175,7 +175,7 @@
                             <div class="ui segments">
                                 <div class="ui secondary segment">Plan</div>
                                 <div class="ui segment">
-                                    <textarea id="plan_" name="plan_" type="text" rows="3"></textarea>
+                                    <textarea id="plan_" name="plan_"></textarea>
                                 </div>
                             </div>
 

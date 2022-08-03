@@ -799,5 +799,41 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="ui segments">
+			<div class="ui secondary segment collapsed" data-toggle="collapse" data-target="#phys_card">
+				<i class="angle down icon large"></i>
+				<i class="angle up icon large"></i>
+				<h4 style="text-align:center;margin-top:3px">CARDIOVASCULAR TRAINING LOG</h4>
+			</div>
+			<div class="ui segment collapse" id="phys_card">
+				<div class="ui tertiary segment" style="background-color: #e7ffed !important;">
+					<select class="ui selection dropdown" id="exercise" name="exercise">
+					  <option value="treadmill">Treadmill</option>
+					  <option value="cycling">Cycling</option>
+					</select>
+
+					<a class="ui green icon button" type="button" id="opengraph">Open Graph
+  						<i class="chart bar icon"></i>
+					</a>
+				</div>
+
+				<table id="jqGrid_card" class="table table-striped"></table>
+			    <div id="jqGrid_pager_card"></div>
+			</div>
+		</div>
+
+		<div class="ui segments">
+			<div class="ui secondary segment collapsed" data-toggle="collapse" data-target="#phys_resi">
+				<i class="angle down icon large"></i>
+				<i class="angle up icon large"></i>
+				<h4 style="text-align:center;margin-top:3px">RESISTANCE TRAINING LOG</h4>
+			</div>
+			<div class="ui segment collapse" id="phys_resi">
+				<table id="jqGrid_resi" class="table table-striped"></table>
+			    <div id="jqGrid_pager_resi"></div>
+			</div>
+		</div>
+
 	</form>
 </div>

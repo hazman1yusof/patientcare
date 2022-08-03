@@ -141,31 +141,19 @@ $(document).ready(function () {
 				urlParam_trans_diet.episno = selrowData('#jqGrid').Episno;
 				urlParam_trans_phys.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans_phys.episno = selrowData('#jqGrid').Episno;
+				urlParam_card.mrn = selrowData('#jqGrid').MRN;
 				addmore_onadd = false;
 				addmore_onadd_phys = false;
 				addmore_onadd_diet = false;
 				refreshGrid("#jqGrid_trans", urlParam_trans);
 				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
 				refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
+				refreshGrid("#jqGrid_card", urlParam_card);
 	            populate_currDoctorNote(selrowData('#jqGrid'));
 	            populate_triage_currpt(selrowData('#jqGrid'));
 	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
 	            populate_userfile(selrowData('#jqGrid'));
 	            populate_phys(selrowData('#jqGrid'));
-
-				// if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
-				// 	$('#checkbox_completed').prop('disabled',true);
-				// 	$('#checkbox_completed').prop('checked', true);
-				// 	hide_tran_button(true);
-				// 	hide_tran_button_diet(true);
-				// 	hide_tran_button_phys(true);
-				// }else{//kalau belum completed
-				// 	$('#checkbox_completed').prop('disabled',false);
-				// 	$('#checkbox_completed').prop('checked', false);
-				// 	hide_tran_button(false);
-				// 	hide_tran_button_diet(false);
-				// 	hide_tran_button_phys(false);
-				// }
 
 			},
 			ondblClickRow: function (rowid, iRow, iCol, e) {
@@ -175,6 +163,7 @@ $(document).ready(function () {
 				hide_tran_button(true);
 				hide_tran_button_diet(true);
 				hide_tran_button_phys(true);
+				hide_card_button(true);
 				$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
 				empty_currDoctorNote();
 				empty_transaction();
@@ -245,12 +234,15 @@ $(document).ready(function () {
 				urlParam_trans_diet.episno = selrowData('#jqGrid').Episno;
 				urlParam_trans_phys.mrn = selrowData('#jqGrid').MRN;
 				urlParam_trans_phys.episno = selrowData('#jqGrid').Episno;
+				urlParam_card.mrn = selrowData('#jqGrid').MRN;
+
 				addmore_onadd = false;
 				addmore_onadd_phys = false;
 				addmore_onadd_diet = false;
 				refreshGrid("#jqGrid_trans", urlParam_trans);
 				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
 				refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
+				refreshGrid("#jqGrid_card", urlParam_card);
 	            populate_currDoctorNote(selrowData('#jqGrid'));
 	            populate_triage_currpt(selrowData('#jqGrid'));
 	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
@@ -273,6 +265,7 @@ $(document).ready(function () {
 				hide_tran_button(true);
 				hide_tran_button_diet(true);
 				hide_tran_button_phys(true);
+				hide_card_button(true);
 				$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
 				empty_currDoctorNote();
 				empty_transaction();
