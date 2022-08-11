@@ -17,7 +17,12 @@
                 margin: 0 .5em 0 .5em !important;
             }
             body{
-                /*height: auto !important;*/
+              background-image:url( {{ asset('img/picombg.webp') }} ) !important;
+              background-repeat: no-repeat !important;
+              background-size: cover !important;
+              background-position: center !important;
+              height: 100% !important;
+              width: 100% !important;
             }
 
             div.ui-jqgrid-bdiv{

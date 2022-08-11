@@ -329,6 +329,10 @@
 <script type="text/javascript">
     var desc_show = null;
 
+    function mykadscantype(){
+    	return $("#patientBox").data('scantype');
+    }
+
     function closemodalfp(){
        $('#mdl_biometric').modal('hide');
        if($("#patientBox").data('gotpat') == true){
@@ -378,8 +382,7 @@
         	desc_name: 'Description',
         	Code: obj.race,
         	Description: obj.race,
-        },
-        desc_show.load_sp_desc('race','pat_mast/get_entry?action=get_patient_race'));
+        },function(){desc_show.load_sp_desc('race','pat_mast/get_entry?action=get_patient_race')});
 
         auto_save('religioncode',{
             _token : $('#csrf_token').val(),
@@ -388,8 +391,7 @@
         	desc_name: 'Description',
         	Code: obj.religion,
         	Description: obj.religion,
-        },
-        desc_show.load_sp_desc('religioncode','pat_mast/get_entry?action=get_patient_religioncode'));
+        },function(){desc_show.load_sp_desc('religioncode','pat_mast/get_entry?action=get_patient_religioncode')});
 
         auto_save('citizencode',{
             _token : $('#csrf_token').val(),
@@ -398,7 +400,7 @@
         	desc_name: 'Description',
         	Code: obj.citizenship,
         	Description: obj.citizenship,
-        },desc_show.load_sp_desc('citizencode','pat_mast/get_entry?action=get_patient_citizen'));
+        },function(){desc_show.load_sp_desc('citizencode','pat_mast/get_entry?action=get_patient_citizen')});
 
         desc_show.write_desc();
     }

@@ -33,7 +33,9 @@ class SessionController extends Controller
         //     return back();
         // }
 
-        return view('login');
+        $company = DB::table('sysdb.company')->get();
+
+        return view('login',compact('company'));
     }
 
     public function login(Request $request)
@@ -49,7 +51,8 @@ class SessionController extends Controller
 
 
         $user = User::where('username',request('username'))
-                    ->where('password',request('password'));
+                    ->where('password',request('password'))
+                    ->where('compcode',request('compcode'));
 
         if($user->exists()){
             $request->session()->put('username', request('username'));

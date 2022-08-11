@@ -11,4 +11,8 @@ $(document).ready(function() {
         $('#inputPassword').attr('type','password');
       }
     });
+
+  $('#compcode').dropdown({
+    clearable: true
+  })
 });

@@ -164,25 +164,9 @@ class PatmastController extends defaultController
             return json_encode($responce);
 
         }else{
-            // SELECT COUNT(*) FROM `pat_mast` WHERE idno <= 62863
-            // if(!empty($request->lastidno)){
-                // $count_ = DB::table('hisdb.pat_mast')
-                //             ->where('idno','<=','62863')
-                //             ->count();
-            // }
-            // dd($count_);
-
-            // SELECT * FROM pat_mast WHERE idno = 62863
-            // $lastrow = DB::table('hisdb.pat_mast')
-            //                 ->where('idno','<=','62863');
-
-            // SELECT * FROM pat_mast LIMIT 10 OFFSET 62814  
-            // $lastrow = DB::table('hisdb.pat_mast')
-            //                 ->where('idno','<=','62863');
 
             $table_patm = DB::table('hisdb.pat_mast');
-            // dd($table_patm->limit(10)->offset(intval($count_) - 10)->get());
-
+            
             if(!empty($request->searchCol)){
                 $searchCol_array = $request->searchCol;
                 $count = array_count_values($searchCol_array);
@@ -1286,7 +1270,9 @@ class PatmastController extends defaultController
 
             $queries = DB::getQueryLog();
 
-            dump($queries);
+            $this->savetofile($epis_mrn);
+
+            // dump($queries);
 
             DB::commit();
 

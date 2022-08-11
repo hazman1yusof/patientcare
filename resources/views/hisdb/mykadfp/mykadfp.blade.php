@@ -11,23 +11,56 @@
 @section('title', 'Biometric Scanner')
 
 @section('content')
+<script type="text/javascript">
+	var mykadscantype = null
+	function setscantype(type){
+		$('#biometric_menu,#mykad_menu').hide();
+		mykadscantype = type;
+		if(type=='mykad'){
+			$('#mykad_menu').show();
+		}else if(type=='biometric'){
+			$('#biometric_menu').show();
+		}
+	}
+</script>
+
 <div class="ui center aligned grid">
 
 	<div class="row">
 	<div class="ten wide column">
     <div class="ui teal attached segment">
-    	<div class="ui menu">
+    	<div class="ui menu" id="biometric_menu" style="display:none;">
 		  <div class="header item">
 		    Biometric Scanner
 		  </div>
 		  <div class="right menu">
-		    <a class="item" id="readmykad">
+		    <a class="item" id="readbiometric">
 		      Scan Biometric
 		    </a>
-		    <a class="item" id="download">
+		    <a class="item" name="download">
 		      Download PDF
 		    </a>
-		    <a class="item" id="closemodalfp">
+		    <a class="item" name="closemodalfp">
+		      <i class="times icon"></i>Close
+		    </a>
+		    </div>
+		</div>
+
+		<div class="ui menu" id="mykad_menu" style="display:none;">
+		  <div class="header item">
+		    Mykad Scanner
+		  </div>
+		  <div class="right menu">
+		    <a class="item" id="readmykad">
+		      Scan Mykad
+		    </a>
+		    <a class="item" id="readmykid">
+		      Scan Mykid
+		    </a>
+		    <a class="item" name="download">
+		      Download PDF
+		    </a>
+		    <a class="item" name="closemodalfp">
 		      <i class="times icon"></i>Close
 		    </a>
 		    </div>
