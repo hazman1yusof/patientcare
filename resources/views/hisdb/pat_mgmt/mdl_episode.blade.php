@@ -223,7 +223,7 @@
                                     <div class="col-md-offset-8 col-md-4">
                                     <div class="pull-right">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-success" id="btn_save_episode">Save changes</button>
+                                    <button type="button" class="btn btn-success" id="btn_save_episode" data-savelocation="{{env('APP_ENV')}}">Save changes</button>
                                     </div>
                                     </div>
                                 </div>

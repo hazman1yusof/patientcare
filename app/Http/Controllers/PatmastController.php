@@ -8,6 +8,7 @@ use stdClass;
 use DB;
 use Carbon\Carbon;
 use Auth;
+use Storage;
 
 class PatmastController extends defaultController
 {   
@@ -845,7 +846,7 @@ class PatmastController extends defaultController
 
     public function add_episode(Request $request){
 
-        DB::enableQueryLog();
+        // DB::enableQueryLog();
 
         $epis_mrn = $request->epis_mrn;
         $epis_no = $request->epis_no;
@@ -1270,7 +1271,7 @@ class PatmastController extends defaultController
 
             $queries = DB::getQueryLog();
 
-            $this->savetofile($epis_mrn);
+            $this->savetofile($epis_mrn,$epis_no,$request->savelocation);
 
             // dump($queries);
 
@@ -2381,7 +2382,6 @@ class PatmastController extends defaultController
             $corpstaff
                 ->update([
                     'debtorcode' => strtoupper($request->CorpComp),
-
                     'debtorcode' => strtoupper($request->CorpComp)
                 ]);
         }
@@ -2419,6 +2419,78 @@ class PatmastController extends defaultController
 
             return response($e->getMessage(), 500);
         }
+    }
+
+    public function savetofile($mrn,$episno,$savelocation){
+
+        $pat_mast = DB::table("hisdb.pat_mast")
+                ->where('compcode','=',session('compcode'))
+                ->where('mrn','=',$mrn)
+                ->first();
+
+        $episode = DB::table('hisdb.episode')
+                ->where('compcode','=',session('compcode'))
+                ->where('mrn','=',$mrn)
+                ->where('episno','=',$episno)
+                ->first();
+
+        $epispayer = DB::table('hisdb.epispayer')
+                ->where('compcode','=',session('compcode'))
+                ->where('mrn','=',$mrn)
+                ->where('Episno','=',$episno)
+                ->first();
+
+        $text_patm = '';
+        foreach ($pat_mast as $key => $value) {
+            $text_patm = $text_patm.$value.'|';
+        }
+
+        $text_epis = '';
+        foreach ($episode as $key => $value) {
+            $text_epis = $text_epis.$value.'|';
+        }
+
+        $text_epay = '';
+        foreach ($epispayer as $key => $value) {
+            $text_epay = $text_epay.$value.'|';
+        }
+
+
+        if($savelocation == 'local'){
+
+            $company = DB::table('sysdb.company')
+                    ->where('compcode',session('compcode'))
+                    ->first();
+
+            $path_patm = $company->mykadfolder."patmast".Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d').'.txt';
+            $path_epis = $company->mykadfolder."episode".Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d').'.txt';
+            $path_epay = $company->mykadfolder."epispayer".Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d').'.txt';
+
+            $myfile_patm = fopen($path_patm, "a") or die("Unable to open file!");
+            fwrite($myfile_patm, "\n".$text_patm);
+            fclose($myfile_patm);
+
+            $myfile_epis = fopen($path_epis, "a") or die("Unable to open file!");
+            fwrite($myfile_epis, "\n".$text_epis);
+            fclose($myfile_epis);
+
+            $myfile_epay = fopen($path_epay, "a") or die("Unable to open file!");
+            fwrite($myfile_epay, "\n".$text_epay);
+            fclose($myfile_epay);
+
+        }else{
+
+            $file_patm = "patmast".Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d').'.txt';
+            $file_epis = "episode".Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d').'.txt';
+            $file_epay = "epispayer".Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d').'.txt';
+
+            Storage::disk('local')->append($file_patm, $text_patm);
+            Storage::disk('local')->append($file_epis, $text_epis);
+            Storage::disk('local')->append($file_epay, $text_epay);
+
+        }
+
+        
     }
 
 

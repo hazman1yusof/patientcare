@@ -16,14 +16,21 @@
                 float: left !important;
                 margin: 0 .5em 0 .5em !important;
             }
-            body{
-              background-image:url( {{ asset('img/picombg.webp') }} ) !important;
-              background-repeat: no-repeat !important;
-              background-size: cover !important;
-              background-position: center !important;
-              height: 100% !important;
-              width: 100% !important;
-            }
+
+            @if (Request::is('login'))
+                body{
+                  background-image:url( {{ asset('img/picombg.webp') }} ) !important;
+                  background-repeat: no-repeat !important;
+                  background-size: cover !important;
+                  background-position: center !important;
+                  height: 100% !important;
+                  width: 100% !important;
+                }
+            @else
+                body{
+                    background: #dddddd26 !important;
+                }
+            @endif
 
             div.ui-jqgrid-bdiv{
                 overflow-x: hidden !important;

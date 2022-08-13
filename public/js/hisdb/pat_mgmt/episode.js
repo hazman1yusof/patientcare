@@ -331,6 +331,7 @@
         var episbed = $('#txt_epis_bed').val();
         var _token = $('#csrf_token').val();
         var apptidno = $("#apptidno_epis").val();
+        var savelocation = $('#btn_save_episode').data('savelocation');
 
         let obj =  { 
                     episoper: episoper,
@@ -354,6 +355,7 @@
                     epis_fee : episfee,
                     epis_bed : episbed,
                     apptidno : apptidno,
+                    savelocation : savelocation,
                     _token: _token
                   }
 
