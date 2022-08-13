@@ -1716,7 +1716,9 @@ class PatmastController extends defaultController
 
             $queries = DB::getQueryLog();
 
-            dump($queries);
+            $this->savetofile($epis_mrn,$epis_no,$request->savelocation);
+
+            // dump($queries);
 
             DB::commit();
 
@@ -2440,6 +2442,11 @@ class PatmastController extends defaultController
                 ->where('Episno','=',$episno)
                 ->first();
 
+        $debtormast = DB::table('debtor.debtormast')
+                ->where('compcode','=',session('compcode'))
+                ->where('debtorcode','=',$epispayer->payercode)
+                ->first();
+
         $text_patm = '';
         foreach ($pat_mast as $key => $value) {
             $text_patm = $text_patm.$value.'|';
@@ -2454,6 +2461,12 @@ class PatmastController extends defaultController
         foreach ($epispayer as $key => $value) {
             $text_epay = $text_epay.$value.'|';
         }
+
+        $text_debm = '';
+        foreach ($debtormast as $key => $value) {
+            $text_debm = $text_debm.$value.'|';
+        }
+
 
 
         if($savelocation == 'local'){
@@ -2480,13 +2493,22 @@ class PatmastController extends defaultController
 
         }else{
 
-            $file_patm = "patmast".Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d').'.txt';
-            $file_epis = "episode".Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d').'.txt';
-            $file_epay = "epispayer".Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d').'.txt';
+            // $file_patm = "patmast".Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d').'.txt';
+            // $file_epis = "episode".Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d').'.txt';
+            // $file_epay = "epispayer".Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d').'.txt';
 
-            Storage::disk('local')->append($file_patm, $text_patm);
-            Storage::disk('local')->append($file_epis, $text_epis);
-            Storage::disk('local')->append($file_epay, $text_epay);
+
+            $file_patm = "patmast.txt";
+            $file_epis = "episode.txt";
+            $file_epay = "epispayer.txt";
+            $file_debm = "debtormast.txt";
+
+            dump(public_path() . '/uploads');
+
+            Storage::disk('public')->append($file_patm, $text_patm);
+            Storage::disk('public')->append($file_epis, $text_epis);
+            Storage::disk('public')->append($file_epay, $text_epay);
+            Storage::disk('public')->append($file_debm, $text_debm);
 
         }
 

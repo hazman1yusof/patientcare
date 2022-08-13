@@ -156,6 +156,14 @@
 	
 	$('#btn_register_patient').on('click',default_click_register);
 
+    $('#btn_register_episode').on('click',open_episode);
+
+    function open_episode(){
+        $('#btn_register_patient').click();
+        let mrn = $('#btn_register_episode').data('mrn');
+        $('button#cmd_history'+mrn).click();
+    }
+
     function default_click_register(){
         if($('#frm_patient_info').valid()){
             if($(this).data('oper') == 'add'){
@@ -199,9 +207,11 @@
                     {_token:_token,func_after_pat:$('#func_after_pat').val(),idno:idno};
                     //kalu ada mrn, maksudnya dia dari merging duplicate
 
-        var image = ($("img#photobase64").attr('src').startsWith('data'))?
-                    {PatientImage:$("img#photobase64").attr('src')}:
-                    {PatientImage:null}
+        // var image = ($("img#photobase64").attr('src').startsWith('data'))?
+        //             {PatientImage:$("img#photobase64").attr('src')}:
+        //             {PatientImage:null}
+
+        var image = {PatientImage:null};
 
         $.post( "./pat_mast/save_patient?"+$.param(saveParam), $("#frm_patient_info").serialize()+'&'+$.param(postobj)+'&'+$.param(image) , function( data ) {
             
@@ -543,7 +553,7 @@
 
     }
 
-    function mykad_check_existing_patient(){
+    function mykad_check_existing_patient(callback){
         $("#btn_register_patient").data("oper_mykad","add");
 
         var patnewic = $("#txt_pat_newic").val();
@@ -561,9 +571,9 @@
             if(data.rows.length > 0){
                 var form = '#frm_patient_info';
                 $("#btn_register_patient").data("oper_mykad","edit");
-                $("#btn_register_patient").data('idno',data.rows.idno);
-                $("#pat_mrn").val(data.rows.MRN);
-                $("#txt_pat_idno").val(data.rows.idno);
+                $("#btn_register_patient").data('idno',data.rows[0].idno);
+                $("#pat_mrn").val(data.rows[0].MRN);
+                $("#txt_pat_idno").val(data.rows[0].idno);
                 
                 
                 $.each(data.rows[0], function( index, value ) {
@@ -578,6 +588,10 @@
                     }
                 });
                 desc_show.write_desc();
+
+                if (callback !== undefined) {
+                    callback(data.rows[0]);
+                }
 
             }
 

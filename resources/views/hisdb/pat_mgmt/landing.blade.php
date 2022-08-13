@@ -354,8 +354,6 @@
         }
         $('#txt_ID_Type').val("O");
 
-        //"19950927"
-
         var olddob = obj.dob;
 		newdob = [olddob.slice(0, 4), '-', olddob.slice(4,6), '-', olddob.slice(6)].join('');
 
@@ -373,7 +371,12 @@
         $('#txt_pat_currpostcode').val(obj.postcode);
         $("img#photobase64").attr('src','data:image/png;base64,'+obj.base64);
 
-        mykad_check_existing_patient();
+        mykad_check_existing_patient(function(obj){
+        	$('.search-field').val(obj.MRN);
+        	$('#btn_register_episode').data('mrn',obj.MRN);
+        	$('#Scol').val('MRN');
+            $("#grid-command-buttons").bootgrid('reload');
+        });
 
         auto_save('race',{
             _token : $('#csrf_token').val(),

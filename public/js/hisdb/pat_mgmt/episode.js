@@ -23,7 +23,6 @@
     function check_debtormast_exists(rowid,kosong){
 
         if(!kosong){
-            console.log($('input[type="hidden"]#mrn_episode'))
             $('#txt_epis_payer').val($("#txt_epis_name").text());
             $('#hid_epis_payer').val($('input[type="hidden"]#mrn_episode').val());
         }else{
@@ -156,7 +155,6 @@
 
     $('#txt_epis_fin').change(function (e){
         var iregin = $('#hid_epis_fin').val();
-        console.log(iregin);
         if (iregin == '0' || iregin == '') {
             disableEpisode(true);
         } else {  

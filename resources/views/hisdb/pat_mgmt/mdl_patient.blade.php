@@ -713,6 +713,7 @@
 
                 <div class="modal-footer">
                     <button id="btn_register_close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="btn_register_episode" type="button" class="btn btn-danger" data-dismiss="modal" data-mrn="">Episode</button>
                     <button id="btn_register_patient" type="button" class="btn btn-success" data-oper="add">Save changes</button>
                 </div>
             </div>

@@ -30,11 +30,8 @@
 	<div class="ten wide column">
     <div class="ui teal attached segment">
     	<div class="ui menu" id="biometric_menu" style="display:none;">
-		  <div class="header item">
-		    Biometric Scanner
-		  </div>
 		  <div class="right menu">
-		    <a class="item" id="readbiometric">
+		    <a class="header item" id="readbiometric">
 		      Scan Biometric
 		    </a>
 		    <a class="item" name="download">
@@ -47,20 +44,17 @@
 		</div>
 
 		<div class="ui menu" id="mykad_menu" style="display:none;">
-		  <div class="header item">
-		    Mykad Scanner
-		  </div>
 		  <div class="right menu">
-		    <a class="item" id="readmykad">
+		    <a class="header item" id="readmykad">
 		      Scan Mykad
 		    </a>
-		    <a class="item" id="readmykid">
+		    <a class="header item" id="readmykid">
 		      Scan Mykid
 		    </a>
-		    <a class="item" name="download">
+		    <a class="header item" name="download">
 		      Download PDF
 		    </a>
-		    <a class="item" name="closemodalfp">
+		    <a class="header item" name="closemodalfp">
 		      <i class="times icon"></i>Close
 		    </a>
 		    </div>
@@ -69,56 +63,42 @@
     	<input id="_token" name="_token" value="{{ csrf_token() }}" type="hidden">
     	<form class="ui form" id="myform">
 
-    	<div class="ui three column grid">
-    		
-			<div class="column"></div>
-			<div class="column">
+    	<div class="ui grid">
+			<div class="five wide column">
 	    		<div class="ui rounded small image bordered">
 				  <img src="{{ asset('img/no-image.gif') }}" id="image" defaultsrc="{{ asset('img/no-image.gif') }}">
 				</div>
 			</div>
-			<div class="column" style="position: relative">
-	    		<div class="ui rounded tiny image" style="position: absolute; top: 42px; left: 22px;">
-				  <img src="{{ asset('img/fingerprint.png') }}" id="fingerprint" defaultsrc="{{ asset('img/fingerprint.png') }}">
-				</div>
-			</div>
+			<div class="ten wide column">
+			      <div class="field">
+			    	<label>Full Name</label>
+			        <input type="text" readonly name="name" placeholder="Full Name">
+			      </div>
+			      <div class="two fields">
+				      <div class="field">
+				    	<label>MyKad Number</label>
+				        <input type="text" readonly name="icnum" placeholder="MyKad Number">
+				      </div>
+				      <div class="field">
+				    	<label>Gender</label>
+				        <input type="text" readonly name="gender" placeholder="Gender">
+				      </div>
+			      </div>
+			      <div class="two fields">
+				      <div class="field">
+				    	<label>Date Of Birth</label>
+				        <input type="text" readonly name="dob" placeholder="Date Of Birth">
+				      </div>
+				      <div class="field">
+				    	<label>Birth Place</label>
+				        <input type="text" readonly name="birthplace" placeholder="Birth Place">
+				      </div>
+			      </div>
 
+			</div>
     	</div>
 
-
-		  <h4 class="ui dividing header">Biodata</h4>
-
-		  <div class="field">
-		    <div class="two fields">
-		      <div class="field">
-		    	<label>Full Name</label>
-		        <input type="text" readonly name="name" placeholder="Full Name">
-		      </div>
-		      <div class="field">
-		    	<label>MyKad Number</label>
-		        <input type="text" readonly name="icnum" placeholder="MyKad Number">
-		      </div>
-		    </div>
-		  </div>
-
-		  <div class="field">
-		    <div class="three fields">
-		      <div class="field">
-		    	<label>Gender</label>
-		        <input type="text" readonly name="gender" placeholder="Gender">
-		      </div>
-		      <div class="field">
-		    	<label>Date Of Birth</label>
-		        <input type="text" readonly name="dob" placeholder="Date Of Birth">
-		      </div>
-		      <div class="field">
-		    	<label>Birth Place</label>
-		        <input type="text" readonly name="birthplace" placeholder="Birth Place">
-		      </div>
-		    </div>
-		  </div>
-
-		  <div class="field">
+		  <div class="field" style="padding-top:15px;">
 		    <div class="three fields">
 		      <div class="field">
 		    	<label>Race</label>

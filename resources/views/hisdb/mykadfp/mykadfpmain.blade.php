@@ -27,8 +27,11 @@
       .sidemenu a{
           padding: 10px 20px !important;
       }
-      .ui.menu div.header  {
-          background-color: #00B5AD !important;
+      .ui.menu a.header  {
+          /*background-color:;*/
+      }
+      .ui.menu a.header:hover  {
+          background-color: rgba(181, 181, 181, 1) !important;
       }
       .sidemenu a.active{
           background: rgba(0,0,0, 0.5) !important;
