@@ -2498,17 +2498,32 @@ class PatmastController extends defaultController
             // $file_epay = "epispayer".Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d').'.txt';
 
 
-            $file_patm = "patmast.txt";
-            $file_epis = "episode.txt";
-            $file_epay = "epispayer.txt";
-            $file_debm = "debtormast.txt";
+            $path_patm = "patdata/patmast.txt";
+            $path_epis = "patdata/episode.txt";
+            $path_epay = "patdata/epispayer.txt";
+            $path_debm = "patdata/debtormast.txt";
 
-            dump(public_path() . '/uploads');
+            $myfile_patm = fopen($path_patm, "a") or die("Unable to open file!");
+            fwrite($myfile_patm, "\n".$text_patm);
+            fclose($myfile_patm);
 
-            Storage::disk('public')->append($file_patm, $text_patm);
-            Storage::disk('public')->append($file_epis, $text_epis);
-            Storage::disk('public')->append($file_epay, $text_epay);
-            Storage::disk('public')->append($file_debm, $text_debm);
+            $myfile_epis = fopen($path_epis, "a") or die("Unable to open file!");
+            fwrite($myfile_epis, "\n".$text_epis);
+            fclose($myfile_epis);
+
+            $myfile_epay = fopen($path_epay, "a") or die("Unable to open file!");
+            fwrite($myfile_epay, "\n".$text_epay);
+            fclose($myfile_epay);
+
+            $myfile_debm = fopen($path_debm, "a") or die("Unable to open file!");
+            fwrite($myfile_debm, "\n".$text_debm);
+            fclose($myfile_debm);
+
+
+            // Storage::disk('public')->append($file_patm, $text_patm);
+            // Storage::disk('public')->append($file_epis, $text_epis);
+            // Storage::disk('public')->append($file_epay, $text_epay);
+            // Storage::disk('public')->append($file_debm, $text_debm);
 
         }
 
