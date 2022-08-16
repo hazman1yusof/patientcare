@@ -196,6 +196,8 @@ class PatmastController extends defaultController
                 foreach ($request->sort as $key => $value) {
                     $table_patm = $table_patm->orderBy($key, $value);
                 }
+            }else{
+                $table_patm = $table_patm->orderBy('idno', 'DESC');
             }
 
             $request->page = $request->current;
@@ -402,7 +404,7 @@ class PatmastController extends defaultController
                     ->where('regdept','=','1');
 
                 if(!empty($request->search)){
-                    $data = $data->where('description','=',$request->search)->first();
+                    $data = $data->where('deptcode','=',$request->search)->first();
                 }else{
                     $data = $data->get();
                 }
@@ -486,21 +488,38 @@ class PatmastController extends defaultController
 
             case 'get_debtor_list':
                 if($request->type == 1){
-                    $data = DB::table('debtor.debtormast AS dm')
-                            ->select('dm.debtortype','dm.debtorcode','dm.name','dt.description')
-                            ->leftJoin('debtor.debtortype as dt', 'dt.debtortycode', '=', 'dm.debtortype')
-                            ->where('dm.compcode','=',session('compcode'))  
-                            // ->where('debtorcode','=',ltrim($request->mrn, '0'))
-                            ->whereIn('dm.debtortype', ['PR', 'PT'])
-                            ->get();
+
+                    if($request->pat_type == 'IP'){
+                        $data = DB::table('debtor.debtormast AS dm')
+                                ->select('dm.debtortype','dm.debtorcode','dm.name','dm.billtype as billtype','bm.description as billtype_desc')
+                                ->leftJoin('hisdb.billtymst AS bm', 'bm.billtype', '=', 'dm.billtype');
+                    }else{
+                        $data = DB::table('debtor.debtormast AS dm')
+                                ->select('dm.debtortype','dm.debtorcode','dm.name','dm.billtypeop as billtype','bm.description as billtype_desc')
+                                ->leftJoin('hisdb.billtymst AS bm', 'bm.billtype', '=', 'dm.billtypeop');
+                    }
+
+                    $data = $data->where('dm.compcode','=',session('compcode'))
+                                    ->whereIn('dm.debtortype', ['PR', 'PT'])
+                                    ->get();
+
                 }else if($request->type == 2){
-                    $data = DB::table('debtor.debtormast AS dm')
-                            ->select('dm.debtortype','dm.debtorcode','dm.name','dt.description')
-                            ->leftJoin('debtor.debtortype AS dt', 'dt.debtortycode', '=', 'dm.debtortype')
-                            ->where('dm.compcode','=',session('compcode'))  
-                            // ->where('debtorcode','=',ltrim($request->mrn, '0'))
-                            ->whereNotIn('dm.debtortype', ['PR', 'PT'])
-                            ->get();
+
+                    if($request->pat_type == 'IP'){
+                        $data = DB::table('debtor.debtormast AS dm')
+                                ->select('dm.debtortype','dm.debtorcode','dm.name','dm.billtype as billtype','bm.description as billtype_desc')
+                                ->leftJoin('hisdb.billtymst AS bm', 'bm.billtype', '=', 'dm.billtype');
+                    }else{
+                        $data = DB::table('debtor.debtormast AS dm')
+                                ->select('dm.debtortype','dm.debtorcode','dm.name','dm.billtypeop as billtype','bm.description as billtype_desc')
+                                ->leftJoin('hisdb.billtymst AS bm', 'bm.billtype', '=', 'dm.billtypeop');
+                    }
+
+                    $data = $data->where('dm.compcode','=',session('compcode'))  
+                                    ->whereNotIn('dm.debtortype', ['PR', 'PT'])
+                                    ->get();
+
+
                 }else{
                     $data = DB::table('debtor.debtormast')
                             ->select('debtorcode','name')
@@ -623,6 +642,54 @@ class PatmastController extends defaultController
                             ->first();
 
                 break;
+
+            case 'get_default_value':
+                $pat = DB::table('hisdb.pat_mast')
+                            ->select('Episno')
+                            ->where('compcode','=',session('compcode'))
+                            ->where('mrn',$request->mrn)
+                            ->first();
+
+                if($pat->Episno != 0){
+                    $data = DB::table('hisdb.episode as e')
+                                ->select(
+                                    'e.admsrccode',
+                                    'e.case_code',
+                                    'e.admdoctor',
+                                    'e.admdoctor',
+                                    'e.pay_type',
+                                    'e.pyrmode',
+                                    'e.payer',
+                                    'e.billtype',
+                                    'adm.description as adm_desc',
+                                    'cas.description as cas_desc',
+                                    'doc.doctorname as doc_name',
+                                    'dbty.description as dbty_desc',
+                                    'dbms.name as dbms_name',
+                                    'bmst.description as bmst_desc')
+                                ->leftJoin('hisdb.admissrc as adm', 'adm.admsrccode', '=', 'e.admsrccode')
+                                ->leftJoin('hisdb.casetype as cas', 'cas.case_code', '=', 'e.case_code')
+                                ->leftJoin('hisdb.doctor as doc', 'doc.doctorcode', '=', 'e.admdoctor')
+                                ->leftJoin('debtor.debtortype as dbty', 'dbty.debtortycode', '=', 'e.pay_type')
+                                ->leftJoin('debtor.debtormast as dbms', 'dbms.debtorcode', '=', 'e.payer')
+                                ->leftJoin('hisdb.billtymst as bmst', 'bmst.billtype', '=', 'e.billtype')
+                                ->where('e.compcode','=',session('compcode'))
+                                ->where('e.mrn',$request->mrn)
+                                ->where('e.episno',$pat->Episno);
+
+                    if(!$data->exists()){
+                        $data = 'nothing';
+                    }else{
+                        $data = $data->first();
+                    }
+
+
+
+                }else{
+                    $data = 'nothing';
+                }
+
+                break;
             
             default:
                 $data = 'nothing';
@@ -671,7 +738,7 @@ class PatmastController extends defaultController
 
         try {
 
-            $mrn = $this->defaultSysparam($request->sysparam['source'],$request->sysparam['trantype']);
+            $mrn = $this->defaultSysparam('HIS','MRN');
             $array_insert['MRN'] = $mrn;
             $lastidno = $table->insertGetId($array_insert);
 
@@ -867,6 +934,10 @@ class PatmastController extends defaultController
         $epis_bednum = $request->epis_bed;
         $epis_apptidno = $request->apptidno;
 
+        if($epis_fin == "PT"){
+           $epis_payer = str_pad($epis_mrn, 7, "0", STR_PAD_LEFT);
+        }
+
         $epis_typeepis;
         if ($epis_maturity == "1"){
             if($epis_preg == "Pregnant"){
@@ -976,7 +1047,7 @@ class PatmastController extends defaultController
                     DB::table('debtor.debtormast')
                         ->insert([
                             'CompCode' => session('compcode'),
-                            'DebtorCode' => str_pad($epis_mrn, 7, "0", STR_PAD_LEFT),
+                            'DebtorCode' => $epis_payer,
                             'Name' => $patmast_data->Name,
                             'Address1' => $patmast_data->Address1,
                             'Address2' => $patmast_data->Address2,
@@ -999,6 +1070,8 @@ class PatmastController extends defaultController
                     // $debtormast_data = $debtormast_obj->first();
 
                 }
+            }else{
+
             }
 
             //CREATE EPISPAYER
@@ -1715,12 +1788,11 @@ class PatmastController extends defaultController
             // }
 
             $queries = DB::getQueryLog();
+            DB::commit();
 
             $this->savetofile($epis_mrn,$epis_no,$request->savelocation);
 
             // dump($queries);
-
-            DB::commit();
 
         } catch (Exception $e) {
             DB::rollback();
@@ -2175,11 +2247,22 @@ class PatmastController extends defaultController
             }
         }
 
-        $debtormast = DB::table('debtor.debtormast')
+
+        if($episode->pay_type == 'PT' || $episode->pay_type == 'PR'){
+
+            $debtormast = DB::table('debtor.debtormast')
                 ->where('compcode','=',session('compcode'))
                 ->where('debtorcode','=',str_pad($epispayer->payercode, 7, "0", STR_PAD_LEFT))
                 // ->where('debtortype','=',$epispayer->pay_type)
                 ->first();
+        }else{
+
+            $debtormast = DB::table('debtor.debtormast')
+                ->where('compcode','=',session('compcode'))
+                ->where('debtorcode','=',$epispayer->payercode)
+                ->first();
+        }
+
 
         $bed = DB::table('hisdb.bed')
                 ->where('compcode','=',session('compcode'))
@@ -2421,6 +2504,15 @@ class PatmastController extends defaultController
 
             return response($e->getMessage(), 500);
         }
+    }
+
+    public static function mydump($obj,$line='null'){
+        dd([
+            $line,
+            $obj->toSql(),
+            $obj->getBindings()
+        ]);
+
     }
 
     public function savetofile($mrn,$episno,$savelocation){

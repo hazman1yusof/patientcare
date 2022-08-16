@@ -49,7 +49,7 @@ $(document).ready(function() {
             let lastidno = null;
 
             if($("#load_from_addupd").data('info') == "true" && $("#load_from_addupd").data('oper') == "add"){
-                _page = $("#grid-command-buttons").bootgrid("getTotalPageCount");
+                _page = 1;
                 lastMrn = $("#lastMrn").val();
                 lastidno = $("#lastidno").val();
             }
@@ -217,7 +217,7 @@ $(document).ready(function() {
 
         if($("#load_from_addupd").data('info') == "true"){
             if($("#load_from_addupd").data('oper') == "add"){
-                $("#grid-command-buttons tbody tr:nth-last-child(1)").click();
+                $("table#grid-command-buttons tr[data-row-id=0]").click();
             }else{
                 $("table#grid-command-buttons tr[data-row-id='"+bootgrid_last_rowid+"']").eq(0).click();
             }

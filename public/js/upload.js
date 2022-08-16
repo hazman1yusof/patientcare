@@ -66,7 +66,6 @@ $(document).ready(function () {
     function make_preview_image(i,filepath,type,auditno){
         let filetype = type.split('/')[0];
         let fileextension = type.split('/')[1];
-        console.log(fileextension)
         let return_value='';
 
         if(filetype=='image'){
@@ -77,6 +76,28 @@ $(document).ready(function () {
                           <i class='search icon' ></i>
                       </a>
                 </div>`;
+
+        }else if(filetype=='text'){
+            switch(fileextension){
+                case 'csv':  return_value =  `
+                                    <div class="imgcontainer">
+                                        <img src="./thumbnail/text/notepad">
+                                          <a class="small circular orange ui icon button btn" target="_blank" href="./uploads/`+filepath+`" >
+                                              <i class='search icon' ></i>
+                                          </a>
+                                    </div>`; 
+
+                            break;
+                default:   return_value =  `
+                                    <div class="imgcontainer">
+                                        <img src="./thumbnail/text/notepad">
+                                          <a class="small circular orange ui icon button btn" target="_blank" href="./uploads/`+filepath+`" >
+                                              <i class='search icon' ></i>
+                                          </a>
+                                    </div>`; 
+
+                            break;
+            }
 
         }else if(filetype=='application'){
             switch(fileextension){
@@ -134,7 +155,7 @@ $(document).ready(function () {
                                     
 
         }else{
-            return_value = 'download';
+            return_value = 'Image not applicable';
 
         }
 

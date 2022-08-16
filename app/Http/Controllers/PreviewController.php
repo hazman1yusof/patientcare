@@ -98,6 +98,10 @@ class PreviewController extends Controller
             switch($image_path){
                 case 'audio': $img = Image::make('uploads/pat_enq/audio-icon.png')->resize(96, 96); break;
             }
+        }else if($folder == 'text'){
+            switch($image_path){
+                case 'notepad': $img = Image::make('uploads/pat_enq/notepad_icon.png')->resize(96, 96); break;
+            }
         }else{
 
         }
@@ -120,7 +124,7 @@ class PreviewController extends Controller
         }else{
             $filename = $request->file('file')->getClientOriginalName();
         }
-        $file_path = $request->file('file')->store('pat_enq', 'public_uploads');
+        $file_path = $request->file('file')->store('pat_enq', 'webhosting_uploads');
         DB::table('hisdb.patresult')
             ->insert([
                 'compcode' => '-',

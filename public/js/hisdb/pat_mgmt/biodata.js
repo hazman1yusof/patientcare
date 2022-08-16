@@ -122,6 +122,11 @@
     }
 
     $('#mdl_patient_info').on('shown.bs.modal', function (e) {
+        if($("#btn_register_patient").data("oper") == "add"){
+            $('#btn_register_episode').hide();
+        }else{
+            $('#btn_register_episode').show();
+        }
         // parent_close_disabled(true);
     });
 

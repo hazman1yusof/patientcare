@@ -52,42 +52,33 @@
         // });
     }
 
-    function get_epis_other_data(mrn){
+    function get_default_value(mrn){
         let obj_param = {
-               action:'get_epis_other_data',
+               action:'get_default_value',
                mrn:mrn,
+               userdeptcode:$('#userdeptcode').val()
            };
 
         $.get( "pat_mast/get_entry?"+$.param(obj_param), function( data ) {
             
         },'json').done(function(data) {
             if(!$.isEmptyObject(data)){
-               $("form#form_episode input[name='pay_type']").val(data.episode.pay_type);
-               $("form#form_episode select[name='pyrmode']").val(data.episode.pyrmode);
-               $("form#form_episode input[name='payercode']").val(data.epispayer.payercode);
-               $("form#form_episode input[name='bill_type']").val(data.epispayer.payercode);
+                if(data.data != 'nothing'){
+                    $("#txt_epis_source").val(data.data.adm_desc);
+                    $("#hid_epis_source").val(data.data.admsrccode);
+                    $("#txt_epis_case").val(data.data.cas_desc);
+                    $("#hid_epis_case").val(data.data.case_code);
+                    $("#txt_epis_doctor").val(data.data.doc_name);
+                    $("#hid_epis_doctor").val(data.data.admdoctor);
+                    $("#hid_epis_fin").val(data.data.pay_type);
+                    $("#txt_epis_fin").val(data.data.dbty_desc).change();
+                    $("#cmb_epis_pay_mode").val(data.data.pyrmode);
+                    $("#txt_epis_payer").val(data.data.dbms_name);
+                    $("#hid_epis_payer").val(data.data.payer);
+                    $("#txt_epis_bill_type").val(data.data.bmst_desc);
+                    $("#hid_epis_bill_type").val(data.data.billtype);
 
-               epis_desc_show.write_desc();
-            }
-        });
-    }
-
-    function get_billtype_default(mrn){
-        let obj_param = {
-               action:'get_billtype_default',
-           };
-
-        $.get( "pat_mast/get_entry?"+$.param(obj_param), function( data ) {
-            
-        },'json').done(function(data) {
-            if(!$.isEmptyObject(data)){
-                if($('#txt_epis_type').val() == 'IP'){
-                    $("#hid_epis_bill_type").val(data.data.pvalue1);
-                }else{
-                    $("#hid_epis_bill_type").val(data.data.pvalue2);
                 }
-
-                epis_desc_show.write_desc();
             }
         });
     }
@@ -116,26 +107,22 @@
             episno_ = 0;
         }
 
-        // if(episno_ > 0){
-        //     get_epis_other_data(rowdata.MRN);
-        // }
-
         if(rowdata.PatStatus == 1){
             $("#episode_oper").val('edit');
+            $('span#spanepistxt').text('EDIT - ');
             $('#txt_epis_no').val(parseInt(episno_));
             populate_episode_by_mrn_episno(rowdata.MRN,rowdata.Episno);
             $("#toggle_tabDoctor,#toggle_tabBed,#toggle_tabNok,#toggle_tabPayer,#toggle_tabDeposit").parent().show();
         }else{
             $("#episode_oper").val('add');
+            $('span#spanepistxt').text('NEW - ');
             $('#txt_epis_no').val(parseInt(episno_) + 1);
             $("#toggle_tabDoctor,#toggle_tabBed,#toggle_tabNok,#toggle_tabPayer,#toggle_tabDeposit").parent().hide();
 
             $('#hid_epis_dept').val($('#userdeptcode').val());
-            $('#txt_epis_dept').val($('#userdeptcode').val());
+            $('#txt_epis_dept').val($('#userdeptdesc').val());
 
-            $('#txt_epis_dept').blur();
-
-            get_billtype_default(rowdata.MRN);
+            get_default_value(rowdata.MRN);
         }
     }
 
@@ -176,7 +163,6 @@
 
             $.each(pay_mode_arr, function(i,val)
             {
-
                 $("#cmb_epis_pay_mode").append(
                     $('<option></option>')
                         .val(val)
@@ -196,7 +182,9 @@
             "columns": [
                         {'data': 'debtortype'}, 
                         {'data': 'debtorcode' }, 
-                        {'data': 'name'},
+                        {'data': 'name'}, 
+                        {'data': 'billtype', 'visible': false},
+                        {'data': 'billtype_desc', 'visible': false},
                     ]
         } );
 
@@ -204,9 +192,9 @@
         $('#mdl_epis_pay_mode').modal('show');
 
         if($('#hid_epis_fin').val() == 'PT'  || $('#hid_epis_fin').val() == 'PR'){
-            debtor_table.ajax.url( 'pat_mast/get_entry?action=get_debtor_list&type=1' ).load();
+            debtor_table.ajax.url( 'pat_mast/get_entry?action=get_debtor_list&type=1&pat_type='+$('#txt_epis_type').val() ).load();
         }else{
-            debtor_table.ajax.url( 'pat_mast/get_entry?action=get_debtor_list&type=2' ).load();
+            debtor_table.ajax.url( 'pat_mast/get_entry?action=get_debtor_list&type=2&pat_type='+$('#txt_epis_type').val() ).load();
         }
         
         // dbl click will return the description in text box and code into hidden input, dialog will be closed automatically
@@ -214,10 +202,11 @@
 
         $('#tbl_epis_debtor').on('dblclick', 'tr', function () {
             let debtor_item = debtor_table.row( this ).data();
+            console.log(debtor_item);
             $('#hid_epis_payer').val(debtor_item["debtorcode"]);
             $('#txt_epis_payer').val(debtor_item["name"]);
-            // $('#hid_epis_fin').val(debtor_item["debtortype"]);
-            // $('#txt_epis_fin').val(debtor_item["debtortype"]);
+            $('#txt_epis_bill_type').val(debtor_item["billtype_desc"]);
+            $('#hid_epis_bill_type').val(debtor_item["billtype"]);
             $('#mdl_epis_pay_mode').modal('hide');
         } );
             
@@ -819,6 +808,7 @@
                 if(except.includes(elem.id)){
                     return;
                 }
+                console.log(elem);
                 if($(elem.code).val().trim() != ""){
                     $(elem.desc).val(self.get_desc($(elem.code).val(),elem.id,elem.desc));
                 }

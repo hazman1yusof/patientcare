@@ -74,7 +74,7 @@
                             <i class="fa fa-angle-double-up" style="font-size:24px;margin: 0 0 0 12px"></i>
                             <i class="fa fa-angle-double-down" style="font-size:24px;margin: 0 0 0 12px"></i >
                             <div class="pull-right" style="position: absolute; padding: 0 0 0 0; left: 10px; top: 0px;">
-                                <h5><strong>EPISODE</strong></h5>
+                                <h5><strong><span id="spanepistxt"></span>EPISODE</strong></h5>
                             </div> 
                             </div>
 
@@ -601,12 +601,14 @@
                             <th data-column-id="debtor_type" >Debtor Type</th>
                             <th data-column-id="debtor_code" >Debtor Code</th>
                             <th data-column-id="debtor_name" >Name</th>
+                            <th data-column-id="debtor_billtype" >billtype</th>
+                            <th data-column-id="debtor_billtype" >billtype desc</th>
                         </tr>
                         </thead>
 
                     </table>
                     <br />
-                    <button id="btngurantor" type="button" class="btn btn-primary" >Guarantor</button>
+                    <!-- <button id="btngurantor" type="button" class="btn btn-primary" >Guarantor</button> -->
                 </div>
 
                 <div class="modal-footer">

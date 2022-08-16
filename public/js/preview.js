@@ -77,8 +77,31 @@ $(document).ready(function () {
                       </a>
                 </div>`;
 
+        }else if(filetype=='text'){
+            switch(fileextension){
+                case 'csv':  return_value =  `
+                                    <div class="imgcontainer">
+                                        <img src="./thumbnail/text/notepad">
+                                          <a class="small circular orange ui icon button btn" target="_blank" href="./uploads/`+filepath+`" >
+                                              <i class='search icon' ></i>
+                                          </a>
+                                    </div>`; 
+
+                            break;
+                default:   return_value =  `
+                                    <div class="imgcontainer">
+                                        <img src="./thumbnail/text/notepad">
+                                          <a class="small circular orange ui icon button btn" target="_blank" href="./uploads/`+filepath+`" >
+                                              <i class='search icon' ></i>
+                                          </a>
+                                    </div>`; 
+
+                            break;
+            }
+
         }else if(filetype=='application'){
             switch(fileextension){
+                case 'csv': 
                 case 'pdf': return_value =  `
                                     <div class="imgcontainer">
                                         <img src="./thumbnail/application/pdf">
@@ -132,7 +155,7 @@ $(document).ready(function () {
                                     
 
         }else{
-            return_value = 'download';
+            return_value = 'Image not applicable';
 
         }
 
