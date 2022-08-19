@@ -659,11 +659,12 @@ function modal(){
 
 function dateFormatter(cellvalue, options, rowObject){
 	if(cellvalue == null) return '';
-	return moment(cellvalue).format("DD/MM/YYYY");
+	return moment(cellvalue).format("DD-MM-YYYY");
 }
 
 function dateUNFormatter(cellvalue, options, rowObject){
-	return moment(cellvalue, "DD/MM/YYYY").format("YYYY-MM-DD");
+	if(cellvalue == null || cellvalue == '' ) return '';
+	return moment(cellvalue, "DD-MM-YYYY").format("YYYY-MM-DD");
 }
 
 function timeFormatter(cellvalue, options, rowObject){

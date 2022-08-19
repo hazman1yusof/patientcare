@@ -2,6 +2,22 @@
 
     $('#editEpisode').on('shown.bs.modal', function (e) {
         // parent_close_disabled(true);
+        if($("#episode_oper").val() == 'edit'){ // tutup episode, bkk arrival
+        console.log('edit')
+            if($('#toggle_tabdialysis').hasClass('collapsed')){
+                $("#toggle_tabdialysis").click();
+            }
+            if(!$('#toggle_tabEpisode').hasClass('collapsed')){
+                $("#toggle_tabEpisode").click();
+            }
+        }else{ // bkk episode, tutup arrival
+            if($('#toggle_tabEpisode').hasClass('collapsed')){
+                $("#toggle_tabEpisode").click();
+            }
+            if(!$('#toggle_tabdialysis').hasClass('collapsed')){
+                $("#toggle_tabdialysis").click();
+            }
+        }
     });
     
     $('#editEpisode').on('hidden.bs.modal', function (e) {
@@ -112,12 +128,12 @@
             $('span#spanepistxt').text('EDIT - ');
             $('#txt_epis_no').val(parseInt(episno_));
             populate_episode_by_mrn_episno(rowdata.MRN,rowdata.Episno);
-            $("#toggle_tabDoctor,#toggle_tabBed,#toggle_tabNok,#toggle_tabPayer,#toggle_tabDeposit").parent().show();
+            $("#toggle_tabDoctor,#toggle_tabBed,#toggle_tabNok,#toggle_tabPayer,#toggle_tabDeposit,#toggle_tabdialysis").parent().show();
         }else{
             $("#episode_oper").val('add');
             $('span#spanepistxt').text('NEW - ');
             $('#txt_epis_no').val(parseInt(episno_) + 1);
-            $("#toggle_tabDoctor,#toggle_tabBed,#toggle_tabNok,#toggle_tabPayer,#toggle_tabDeposit").parent().hide();
+            $("#toggle_tabDoctor,#toggle_tabBed,#toggle_tabNok,#toggle_tabPayer,#toggle_tabDeposit,#toggle_tabdialysis").parent().hide();
 
             $('#hid_epis_dept').val($('#userdeptcode').val());
             $('#txt_epis_dept').val($('#userdeptdesc').val());

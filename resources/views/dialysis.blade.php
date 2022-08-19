@@ -129,14 +129,24 @@ table#jqGrid, table#jqGrid_trans{
 
 @section('content')
 
-    <div class="ui stackable two column grid">
-        <div class="eight wide tablet five wide computer column"><div class="ui orange segment">
-            <div id="calendar"></div>
-        </div></div>
-
-        <div class="eight wide tablet eleven wide computer right floated column" style="margin:0px;">
+    <div class="ui grid">
+        <div class="column" style="margin:0px;">
             <div class="ui teal segment">
-                <h2 class="h2">Patient List</h2>
+                <h2 class="h2">Current Patient List</h2>
+                <form class="ui form" id="SearchForm" autocomplete="off" >
+                  <div class="two fields">
+                    <div class="two wide field">
+                        <select class="ui dropdown" name="Scol">
+                          <option value="Name">Name</option>
+                          <option value="MRN">MRN</option>
+                          <option value="I/C">IC Number</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                      <input type="text" placeholder="Type Search here" name="Stext">
+                    </div>
+                  </div>
+                </form>
                 <table id="jqGrid" class="table table-striped"></table>
                 <div id="jqGridPager"></div>
             </div>
@@ -232,18 +242,8 @@ table#jqGrid, table#jqGrid_trans{
 @endsection
 
 @section('css')
-    <!-- Latest compiled and minified CSS -->
-   <!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
- -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" crossorigin="anonymous">
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" crossorigin="anonymous">
-
-    <!-- Optional theme -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
- -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/glDatePicker/styles/glDatePicker.default.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/fullcalendar-3.7.0/fullcalendar.min.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ asset('assets/DataTables/datatables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/trirand/css/trirand/ui.jqgrid-bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
@@ -259,16 +259,9 @@ table#jqGrid, table#jqGrid_trans{
 @endsection
 
 @section('js')
-    <!-- Latest compiled and minified JavaScript -->
-    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
-    
     <script type="text/ecmascript" src="{{ asset('assets/trirand/i18n/grid.locale-en.js') }}"></script>
     <script type="text/ecmascript" src="{{ asset('assets/trirand/jquery.jqGrid.min.js') }}"></script>
-    <script type="text/ecmascript" src="{{ asset('assets/fullcalendar-3.7.0/fullcalendar.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/glDatePicker/glDatePicker.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('assets/glDatePicker/glDatePicker.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('assets/DataTables/datatables.min.js') }}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>

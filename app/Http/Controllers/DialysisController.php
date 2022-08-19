@@ -260,6 +260,72 @@ class DialysisController extends Controller
         }
     }
 
+    public function save_epis_dialysis(Request $request){
+        $table = DB::table('hisdb.dialysis_episode');
+        try {
+            if($request->oper == 'add'){
+
+                //check if date,mrn,episno duplicate
+                $dialysis_epis = DB::table('hisdb.dialysis_episode')
+                                    ->where('compcode',session('compcode'))
+                                    ->where('mrn',$request->mrn)
+                                    ->where('episno',$request->episno)
+                                    ->whereDate('arrival_date',$request->arrival_date);
+
+
+                if($dialysis_epis->exists()){
+                    throw new \Exception('Patient already arrive for date: '.Carbon::parse($request->arrival_date)->format('d-m-Y'), 500);
+                }
+
+                $dialysis_epis = DB::table('hisdb.dialysis_episode')
+                                    ->where('compcode',session('compcode'))
+                                    ->where('mrn',$request->mrn)
+                                    ->where('episno',$request->episno);
+
+                if($dialysis_epis->exists()){
+                    $dialysisno = intval($dialysis_epis->max('dialysisno')) + 1;
+                }else{
+                    $dialysisno = 1;
+                }
+
+                $array_insert = [
+                    'compcode'=>session('compcode'),
+                    'mrn'=>$request->mrn,
+                    'episno'=>$request->episno,
+                    'dialysisno'=>$dialysisno,
+                    'arrival_date'=>$request->arrival_date,
+                    'arrival_time'=>$request->arrival_time,
+                    'packagecode'=>$request->packagecode
+                ];
+        
+                $table->insert($array_insert);
+
+            }else if($request->oper == 'edit'){
+                $table
+                    ->where('idno','=',$request->idno);
+
+                $array_update = [
+                    'packagecode'=>$request->packagecode,
+                    'arrival_date'=>$request->arrival_date,
+                    'arrival_time'=>$request->arrival_time,
+
+                ];
+        
+                $table->update($array_update);
+            }
+
+            $responce = new stdClass();
+            $responce->success = 'success';
+            echo json_encode($responce);
+
+            // DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response($e->getMessage(), 500);
+        }
+    }
+
     public static function mydump($obj,$line='null'){
         dd([
             $line,

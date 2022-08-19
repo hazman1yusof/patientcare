@@ -1,3 +1,5 @@
+
+var curpage_tran=null; // to prevent duplicate entry 
 $(document).ready(function () {
 
 	// var fdl = new faster_detail_load();
@@ -49,7 +51,7 @@ $(document).ready(function () {
 				    },},
 		],
 		autowidth: false,
-		viewrecords: true,
+		viewrecords: false,
 		width: 900,
 		height: 365,
 		rowNum: 30,
@@ -112,6 +114,13 @@ $(document).ready(function () {
 			// }
 			// fdl.set_array().reset();
 		},
+		beforeProcessing: function(data, status, xhr){
+			if(curpage_tran == data.page){
+				return false;
+			}else{
+				curpage_tran = data.page;
+			}
+		}
 	});
 	addParamField('#jqGrid_trans',false,urlParam_trans,[]);
 	jqgrid_label_align_right('#jqGrid_trans');

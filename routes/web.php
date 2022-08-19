@@ -38,6 +38,7 @@ Route::get('/dialysis','DialysisController@index');
 Route::get('/dialysis_event','DialysisController@dialysis_event');
 Route::post('/change_status', "DialysisController@change_status");
 Route::post('/save_dialysis', "DialysisController@save_dialysis");
+Route::post('/save_epis_dialysis', "DialysisController@save_epis_dialysis");
 Route::get('/get_data_dialysis', "DialysisController@get_data_dialysis");
 Route::post('/transaction_save', "DialysisController@transaction_save");
 
@@ -121,6 +122,7 @@ Route::get('/mainlanding','PatmastController@mainlanding');
 
 Route::get('/pat_mast','PatmastController@show');
 Route::get('/pat_mast/get_entry','PatmastController@get_entry');
+Route::get('/pat_mast/post_entry','PatmastController@post_entry');
 Route::post('/pat_mast/post_entry','PatmastController@post_entry');
 Route::post('/pat_mast/save_patient','PatmastController@save_patient');
 Route::post('/pat_mast/save_episode','PatmastController@save_episode');

@@ -233,6 +233,77 @@
                             </div>
                         </div>
 
+                        <!-- HEMODIALYSIS -->
+                        <div class="panel panel-default" style="position: relative;" id="div_dialysis">
+                            <div class="panel-heading clearfix collapsed" id="toggle_tabdialysis" data-toggle="collapse" data-target="#tabdialysis">
+                                <i class="fa fa-angle-double-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+                                <i class="fa fa-angle-double-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+                                <div class="pull-right" style="position: absolute; padding: 0 0 0 0; left: 10px; top: 0px;">
+                                    <h5><strong>DIALYSIS ARRIVAL</strong></h5>
+                                </div> 
+                            </div>
+
+                            <div id="tabdialysis" class="panel-collapse collapse">
+                            <div class="panel-body form-horizontal">
+                                <div class="col-xs-6">
+                                    <div id="jqGrid_dialysis_c">
+                                        <div class='col-md-12' style="padding:0 0 15px 0">
+                                            <table id="jqGrid_dialysis" class="table table-striped"></table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6" id="form_dialysis">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                        <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
+                                        id="btn_grp_edit_doc">
+                                            <button type="button" class="btn btn-default" id="add_dialysis">
+                                                <span class="fa fa-plus-square-o fa-lg"></span> Add Arrival
+                                            </button>
+                                            <button type="button" class="btn btn-default" id="edit_dialysis">
+                                                <span class="fa fa-edit fa-lg"></span> Edit Arrival
+                                            </button>
+                                            <button type="button" class="btn btn-default" data-oper='add' id="save_dialysis">
+                                                <span class="fa fa-save fa-lg"></span> Save
+                                            </button>
+                                            <button type="button" class="btn btn-default" id="cancel_dialysis" >
+                                                <span class="fa fa-ban fa-lg" aria-hidden="true"> </span> Cancel
+                                            </button>
+                                        </div></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input id="dialysis_idno" name="dialysis_idno" type="hidden">
+                                        <div class="col-md-2">
+                                            <small for="dialysis_no">Dialysis No.</small>
+                                            <input id="dialysis_no" name="dialysis_no" type="text" class="form-control" data-validation="required" rdonly>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <small for="dialysis_pkgcode">Dialysis Type</small>
+                                            <select name="dialysis_pkgcode" id="dialysis_pkgcode" data-validation="required" class="form-control">
+                                              <option value="EPO">EPO</option>
+                                              <option value="micerra120">MICEERA120</option>
+                                              <option value="manual">MANUAL</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-6">
+                                            <small for="dialysis_date">Arrival Date</small>
+                                            <input id="dialysis_date" name="dialysis_date" type="date" class="form-control" data-validation="required">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <small for="dialysis_time">Arrival Time</small>
+                                            <input id="dialysis_time" name="dialysis_time" type="time" class="form-control" data-validation="required">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+
                         <!-- doctor -->
                         <div class="panel panel-default" style="position: relative;" id="div_doctor">
                             <div class="panel-heading clearfix collapsed" id="toggle_tabDoctor" data-toggle="collapse" data-target="#tabDoctor">
