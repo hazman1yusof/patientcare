@@ -51,7 +51,6 @@ $(document).ready(function () {
 				    },},
 		],
 		autowidth: false,
-		viewrecords: false,
 		width: 900,
 		height: 365,
 		rowNum: 30,

@@ -113,6 +113,8 @@ function refreshGrid(grid,urlParam,oper){
 }
 
 function disableForm(formName, except){
+
+	$(formName+' div.ui.dropdown').addClass("disabled");
 	$(formName+' textarea').prop("disabled",true);
 	$(formName+' input').prop("disabled",true);
 	$(formName+' input[type=radio]').prop("disabled",true);
@@ -131,6 +133,8 @@ function disableForm(formName, except){
 }
 
 function enableForm(formName, except){
+	$(formName+' div.ui.dropdown').removeClass("disabled");
+	
 	$(formName+' textarea').prop("disabled",false);
 	$(formName+' input').prop("disabled",false);
 	$(formName+' input').prop("readonly",false);

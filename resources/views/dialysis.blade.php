@@ -1,6 +1,22 @@
 @extends('layouts.main')
 
 @section('style')
+
+.required{
+    background-color: #ffff30 !important;
+}
+
+.paneldiv{
+    padding-top: 0px !important;
+    overflow-y: auto;
+    height: calc(100vh - 100px);
+}
+
+.bluecloudsegment{
+    position:sticky !important; 
+    z-index: 2 !important; 
+    background: #deedf7 !important;
+}
     
 .fc-toolbar .fc-center h2{
     color:#f2711c;
@@ -157,21 +173,58 @@ table#jqGrid, table#jqGrid_trans{
     <input id="user_dept" name="user_dept" value="{{ Auth::user()->dept }}" type="hidden">
     <input id="sel_date" name="sel_date" value="{{ \Carbon\Carbon::now()->toDateString() }}" type="hidden">
     <input id="_token" name="_token" value="{{ csrf_token() }}" type="hidden">
-    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
-        <div class="panel-heading clearfix collapsed" id="toggle_monthly" data-toggle="collapse" data-target="#tab_monthly">
+
+
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="transaction_panel">
+        <div class="panel-heading clearfix collapsed" id="toggle_trans" data-toggle="collapse" data-target="#tab_trans">
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
         <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
         <div>
-            <h5><strong>Monthly Clinical Record</strong>&nbsp;&nbsp;
-                <span class="metal"></span>
-            </h5>
+            <h5><strong>Order Entry</strong>&nbsp;&nbsp;
+                <span class="metal"></span></h5>
         </div> 
         </div>
 
-        <div id="tab_monthly" class="panel-collapse collapse">
+        <div id="tab_trans" class="panel-collapse collapse">
             <div class="panel-body">
-                @include('monthly_clinical_record')
+                @include('transaction_charges')
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
+        <div class="panel-heading clearfix collapsed" id="toggle_daily" data-toggle="collapse" data-target="#tab_daily">
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div>
+            <h5><strong>Daily Clinical Record (will be discuss)</strong>&nbsp;&nbsp;
+                <span class="metal"></span></h5>
+        </div> 
+        </div>
+
+        <div id="tab_daily" class="panel-collapse collapse">
+            <div class="panel-body paneldiv">
+                @include('daily_clinical_record')
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
+        <div class="panel-heading clearfix collapsed" id="toggle_daily_lama" data-toggle="collapse" data-target="#tab_daily_lama">
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div>
+            <h5><strong>Daily Clinical Record</strong>&nbsp;&nbsp;
+                <span class="metal"></span></h5>
+        </div> 
+        </div>
+
+        <div id="tab_daily_lama" class="panel-collapse collapse">
+            <div class="panel-body">
+                @include('daily_clinical_record_lama')
             </div>
         </div>
     </div>
@@ -195,37 +248,20 @@ table#jqGrid, table#jqGrid_trans{
     </div>
 
     <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
-        <div class="panel-heading clearfix collapsed" id="toggle_daily" data-toggle="collapse" data-target="#tab_daily">
+        <div class="panel-heading clearfix collapsed" id="toggle_monthly" data-toggle="collapse" data-target="#tab_monthly">
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
         <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
         <div>
-            <h5><strong>Daily Clinical Record</strong>&nbsp;&nbsp;
-                <span class="metal"></span></h5>
+            <h5><strong>Monthly Clinical Record</strong>&nbsp;&nbsp;
+                <span class="metal"></span>
+            </h5>
         </div> 
         </div>
 
-        <div id="tab_daily" class="panel-collapse collapse">
-            <div class="panel-body">
-                @include('daily_clinical_record')
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="transaction_panel">
-        <div class="panel-heading clearfix collapsed" id="toggle_trans" data-toggle="collapse" data-target="#tab_trans">
-
-        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
-        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
-        <div>
-            <h5><strong>Order Entry</strong>&nbsp;&nbsp;
-                <span class="metal"></span></h5>
-        </div> 
-        </div>
-
-        <div id="tab_trans" class="panel-collapse collapse">
-            <div class="panel-body">
-                @include('transaction_charges')
+        <div id="tab_monthly" class="panel-collapse collapse">
+            <div class="panel-body" style="position: relative;">
+                @include('monthly_clinical_record')
             </div>
         </div>
     </div>
