@@ -1,33 +1,6 @@
 $(document).ready(function () {
 
 	disableForm('form#daily_form');
-	button_state_dialysis('add')
-	function button_state_dialysis(state){
-		switch(state){
-			case 'empty':
-				$('#cancel_dialysis').data('oper','add');
-				$('#new_dialysis,#save_dialysis,#cancel_dialysis,#edit_dialysis').attr('disabled',true);
-				break;
-			case 'add':
-				$('#cancel_dialysis').data('oper','add');
-				$("#new_dialysis,#current,#past").attr('disabled',false);
-				$('#save_dialysis,#cancel_dialysis,#edit_dialysis').attr('disabled',true);
-				break;
-			case 'edit':
-				$('#cancel_dialysis').data('oper','edit');
-				$("#edit_dialysis").attr('disabled',false);
-				$('#save_dialysis,#cancel_dialysis,#new_dialysis').attr('disabled',true);
-				break;
-			case 'wait':
-				$("#save_dialysis,#cancel_dialysis").attr('disabled',false);
-				$('#edit_dialysis,#new_dialysis').attr('disabled',true);
-				break;
-			case 'disableAll':
-				$('#new_dialysis,#edit_dialysis,#save_dialysis,#cancel_dialysis').attr('disabled',true);
-				break;
-		}
-
-	}
 
 	$('#new_dialysis').click(function(){
 		button_state_dialysis('wait');
@@ -335,5 +308,32 @@ function load_daily_dia(seldate){
 		}
 		
 	},'json');
+
+}
+
+function button_state_dialysis(state){
+	switch(state){
+		case 'empty':
+			$('#cancel_dialysis').data('oper','add');
+			$('#new_dialysis,#save_dialysis,#cancel_dialysis,#edit_dialysis').attr('disabled',true);
+			break;
+		case 'add':
+			$('#cancel_dialysis').data('oper','add');
+			$("#new_dialysis,#current,#past").attr('disabled',false);
+			$('#save_dialysis,#cancel_dialysis,#edit_dialysis').attr('disabled',true);
+			break;
+		case 'edit':
+			$('#cancel_dialysis').data('oper','edit');
+			$("#edit_dialysis").attr('disabled',false);
+			$('#save_dialysis,#cancel_dialysis,#new_dialysis').attr('disabled',true);
+			break;
+		case 'wait':
+			$("#save_dialysis,#cancel_dialysis").attr('disabled',false);
+			$('#edit_dialysis,#new_dialysis').attr('disabled',true);
+			break;
+		case 'disableAll':
+			$('#new_dialysis,#edit_dialysis,#save_dialysis,#cancel_dialysis').attr('disabled',true);
+			break;
+	}
 
 }

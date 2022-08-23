@@ -10,14 +10,16 @@ $(document).ready(function () {
 			{ label: 'id', name: 'id', hidden: true,key:true },
 			{ label: 'chg_code', name: 'chg_code', hidden: true },
 			{ label: 'isudept', name: 'isudept', hidden: true },
-			{ label: 'Code', name: 'chg_desc', width: 40, editable:true, classes: 'wrap',
+			{ label: 'Date', name: 'trxdate', width: 20 },
+			{ label: 'Time', name: 'trxtime', width: 20  },
+			{ label: 'Item', name: 'chg_desc', width: 40, editable:true, classes: 'wrap',
 				editrules:{required: true, custom:true, custom_func:cust_rules},
 				edittype:'custom',	editoptions:
 				    {  custom_element:chgcodeCustomEdit,
 				       custom_value:galGridCustomValue 	
 				    },
 			},
-			{ label: 'Qty', name: 'quantity', width: 35 , align: 'right', editable:true, classes: 'input',
+			{ label: 'Qty', name: 'quantity', width: 20 , align: 'right', editable:true, classes: 'input',
 				editrules:{required: true, custom:true, custom_func:cust_rules},
 				formatter: 'number',formatoptions:{decimalPlaces: 0, defaultValue: '1'}},
 			{ label: 'Remarks', name: 'remarks', width: 80, classes: 'wrap', editable:true,edittype:'textarea',editoptions: { rows: 4 }},
@@ -35,20 +37,20 @@ $(document).ready(function () {
 				    {  custom_element:frequencyCustomEdit,
 				       custom_value:galGridCustomValue 	
 				    },},
-			{ label: 'ins_code', name: 'ins_code', hidden: true },
-			{ label: 'Instruction', name: 'ins_desc', classes: 'wrap', width: 40 , editable:true,
-				editrules:{required: false},
-				edittype:'custom',	editoptions:
-				    {  custom_element:instructionCustomEdit,
-				       custom_value:galGridCustomValue 	
-				    },},
-			{ label: 'dru_code', name: 'dru_code', hidden: true },
-			{ label: 'Indicator', name: 'dru_desc', classes: 'wrap', width: 40 , editable:true,
-				editrules:{required: false},
-				edittype:'custom',	editoptions:
-				    {  custom_element:drugindicatorCustomEdit,
-				       custom_value:galGridCustomValue 	
-				    },},
+			// { label: 'ins_code', name: 'ins_code', hidden: true },
+			// { label: 'Instruction', name: 'ins_desc', hidden: true, classes: 'wrap', width: 40 , editable:true,
+			// 	editrules:{required: false},
+			// 	edittype:'custom',	editoptions:
+			// 	    {  custom_element:instructionCustomEdit,
+			// 	       custom_value:galGridCustomValue 	
+			// 	    },},
+			// { label: 'dru_code', name: 'dru_code', hidden: true },
+			// { label: 'Indicator', name: 'dru_desc', hidden: true, classes: 'wrap', width: 40 , editable:true,
+			// 	editrules:{required: false},
+			// 	edittype:'custom',	editoptions:
+			// 	    {  custom_element:drugindicatorCustomEdit,
+			// 	       custom_value:galGridCustomValue 	
+			// 	    },},
 		],
 		autowidth: false,
 		width: 900,
@@ -64,9 +66,9 @@ $(document).ready(function () {
 
 		},
 		ondblClickRow: function (rowid, iRow, iCol, e) {
-			if($('td#jqGrid_trans_iledit').is(':visible')){
-				$('td#jqGrid_trans_iledit').click();
-			}
+			// if($('td#jqGrid_trans_iledit').is(':visible')){
+			// 	$('td#jqGrid_trans_iledit').click();
+			// }
 		},
 		loadComplete: function () {
 			// get_trans_tbl_data();
@@ -203,10 +205,10 @@ $(document).ready(function () {
         	$('#jqGrid_trans_ildelete').addClass('ui-disabled');
 
         	$("#jqGrid_trans input[name='chgcode']").val(selrow_tran.chg_code);
-        	$("#jqGrid_trans input[name='inscode']").val(selrow_tran.ins_code);
         	$("#jqGrid_trans input[name='dosecode']").val(selrow_tran.dos_code);
         	$("#jqGrid_trans input[name='freqcode']").val(selrow_tran.fre_code);
-        	$("#jqGrid_trans input[name='drugindcode']").val(selrow_tran.dru_code);
+        	// $("#jqGrid_trans input[name='drugindcode']").val(selrow_tran.dru_code);
+        	// $("#jqGrid_trans input[name='inscode']").val(selrow_tran.ins_code);
 
 			$("#jqGrid_trans input[name='chgcode'],#jqGrid_trans input[name='dosecode'],#jqGrid_trans input[name='freqcode'],#jqGrid_trans input[name='inscode'],#jqGrid_trans input[name='drugindcode']").on('keydown',{data:this},onTab);
         },
@@ -239,7 +241,7 @@ $(document).ready(function () {
 
 	$("#jqGrid_trans").inlineNav('#jqGrid_transPager',{	
 		add:true,
-		edit:true,
+		edit:false,
 		cancel: true,
 		//to prevent the row being edited/added from being automatically cancelled once the user clicks another row
 		restoreAfterSelect: false,
@@ -247,50 +249,51 @@ $(document).ready(function () {
 			addRowParams: myEditOptions_add
 		},
 		editParams: myEditOptions_edit
-	}).jqGrid('navButtonAdd', "#jqGrid_transPager", {	
-		id: "jqGrid_trans_ildelete",	
-		caption: "", cursor: "pointer", position: "last",	
-		buttonicon: "glyphicon glyphicon-trash",	
-		title: "Delete Selected Row",	
-		onClickButton: function () {	
-			var rowid = $("#jqGrid_trans").jqGrid('getGridParam', 'selrow');	
-			if (!rowid) {	
-				alert('Please select row');	
-			} else {
-	        	let selrow = selrowData('#jqGrid');
-	        	let selrow_trans = selrowData('#jqGrid_trans');
-				$.confirm({
-				    title: 'Confirm',
-				    content: 'Are you sure you want to delete this row?',
-				    buttons: {
-				        confirm:{
-				        	btnClass: 'btn-blue',
-				        	action: function () {
-					        	var param = {
-									_token: $("#_token").val(),
-									mrn: selrow.MRN,
-						    		episno: selrow.Episno,
-						    		id: selrow_trans.id,
-						    		oper: 'del'
-								}
-
-								$.post( "./doctornote_transaction_save",param, function( data ){
-									refreshGrid("#jqGrid_trans", urlParam_trans);
-								},'json');
-					         }
-
-				        },
-				        cancel: {
-				        	action: function () {
-								
-					        },
-				        }
-				    }
-
-				});
-			}	
-		},	
 	});
+	// .jqGrid('navButtonAdd', "#jqGrid_transPager", {	
+	// 	id: "jqGrid_trans_ildelete",	
+	// 	caption: "", cursor: "pointer", position: "last",	
+	// 	buttonicon: "glyphicon glyphicon-trash",	
+	// 	title: "Delete Selected Row",	
+	// 	onClickButton: function () {	
+	// 		var rowid = $("#jqGrid_trans").jqGrid('getGridParam', 'selrow');	
+	// 		if (!rowid) {	
+	// 			alert('Please select row');	
+	// 		} else {
+	//         	let selrow = selrowData('#jqGrid');
+	//         	let selrow_trans = selrowData('#jqGrid_trans');
+	// 			$.confirm({
+	// 			    title: 'Confirm',
+	// 			    content: 'Are you sure you want to delete this row?',
+	// 			    buttons: {
+	// 			        confirm:{
+	// 			        	btnClass: 'btn-blue',
+	// 			        	action: function () {
+	// 				        	var param = {
+	// 								_token: $("#_token").val(),
+	// 								mrn: selrow.MRN,
+	// 					    		episno: selrow.Episno,
+	// 					    		id: selrow_trans.id,
+	// 					    		oper: 'del'
+	// 							}
+
+	// 							$.post( "./doctornote_transaction_save",param, function( data ){
+	// 								refreshGrid("#jqGrid_trans", urlParam_trans);
+	// 							},'json');
+	// 				         }
+
+	// 			        },
+	// 			        cancel: {
+	// 			        	action: function () {
+								
+	// 				        },
+	// 			        }
+	// 			    }
+
+	// 			});
+	// 		}	
+	// 	},	
+	// });
 
 	hide_tran_button(true);
 
@@ -310,7 +313,7 @@ $(document).ready(function () {
     function cust_rules(value,name){
 		var temp;
 		switch(name){
-			case 'Code':temp=$('table#jqGrid_trans input[name=chgcode]');break;
+			case 'Item':temp=$('table#jqGrid_trans input[name=chgcode]');break;
 			case 'Qty':
 					let quan=$('table#jqGrid_trans input[name=quantity]').val();
 					if(parseInt(quan) <= 0){

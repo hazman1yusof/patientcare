@@ -42,8 +42,14 @@ $(document).ready(function () {
 		sortname: 'idno',
 		sortorder: "desc",
 		onSelectRow:function(rowid, selected){
+			if(selrowData('#jqGrid').arrival != ""){
+				button_state_dialysis('add');
+				hide_tran_button(false);
+			}else{
+				button_state_dialysis('disableAll');
+				hide_tran_button(true);
+			}
 			populatedialysis(selrowData('#jqGrid'),'');
-			hide_tran_button(false);
 			urlParam_trans.mrn = selrowData('#jqGrid').MRN;
 			urlParam_trans.episno = selrowData('#jqGrid').Episno;
 			addmore_onadd = false;

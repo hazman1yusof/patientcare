@@ -306,7 +306,7 @@ table#jqGrid, table#jqGrid_trans{
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 	<script type="text/javascript" src="{{ asset('js/dialysis_main.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dialysis.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/transaction.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/transaction_dialysis.js') }}"></script>
 @endsection
 
 
