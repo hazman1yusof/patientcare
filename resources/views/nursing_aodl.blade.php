@@ -13,7 +13,7 @@
             	<div class="fields">
             		<div class="six wide field"><label>If Yes, Describe:</label></div>
             		<div class="ten wide inline field">
-            			<textarea id="br_breathingdesc" name="br_breathingdesc" type="text" rows="3"></textarea>
+            			<textarea id="br_breathingdesc" name="br_breathingdesc" type="text"></textarea>
             		</div>
             	</div>
 
@@ -27,7 +27,7 @@
             	<div class="fields">
             		<div class="six wide field"><label>If Yes, Describe:</label></div>
             		<div class="ten wide inline field">
-            			<textarea id="br_coughdesc" name="br_coughdesc" type="text" rows="3"></textarea>
+            			<textarea id="br_coughdesc" name="br_coughdesc" type="text"></textarea>
             		</div>
             	</div>
 
@@ -41,7 +41,7 @@
             	<div class="fields">
             		<div class="six wide field"><label>If Yes, Describe:</label></div>
             		<div class="ten wide inline field">
-            			<textarea id="br_breathingdesc" name="br_smokedesc" type="text" rows="3"></textarea>
+            			<textarea id="br_breathingdesc" name="br_smokedesc" type="text"></textarea>
             		</div>
             	</div>
            	</div>
@@ -60,33 +60,7 @@
             	<div class="fields">
             		<div class="six wide field"><label>If Yes, Describe:</label></div>
             		<div class="ten wide inline field">
-            			<textarea id="ed_eatdrinkdesc" name="ed_eatdrinkdesc" type="text" rows="3"></textarea>
-            		</div>
-            	</div>
-           	</div>
-        </div>   	
-
-		<div class="ui segments">
-            <div class="ui secondary segment">ELIMINATION BOWEL</div>
-            <div class="ui segment">
-            	<div class="fields">
-            		<div class="six wide field"><label>Have Notice Any Changes In Bowel Habits Lately?</label></div>
-            		<div class="ten wide inline field">
-            			<label class="normal_label"><input type="radio" name="eb_bowelhabit" value='1' > Yes</label>
-            			<label class="normal_label"><input type="radio" name="eb_bowelhabit" value='0' > No</label>
-            		</div>
-            	</div>
-            	<div class="fields">
-            		<div class="six wide field"><label>Take Any Medication For Bowel Movement?</label></div>
-            		<div class="ten wide inline field">
-            			<label class="normal_label"><input type="radio" name="eb_bowelmove" value='1' > Yes</label>
-            			<label class="normal_label"><input type="radio" name="eb_bowelmove" value='0' > No</label>
-            		</div>
-            	</div>
-            	<div class="fields">
-            		<div class="six wide field"><label>If Yes, Describe:</label></div>
-            		<div class="ten wide inline field">
-            			<textarea id="eb_bowelmovedesc" name="eb_bowelmovedesc" type="text" rows="3"></textarea>
+            			<textarea id="ed_eatdrinkdesc" name="ed_eatdrinkdesc" type="text"></textarea>
             		</div>
             	</div>
            	</div>
@@ -94,20 +68,7 @@
 	</div>
 
 	<div class="nine wide column">
-		<div class="ui segments">
-            <div class="ui secondary segment">SLEEPING</div>
-            <div class="ui segment">
-            	<div class="fields">
-            		<div class="six wide field"><label>Required Medication To Sleep?</label></div>
-            		<div class="ten wide inline field">
-            			<label class="normal_label"><input type="radio" name="sl_sleep" value='1' > Yes</label>
-            			<label class="normal_label"><input type="radio" name="sl_sleep" value='0' > No</label>
-            		</div>
-            	</div>
-           	</div>
-        </div>
-
-        <div class="ui equal width grid">
+		<div class="ui equal width grid">
         	<div class="column">
 				<div class="ui segments">
 		            <div class="ui secondary segment">MOBILITY</div>
@@ -154,26 +115,6 @@
                             <label>
                                 <input type="checkbox" id="phygiene_dependant" name="phygiene_dependant" value="1">
                                  Totally Dependant 
-                            </label>
-                        </div>
-		           	</div>
-		        </div>
-		    </div>
-
-        	<div class="column">
-				<div class="ui segments">
-		            <div class="ui secondary segment">SAFE ENVIRONMENT</div>
-		            <div class="ui segment">
-		            	<div class="field">
-                            <label>
-                                <input type="checkbox" id="safeenv_siderail" name="safeenv_siderail" value="1">
-                                 Siderail 
-                            </label>
-                        </div>
-                        <div class="field">
-                            <label>
-                                <input type="checkbox" id="safeenv_restraint" name="safeenv_restraint" value="1">
-                                 Restraint
                             </label>
                         </div>
 		           	</div>
@@ -287,33 +228,6 @@
 				        </div>
 				    </div>
 		        </div>
-           	</div>
-        </div>
-
-        <div class="ui segments">
-            <div class="ui secondary segment">BLADDER</div>
-            <div class="ui segment">
-            	<div class="fields">
-	        		<div class="six wide field"><label>Have Any Problem Passing Urine?</label></div>
-	        		<div class="ten wide inline field">
-	        			<label class="normal_label"><input type="radio" name="bl_urine" value='1' > Yes</label>
-	        			<label class="normal_label"><input type="radio" name="bl_urine" value='0' > No</label>
-	        		</div>
-	        	</div>
-
-            	<div class="fields">
-            		<div class="six wide field"><label>If Yes, Describe:</label></div>
-            		<div class="ten wide inline field">
-            			<textarea id="bl_urinedesc" name="bl_urinedesc" type="text" rows="3"></textarea>
-            		</div>
-            	</div>
-
-            	<div class="fields">
-            		<div class="six wide field"><label>How Often Get Up At Night To Pass Urine?</label></div>
-            		<div class="ten wide inline field">
-            			<textarea id="bl_urinefreq" name="bl_urinefreq" type="text" rows="3"></textarea>
-            		</div>
-            	</div>
            	</div>
         </div>
 

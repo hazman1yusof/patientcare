@@ -3,17 +3,6 @@ $.jgrid.defaults.responsive = true;
 $.jgrid.defaults.styleUI = 'Bootstrap';
 var editedRow=0;
 
-/////////////////////parameter for jqGridExamTriage url/////////////////////////////////////////////////
-var urlParam_ExamTriage = {
-	action: 'get_table_default',
-	url: 'util/get_table_default',
-	field: '',
-	table_name: 'nursing.nurassesexam',
-	table_id: 'idno',
-	filterCol:['mrn','episno','location'],
-	filterVal:['','','TRIAGE'],
-}
-
 /////////////////////parameter for jqGridAddNotesTriage url/////////////////////////////////////////////////
 var urlParam_AddNotesTriage = {
 	action: 'get_table_default',
@@ -27,13 +16,19 @@ var urlParam_AddNotesTriage = {
 
 $(document).ready(function () {
 
+	$('textarea#medicalhistory,textarea#surgicalhistory,textarea#currentmedication,textarea#drugs_remarks,textarea#plaster_remarks,textarea#food_remarks,textarea#environment_remarks,textarea#others_remarks,textarea#unknown_remarks,textarea#none_remarks,textarea#br_breathingdesc,textarea#br_coughdesc,textarea#br_smokedesc,textarea#ed_eatdrinkdesc').each(function () {
+		this.setAttribute('style', 'height:' + (38) + 'px;min-height:'+ (38) +'px;overflow-y:hidden;');
+	}).on('input', function () {
+		this.style.height = 'auto';
+		this.style.height = (this.scrollHeight) + 'px';
+	});
+
 	var fdl = new faster_detail_load();
 
 	// disableForm('#formTriageInfo, #formActDaily, #formTriPhysical');
 
 	$('#tab_triage').on('shown.bs.collapse', function () {
 		SmoothScrollTo('#tab_triage', 300);
-		$("#jqGridExamTriage").jqGrid ('setGridWidth', Math.floor($("#jqGridExamTriage_c")[0].offsetWidth-$("#jqGridExamTriage_c")[0].offsetLeft-14));
 		$("#jqGridAddNotesTriage").jqGrid ('setGridWidth', Math.floor($("#jqGridAddNotesTriage_c")[0].offsetWidth-$("#jqGridAddNotesTriage_c")[0].offsetLeft-14));
 	});
 
@@ -149,214 +144,6 @@ $(document).ready(function () {
 
 	/////////////////////parameter for saving url/////////////////////////////////////////////////
 	var addmore_jqgrid={more:false,state:false,edit:false}
-
-	/////////////////////////////////// jqGridExamTriage ///////////////////////////////////////////////////
-	$("#jqGridExamTriage").jqGrid({
-		datatype: "local",
-		editurl: "./nursing/form",
-		colModel: [
-			{ label: 'compcode', name: 'compcode', hidden: true },
-			{ label: 'mrn', name: 'mrn', hidden: true },
-			{ label: 'episno', name: 'episno', hidden: true },
-			{ label: 'id', name: 'idno', width:10, hidden: true, key:true},
-			{ label: 'Exam', name: 'exam', width: 80,classes: 'wrap', editable:true,
-				editrules:{custom:true, custom_func:cust_rules},formatter: showdetail,
-					edittype:'custom',	editoptions:
-						{  custom_element:examTriageCustomEdit,
-						   custom_value:galGridCustomValue 	
-						},
-			},
-			{ label: 'Note', name: 'examnote', classes: 'wrap', width: 120, editable: true, edittype: "textarea", editoptions: {style: "width: -webkit-fill-available;" ,rows: 5}},
-			{ label: 'adddate', name: 'adddate', width: 90, hidden:true},
-			{ label: 'adduser', name: 'adduser', width: 90, hidden:true},
-		],
-		autowidth: false,
-		multiSort: true,
-		sortname: 'idno',
-		sortorder: 'desc',
-		viewrecords: true,
-		loadonce: false,
-		scroll: true,
-		width: 900,
-		height: 350,
-		rowNum: 30,
-		pager: "#jqGridPagerExamTriage",
-		loadComplete: function(){
-			if(window.location.pathname == '/bedmanagement'){
-				// to hide pager
-				$('#jqGridPagerExamTriage').html('');
-				$('#jqGridPagerAddNotesTriage').html('');
-			}
-			if(addmore_jqgrid.more == true){$('#jqGridExamTriage_iladd').click();}
-			else{
-				$('#jqGrid2').jqGrid ('setSelection', "1");
-			}
-			$('.ui-pg-button').prop('disabled',true);
-			addmore_jqgrid.edit = addmore_jqgrid.more = false; //reset
-		},
-		ondblClickRow: function(rowid, iRow, iCol, e){
-			$("#jqGridExamTriage_iledit").click();
-		},
-	});
-
-	//////////////////////////////////////////myEditOptions////////////////////////////////////////////////
-	var myEditOptions_add_ExamTriage = {
-		keys: true,
-		extraparam:{
-			"_token": $("#csrf_token").val()
-		},
-		oneditfunc: function (rowid) {
-			$("#jqGridPagerDelete,#jqGridPagerRefresh").hide();
-
-			dialog_examTriage.on();
-
-			$("input[name='examnote']").keydown(function(e) {//when click tab at last column in header, auto save
-				var code = e.keyCode || e.which;
-				if (code == '9')$('#jqGridExamTriage_ilsave').click();
-				/*addmore_jqgrid.state = true;
-				$('#jqGrid_ilsave').click();*/
-			});
-
-		},
-		aftersavefunc: function (rowid, response, options) {
-			addmore_jqgrid.more=true; //only addmore after save inline
-			//state true maksudnyer ada isi, tak kosong
-			refreshGrid('#jqGridExamTriage',urlParam_ExamTriage,'add_exam');
-			errorField.length=0;
-			$("#jqGridPagerDelete,#jqGridPagerRefresh").show();
-		},
-		errorfunc: function(rowid,response){
-			$('#p_error').text(response.responseText);
-			refreshGrid('#jqGridExamTriage',urlParam_ExamTriage,'add_exam');
-		},
-		beforeSaveRow: function (options, rowid) {
-			$('#p_error').text('');
-			if(errorField.length>0){console.log(errorField);return false;}
-
-			let data = $('#jqGridExamTriage').jqGrid ('getRowData', rowid);
-			console.log(data);
-
-			let editurl = "./nursing/form?"+
-				$.param({
-					episno:$('#episno_ti').val(),
-					mrn:$('#mrn_ti').val(),
-					action: 'nursing_save',
-				});
-			$("#jqGridExamTriage").jqGrid('setGridParam', { editurl: editurl });
-		},
-		afterrestorefunc : function( response ) {
-			$("#jqGridPagerDelete,#jqGridPagerRefresh").show();
-		},
-		errorTextFormat: function (data) {
-			alert(data);
-		}
-	};
-
-	//////////////////////////////////////////myEditOptions_edit////////////////////////////////////////////////
-	var myEditOptions_edit_ExamTriage = {
-		keys: true,
-		extraparam:{
-			"_token": $("#csrf_token").val()
-		},
-		oneditfunc: function (rowid) {
-			$("#jqGridPagerDelete,#jqGridPagerRefresh").hide();
-
-			dialog_examTriage.on();
-			
-			// $("input[name='grpcode']").attr('disabled','disabled');
-			$("input[name='examnote']").keydown(function(e) {//when click tab at last column in header, auto save
-				var code = e.keyCode || e.which;
-				if (code == '9')$('#jqGridExamTriage_ilsave').click();
-				/*addmore_jqgrid.state = true;
-				$('#jqGrid_ilsave').click();*/
-			});
-
-		},
-		aftersavefunc: function (rowid, response, options) {
-			if(addmore_jqgrid.state == true)addmore_jqgrid.more=true; //only addmore after save inline
-			//state true maksudnyer ada isi, tak kosong
-			refreshGrid('#jqGridExamTriage',urlParam_ExamTriage,'add_exam');
-			errorField.length=0;
-			$("#jqGridPagerDelete,#jqGridPagerRefresh").show();
-		},
-		errorfunc: function(rowid,response){
-			$('#p_error').text(response.responseText);
-			refreshGrid('#jqGridExamTriage',urlParam_ExamTriage,'add_exam');
-		},
-		beforeSaveRow: function (options, rowid) {
-			$('#p_error').text('');
-			// if(errorField.length>0){console.log(errorField);return false;}
-
-			let data = $('#jqGridExamTriage').jqGrid ('getRowData', rowid);
-			// console.log(data);
-
-			let editurl = "./nursing/form?"+
-				$.param({
-					episno:$('#episno_ti').val(),
-					mrn:$('#mrn_ti').val(),
-					action: 'nursing_edit',
-					_token: $("#csrf_token").val()
-				});
-			$("#jqGridExamTriage").jqGrid('setGridParam', { editurl: editurl });
-		},
-		afterrestorefunc : function( response ) {
-			$("#jqGridPagerDelete,#jqGridPagerRefresh").show();
-		},
-		errorTextFormat: function (data) {
-			alert(data);
-		}
-	};
-
-	//////////////////////////////////////////jqGridPagerExamTriage////////////////////////////////////////////////
-	$("#jqGridExamTriage").inlineNav('#jqGridPagerExamTriage', {
-		add: true,
-		edit: true,
-		cancel: true,
-		//to prevent the row being edited/added from being automatically cancelled once the user clicks another row
-		restoreAfterSelect: false,
-		addParams: {
-			addRowParams: myEditOptions_add_ExamTriage
-		},
-		editParams: myEditOptions_edit_ExamTriage
-	}).jqGrid('navButtonAdd', "#jqGridPagerExamTriage", {
-		id: "jqGridPagerDelete",
-		caption: "", cursor: "pointer", position: "last",
-		buttonicon: "glyphicon glyphicon-trash",
-		title: "Delete Selected Row",
-		onClickButton: function () {
-			selRowId = $("#jqGridExamTriage").jqGrid('getGridParam', 'selrow');
-			if (!selRowId) {
-				alert('Please select row');
-			} else {
-				var result = confirm("Are you sure you want to delete this row?");
-				if (result == true) {
-					param = {
-						_token: $("#csrf_token").val(),
-						action: 'nursing_save',
-						idno: selrowData('#jqGridExamTriage').idno,
-					}
-					$.post( "./nursing/form?"+$.param(param),{oper:'del'}, function( data ){
-					}).fail(function (data) {
-						//////////////////errorText(dialog,data.responseText);
-					}).done(function (data) {
-						refreshGrid("#jqGridExamTriage", urlParam_ExamTriage);
-					});
-				}else{
-					$("#jqGridPagerDelete,#jqGridPagerRefresh").show();
-				}
-			}
-		},
-	}).jqGrid('navButtonAdd', "#jqGridPagerExamTriage", {
-		id: "jqGridPagerRefresh",
-		caption: "", cursor: "pointer", position: "last",
-		buttonicon: "glyphicon glyphicon-refresh",
-		title: "Refresh Table",
-		onClickButton: function () {
-			refreshGrid("#jqGridExamTriage", urlParam_ExamTriage);
-		},
-	});
-
-	//////////////////////////////////////end grid/////////////////////////////////////////////////////////
 	
 	/////////////////////////////////// jqGridAddNotesTriage ///////////////////////////////////////////////////
 	$("#jqGridAddNotesTriage").jqGrid({
@@ -648,12 +435,10 @@ $(document).ready(function () {
 				autoinsert_rowdata("#formTriageInfo",data.triage_regdate);
 				autoinsert_rowdata("#formTriageInfo",data.triage_nurshistory);
 				$('#formTriageInfo span#adduser').text(data.triage_gen.adduser);
-				refreshGrid('#jqGridExamTriage',urlParam_ExamTriage,'add_exam');
 				refreshGrid('#jqGridAddNotesTriage',urlParam_AddNotesTriage,'addNotes_triage');
 				button_state_ti('disableAll');
 	        }else{
 				button_state_ti('disableAll');
-				refreshGrid('#jqGridExamTriage',urlParam_ExamTriage,'kosongkan');
 				refreshGrid('#jqGridAddNotesTriage',urlParam_AddNotesTriage,'kosongkan');
 				examination_nursing.empty();
 				autoinsert_rowdata("#formTriageInfo",data.triage_regdate);
@@ -790,12 +575,10 @@ function populate_triage_currpt(obj){
 			if(!emptyobj_(data.triage_regdate))autoinsert_rowdata("#formTriageInfo",data.triage_regdate);
 			if(!emptyobj_(data.triage_nurshistory))autoinsert_rowdata("#formTriageInfo",data.triage_nurshistory);
 			if(!emptyobj_(data.triage_gen))$('#formTriageInfo span#adduser').text(data.triage_gen.adduser);
-			refreshGrid('#jqGridExamTriage',urlParam_ExamTriage,'add_exam');
 			refreshGrid('#jqGridAddNotesTriage',urlParam_AddNotesTriage,'addNotes_triage');
 			button_state_ti('edit');
         }else{
 			button_state_ti('add');
-			refreshGrid('#jqGridExamTriage',urlParam_ExamTriage,'kosongkan');
 			refreshGrid('#jqGridAddNotesTriage',urlParam_AddNotesTriage,'kosongkan');
 			if(!emptyobj_(data.triage_regdate))autoinsert_rowdata("#formTriageInfo",data.triage_regdate);
         }
