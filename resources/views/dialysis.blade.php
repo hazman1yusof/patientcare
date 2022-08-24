@@ -169,9 +169,9 @@ table#jqGrid, table#jqGrid_trans{
         </div>
     </div>
 
-    <input type="hidden" id="doctornote_route" value="{{route('doctornote_route')}}">
     <input id="user_dept" name="user_dept" value="{{ Auth::user()->dept }}" type="hidden">
     <input id="sel_date" name="sel_date" value="{{ \Carbon\Carbon::now()->toDateString() }}" type="hidden">
+    <input id="dialysis_episode_idno" name="dialysis_episode_idno" type="hidden">
     <input id="_token" name="_token" value="{{ csrf_token() }}" type="hidden">
 
 

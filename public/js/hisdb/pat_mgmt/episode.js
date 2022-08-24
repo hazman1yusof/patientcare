@@ -3,7 +3,6 @@
     $('#editEpisode').on('shown.bs.modal', function (e) {
         // parent_close_disabled(true);
         if($("#episode_oper").val() == 'edit'){ // tutup episode, bkk arrival
-        console.log('edit')
             if($('#toggle_tabdialysis').hasClass('collapsed')){
                 $("#toggle_tabdialysis").click();
             }

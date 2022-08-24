@@ -1,30 +1,26 @@
 
 <div class="ui segments" style="position: relative;">
 	<div class="ui secondary segment bluecloudsegment">
-			<div class="ui small icon input">
-				<!-- <label>Dialysis Date:</label>
-	      <input type="date" id="seldate" disabled="" value="{{Carbon\Carbon::now()}}">
-	      <button class="ui small button">
-				  History
-				</button> -->
-				<div class="ui action input">
-				  <input type="date" readonly value="{{Carbon\Carbon::now()->format('Y-m-d')}}">
-				  <button class="ui button" id="prevdia">Previous Dialysis</button>
-				</div>
-	    </div>
-
-			<a class="ui orange disabled label" id="stats_diet" style="display: none;"></a>
-			<div class="ui small blue icon buttons" id="btn_grp_dialysis" style="position: absolute;
-						padding: 0 0 0 0;
-						right: 40px;
-						top: 9px;
-						z-index: 2;">
-			  <button class="ui button" id="new_dialysis"><span class="fa fa-plus-square-o"></span> New</button>
-			  <button class="ui button" id="edit_dialysis"><span class="fa fa-edit fa-lg"></span> Edit</button>
-			  <button class="ui button" id="save_dialysis"><span class="fa fa-save fa-lg"></span> Save</button>
-			  <button class="ui button" id="cancel_dialysis"><span class="fa fa-ban fa-lg"></span> Cancel</button>
-			</div>
+		<div class="ui labeled small input">
+			<div class="ui blue label">Date</div>
+			<input type="date" readonly value="{{Carbon\Carbon::now()->format('Y-m-d')}}">
 		</div>
+		<select class="ui small dropdown">
+		  <option value="">Dialysis recorded before</option>
+		</select>
+
+		<a class="ui orange disabled label" id="stats_diet" style="display: none;"></a>
+		<div class="ui small blue icon buttons" id="btn_grp_dialysis" style="position: absolute;
+					padding: 0 0 0 0;
+					right: 40px;
+					top: 9px;
+					z-index: 2;">
+		  <button class="ui button" id="new_dialysis"><span class="fa fa-plus-square-o"></span> New</button>
+		  <button class="ui button" id="edit_dialysis"><span class="fa fa-edit fa-lg"></span> Edit</button>
+		  <button class="ui button" id="save_dialysis"><span class="fa fa-save fa-lg"></span> Save</button>
+		  <button class="ui button" id="cancel_dialysis"><span class="fa fa-ban fa-lg"></span> Cancel</button>
+		</div>
+	</div>
 
 
 	<div class="ui segment diaform">

@@ -34,14 +34,14 @@ $(document).ready(function () {
 		sortby:['de_idno desc']
 	}
 
-	var last_dialysisno = 1;
+	var last_lineno_ = 1;
 	$("#jqGrid_dialysis").jqGrid({
 		datatype: "local",
 		colModel: [
             { label: 'idno', name: 'de_idno' , hidden: true,sortable: false },
             { label: 'MRN', name: 'de_mrn', hidden: true ,sortable: false },
             { label: 'Epis no', name: 'de_episno' , hidden: true,sortable: false },
-            { label: 'No.', name: 'de_dialysisno' , width: 20,sortable: false},
+            { label: 'No.', name: 'de_lineno_' , width: 20,sortable: false},
             { label: 'Arrival Date', name: 'de_arrival_date' , width: 40 ,sortable: false,sortable: false, formatter: dateFormatter, unformat: dateUNFormatter},
             { label: 'Arrival Time', name: 'de_arrival_time' , width: 40 ,sortable: false},
             { label: 'Package', name: 'de_packagecode' , hidden: false ,sortable: false},
@@ -66,11 +66,11 @@ $(document).ready(function () {
 			if(reccount>0){
 
 				$("#jqGrid_dialysis").setSelection($("#jqGrid_dialysis").getDataIDs()[0]);
-				last_dialysisno = parseInt(selrowData("#jqGrid_dialysis").de_dialysisno) + 1;
+				last_lineno_ = parseInt(selrowData("#jqGrid_dialysis").de_lineno_) + 1;
 
 				button_state_dialysis('add_edit');
 			}else{
-				last_dialysisno = 1;
+				last_lineno_ = 1;
 				button_state_dialysis('add');
 			}
 
@@ -105,7 +105,7 @@ $(document).ready(function () {
 	$("#add_dialysis").click(function(){
 		emptyFormdata_div('#form_dialysis');
 		button_state_dialysis('wait');
-		$('#dialysis_no').val(last_dialysisno);
+		$('#dialysis_no').val(last_lineno_);
 		$('#dialysis_patname').val($('#txt_epis_name').text());
 		$('#dialysis_date').val(moment().format('YYYY-MM-DD'));
 		$('#dialysis_time').val(moment().format('HH:mm:ss'));
@@ -191,7 +191,7 @@ $(document).ready(function () {
 	}
 
 	function populate_dialysis(obj){
-		$("#dialysis_no").val(obj.de_dialysisno);
+		$("#dialysis_no").val(obj.de_lineno_);
 		$("#dialysis_patname").val(obj.pm_Name);
 		$("#dialysis_pkgcode").val(obj.de_packagecode);
 		$("#dialysis_date").val(obj.de_arrival_date);
