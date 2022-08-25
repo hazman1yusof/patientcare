@@ -3,8 +3,12 @@ var curpage_tran=null; // to prevent duplicate entry
 $(document).ready(function () {
 
 	$("#tab_trans").on("show.bs.collapse", function(){
+		addmore_onadd = false;
 		closealltab("#tab_trans");
-		refreshGrid("#jqGrid_trans", urlParam_trans);
+		if(urlParam_trans.mrn != '' && urlParam_trans.episno != ''){
+			curpage_tran = null;
+			refreshGrid("#jqGrid_trans", urlParam_trans);
+		}
 	});
 
 	$("#tab_trans").on("shown.bs.collapse", function(){
@@ -280,6 +284,8 @@ var urlParam_trans = {
 	url:'./doctornote/table',
 	isudept:'CLINIC',
 	action: 'get_transaction_table',
+	mrn:'',
+	episno:''
 }
 
 function hide_tran_button(hide=true){

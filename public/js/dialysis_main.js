@@ -8,9 +8,11 @@ $(document).ready(function () {
 		action: 'patmast_current_patient',
 		url: './pat_mast/post_entry',
 		curpat: 'true',
+		showall:false,
+		showcomplete:false,
 	}
 
-	var curpage=null; // to prevent duplicate entry 
+	var curpage=null; // to prevent duplicate entry curpage kena falsekan blk setiap kali nak refresh dari awal 
 	$("#jqGrid").jqGrid({
 		datatype: "local",
 		colModel: [
@@ -44,7 +46,7 @@ $(document).ready(function () {
 		sortname: 'idno',
 		sortorder: "desc",
 		onSelectRow:function(rowid, selected){
-
+			closealltab();
 			button_state_dialysis('disableAll');
 
 			if(selrowData('#jqGrid').arrival != 0){
@@ -65,6 +67,8 @@ $(document).ready(function () {
 		ondblClickRow: function (rowid, iRow, iCol, e) {
 		},
 		gridComplete: function () {
+			urlParam_trans.mrn = "";
+			urlParam_trans.episno =  "";
 			empty_dialysis();
 			empty_transaction();
 			// $("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
@@ -89,35 +93,32 @@ $(document).ready(function () {
 
 	searchClick_scroll("#jqGrid","#SearchForm",urlParam);
 
-	function searchClick_scroll(grid,form,urlParam){
-		$(form+' [name=Stext]').on( "keyup", function() {
+
+	$('.ui.checkbox.myslider.showall').checkbox({
+		onChecked: function() {
+			urlParam.showall = true;
 			curpage = null;
-			delay(function(){
-				search(grid,$(form+' [name=Stext]').val(),$(form+' [name=Scol] option:selected').val(),urlParam);
-			}, 500 );
-		});
-
-		$(form+' [name=Scol]').on( "change", function() {
+			refreshGrid("#jqGrid", urlParam);
+	    },
+	    onUnchecked: function() {
+			urlParam.showall = false;
 			curpage = null;
-			search(grid,$(form+' [name=Stext]').val(),$(form+' [name=Scol] option:selected').val(),urlParam);
-		});
-	}
+			refreshGrid("#jqGrid", urlParam);
+	    },
+	});
 
-	function formatterstatus_tick(cellvalue, option, rowObject) {
-		if (cellvalue != null && cellvalue != 0) {
-			return '<span class="fa fa-check" data-value="'+cellvalue+'"></span>';
-		}else{
-			return "";//if value is zero will capture as "" when unformat
-		}
-	}
-
-	function UNformatterstatus_tick(cellvalue, option, cell) {
-		if($('span.fa', cell).data('value') == undefined){
-			return 0;
-		}else{
-			return $('span.fa', cell).data('value');
-		}
-	}
+	$('.ui.checkbox.myslider.showcomplete').checkbox({
+		onChecked: function() {
+			urlParam.showcomplete = true;
+			curpage = null;
+			refreshGrid("#jqGrid", urlParam);
+	    },
+	    onUnchecked: function() {
+			urlParam.showcomplete = false;
+			curpage = null;
+			refreshGrid("#jqGrid", urlParam);
+	    },
+	});
 
 });
 
@@ -129,3 +130,35 @@ function closealltab(except){
 		}
 	});
 }
+
+function searchClick_scroll(grid,form,urlParam){
+	$(form+' [name=Stext]').on( "keyup", function() {
+		curpage = null;
+		delay(function(){
+			search(grid,$(form+' [name=Stext]').val(),$(form+' [name=Scol] option:selected').val(),urlParam);
+		}, 500 );
+	});
+
+	$(form+' [name=Scol]').on( "change", function() {
+		curpage = null;
+		search(grid,$(form+' [name=Stext]').val(),$(form+' [name=Scol] option:selected').val(),urlParam);
+	});
+}
+
+function formatterstatus_tick(cellvalue, option, rowObject) {
+	if (cellvalue != null && cellvalue != 0) {
+		return '<span class="fa fa-check" data-value="'+cellvalue+'"></span>';
+	}else{
+		return "";//if value is zero will capture as "" when unformat
+	}
+}
+
+function UNformatterstatus_tick(cellvalue, option, cell) {
+	if($('span.fa', cell).data('value') == undefined){
+		return 0;
+	}else{
+		return $('span.fa', cell).data('value');
+	}
+}
+
+

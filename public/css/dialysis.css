@@ -1,0 +1,143 @@
+
+.purplebg{
+    background: #e0e8f5 !important;
+}
+
+.paneldiv{
+    padding-top: 0px !important;
+    overflow-y: auto;
+    height: calc(100vh - 100px);
+}
+
+.bluecloudsegment{
+    position:sticky !important; 
+    z-index: 2 !important; 
+    background: #deedf7 !important;
+}
+    
+.fc-toolbar .fc-center h2{
+    color:#f2711c;
+    margin-top:15px;
+}
+
+.fc-toolbar .fc-right {
+    float: right;
+}
+
+.fc-unthemed td.fc-today {
+    background: rgb(251 189 8 / 0.2);
+}
+
+.selected_day {
+    background: rgb(251 189 8 / 1) !important;
+}
+
+.h2 {
+    text-align: center;
+    color: #00b5ad !important;
+    font-size: large !important;
+}
+
+.fc-event {
+    position: relative;
+    display: block;
+    font-size: .85em;
+    line-height: 1!important;
+    border-radius: 50px !important;
+    text-align: center !important;
+    border: 1px solid #3a87ad;
+    width: 10px;
+}
+
+.fc-listMonth-button:before{
+    font-family: "FontAwesome";  
+    content: "\f03a";
+    padding-right: 5px;
+}
+
+.fc-month-button:before{
+    font-family: "FontAwesome";
+    content: "\f073";
+    padding-right: 5px;
+}
+
+.fc-button{
+    height: 2.8em !important;
+}
+
+.myb{
+    font-size: large;
+}
+
+.mysmall{
+    font-weight: 900;
+    color:#f2711c;
+}
+
+.glyphicon-chevron-up,.glyphicon-chevron-down{
+    float:right;
+}
+
+.panel-heading.collapsed .glyphicon-chevron-up,
+.panel-heading .glyphicon-chevron-down {
+    display: none;
+}
+
+.panel-heading.collapsed .glyphicon-chevron-down,
+.panel-heading .glyphicon-chevron-up {
+    display: inline-block;
+}
+
+.table.diatbl{
+    font-size: 11px;
+    width: 85% !important;
+    margin: auto;
+}
+
+.table.diatbl td{
+    padding: 4px !important;
+}
+
+.ui.form.diaform {
+    font-size: smaller;
+    width: 85% !important;
+    margin: auto;
+}
+
+.ui.form.diaform div.field{
+    padding: 0px 8px !important;
+}
+
+.panel-heading#toggle_monthly, .panel-heading#toggle_weekly, .panel-heading#toggle_daily, .panel-heading#toggle_trans{
+    position: sticky;
+    top: 40px;
+    z-index: 3;
+}
+
+#showSidebar{
+    background: rgb(255 255 255 / 0%) !mportant;
+}
+
+.metal{
+    font-size: 0.8em;
+    color: rgba(0,0,0,.4);
+}
+table#jqGrid, table#jqGrid_trans{
+    font-size: 11px;
+}
+.help-block {
+    display: block;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    color: #737373;
+}
+.ui.checkbox.completed{
+    position: absolute;
+    top: 10px;
+    right: 20px;
+}
+.myslider{
+    padding-left: 20px  !important;
+    font-size: 0.8em  !important;
+}
+

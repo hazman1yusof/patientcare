@@ -142,6 +142,7 @@ function enableForm(formName, except){
 	$(formName+' input[type=checkbox]').prop("disabled",false);
 	$(formName+' select').prop("disabled",false);
 
+	console.log(except);
 	if(except!=null){
 		$.each(except, function( index, value ) {
 			$(formName+' textarea[name='+value+']').prop("disabled",true);

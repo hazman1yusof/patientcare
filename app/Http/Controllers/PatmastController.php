@@ -64,6 +64,9 @@ class PatmastController extends defaultController
 
         if($request->curpat == 'true'){
 
+            $showall = $request->showall;
+            $showcomplete = $request->showcomplete;
+
             // $request->rows = $request->rowCount;
 
             // $sel_epistycode = $request->epistycode;
@@ -80,16 +83,38 @@ class PatmastController extends defaultController
                                 // }else{
                                 //     $join = $join->whereIn('queue.epistycode', ['IP','DP']);
                                 // }
-                            })
-                            ->join('hisdb.epispayer', function($join) use ($request){
+                            });
+
+                            if($showall == 'false'){
+                                $table_patm = $table_patm->join('hisdb.dialysis_episode', function($join) use ($request,$showcomplete){
+                                    $join = $join->on('dialysis_episode.mrn', '=', 'pat_mast.MRN')
+                                                ->on('dialysis_episode.episno', '=', 'pat_mast.Episno')
+                                                ->whereDate('dialysis_episode.arrival_date',Carbon::today("Asia/Kuala_Lumpur"));
+
+                                    if($showcomplete == 'false'){
+                                        $join = $join->where('dialysis_episode.complete','=',0);
+                                    }
+
+                                    // if($sel_epistycode == 'OP'){
+                                    //     $join = $join->whereIn('queue.epistycode', ['OP','OTC']);
+                                    // }else{
+                                    //     $join = $join->whereIn('queue.epistycode', ['IP','DP']);
+                                    // }
+                                });
+                            }else{
+                                $table_patm = $table_patm->leftJoin('hisdb.dialysis_episode', function($join) use ($request){
+                                    $join = $join->on('dialysis_episode.mrn', '=', 'pat_mast.MRN')
+                                                ->on('dialysis_episode.episno','=','pat_mast.Episno')
+                                                ->whereDate('dialysis_episode.arrival_date',Carbon::today("Asia/Kuala_Lumpur"));
+                                });
+                            }
+
+                            
+
+                            
+                            $table_patm = $table_patm->join('hisdb.epispayer', function($join) use ($request){
                                 $join = $join->on('epispayer.mrn', '=', 'pat_mast.MRN')
                                             ->on('epispayer.episno','=','pat_mast.Episno');
-
-                            })
-                            ->leftJoin('hisdb.dialysis_episode', function($join) use ($request){
-                                $join = $join->on('dialysis_episode.mrn', '=', 'pat_mast.MRN')
-                                            ->on('dialysis_episode.episno','=','pat_mast.Episno')
-                                            ->whereDate('dialysis_episode.arrival_date',Carbon::today("Asia/Kuala_Lumpur"));
 
                             })
                             ->leftJoin('debtor.debtormast','debtormast.debtorcode','=','epispayer.payercode')

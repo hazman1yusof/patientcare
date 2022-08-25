@@ -5,7 +5,11 @@ $(document).ready(function () {
 	button_state_dialysis('disableAll');
 	$('#new_dialysis').click(function(){
 		button_state_dialysis('wait');
-		enableForm('form#daily_form');
+		enableForm('form#daily_form',['duration_of_hd','dry_weight']);
+		$('#no_of_use').parent().addClass('disabled');
+
+		add_edit_mode();
+
 	});
 
 	$('#cancel_dialysis').click(function(){
@@ -41,6 +45,8 @@ $(document).ready(function () {
 		closealltab("#tab_monthly");
 		SmoothScrollTo('#tab_monthly', 300,undefined,90);
 	});
+
+
 
 	$('#submit').click(function(){
 
@@ -83,18 +89,6 @@ $(document).ready(function () {
 	        });
 	    },
 
-	});
-
-	$('#addnew_dia').click(function(){
-		$('#submit').data('oper','add')
-		enableForm('form#daily_form');
-		$('form#daily_form #start_time').focus();
-	});
-
-	$('#edit_dia').click(function(){
-		$('#submit').data('oper','edit')
-		enableForm('form#daily_form');
-		$('form#daily_form #start_time').focus();
 	});
 
 	$('#rec_monthly_but').click(function(){
@@ -365,4 +359,18 @@ function check_pt_mode(){
         }).fail(function(data){
             alert('error in checking this patient mode..');
         });
+}
+
+function add_edit_mode(){
+	$('#dialyser').off('change');
+
+	$('#dialyser').on('change',function(){
+		if($(this).val() == 'REUSE'){
+			$('#no_of_use').parent().removeClass('disabled');
+		}else{
+			$('#no_of_use').val('');
+			$('#no_of_use').dropdown('set text', '');
+			$('#no_of_use').parent().addClass('disabled');
+		}
+	});
 }
