@@ -292,6 +292,9 @@
                                                         <div class="col-md-4">
                                                             <p>EMAIL<input name="Email_official" id="txt_pat_email" class="form-control" type="email" /></p>
                                                         </div>
+                                                        <div class="col-md-4">
+                                                            <button id="copy_reg" type="button" class="btn btn-default">Copy from registered</button>
+                                                        </div>
                                                         <!--/div-->
                                                     </div>
                                                     <div class="tab-pane fade in" id="addr_office">

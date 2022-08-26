@@ -158,6 +158,24 @@
             check_existing_patient();
         }
     });
+
+	$("#copy_reg").click(function(){
+        var reg_add1 = document.getElementById('txt_pat_curradd1').value;
+        var curr_add1 = document.getElementById("txt_pat_padd1");
+        curr_add1.value += reg_add1;
+
+        var reg_add2 = document.getElementById('txt_pat_curradd2').value;
+        var curr_add2 = document.getElementById("txt_pat_padd2");
+        curr_add2.value += reg_add2;
+
+        var reg_add3 = document.getElementById('txt_pat_curradd3').value;
+        var curr_add3 = document.getElementById("txt_pat_padd3");
+        curr_add3.value += reg_add3;
+
+        var reg_postcode = document.getElementById('txt_pat_currpostcode').value;
+        var curr_postcode = document.getElementById("txt_pat_ppostcode");
+        curr_postcode.value += reg_postcode;
+	});
 	
 	$('#btn_register_patient').on('click',default_click_register);
 
