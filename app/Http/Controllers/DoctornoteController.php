@@ -307,6 +307,8 @@ class DoctornoteController extends Controller
                 ->update([
                     'remarks' => $request->remarks,
                     'diagfinal' => $request->diagfinal,
+                    'dry_weight' => $request->dry_weight,
+                    'duration_hd' => $request->duration_hd,
                     'lastuser'  => session('username'),
                     'lastupdate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                 ]);
@@ -457,6 +459,8 @@ class DoctornoteController extends Controller
                 ->update([
                     'remarks' => $request->remarks,
                     'diagfinal' => $request->diagfinal,
+                    'dry_weight' => $request->dry_weight,
+                    'duration_hd' => $request->duration_hd,
                     'lastuser'  => session('username'),
                     'lastupdate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                 ]);
@@ -764,7 +768,7 @@ class DoctornoteController extends Controller
         $responce = new stdClass();
 
         $episode_obj = DB::table('hisdb.episode')
-            ->select('remarks','diagfinal')
+            ->select('remarks','diagfinal','dry_weight','duration_hd')
             ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno);
@@ -790,6 +794,12 @@ class DoctornoteController extends Controller
             ->where('episno','=',$request->episno);
 
         $pathealthadd_obj = DB::table('hisdb.pathealthadd')
+            ->where('compcode','=',session('compcode'))
+            ->where('mrn','=',$request->mrn)
+            ->where('episno','=',$request->episno);
+
+        $nursassess_doc_obj = DB::table('nursing.nursassessment')
+            ->select('vs_pulse AS pulse','vs_temperature AS temperature','vs_respiration AS respiration')
             ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno);
@@ -822,6 +832,11 @@ class DoctornoteController extends Controller
         if($pathealthadd_obj->exists()){
             $pathealthadd_obj = $pathealthadd_obj->first();
             $responce->pathealthadd = $pathealthadd_obj;
+        }
+
+        if($nursassess_doc_obj->exists()){
+            $nursassess_doc_obj = $nursassess_doc_obj->first();
+            $responce->nursassess_doc = $nursassess_doc_obj;
         }
 
         $responce->transaction = json_decode($this->get_transaction_table($request));

@@ -68,61 +68,7 @@
 	</div>
 
 	<div class="nine wide column">
-		<div class="ui equal width grid">
-        	<div class="column">
-				<div class="ui segments">
-		            <div class="ui secondary segment">MOBILITY</div>
-		            <div class="ui segment">
-		            	<div class="field">
-                            <label>
-                                <input type="checkbox" id="mobilityambulan" name="mobilityambulan" value="1">
-                                 Ambulant 
-                            </label>
-                        </div>
-                        <div class="field">
-                            <label>
-                                <input type="checkbox" id="mobilityassistaid" name="mobilityassistaid" value="1">
-                                 Assist With AIDS 
-                            </label>
-                        </div>
-                        <div class="field">
-                            <label>
-                                <input type="checkbox" id="mobilitybedridden" name="mobilitybedridden" value="1">
-                                 Bedridden 
-                            </label>
-                        </div>
-		           	</div>
-		        </div>
-		    </div>
-
-        	<div class="column">
-				<div class="ui segments">
-		            <div class="ui secondary segment">PERSONAL HYGIENE</div>
-		            <div class="ui segment">
-		            	<div class="field">
-                            <label>
-                                <input type="checkbox" id="phygiene_self" name="phygiene_self" value="1">
-                                 Self 
-                            </label>
-                        </div>
-                        <div class="field">
-                            <label>
-                                <input type="checkbox" id="phygiene_needassist" name="phygiene_needassist" value="1">
-                                 Need Assistant 
-                            </label>
-                        </div>
-                        <div class="field">
-                            <label>
-                                <input type="checkbox" id="phygiene_dependant" name="phygiene_dependant" value="1">
-                                 Totally Dependant 
-                            </label>
-                        </div>
-		           	</div>
-		        </div>
-		    </div>
-        </div>
-
-        <div class="ui segments">
+		<div class="ui segments">
             <div class="ui secondary segment">COMMUNICATION</div>
             <div class="ui segment">
 				<div class="ui equal width grid">

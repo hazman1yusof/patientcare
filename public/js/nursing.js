@@ -543,11 +543,6 @@ function populate_triage_currpt(obj){
 	$("#mrn_ti").val(obj.MRN);
 	$("#episno_ti").val(obj.Episno);
 
-	// table examination
-	urlParam_ExamTriage.filterVal[0] = obj.MRN;
-	urlParam_ExamTriage.filterVal[1] = obj.Episno;
-	urlParam_ExamTriage.filterVal[2] = 'TRIAGE';
-
 	//table additional info
 	urlParam_AddNotesTriage.filterVal[0] = obj.MRN;
 	urlParam_AddNotesTriage.filterVal[1] = obj.Episno;

@@ -33,13 +33,6 @@
                                     <label>Date</label>
                                     <input id="reg_date" name="reg_date" type="date" rdonly>
                                 </div>
-                                <div class="field">
-                                    <label>Triage Color Zone</label>
-                                    <div class="ui action input">
-                                        <input id="triagecolor" name="triagecolor" type="text">
-                                        <a class="ui icon blue button"><i class="fa fa-ellipsis-h"></i></a>
-                                    </div>
-                                </div>
                             </div>
 
                             <div class="field">
@@ -70,34 +63,14 @@
                                             <td><textarea id="drugs_remarks" name="drugs_remarks" type="text"></textarea></td>
                                         </tr>
                                         <tr>
-                                            <td><input type="checkbox" id="allergyplaster" name="allergyplaster" value="1"></td>
-                                            <td><label for="allergyplaster">Plaster</label></td>
-                                            <td><textarea id="plaster_remarks" name="plaster_remarks" type="text"></textarea></td>
-                                        </tr>
-                                        <tr>
                                             <td><input type="checkbox" id="allergyfood" name="allergyfood" value="1"></td>
                                             <td><label for="allergyfood">Food</label></td>
                                             <td><textarea id="food_remarks" name="food_remarks" type="text"></textarea></td>
                                         </tr>
                                         <tr>
-                                            <td><input type="checkbox" id="allergyenvironment" name="allergyenvironment" value="1"></td>
-                                            <td><label for="allergyenvironment">Environment</label></td>
-                                            <td><textarea id="environment_remarks" name="environment_remarks" type="text"></textarea></td>
-                                        </tr>
-                                        <tr>
                                             <td><input type="checkbox" id="allergyothers" name="allergyothers" value="1"></td>
                                             <td><label for="allergyothers">Others</label></td>
                                             <td><textarea id="others_remarks" name="others_remarks" type="text"></textarea></td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" id="allergyunknown" name="allergyunknown" value="1"></td>
-                                            <td><label for="allergyunknown">Unknown</label></td>
-                                            <td><textarea id="unknown_remarks" name="unknown_remarks" type="text"></textarea></td>
-                                        </tr>
-                                        <tr>
-                                            <td><input type="checkbox" id="allergynone" name="allergynone" value="1"></td>
-                                            <td><label for="allergynone">None</label></td>
-                                            <td><textarea id="none_remarks" name="none_remarks" type="text"></textarea></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -166,14 +139,6 @@
                                         </div>
 
                                         <div class="ui grid">
-                                            <div class="field eight wide column" style="margin:0px; padding: 3px 14px 0px 14px;">
-                                                <label>GXT</label>
-                                                <div class="ui right labeled input">
-                                                  <input type="text" onKeyPress="if(this.value.length==6) return false;" id="vs_gxt" name="vs_gxt">
-                                                  <div class="ui basic label">mmOL</div>
-                                                </div>
-                                            </div>
-
                                             <div class="field eight wide column" style="margin:0px; padding: 3px 14px 14px 14px;">
                                                 <label>Pain Score</label>
                                                 <div class="ui right labeled input">
@@ -209,12 +174,6 @@
                                                  Trolley 
                                             </label>
                                         </div>
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="moa_others" name="moa_others" value="1">
-                                                 Others 
-                                            </label>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -232,13 +191,13 @@
                                         <div class="field">
                                             <label>
                                                 <input type="checkbox" id="loc_semiconscious" name="loc_semiconscious" value="1">
-                                                 SemiConscious 
+                                                Semi Conscious 
                                             </label>
                                         </div>
                                         <div class="field">
                                             <label>
                                                 <input type="checkbox" id="loc_unconscious" name="loc_unconscious" value="1">
-                                                 UnConscious 
+                                                 Unconscious 
                                             </label>
                                         </div>
                                     </div>
@@ -271,100 +230,6 @@
                                             <label>
                                                 <input type="checkbox" id="ms_aggressive" name="ms_aggressive" value="1">
                                                  Aggressive 
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="eight wide column ">
-                                <div class="ui segments">
-                                    <div class="ui secondary segment">EMOTIONAL STATUS</div>
-                                    <div class="ui segment">
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="es_calm" name="es_calm" value="1">
-                                                 Calm 
-                                            </label>
-                                        </div>
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="es_anxious" name="es_anxious" value="1">
-                                                 Anxious 
-                                            </label>
-                                        </div>
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="es_distress" name="es_distress" value="1">
-                                                 Distress 
-                                            </label>
-                                        </div>
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="es_depressed" name="es_depressed" value="1">
-                                                 Depressed 
-                                            </label>
-                                        </div>
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="es_irritable" name="es_irritable" value="1">
-                                                 Irritable 
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="sixteen wide column ">
-                                <div class="ui segments">
-                                    <div class="ui secondary segment">FALL RISK ASSESSMENT</div>
-                                    <div class="ui segment">
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="fra_prevfalls" name="fra_prevfalls" value="1">
-                                                 Previous falls 
-                                            </label>
-                                        </div>
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="fra_age" name="fra_age" value="1">
-                                                 Age 60 years or older 
-                                            </label>
-                                        </div>
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="fra_physicalLimitation" name="fra_physicalLimitation" value="1">
-                                                 Physical limitation-visual & mobility 
-                                            </label>
-                                        </div>
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="fra_neurologicaldeficit" name="fra_neurologicaldeficit" value="1">
-                                                 Neurological deficit-confusion & disorientation 
-                                            </label>
-                                        </div>
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="fra_dizziness" name="fra_dizziness" value="1">
-                                                 Dizziness associated with drugs 
-                                            </label>
-                                        </div>
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="fra_cerebralaccident" name="fra_cerebralaccident" value="1">
-                                                 Cerebral Vascular Accident 
-                                            </label>
-                                        </div>
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="fra_notatrisk" name="fra_notatrisk" value="1">
-                                                 Not at risk 
-                                            </label>
-                                        </div>
-                                        <div class="field">
-                                            <label>
-                                                <input type="checkbox" id="fra_atrisk" name="fra_atrisk" value="1">
-                                                 At risk
                                             </label>
                                         </div>
                                     </div>
