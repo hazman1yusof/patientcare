@@ -136,22 +136,6 @@
                             </div>
 
                             <div class="ui segments">
-                                <div class="ui secondary segment">FOLLOW UP</div>
-                                <div class="ui grid segment">
-
-                                    <div class="eight wide field">
-                                        <label>Time</label>
-                                        <input id="followuptime" name="followuptime" type="time">
-                                    </div>
-                                    <div class="eight wide field">
-                                        <label>Date and Time</label>
-                                        <input id="followupdate" name="followupdate" type="date">
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="ui segments">
                                 <div class="ui secondary segment">Physical Examination</div>
                                 <div class="ui segment">
                                     <textarea id="examination" name="examination"></textarea>
@@ -202,11 +186,6 @@
                                     </div>
 
                                     <div class="field">
-                                        <label>BMI</label>
-                                        <input type="text" onKeyPress="if(this.value.length==6) return false;" id="bmi" name="bmi" rdonly>
-                                    </div>
-
-                                    <div class="field">
                                         <label>Blood Pressure</label>
                                         <div class="ui right labeled input">
                                           <input type="text" onKeyPress="if(this.value.length==6) return false;" id="bp_sys1" name="bp_sys1" style="width:25%">
@@ -233,6 +212,24 @@
                                         <input type="text" onKeyPress="if(this.value.length==6) return false;" id="respiration" name="respiration">
                                     </div>
 
+                                </div>
+                            </div>
+                        
+                            <div class="ui segments">
+                                <div class="ui secondary segment">Hemodialysis</div>
+                                <div class="ui segment">
+                                    <div class="field">
+                                        <label>Dry Weight</label>
+                                        <div class="ui right labeled input">
+                                        <input type="text" onKeyPress="if(this.value.length==6) return false;" id="dry_weight" name="dry_weight" data-validation="required">
+                                        <div class="ui basic label">KG</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="field">
+                                        <label>Duration of HD</label>
+                                        <input type="text" id="duration_hd" name="duration_hd">
+                                    </div>
                                 </div>
                             </div>
                         </div>

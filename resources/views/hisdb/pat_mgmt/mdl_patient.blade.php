@@ -157,15 +157,6 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3">
-                                            <small for="cmb_pat_category">Category</small>
-                                            <select id="cmb_pat_category" name="pat_category" class="form-control form-mandatory" required="" aria-required="true">
-                                                <option value="LOCAL">LOCAL</option>
-                                                <option value="EXPATRIATE">EXPATRIATE</option>
-                                                <option value="TOURIST">TOURIST</option>
-                                            </select>
-                                        </div>
-
                                     </div>
                                     
                                     <div class="form-group">                                            
@@ -180,31 +171,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6">
-                                            <small for="txt_pat_langcode">Language</small>
-                                            <!-- <select id="cmb_pat_langcode" name="LanguageCode" class="form-control">
-                                                <option value="">- Select Language -</option>
-                                            </select> -->
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" name="txt_LanguageCode" id="txt_LanguageCode">
-                                                <input type="hidden" name="LanguageCode" id="hid_LanguageCode" value="" />
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-info" id="btn_LanguageCode" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('LanguageCode');"><span class="fa fa-ellipsis-h"></span> </button>
-                                                </span>
-                                            </div>
+                                        <div class="col-md-3">
+                                            <small for="txt_pat_telhp">Mobile</small>
+                                            <input class="form-control" name="telhp" id="txt_pat_telhp" placeholder="" type="text">
                                         </div>
-                                    </div>  
-
-                                    <div class="form-group">
-                                        <div class="col-md-6">
-                                            <small for="txt_pat_email">Email</small>
-                                            <input class="form-control" name="Email_official" id="txt_pat_email" placeholder="" type="email">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <small for="txt_pat_loginid">login id</small>
-                                            <input class="form-control" name="loginid" id="txt_pat_loginid" placeholder="" type="text">
-                                        </div>
-                                    </div> 
+                                    </div>
                                     
                                     <!-- Tab content end -->
                                 </div>
@@ -229,16 +200,16 @@
                                             <!-- <p><strong>ADDRESS</strong></p>                                                      -->
                                             <div class="tab-v2">
                                                 <ul class="nav nav-tabs">
-                                                    <li class="active"><a href="#addr_current" data-toggle="tab">CURRENT</a></li>
+                                                    <li class="active"><a href="#addr_registered" data-toggle="tab">REGISTERED</a></li>
+                                                    <li><a href="#addr_current" data-toggle="tab">CURRENT</a></li>
                                                     <li><a href="#addr_office" data-toggle="tab">OFFICE</a></li>
-                                                    <li><a href="#addr_home" data-toggle="tab">HOME</a></li>
                                                 </ul>
                                                 <div class="tab-content">
-                                                    <div class="tab-pane fade in active" id="addr_current">
+                                                    <div class="tab-pane fade in active" id="addr_registered">
                                                         <!--div class="row"-->
                                                         <br />
                                                         <div class="col-md-4">
-                                                            <p>CURRENT ADDRESS</p>
+                                                            <p>REGISTERED ADDRESS</p>
                                                         </div>
                                                         <div class="col-md-8">
                                                             <p><input name="Address1" id="txt_pat_curradd1" class="form-control form-mandatory" type="text" required /></p>
@@ -280,8 +251,46 @@
                                                         <div class="col-md-4">
                                                             <p>HOUSE<input name="telh" id="txt_pat_telh" class="form-control form-mandatory phone-group" type="text"/></p>
                                                         </div>
+                                                        <!--/div-->
+                                                    </div>
+                                                    <div class="tab-pane fade in" id="addr_current">
+                                                        <!--div class="row"-->
+                                                        <br />
                                                         <div class="col-md-4">
-                                                            <p>MOBILE<input name="telhp" id="txt_pat_telhp" class="form-control form-mandatory phone-group" type="text"/></p>
+                                                            <p>CURRENT ADDRESS</p>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <p><input name="pAdd1" id="txt_pat_padd1" class="form-control" type="text" data-validation="required" /></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <p></p>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <p><input name="pAdd2" id="txt_pat_padd2" class="form-control" type="text" data-validation="required" /></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <p></p>
+                                                        </div>
+                                                        <div class="col-md-8">
+                                                            <p><input name="pAdd3" id="txt_pat_padd3" class="form-control" type="text" data-validation="required" /></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <p></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <p>POSTCODE<input name="pPostCode" id="txt_pat_ppostcode" class="form-control" type="text" data-validation="required" /></p>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <p></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <p>CONTACT NO</p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <p>HOME TEL<input name="txt_pat_ptel" id="txt_pat_ptel" class="form-control" type="text" /></p>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <p>EMAIL<input name="Email_official" id="txt_pat_email" class="form-control" type="email" /></p>
                                                         </div>
                                                         <!--/div-->
                                                     </div>
@@ -326,112 +335,11 @@
                                                         </div>
                                                         <!--/div-->
                                                     </div>
-                                                    <div class="tab-pane fade in" id="addr_home">
-                                                        <!--div class="row"-->
-                                                        <br />
-                                                        <div class="col-md-4">
-                                                            <p>HOME ADDRESS</p>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <p><input name="pAdd1" id="txt_pat_padd1" class="form-control" type="text" /></p>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <p></p>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <p><input name="pAdd2" id="txt_pat_padd2" class="form-control" type="text" /></p>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <p></p>
-                                                        </div>
-                                                        <div class="col-md-8">
-                                                            <p><input name="pAdd3" id="txt_pat_padd3" class="form-control" type="text" /></p>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <p></p>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <p>POSTCODE<input name="pPostCode" id="txt_pat_ppostcode" class="form-control" type="text" /></p>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <p></p>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <p>CONTACT NO</p>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <p>HOME TEL<input name="txt_pat_ptel" id="txt_pat_ptel" class="form-control" type="text" /></p>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <p>HOME MOBILE<input name="txt_pat_ptelhp" id="txt_pat_ptelhp" class="form-control" type="text" /></p>
-                                                        </div>
-                                                        <!--/div-->
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <!--/div-->
                                     </div>
-                                </div>
-                                </div>
-                            </div>
-
-                            <!-- Corp info -->
-                            <div class="panel panel-default" style="position: relative;">
-                                <div class="panel-heading clearfix collapsed" id="toggle_tabCorp" data-toggle="collapse" data-target="#tabCorp">
-                                    <i class="fa fa-angle-double-up" style="font-size:24px;margin: 0 0 0 12px"></i>
-                                    <i class="fa fa-angle-double-down" style="font-size:24px;margin: 0 0 0 12px"></i >
-                                    <div class="pull-right" style="position: absolute; padding: 5px 0 0 5px; left: 10px; top: 0px;">
-                                        <h5><strong>CORPORATE INFO</strong></h5>
-                                    </div> 
-                                </div>
-
-                                <div id="tabCorp" class="panel-collapse collapse">
-                                <div class="panel-body">
- 
-                                    <div class="form-group">
-                                        <div class="col-md-offset-4 col-md-6">
-                                            <small for="txt_payer_company">Company Name</small>
-                                            <!--input class="form-control" id="corpcomp" placeholder="" type="text"-->
-                                            <div class="input-group">
-                                                <input type="text" class="form-control form-mandatory" name="txt_payer_company" id="txt_payer_company">
-                                                <input type="hidden" name="CorpComp" id="hid_payer_company" value="" />
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-info" id="btn_payer_company" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('payer_company');"><span class="fa fa-ellipsis-h"></span> </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            
-                                        </div>
-                                    </div>                                      
-                                    <div class="form-group">
-                                        <div class="col-md-offset-4 col-md-3">
-                                            <small for="txt_payer_staffid">Staff ID</small>
-                                            <input class="form-control" name="Staffid" id="txt_payer_staffid" placeholder="" type="text">
-                                        </div>
-                                         <div class="col-md-3">
-                                            <small for="txt_payer_occupation">Occupation</small>
-                                            <div class="input-group">
-                                                <input type="text" class="form-control form-mandatory" name="txt_pat_occupation" id="txt_pat_occupation">
-                                                <input type="hidden" name="OccupCode" id="hid_pat_occupation" value="" />
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-info" id="btn_pat_occupation" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('pat_occupation');"><span class="fa fa-ellipsis-h"></span> </button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-offset-4 col-md-6">
-                                            <small for="txt_payer_email_official">Company's Email</small>
-                                            <input class="form-control" name="Email_official" id="txt_payer_email_official" placeholder="" type="email">
-                                        </div>
-                                        <div class="col-md-6">
-                                            
-                                        </div>
-                                    </div>
-                                    <!-- end tabs -->
-
                                 </div>
                                 </div>
                             </div>
@@ -442,7 +350,7 @@
 
                                 <i class="fa fa-angle-double-up" style="font-size:24px;margin: 0 0 0 12px"></i>
                                 <i class="fa fa-angle-double-down" style="font-size:24px;margin: 0 0 0 12px"></i >
-                                <div class="pull-right" style="position: absolute; padding: 0 0 0 0; left: 10px; top: 0px;">
+                                <div class="pull-right" style="position: absolute; padding: 5px 0 0 5px; left: 10px; top: 0px;">
                                     <h5><strong>NEXT OF KIN</strong></h5>
                                 </div> 
                                 </div>
@@ -540,85 +448,62 @@
                                 </div>
                             </div>
 
-                            <!-- Emergency -->
+                            <!-- Corp info -->
                             <div class="panel panel-default" style="position: relative;">
-                                <div class="panel-heading clearfix collapsed" id="toggle_tabNok_emr" data-toggle="collapse" data-target="#tabNok_emr">
-
-                                <i class="fa fa-angle-double-up" style="font-size:24px;margin: 0 0 0 12px"></i>
-                                <i class="fa fa-angle-double-down" style="font-size:24px;margin: 0 0 0 12px"></i >
-                                <div class="pull-right" style="position: absolute; padding: 0 0 0 0; left: 10px; top: 0px;">
-                                    <h5><strong>EMERGENCY</strong></h5>
-                                </div> 
+                                <div class="panel-heading clearfix collapsed" id="toggle_tabCorp" data-toggle="collapse" data-target="#tabCorp">
+                                    <i class="fa fa-angle-double-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+                                    <i class="fa fa-angle-double-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+                                    <div class="pull-right" style="position: absolute; padding: 5px 0 0 5px; left: 10px; top: 0px;">
+                                        <h5><strong>CORPORATE INFO</strong></h5>
+                                    </div> 
                                 </div>
 
-                                <div id="tabNok_emr" class="panel-collapse collapse">
-                                <div class="panel-body form-horizontal">
-                                    <div class="col-xs-6">
-                                        <div id="jqGrid_nok_emr_c">
-                                            <div class='col-md-12' style="padding:0 0 15px 0">
-                                                <table id="jqGrid_nok_emr" class="table table-striped"></table>
-                                                <div id="jqGridPager_nok_emr"></div>
+                                <div id="tabCorp" class="panel-collapse collapse">
+                                <div class="panel-body">
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-4 col-md-6">
+                                            <small for="txt_payer_company">Company Name</small>
+                                            <!--input class="form-control" id="corpcomp" placeholder="" type="text"-->
+                                            <div class="input-group">
+                                                <input type="text" class="form-control form-mandatory" name="txt_payer_company" id="txt_payer_company">
+                                                <input type="hidden" name="CorpComp" id="hid_payer_company" value="" />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-info" id="btn_payer_company" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('payer_company');"><span class="fa fa-ellipsis-h"></span> </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            
+                                        </div>
+                                    </div>                                      
+                                    <div class="form-group">
+                                        <div class="col-md-offset-4 col-md-3">
+                                            <small for="txt_payer_staffid">Staff ID</small>
+                                            <input class="form-control" name="Staffid" id="txt_payer_staffid" placeholder="" type="text">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <small for="txt_payer_occupation">Occupation</small>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control form-mandatory" name="txt_pat_occupation" id="txt_pat_occupation">
+                                                <input type="hidden" name="OccupCode" id="hid_pat_occupation" value="" />
+                                                <span class="input-group-btn">
+                                                    <button type="button" class="btn btn-info" id="btn_pat_occupation" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('pat_occupation');"><span class="fa fa-ellipsis-h"></span> </button>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6" id="form_nok_emr">
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                            <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
-                                            id="btn_grp_edit_nok_emr">
-                                                <button type="button" class="btn btn-default" id="add_nok_emr">
-                                                    <span class="fa fa-plus-square-o fa-lg"></span> Add
-                                                </button>
-                                                <button type="button" class="btn btn-default" id="edit_nok_emr">
-                                                    <span class="fa fa-edit fa-lg"></span> Edit
-                                                </button>
-                                                <button type="button" class="btn btn-default" id="save_nok_emr">
-                                                    <span class="fa fa-save fa-lg"></span> Save
-                                                </button>
-                                                <button type="button" class="btn btn-default" id="cancel_nok_emr" >
-                                                    <span class="fa fa-ban fa-lg" aria-hidden="true"> </span> Cancel
-                                                </button>
-                                            </div></div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-4 col-md-6">
+                                            <small for="txt_payer_email_official">Company's Email</small>
+                                            <input class="form-control" name="Email_official" id="txt_payer_email_official" placeholder="" type="email">
                                         </div>
-
-                                        <input id="emr_idno" name="emr_idno" type="hidden">
-
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <small for="emr_name">Name</small>
-                                                <input id="emr_name" name="emr_name" type="text" class="form-control" data-validation="required">
-                                            </div>
+                                        <div class="col-md-6">
+                                            
                                         </div>
-
-                                        <div class="form-group">
-                                            <div class="col-md-8">
-                                                <small for="emr_relate">Relationship</small>
-                                                <div class='input-group'>
-                                                    <input id="emr_relate" name="emr_relate" type="text" class="form-control uppercase">
-                                                    <a class='input-group-addon btn btn-info'><span class='fa fa-ellipsis-h'></span></a>
-                                                </div>
-                                                <span class="help-block"></span>
-                                            </div>
-
-                                            <div class="col-md-4">
-                                                <small for="emr_email">E-mail</small>
-                                                <input id="emr_email" name="emr_email" type="text" class="form-control" rdonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-md-6">
-                                                <small for="emr_telhp">Handphone</small>
-                                                <input id="emr_telhp" name="emr_telhp" type="text" class="form-control" data-validation="required">
-                                            </div>
-
-                                            <div class="col-md-offset-3 col-md-3">
-                                                <small for="emr_telh">Telephone</small>
-                                                <input id="emr_telh" name="emr_telh" type="text" class="form-control">
-                                            </div>
-                                        </div>
-
                                     </div>
+                                    <!-- end tabs -->
+
                                 </div>
                                 </div>
                             </div>
@@ -649,13 +534,6 @@
                                             <select id="cmb_pat_Confidential" name="Confidential" class="form-control form-mandatory" required>
                                                 <option value="1">Yes</option>
                                                 <option value="0" selected="selected">No</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-2">
-                                            <small for="cmb_pat_MRFolder">MR Folder</small>
-                                            <select id="cmb_pat_MRFolder" name="MRFolder" class="form-control form-mandatory" required>
-                                                <option value="1" selected="selected">Yes</option>
-                                                <option value="0" >No</option>
                                             </select>
                                         </div>
                                         <div class="col-md-3">

@@ -642,6 +642,7 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
 			autoinsert_rowdata_doctorNote("#formDoctorNote",data.patexam);
 			autoinsert_rowdata_doctorNote("#formDoctorNote",data.episdiag);
 			autoinsert_rowdata_doctorNote("#formDoctorNote",data.pathealthadd);
+			autoinsert_rowdata_doctorNote("#formDoctorNote",data.nursassess_doc);
 			textare_init_doctornote();
 			refreshGrid('#jqGridAddNotes',urlParam_AddNotes,'add_notes');
 			getBMI();

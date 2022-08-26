@@ -56,93 +56,6 @@
     <input id="sel_date" name="sel_date" value="{{ \Carbon\Carbon::now()->toDateString() }}" type="hidden">
     <input id="_token" name="_token" value="{{ csrf_token() }}" type="hidden">
 
-    <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="userfile_panel">
-        <div class="panel-heading clearfix collapsed" id="toggle_userfile" >
-
-        <b>NAME: <span id="name_show_userfile"></span></b><br>
-        MRN: <span id="mrn_show_userfile"></span>
-        SEX: <span id="sex_show_userfile"></span>
-        DOB: <span id="dob_show_userfile"></span>
-        AGE: <span id="age_show_userfile"></span>
-        RACE: <span id="race_show_userfile"></span>
-        RELIGION: <span id="religion_show_userfile"></span><br>
-        OCCUPATION: <span id="occupation_show_userfile"></span>
-        CITIZENSHIP: <span id="citizenship_show_userfile"></span>
-        AREA: <span id="area_show_userfile"></span> 
-
-        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_userfile"></i>
-        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_userfile"></i >  
-
-        <div style="position: absolute;
-                        padding: 0 0 0 0;
-                        right: 0px;
-                        top: 0px;
-                        z-index: 1000;">
-            <button class="ui icon tertiary button refreshbtn_userfile">
-              <i class="sync alternate icon"></i>
-            </button>
-        </div> 
-        <div style="position: absolute;
-                        padding: 0 0 0 0;
-                        right: 50px;
-                        top: 48px;">
-            <h5><strong>Document Imaging</strong>&nbsp;&nbsp;
-                <span class="metal"></span></h5>
-        </div> 
-        </div>
-
-        <div id="tab_userfile" class="panel-collapse collapse">
-            <div class="panel-body paneldiv">
-                @include('userfile_div')
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="nursing_panel">
-        <div class="panel-heading clearfix collapsed" id="toggle_triage">
-
-            <b>NAME: <span id="name_show_triage"></span></b><br>
-            MRN: <span id="mrn_show_triage"></span>
-            SEX: <span id="sex_show_triage"></span>
-            DOB: <span id="dob_show_triage"></span>
-            AGE: <span id="age_show_triage"></span>
-            RACE: <span id="race_show_triage"></span>
-            RELIGION: <span id="religion_show_triage"></span><br>
-            OCCUPATION: <span id="occupation_show_triage"></span>
-            CITIZENSHIP: <span id="citizenship_show_triage"></span>
-            AREA: <span id="area_show_triage"></span> 
-
-            <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_triage"></i>
-            <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_triage" ></i >
-        
-            <div style="position: absolute;
-                            padding: 0 0 0 0;
-                            right: 0px;
-                            top: 0px;
-                            z-index: 1000;">
-                <button class="ui icon tertiary button refreshbtn_triage">
-                  <i class="sync alternate icon"></i>
-                </button>
-            </div> 
-
-            <div id='nursing_title' style="position: absolute;
-                            padding: 0 0 0 0;
-                            right: 50px;
-                            top: 48px;">
-                <h5><strong>Nursing</strong>&nbsp;&nbsp;
-                    <span class="metal"></span></h5>
-            </div> 
-
-            
-        </div>
-
-        <div id="tab_triage" class="panel-collapse collapse">
-            <div class="panel-body paneldiv">
-                @include('nursing')
-            </div>
-        </div>
-    </div>
-
     <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="doctornote_panel">
         <div class="panel-heading clearfix collapsed" id="toggle_doctornote">
 
@@ -188,86 +101,89 @@
         </div>
     </div>
 
-    <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="diet_panel">
-        <div class="panel-heading clearfix collapsed" role="tab" id="toggle_diet">
+    <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="nursing_panel">
+        <div class="panel-heading clearfix collapsed" id="toggle_triage">
 
-        <b>NAME: <span id="name_show_dieteticCareNotes"></span></b><br>
-        MRN: <span id="mrn_show_dieteticCareNotes"></span>
-        SEX: <span id="sex_show_dieteticCareNotes"></span>
-        DOB: <span id="dob_show_dieteticCareNotes"></span>
-        AGE: <span id="age_show_dieteticCareNotes"></span>
-        RACE: <span id="race_show_dieteticCareNotes"></span>
-        RELIGION: <span id="religion_show_dieteticCareNotes"></span><br>
-        OCCUPATION: <span id="occupation_show_dieteticCareNotes"></span>
-        CITIZENSHIP: <span id="citizenship_show_dieteticCareNotes"></span>
-        AREA: <span id="area_show_dieteticCareNotes"></span> 
+            <b>NAME: <span id="name_show_triage"></span></b><br>
+            MRN: <span id="mrn_show_triage"></span>
+            SEX: <span id="sex_show_triage"></span>
+            DOB: <span id="dob_show_triage"></span>
+            AGE: <span id="age_show_triage"></span>
+            RACE: <span id="race_show_triage"></span>
+            RELIGION: <span id="religion_show_triage"></span><br>
+            OCCUPATION: <span id="occupation_show_triage"></span>
+            CITIZENSHIP: <span id="citizenship_show_triage"></span>
+            AREA: <span id="area_show_triage"></span> 
 
-        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_diet"></i>
-        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_diet"></i>
+            <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_triage"></i>
+            <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_triage" ></i >
+        
+            <div style="position: absolute;
+                            padding: 0 0 0 0;
+                            right: 0px;
+                            top: 0px;
+                            z-index: 1000;">
+                <button class="ui icon tertiary button refreshbtn_triage">
+                <i class="sync alternate icon"></i>
+                </button>
+            </div> 
 
-        <div style="position: absolute;
-                        padding: 0 0 0 0;
-                        right: 0px;
-                        top: 0px;
-                        z-index: 1000;">
-            <button class="ui icon tertiary button refreshbtn_diet">
-              <i class="sync alternate icon"></i>
-            </button>
-        </div> 
-        <div style="position: absolute;
-                        padding: 0 0 0 0;
-                        right: 50px;
-                        top: 48px;">
-            <h5><strong>Dietetic Care Notes</strong>&nbsp;&nbsp;
-                <span class="metal"></span></h5>
-        </div> 
+            <div id='nursing_title' style="position: absolute;
+                            padding: 0 0 0 0;
+                            right: 50px;
+                            top: 48px;">
+                <h5><strong>Nursing</strong>&nbsp;&nbsp;
+                    <span class="metal"></span></h5>
+            </div> 
+
+            
         </div>
 
-        <div id="tab_diet" class="panel-collapse collapse">
+        <div id="tab_triage" class="panel-collapse collapse">
             <div class="panel-body paneldiv">
-                @include('dieteticCareNotes')
+                @include('nursing')
             </div>
         </div>
     </div>
 
-    <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="phys_panel">
-        <div class="panel-heading clearfix collapsed" role="tab" id="toggle_phys">
+    <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="userfile_panel">
+        <div class="panel-heading clearfix collapsed" id="toggle_userfile" >
 
-        <b>NAME: <span id="name_show_phys"></span></b><br>
-        MRN: <span id="mrn_show_phys"></span>
-        SEX: <span id="sex_show_phys"></span>
-        DOB: <span id="dob_show_phys"></span>
-        AGE: <span id="age_show_phys"></span>
-        RACE: <span id="race_show_phys"></span>
-        RELIGION: <span id="religion_show_phys"></span><br>
-        OCCUPATION: <span id="occupation_show_phys"></span>
-        CITIZENSHIP: <span id="citizenship_show_phys"></span>
-        AREA: <span id="area_show_phys"></span> 
+        <b>NAME: <span id="name_show_userfile"></span></b><br>
+        MRN: <span id="mrn_show_userfile"></span>
+        SEX: <span id="sex_show_userfile"></span>
+        DOB: <span id="dob_show_userfile"></span>
+        AGE: <span id="age_show_userfile"></span>
+        RACE: <span id="race_show_userfile"></span>
+        RELIGION: <span id="religion_show_userfile"></span><br>
+        OCCUPATION: <span id="occupation_show_userfile"></span>
+        CITIZENSHIP: <span id="citizenship_show_userfile"></span>
+        AREA: <span id="area_show_userfile"></span> 
 
-        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_phys"></i>
-        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_phys"></i> 
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_userfile"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px" data-toggle="collapse" data-target="#tab_userfile"></i >  
 
         <div style="position: absolute;
                         padding: 0 0 0 0;
                         right: 0px;
                         top: 0px;
                         z-index: 1000;">
-            <button class="ui icon tertiary button refreshbtn_phys">
-              <i class="sync alternate icon"></i>
+            <button class="ui icon tertiary button refreshbtn_userfile">
+            <i class="sync alternate icon"></i>
             </button>
         </div> 
         <div style="position: absolute;
                         padding: 0 0 0 0;
                         right: 50px;
                         top: 48px;">
-            <h5><strong>Rehabilitation</strong>&nbsp;&nbsp;
+            <h5><strong>Electronic Document</strong>&nbsp;&nbsp;
                 <span class="metal"></span></h5>
         </div> 
         </div>
 
-        <div id="tab_phys" class="panel-collapse collapse">
+        <div id="tab_userfile" class="panel-collapse collapse">
             <div class="panel-body paneldiv">
-                @include('physioterapy')
+                @include('userfile_div')
             </div>
         </div>
     </div>
