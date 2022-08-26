@@ -150,6 +150,8 @@ class DoctornoteController extends Controller
 
         $table_chgtrx = DB::table('hisdb.chargetrx as trx') //ambil dari patmast balik
                             ->select('trx.id',
+                                'trx.trxdate',
+                                'trx.trxtime',
                                 'trx.chgcode as chg_code',
                                 'trx.quantity',
                                 'trx.remarks',

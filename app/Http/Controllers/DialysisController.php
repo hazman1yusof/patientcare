@@ -188,44 +188,125 @@ class DialysisController extends Controller
         
     }
 
-    public function transaction_save(Request $request){
+    public function dialysis_transaction_save(Request $request){
+
+        DB::beginTransaction();
         try {
             $table = DB::table('hisdb.chargetrx');
+
+            $chgmast = DB::table('hisdb.chgmast')
+                        ->where('compcode','=',session('compcode'))
+                        ->where('chgcode','=',$request->chg_desc)
+                        ->first();
 
             if($request->oper == 'edit'){
                 $table->where('mrn','=',$request->mrn)
                         ->where('episno','=',$request->episno)
-                        ->where('auditno','=',$request->t_auditno);
+                        ->where('id','=',$request->id);
 
                 $array_edit = [
-                    'chgcode' => $request->t_chgcode,
-                    'quantity' => $request->t_quantity,
+                    'chgcode' => $request->chg_desc,
+                    'chggroup' =>  $chgmast->chggroup,
+                    'quantity' => $request->quantity,
+                    'instruction' => $request->ins_desc,
+                    'doscode' => $request->dos_desc,
+                    'frequency' => $request->fre_desc,
+                    'drugindicator' => $request->dru_desc,
+                    'remarks' => $request->remarks,
                     'lastuser' => Auth::user()->username,
                     'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
                 ];
 
                 $table->update($array_edit);
-            }else{
+            }else if($request->oper == 'add'){
+
                 $array_insert = [
-                    'compcode' => '9A',
+                    'compcode' => session('compcode'),
                     'mrn' => $request->mrn,
                     'episno' => $request->episno,
                     'trxtype' => 'OE',
-                    'trxdate' => $request->trxdate,
-                    'chgcode' => $request->t_chgcode,
+                    'trxdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    'chgcode' => $request->chg_desc,
+                    'chggroup' =>  $chgmast->chggroup,
+                    'instruction' => $request->ins_desc,
+                    'doscode' => $request->dos_desc,
+                    'frequency' => $request->fre_desc,
+                    'drugindicator' => $request->dru_desc,
+                    'remarks' => $request->remarks,
                     'billflag' => '0',
+                    'quantity' => $request->quantity,
                     'isudept' => $request->isudept,
-                    'quantity' => $request->t_quantity,
                     'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
                     'lastuser' => Auth::user()->username,
                     'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
                 ];
 
                 $table->insert($array_insert);
+
+                //check utk hd1 hd2
+                $check_hd = $this->check_hd($request);
+                if($check_hd->auto == true){
+
+                    $chgmast = DB::table('hisdb.chgmast')
+                        ->where('compcode','=',session('compcode'))
+                        ->where('chgcode','=',$check_hd->chgcode)
+                        ->first();
+
+                    $array_insert = [
+                        'compcode' => session('compcode'),
+                        'mrn' => $request->mrn,
+                        'episno' => $request->episno,
+                        'trxtype' => 'OE',
+                        'trxdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                        'chgcode' => $check_hd->chgcode,
+                        'chggroup' =>  $chgmast->chggroup,
+                        'billflag' => '0',
+                        'quantity' => 1,
+                        'isudept' => $request->isudept,
+                        'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
+                        'lastuser' => Auth::user()->username,
+                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
+                    ];
+
+                    $table->insert($array_insert);
+                }
+
+                //check utk epo3
+                $check_mcr = $this->check_mcr($request);
+                if($check_mcr->auto == true){
+
+                    $chgmast = DB::table('hisdb.chgmast')
+                        ->where('compcode','=',session('compcode'))
+                        ->where('chgcode','=',$check_mcr->chgcode)
+                        ->first();
+
+                    $array_insert = [
+                        'compcode' => session('compcode'),
+                        'mrn' => $request->mrn,
+                        'episno' => $request->episno,
+                        'trxtype' => 'OE',
+                        'trxdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                        'chgcode' => $check_mcr->chgcode,
+                        'chggroup' =>  $chgmast->chggroup,
+                        'billflag' => '0',
+                        'quantity' => 1,
+                        'isudept' => $request->isudept,
+                        'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
+                        'lastuser' => Auth::user()->username,
+                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
+                    ];
+
+                    $table->insert($array_insert);
+                }
+
+                $this->updateorder($request);
+
+            }else if($request->oper == 'del'){
+                $table->where('mrn','=',$request->mrn)
+                        ->where('episno','=',$request->episno)
+                        ->where('id','=',$request->id)->delete();
             }
-
-            
-
+        
             $responce = new stdClass();
             $responce->success = 'success';
             echo json_encode($responce);
@@ -283,19 +364,34 @@ class DialysisController extends Controller
                                     ->where('episno',$request->episno);
 
                 if($dialysis_epis->exists()){
-                    $dialysisno = intval($dialysis_epis->max('dialysisno')) + 1;
+                    $lineno_ = intval($dialysis_epis->max('lineno_')) + 1;
+
+                    $dialysis_epis_latest = DB::table('hisdb.dialysis_episode')
+                                    ->where('compcode',session('compcode'))
+                                    ->where('mrn',$request->mrn)
+                                    ->where('episno',$request->episno)
+                                    ->where('lineno_',intval($dialysis_epis->max('lineno_')));
+
+                    $mcrstat = $dialysis_epis_latest->first()->mcrstat;
+                    $hdstat = $dialysis_epis_latest->first()->hdstat;
                 }else{
-                    $dialysisno = 1;
+                    $lineno_ = 1;
+                    $mcrstat = 0;
+                    $hdstat = 0;
                 }
 
                 $array_insert = [
                     'compcode'=>session('compcode'),
                     'mrn'=>$request->mrn,
                     'episno'=>$request->episno,
-                    'dialysisno'=>$dialysisno,
+                    'lineno_'=>$lineno_,
+                    'mcrstat'=>$mcrstat,
+                    'hdstat'=>$hdstat,
                     'arrival_date'=>$request->arrival_date,
                     'arrival_time'=>$request->arrival_time,
-                    'packagecode'=>$request->packagecode
+                    'packagecode'=>$request->packagecode,
+                    'order'=>0,
+                    'complete'=>0
                 ];
         
                 $table->insert($array_insert);
@@ -308,7 +404,6 @@ class DialysisController extends Controller
                     'packagecode'=>$request->packagecode,
                     'arrival_date'=>$request->arrival_date,
                     'arrival_time'=>$request->arrival_time,
-
                 ];
         
                 $table->update($array_update);
@@ -318,12 +413,46 @@ class DialysisController extends Controller
             $responce->success = 'success';
             echo json_encode($responce);
 
-            // DB::commit();
+            DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
 
             return response($e->getMessage(), 500);
         }
+    }
+
+    public function check_pt_mode(Request $request){
+
+        $responce = new stdClass();
+        
+        //check dkt dialysis_episode ada order ke tak
+        $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                            ->where('idno',$request->dialysis_episode_idno)
+                            ->where('order',1);
+
+
+        if($dialysis_episode->exists()){
+            //check dkt dialysis ada data ke tak hari tu
+            $dialysis = DB::table('hisdb.dialysis')
+                            ->where('arrivalno',$request->dialysis_episode_idno);
+                            
+            if($dialysis->exists()){
+                //populate data hari tu
+                $responce->mode = 'edit';
+                $responce->data = $dialysis->first();
+
+            }else{
+                //add new dialysis daily
+                $responce->mode = 'add';
+            }
+
+        }else{
+            //kalu xde order xboleh add dialysis daily
+            $responce->mode = 'disableAll';
+        }
+
+
+        echo json_encode($responce); 
     }
 
     public static function mydump($obj,$line='null'){
@@ -333,6 +462,108 @@ class DialysisController extends Controller
             $obj->getBindings()
         ]);
 
+    }
+
+    public function updateorder(Request $request){
+        //update dialysis_episode charges
+        $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                ->where('idno',$request->dialysis_episode_idno)
+                                ->where('order',0);
+
+        if($dialysis_episode->exists()){
+            DB::table('hisdb.dialysis_episode')
+                ->where('idno',$request->dialysis_episode_idno)
+                ->update([
+                    'order' => 1
+                ]);
+        }
+    }
+
+    public function check_hd(Request $request){
+        $responce = new stdClass();      
+
+        $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                            ->where('idno',$request->dialysis_episode_idno)
+                            ->first();  
+
+        //check ada dlm case
+        $dialysis_pkgdtl = DB::table('hisdb.dialysis_pkgdtl')
+                            ->where('pkgcode','EPO')
+                            ->where('chgcode',$request->chg_desc);
+
+        if($dialysis_pkgdtl->exists()){
+
+            if($dialysis_episode->hdstat == 0){
+
+                DB::table('hisdb.dialysis_episode')
+                    ->where('idno',$request->dialysis_episode_idno)
+                    ->update([
+                        'hdstat' => 1
+                    ]);
+
+                $responce->auto = true;
+                $responce->chgcode = $dialysis_pkgdtl->first()->epocode;
+
+                return $responce;
+
+            }
+        }
+
+        $responce->auto = false;
+        return $responce;
+
+    }
+
+
+    public function check_mcr(Request $request){
+        $responce = new stdClass();
+
+        $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                ->where('idno',$request->dialysis_episode_idno)
+                                ->first();
+
+        $mcrstat = $dialysis_episode->mcrstat;
+
+        if(1<=$mcrstat && $mcrstat<5 ){
+
+            $dialysis_pkgdtl = DB::table('hisdb.dialysis_pkgdtl')
+                            ->where('pkgcode',$dialysis_episode->packagecode);
+
+            DB::table('hisdb.dialysis_episode')
+                    ->where('idno',$request->dialysis_episode_idno)
+                    ->update([
+                        'mcrstat' => $mcrstat + 1
+                    ]);
+
+            $responce->auto = true;
+            $responce->chgcode = $dialysis_pkgdtl->first()->epocode;
+
+            return $responce;
+
+        }else if($mcrstat == 0){
+
+            //check ada dlm case
+            $dialysis_pkgdtl = DB::table('hisdb.dialysis_pkgdtl')
+                            ->where('pkgcode','micerra120')
+                            ->where('chgcode',$request->chg_desc);
+
+            if($dialysis_pkgdtl->exists()){
+
+                DB::table('hisdb.dialysis_episode')
+                    ->where('idno',$request->dialysis_episode_idno)
+                    ->update([
+                        'mcrstat' => 1
+                    ]);
+
+                $responce->auto = false;
+                return $responce;
+                
+            }
+
+        }
+
+        $responce->auto = false;
+        return $responce;
     }
 
 }

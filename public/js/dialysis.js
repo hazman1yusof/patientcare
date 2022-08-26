@@ -1,24 +1,52 @@
 $(document).ready(function () {
 
 	disableForm('form#daily_form');
+	
+	button_state_dialysis('disableAll');
+	$('#new_dialysis').click(function(){
+		button_state_dialysis('wait');
+		enableForm('form#daily_form',['duration_of_hd','dry_weight']);
+		$('#no_of_use').parent().addClass('disabled');
+
+		add_edit_mode();
+
+	});
+
+	$('#cancel_dialysis').click(function(){
+		button_state_dialysis($(this).data('oper'));
+		disableForm('form#daily_form');
+	});
+
+	$("#tab_daily").on("show.bs.collapse", function(){
+		closealltab("#tab_daily");
+	});
 
 	$("#tab_daily").on("shown.bs.collapse", function(){
 		SmoothScrollTo('#tab_daily', 300,undefined,90);
+		if($('#dialysis_episode_idno').val() != 0){
+			check_pt_mode();
+		}
+	});
+
+	$("#tab_weekly").on("show.bs.collapse", function(){
+		closealltab("#tab_weekly");
 	});
 
 	$("#tab_weekly").on("shown.bs.collapse", function(){
+		closealltab("#tab_weekly");
 		SmoothScrollTo('#tab_weekly', 300,undefined,90);
 	});
 
+	$("#tab_monthly").on("show.bs.collapse", function(){
+		closealltab("#tab_monthly");
+	});
+
 	$("#tab_monthly").on("shown.bs.collapse", function(){
+		closealltab("#tab_monthly");
 		SmoothScrollTo('#tab_monthly', 300,undefined,90);
 	});
 
-	$("#tab_trans").on("shown.bs.collapse", function(){
-		SmoothScrollTo('#tab_trans', 300,function(){
-			$("#jqGrid_trans").jqGrid ('setGridWidth', Math.floor($("#jqGrid_trans_c")[0].offsetWidth-$("#jqGrid_trans_c")[0].offsetLeft-14));
-		},90);
-	});
+
 
 	$('#submit').click(function(){
 
@@ -61,18 +89,6 @@ $(document).ready(function () {
 	        });
 	    },
 
-	});
-
-	$('#addnew_dia').click(function(){
-		$('#submit').data('oper','add')
-		enableForm('form#daily_form');
-		$('form#daily_form #start_time').focus();
-	});
-
-	$('#edit_dia').click(function(){
-		$('#submit').data('oper','edit')
-		enableForm('form#daily_form');
-		$('form#daily_form #start_time').focus();
 	});
 
 	$('#rec_monthly_but').click(function(){
@@ -259,16 +275,12 @@ function cleartabledata(type){
 	}
 }
 
-function populatedialysis(data,seldate){
-	$('#edit_dia').prop('disabled',true);
-	$('#addnew_dia').prop('disabled',false);
+function populatedialysis(data){
+	emptyFormdata([],'form#daily_form');
 	disableForm('form#daily_form');
-	$('#seldate').val(seldate);
 	$('span.metal').text(data.Name+' - MRN:'+data.MRN);
 	$('#mrn').val(data.MRN);
 	$('#episno').val(data.Episno);
-	load_daily_dia(seldate);
-	emptyFormdata([],'form#daily_form');
 }
 
 function empty_dialysis(){
@@ -298,4 +310,67 @@ function load_daily_dia(seldate){
 		
 	},'json');
 
+}
+
+function button_state_dialysis(state){
+	switch(state){
+		case 'empty':
+			$('#cancel_dialysis').data('oper','add');
+			$('#new_dialysis,#save_dialysis,#cancel_dialysis,#edit_dialysis').attr('disabled',true);
+			break;
+		case 'add':
+			$('#cancel_dialysis').data('oper','add');
+			$("#new_dialysis,#current,#past").attr('disabled',false);
+			$('#save_dialysis,#cancel_dialysis,#edit_dialysis').attr('disabled',true);
+			break;
+		case 'edit':
+			$('#cancel_dialysis').data('oper','edit');
+			$("#edit_dialysis").attr('disabled',false);
+			$('#save_dialysis,#cancel_dialysis,#new_dialysis').attr('disabled',true);
+			break;
+		case 'wait':
+			$("#save_dialysis,#cancel_dialysis").attr('disabled',false);
+			$('#edit_dialysis,#new_dialysis').attr('disabled',true);
+			break;
+		case 'disableAll':
+			$('#new_dialysis,#edit_dialysis,#save_dialysis,#cancel_dialysis').attr('disabled',true);
+			break;
+	}
+
+}
+
+function check_pt_mode(){
+	var param={
+            action:'check_pt_mode',
+            dialysis_episode_idno:$('#dialysis_episode_idno').val()
+        };
+
+        $.get( "./check_pt_mode?"+$.param(param), function( data ) {
+
+        },'json').done(function(data) {
+            if(data.mode == 'edit'){
+				populate_data('daily',data.data);
+				button_state_dialysis('edit');
+            }else if(data.mode == 'add'){
+				button_state_dialysis('add');
+            }else if(data.mode == 'disableAll'){
+				button_state_dialysis('disableAll');
+            }
+        }).fail(function(data){
+            alert('error in checking this patient mode..');
+        });
+}
+
+function add_edit_mode(){
+	$('#dialyser').off('change');
+
+	$('#dialyser').on('change',function(){
+		if($(this).val() == 'REUSE'){
+			$('#no_of_use').parent().removeClass('disabled');
+		}else{
+			$('#no_of_use').val('');
+			$('#no_of_use').dropdown('set text', '');
+			$('#no_of_use').parent().addClass('disabled');
+		}
+	});
 }

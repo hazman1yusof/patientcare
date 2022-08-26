@@ -1,129 +1,6 @@
 @extends('layouts.main')
 
 @section('style')
-    
-.fc-toolbar .fc-center h2{
-    color:#f2711c;
-    margin-top:15px;
-}
-
-.fc-toolbar .fc-right {
-    float: right;
-}
-
-.fc-unthemed td.fc-today {
-    background: rgb(251 189 8 / 0.2);
-}
-
-.selected_day {
-    background: rgb(251 189 8 / 1) !important;
-}
-
-.h2 {
-    text-align: center;
-    color: #00b5ad !important;
-    font-size: large !important;
-}
-
-.fc-event {
-    position: relative;
-    display: block;
-    font-size: .85em;
-    line-height: 1!important;
-    border-radius: 50px !important;
-    text-align: center !important;
-    border: 1px solid #3a87ad;
-    width: 10px;
-}
-
-.fc-listMonth-button:before{
-    font-family: "FontAwesome";  
-    content: "\f03a";
-    padding-right: 5px;
-}
-
-.fc-month-button:before{
-    font-family: "FontAwesome";
-    content: "\f073";
-    padding-right: 5px;
-}
-
-.fc-button{
-    height: 2.8em !important;
-}
-
-.myb{
-    font-size: large;
-}
-
-.mysmall{
-    font-weight: 900;
-    color:#f2711c;
-}
-
-.glyphicon-chevron-up,.glyphicon-chevron-down{
-    float:right;
-}
-
-.panel-heading.collapsed .glyphicon-chevron-up,
-.panel-heading .glyphicon-chevron-down {
-    display: none;
-}
-
-.panel-heading.collapsed .glyphicon-chevron-down,
-.panel-heading .glyphicon-chevron-up {
-    display: inline-block;
-}
-
-.table.diatbl{
-    font-size: 11px;
-    width: 85% !important;
-    margin: auto;
-}
-
-.table.diatbl td{
-    padding: 4px !important;
-}
-
-.ui.form.diaform {
-    font-size: smaller;
-    width: 85% !important;
-    margin: auto;
-}
-
-.ui.form.diaform div.field{
-    padding: 0px 8px !important;
-}
-
-.panel-heading#toggle_monthly, .panel-heading#toggle_weekly, .panel-heading#toggle_daily, .panel-heading#toggle_trans{
-    position: sticky;
-    top: 40px;
-    z-index: 3;
-}
-
-#showSidebar{
-    background: rgb(255 255 255 / 0%) !mportant;
-}
-
-.metal{
-    font-size: 0.8em;
-    color: rgba(0,0,0,.4);
-}
-table#jqGrid, table#jqGrid_trans{
-    font-size: 11px;
-}
-.help-block {
-    display: block;
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
-    color: #737373;
-}
-.ui.checkbox.completed{
-    position: absolute;
-    top: 10px;
-    right: 20px;
-}
-
 
 @endsection
 
@@ -133,19 +10,23 @@ table#jqGrid, table#jqGrid_trans{
         <div class="column" style="margin:0px;">
             <div class="ui teal segment">
                 <h2 class="h2">Current Patient List</h2>
-                <form class="ui form" id="SearchForm" autocomplete="off" >
-                  <div class="two fields">
-                    <div class="two wide field">
+                <form class="ui form" id="SearchForm" autocomplete="off" style="margin-bottom: 10px;">
+                    <div class="inline field">
                         <select class="ui dropdown" name="Scol">
-                          <option value="Name">Name</option>
+                          <option value="Name">Patient Name</option>
                           <option value="MRN">MRN</option>
                           <option value="I/C">IC Number</option>
                         </select>
+                        <input type="text" placeholder="Type Search here" name="Stext" style="min-width: 50%">
+                        <div class="ui slider checkbox myslider showall" >
+                          <input type="checkbox" class="hidden" id="arriv_cb">
+                          <label>Show all patient</label>
+                        </div>
+                        <div class="ui slider checkbox myslider showcomplete" >
+                          <input type="checkbox" class="hidden" id="comple_cb">
+                          <label>Show completed</label>
+                        </div>
                     </div>
-                    <div class="field">
-                      <input type="text" placeholder="Type Search here" name="Stext">
-                    </div>
-                  </div>
                 </form>
                 <table id="jqGrid" class="table table-striped"></table>
                 <div id="jqGridPager"></div>
@@ -153,25 +34,44 @@ table#jqGrid, table#jqGrid_trans{
         </div>
     </div>
 
-    <input type="hidden" id="doctornote_route" value="{{route('doctornote_route')}}">
     <input id="user_dept" name="user_dept" value="{{ Auth::user()->dept }}" type="hidden">
     <input id="sel_date" name="sel_date" value="{{ \Carbon\Carbon::now()->toDateString() }}" type="hidden">
+    <input id="dialysis_episode_idno" name="dialysis_episode_idno" type="hidden">
     <input id="_token" name="_token" value="{{ csrf_token() }}" type="hidden">
-    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
-        <div class="panel-heading clearfix collapsed" id="toggle_monthly" data-toggle="collapse" data-target="#tab_monthly">
+
+
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="transaction_panel">
+        <div class="panel-heading clearfix collapsed" id="toggle_trans" data-toggle="collapse" data-target="#tab_trans">
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
         <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
         <div>
-            <h5><strong>Monthly Clinical Record</strong>&nbsp;&nbsp;
-                <span class="metal"></span>
-            </h5>
+            <h5><strong>Order Entry</strong>&nbsp;&nbsp;
+                <span class="metal"></span></h5>
         </div> 
         </div>
 
-        <div id="tab_monthly" class="panel-collapse collapse">
+        <div id="tab_trans" class="panel-collapse collapse">
             <div class="panel-body">
-                @include('monthly_clinical_record')
+                @include('transaction_charges')
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
+        <div class="panel-heading clearfix collapsed" id="toggle_daily" data-toggle="collapse" data-target="#tab_daily">
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div>
+            <h5><strong>Daily Clinical Record</strong>&nbsp;&nbsp;
+                <span class="metal"></span></h5>
+        </div> 
+        </div>
+
+        <div id="tab_daily" class="panel-collapse collapse">
+            <div class="panel-body paneldiv">
+                @include('daily_clinical_record')
             </div>
         </div>
     </div>
@@ -195,37 +95,20 @@ table#jqGrid, table#jqGrid_trans{
     </div>
 
     <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
-        <div class="panel-heading clearfix collapsed" id="toggle_daily" data-toggle="collapse" data-target="#tab_daily">
+        <div class="panel-heading clearfix collapsed" id="toggle_monthly" data-toggle="collapse" data-target="#tab_monthly">
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
         <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
         <div>
-            <h5><strong>Daily Clinical Record</strong>&nbsp;&nbsp;
-                <span class="metal"></span></h5>
+            <h5><strong>Monthly Clinical Record</strong>&nbsp;&nbsp;
+                <span class="metal"></span>
+            </h5>
         </div> 
         </div>
 
-        <div id="tab_daily" class="panel-collapse collapse">
-            <div class="panel-body">
-                @include('daily_clinical_record')
-            </div>
-        </div>
-    </div>
-
-    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="transaction_panel">
-        <div class="panel-heading clearfix collapsed" id="toggle_trans" data-toggle="collapse" data-target="#tab_trans">
-
-        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
-        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
-        <div>
-            <h5><strong>Order Entry</strong>&nbsp;&nbsp;
-                <span class="metal"></span></h5>
-        </div> 
-        </div>
-
-        <div id="tab_trans" class="panel-collapse collapse">
-            <div class="panel-body">
-                @include('transaction_charges')
+        <div id="tab_monthly" class="panel-collapse collapse">
+            <div class="panel-body" style="position: relative;">
+                @include('monthly_clinical_record')
             </div>
         </div>
     </div>
@@ -256,6 +139,8 @@ table#jqGrid, table#jqGrid_trans{
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;500&family=Open+Sans:wght@300;700&family=Syncopate&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/dialysis.css') }}">
 @endsection
 
 @section('js')
@@ -270,7 +155,7 @@ table#jqGrid, table#jqGrid_trans{
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 	<script type="text/javascript" src="{{ asset('js/dialysis_main.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dialysis.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/transaction.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/transaction_dialysis.js') }}"></script>
 @endsection
 
 

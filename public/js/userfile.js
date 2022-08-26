@@ -185,7 +185,7 @@ var DataTable_preview = $('#tablePreview').DataTable({
 
 function empty_userfile(){
     DataTable_preview.clear().draw();
-    $("#tab_userfile").collapse('hide')
+    $("#tab_userfile").collapse('hide');
     $('#userfile_mrn').val('');
     
     //panel header

@@ -8,24 +8,28 @@ $(document).ready(function () {
 		action: 'patmast_current_patient',
 		url: './pat_mast/post_entry',
 		curpat: 'true',
+		showall:false,
+		showcomplete:false,
 	}
 
-	var curpage=null; // to prevent duplicate entry 
+	var curpage=null; // to prevent duplicate entry curpage kena falsekan blk setiap kali nak refresh dari awal 
 	$("#jqGrid").jqGrid({
 		datatype: "local",
 		colModel: [
-			{ label: 'idno', name: 'idno',width: 2 , hidden: true, key:true},
-			{ label: 'MRN', name: 'MRN', width: 9, classes: 'wrap', formatter: padzero, unformat: unpadzero },
-			{ label: 'Episno', name: 'Episno', width: 5 ,align: 'left',classes: 'wrap' },
+			{ label: 'idno', name: 'idno',hidden: true, key:true},
+			{ label: 'MRN', name: 'MRN', width: 5, classes: 'wrap', formatter: padzero, unformat: unpadzero },
+			{ label: 'Episode', name: 'Episno', width: 5 ,align: 'left',classes: 'wrap' },
 			// { label: 'Time', name: 'reg_time', width: 10 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
-			{ label: 'Name', name: 'Name', width: 40 ,classes: 'wrap' },
+			{ label: 'Name', name: 'Name', width: 30 ,classes: 'wrap' },
 			{ label: 'Payer', name: 'payer', width: 20 ,classes: 'wrap' },
 			{ label: 'I/C', name: 'Newic', width: 15 ,classes: 'wrap' },
-			{ label: 'DOB', name: 'DOB', width: 12 ,classes: 'wrap' ,formatter: dateFormatter, unformat: dateUNFormatter},
-			{ label: 'HP', name: 'telhp', width: 13 ,classes: 'wrap' , hidden:true},
-			{ label: 'Sex', name: 'Sex', width: 6 ,classes: 'wrap' },
-			{ label: 'Arrival', name: 'arrival', width: 5. ,align: 'center', formatter:formatterstatus_tick},
-			{ label: 'dob', name: 'dob', hidden: true },
+			{ label: 'DOB', name: 'DOB', hidden: true},
+			{ label: 'HP', name: 'telhp', hidden:true},
+			{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
+			{ label: 'Arrival Date', name: 'arrival_date', width: 7. ,align: 'center', formatter:dateFormatter, unformat:dateUNFormatter},
+			{ label: 'Arrival', name: 'arrival', width: 5. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
+			{ label: 'Complete', name: 'complete', width: 6. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
+			{ label: 'Order', name: 'order', hidden: true},
 			{ label: 'RaceCode', name: 'RaceCode', hidden: true },
 			{ label: 'religion', name: 'religion', hidden: true },
 			{ label: 'OccupCode', name: 'OccupCode', hidden: true },
@@ -42,18 +46,29 @@ $(document).ready(function () {
 		sortname: 'idno',
 		sortorder: "desc",
 		onSelectRow:function(rowid, selected){
-			populatedialysis(selrowData('#jqGrid'),'');
-			hide_tran_button(false);
+			closealltab();
+			button_state_dialysis('disableAll');
+
+			if(selrowData('#jqGrid').arrival != 0){
+				$('#dialysis_episode_idno').val(selrowData('#jqGrid').arrival);
+				hide_tran_button(false);
+			}else{
+				$('#dialysis_episode_idno').val(0);
+				hide_tran_button(true);
+			}
+			
+			populatedialysis(selrowData('#jqGrid'));
 			urlParam_trans.mrn = selrowData('#jqGrid').MRN;
 			urlParam_trans.episno = selrowData('#jqGrid').Episno;
 			addmore_onadd = false;
 			curpage_tran = null;
-			refreshGrid("#jqGrid_trans", urlParam_trans);
 
 		},
 		ondblClickRow: function (rowid, iRow, iCol, e) {
 		},
 		gridComplete: function () {
+			urlParam_trans.mrn = "";
+			urlParam_trans.episno =  "";
 			empty_dialysis();
 			empty_transaction();
 			// $("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
@@ -78,26 +93,72 @@ $(document).ready(function () {
 
 	searchClick_scroll("#jqGrid","#SearchForm",urlParam);
 
-	function searchClick_scroll(grid,form,urlParam){
-		$(form+' [name=Stext]').on( "keyup", function() {
-			curpage = null;
-			delay(function(){
-				search(grid,$(form+' [name=Stext]').val(),$(form+' [name=Scol] option:selected').val(),urlParam);
-			}, 500 );
-		});
 
-		$(form+' [name=Scol]').on( "change", function() {
+	$('.ui.checkbox.myslider.showall').checkbox({
+		onChecked: function() {
+			urlParam.showall = true;
 			curpage = null;
-			search(grid,$(form+' [name=Stext]').val(),$(form+' [name=Scol] option:selected').val(),urlParam);
-		});
-	}
+			refreshGrid("#jqGrid", urlParam);
+	    },
+	    onUnchecked: function() {
+			urlParam.showall = false;
+			curpage = null;
+			refreshGrid("#jqGrid", urlParam);
+	    },
+	});
 
-	function formatterstatus_tick(cellvalue, option, rowObject) {
-		if (cellvalue != null) {
-			return '<span class="fa fa-check" ></span>';
-		}else{
-			return "";
-		}
-	}
+	$('.ui.checkbox.myslider.showcomplete').checkbox({
+		onChecked: function() {
+			urlParam.showcomplete = true;
+			curpage = null;
+			refreshGrid("#jqGrid", urlParam);
+	    },
+	    onUnchecked: function() {
+			urlParam.showcomplete = false;
+			curpage = null;
+			refreshGrid("#jqGrid", urlParam);
+	    },
+	});
 
 });
+
+function closealltab(except){
+	var tab_arr = ["#tab_trans","#tab_daily","#tab_weekly","#tab_monthly"];
+	tab_arr.forEach(function(e,i){
+		if(e != except){
+			$(e).collapse('hide');
+		}
+	});
+}
+
+function searchClick_scroll(grid,form,urlParam){
+	$(form+' [name=Stext]').on( "keyup", function() {
+		curpage = null;
+		delay(function(){
+			search(grid,$(form+' [name=Stext]').val(),$(form+' [name=Scol] option:selected').val(),urlParam);
+		}, 500 );
+	});
+
+	$(form+' [name=Scol]').on( "change", function() {
+		curpage = null;
+		search(grid,$(form+' [name=Stext]').val(),$(form+' [name=Scol] option:selected').val(),urlParam);
+	});
+}
+
+function formatterstatus_tick(cellvalue, option, rowObject) {
+	if (cellvalue != null && cellvalue != 0) {
+		return '<span class="fa fa-check" data-value="'+cellvalue+'"></span>';
+	}else{
+		return "";//if value is zero will capture as "" when unformat
+	}
+}
+
+function UNformatterstatus_tick(cellvalue, option, cell) {
+	if($('span.fa', cell).data('value') == undefined){
+		return 0;
+	}else{
+		return $('span.fa', cell).data('value');
+	}
+}
+
+

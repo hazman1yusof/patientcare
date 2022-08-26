@@ -40,7 +40,8 @@ Route::post('/change_status', "DialysisController@change_status");
 Route::post('/save_dialysis', "DialysisController@save_dialysis");
 Route::post('/save_epis_dialysis', "DialysisController@save_epis_dialysis");
 Route::get('/get_data_dialysis', "DialysisController@get_data_dialysis");
-Route::post('/transaction_save', "DialysisController@transaction_save");
+Route::post('/dialysis_transaction_save', "DialysisController@dialysis_transaction_save");
+Route::get('/check_pt_mode', "DialysisController@check_pt_mode");
 
 Route::get('/prescription', "PrescriptionController@index");
 Route::get('/prescription/{id}', "PrescriptionController@detail");
