@@ -142,7 +142,6 @@ function enableForm(formName, except){
 	$(formName+' input[type=checkbox]').prop("disabled",false);
 	$(formName+' select').prop("disabled",false);
 
-	console.log(except);
 	if(except!=null){
 		$.each(except, function( index, value ) {
 			$(formName+' textarea[name='+value+']').prop("disabled",true);
@@ -237,7 +236,7 @@ function frozeOnEdit(form){
 
 function rdonly(form){
 	$(form+' input[rdonly]').prop("readonly",true);
-	$(form+' input[dsabled]').prop("disabled",true);
+	// $(form+' input[dsabled]').prop("disabled",true);
 }
 
 function hideOne(form){
