@@ -260,25 +260,25 @@
                                                             <p>CURRENT ADDRESS</p>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <p><input name="pAdd1" id="txt_pat_padd1" class="form-control" type="text" data-validation="required" /></p>
+                                                            <p><input name="pAdd1" id="txt_pat_padd1" class="form-control form-mandatory" type="text" required /></p>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <p></p>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <p><input name="pAdd2" id="txt_pat_padd2" class="form-control" type="text" data-validation="required" /></p>
+                                                            <p><input name="pAdd2" id="txt_pat_padd2" class="form-control form-mandatory" type="text" required /></p>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <p></p>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <p><input name="pAdd3" id="txt_pat_padd3" class="form-control" type="text" data-validation="required" /></p>
+                                                            <p><input name="pAdd3" id="txt_pat_padd3" class="form-control form-mandatory" type="text" required /></p>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <p></p>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <p>POSTCODE<input name="pPostCode" id="txt_pat_ppostcode" class="form-control" type="text" data-validation="required" /></p>
+                                                            <p>POSTCODE<input name="pPostCode" id="txt_pat_ppostcode" class="form-control form-mandatory" type="text" required /></p>
                                                         </div>
                                                         <div class="col-md-12">
                                                             <p></p>
@@ -287,13 +287,16 @@
                                                             <p>CONTACT NO</p>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <p>HOME TEL<input name="txt_pat_ptel" id="txt_pat_ptel" class="form-control" type="text" /></p>
+                                                            <p>HOME TEL<input name="ptel" id="txt_pat_ptel" class="form-control form-mandatory" type="text" required /></p>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <p>EMAIL<input name="Email_official" id="txt_pat_email" class="form-control" type="email" /></p>
+                                                            <p>EMAIL<input name="Email" id="txt_pat_email" class="form-control" type="email" /></p>
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <button id="copy_reg" type="button" class="btn btn-default">Copy from registered</button>
+                                                        <div class="col-md-12">
+                                                            <div class="col-md-10"></div>
+                                                            <div class="col-md-2" style="left: 60px;">
+                                                                <button id="copy_reg" type="button" class="btn btn-default">Copy from registered</button>
+                                                            </div>
                                                         </div>
                                                         <!--/div-->
                                                     </div>
@@ -304,19 +307,19 @@
                                                             <p>OFFICE ADDRESS</p>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <p><input name="Offadd1" id="txt_pat_offadd1" class="form-control" type="text" /></p>
+                                                            <p><input name="OffAdd1" id="txt_pat_offadd1" class="form-control" type="text" /></p>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <p></p>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <p><input name="Offadd2" id="txt_pat_offadd2" class="form-control" type="text" /></p>
+                                                            <p><input name="OffAdd2" id="txt_pat_offadd2" class="form-control" type="text" /></p>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <p></p>
                                                         </div>
                                                         <div class="col-md-8">
-                                                            <p><input name="Offadd3" id="txt_pat_offadd3" class="form-control" type="text" /></p>
+                                                            <p><input name="OffAdd3" id="txt_pat_offadd3" class="form-control" type="text" /></p>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <p></p>
@@ -331,10 +334,10 @@
                                                             <p>CONTACT NO</p>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <p>OFFICE TEL<input name="txt_pat_telo" id="txt_pat_telo" class="form-control" type="text" /></p>
+                                                            <p>OFFICE TEL<input name="telo" id="txt_pat_telo" class="form-control" type="text" /></p>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <p>OFFFICE EXT<input name="txt_pat_teloext" id="txt_pat_teloext" class="form-control" type="text" /></p>
+                                                            <p>OFFFICE EXT<input name="Tel_O_Ext" id="txt_pat_teloext" class="form-control" type="text" /></p>
                                                         </div>
                                                         <!--/div-->
                                                     </div>

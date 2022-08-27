@@ -16,7 +16,7 @@ var urlParam_AddNotesTriage = {
 
 $(document).ready(function () {
 
-	$('textarea#medicalhistory,textarea#surgicalhistory,textarea#currentmedication,textarea#drugs_remarks,textarea#plaster_remarks,textarea#food_remarks,textarea#environment_remarks,textarea#others_remarks,textarea#unknown_remarks,textarea#none_remarks,textarea#br_breathingdesc,textarea#br_coughdesc,textarea#br_smokedesc,textarea#ed_eatdrinkdesc').each(function () {
+	$('textarea#medicalhistory,textarea#surgicalhistory,textarea#currentmedication,textarea#drugs_remarks,textarea#food_remarks,textarea#others_remarks,textarea#br_breathingdesc,textarea#br_coughdesc,textarea#br_smokedesc,textarea#ed_eatdrinkdesc').each(function () {
 		this.setAttribute('style', 'height:' + (38) + 'px;min-height:'+ (38) +'px;overflow-y:hidden;');
 	}).on('input', function () {
 		this.style.height = 'auto';
@@ -89,28 +89,12 @@ $(document).ready(function () {
         $("#allergydrugs").prop("checked", this.value !== "");
 	});
 
-	$("#plaster_remarks").on("keyup blur", function () {
-        $("#allergyplaster").prop("checked", this.value !== "");
-	});
-
 	$("#food_remarks").on("keyup blur", function () {
         $("#allergyfood").prop("checked", this.value !== "");
 	});
 
-	$("#environment_remarks").on("keyup blur", function () {
-        $("#allergyenvironment").prop("checked", this.value !== "");
-	});
-
 	$("#others_remarks").on("keyup blur", function () {
         $("#allergyothers").prop("checked", this.value !== "");
-	});
-
-	$("#unknown_remarks").on("keyup blur", function () {
-        $("#allergyunknown").prop("checked", this.value !== "");
-	});
-
-	$("#none_remarks").on("keyup blur", function () {
-        $("#allergynone").prop("checked", this.value !== "");
 	});
 	// to autocheck the checkbox bila fill in textarea ends
 
@@ -508,7 +492,6 @@ function button_state_ti(state){
 			$('#save_ti,#cancel_ti,#new_ti').attr('disabled',true);
 			break;
 		case 'wait':
-			dialog_tri_col.on();
 			examination_nursing.on().enable();
 			$("#toggle_ti").attr('data-toggle','collapse');
 			$("#save_ti,#cancel_ti").attr('disabled',false);
@@ -734,94 +717,6 @@ function saveForm_patmast(callback){
         callback();
     });
 }
-
-
-var dialog_tri_col = new ordialog(
-	'tri_col','sysdb.sysparam',"#triagecolor",errorField,
-	{	colModel:
-		[
-			{label:'Color',name:'colorcode',width:200,classes:'pointer',canSearch:true,checked:true,or_search:true},
-			{label:'Description',name:'description',width:400,classes:'pointer', hidden: true,canSearch:false,or_search:true},
-		],
-		urlParam: {
-			url:'./sysparam_triage_color',
-			filterCol:['recstatus','compcode'],
-			filterVal:['ACTIVE', 'session.compcode']
-			},
-		ondblClickRow:function(event){
-
-			$(dialog_tri_col.textfield).val(selrowData("#"+dialog_tri_col.gridname)['description']);
-			$(dialog_tri_col.textfield)
-							.removeClass( "red" )
-							.removeClass( "yellow" )
-							.removeClass( "green" )
-							.addClass( selrowData("#"+dialog_tri_col.gridname)['description'] );
-
-			$(dialog_tri_col.textfield).next()
-							.removeClass( "red" )
-							.removeClass( "yellow" )
-							.removeClass( "green" )
-							.addClass( selrowData("#"+dialog_tri_col.gridname)['description'] );
-
-		},
-		onSelectRow:function(rowid, selected){
-			$('#'+dialog_tri_col.gridname+' tr#'+rowid).dblclick();
-			// $(dialog_tri_col.textfield).val(selrowData("#"+dialog_tri_col.gridname)['description']);
-
-		},
-		gridComplete: function(obj){
-			var gridname = '#'+obj.gridname;
-			if($(gridname).jqGrid('getDataIDs').length == 1 && obj.ontabbing){
-				$(gridname+' tr#1').click();
-				$(gridname+' tr#1').dblclick();
-			}else if($(gridname).jqGrid('getDataIDs').length == 0 && obj.ontabbing){
-				$('#'+obj.dialogname).dialog('close');
-			}
-		},
-		loadComplete: function(data,obj){
-			$("input[type='radio'][name='colorcode_select']").click(function(){
-				let self = this;
-				delay(function(){
-						$(self).parent().click();
-				}, 100 );
-			});
-
-			$( "table#othergrid_tri_col tr:nth-child(2)" ).addClass('red')
-			$( "table#othergrid_tri_col tr:nth-child(3)" ).addClass('yellow')
-			$( "table#othergrid_tri_col tr:nth-child(4)" ).addClass('green')
-		}
-	},{
-		title:"Select Bed Status",
-		open: function(){
-			dialog_tri_col.urlParam.filterCol = ['recstatus','compcode'];
-			dialog_tri_col.urlParam.filterVal = ['ACTIVE', 'session.compcode'];
-		},
-		width:5/10 * $(window).width()
-	},'urlParam','radio','tab','table'
-);
-dialog_tri_col.makedialog();
-
-function tri_color_set(empty){
-	if(empty == 'empty'){
-		$(dialog_tri_col.textfield).removeClass( "red" ).removeClass( "yellow" ).removeClass( "green" );
-
-		$(dialog_tri_col.textfield).next().removeClass( "red" ).removeClass( "yellow" ).removeClass( "green" );
-	}
-
-	var color = $(dialog_tri_col.textfield).val();
-	$(dialog_tri_col.textfield)
-					.removeClass( "red" )
-					.removeClass( "yellow" )
-					.removeClass( "green" )
-					.addClass( color );
-
-	$(dialog_tri_col.textfield).next()
-					.removeClass( "red" )
-					.removeClass( "yellow" )
-					.removeClass( "green" )
-					.addClass( color );
-}
-
 
 var examination_nursing = new examination();
 function examination(){

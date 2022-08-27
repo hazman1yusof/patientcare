@@ -87,7 +87,7 @@
                         <div class="ten wide column">
                             <div class="field">
                                 <label>Patient Complaint</label>
-                                <input id="remarks" name="remarks" type="text" data-validation="required" data-validation-error-msg-required="Please enter Patient Complaint">
+                                <input id="remarks" name="remarks" type="text" data-validation="required" data-validation-error-msg-required="Please enter Patient Complaint.">
                             </div>
                         </div>
 
@@ -221,9 +221,10 @@
                                     <div class="field">
                                         <label>Dry Weight</label>
                                         <div class="ui right labeled input">
-                                        <input type="text" onKeyPress="if(this.value.length==6) return false;" id="dry_weight" name="dry_weight" data-validation="required">
-                                        <div class="ui basic label">KG</div>
+                                            <input type="text" onKeyPress="if(this.value.length==6) return false;" id="dry_weight" name="dry_weight" data-validation="required" data-validation-error-msg-required="Please enter Dry Weight." data-validation-error-msg-container="#error-dry_weight">
+                                            <div class="ui basic label">KG</div>
                                         </div>
+                                        <div class="error-msg" id="error-dry_weight"></div>
                                     </div>
 
                                     <div class="field">
