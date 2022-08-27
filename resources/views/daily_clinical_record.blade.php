@@ -2,8 +2,8 @@
 <div class="ui segments" style="position: relative;">
 	<div class="ui secondary segment bluecloudsegment">
 		<div class="ui labeled small input">
-			<div class="ui blue label">Date</div>
-			<input type="date" readonly value="{{Carbon\Carbon::now()->format('Y-m-d')}}">
+			<div class="ui blue label">Visit Date</div>
+			<input type="visit_date" readonly value="{{Carbon\Carbon::now()->format('Y-m-d')}}">
 		</div>
 		<select class="ui small dropdown" id="dialysisbefore">
 		  <option value="">Dialysis Before</option>
@@ -46,24 +46,24 @@
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">START TIME:</div></label>
-						<input type="time" name="start_time" id="start_time" class="purplebg" value="">
+						<input type="time" name="start_time" id="start_time" class="purplebg" value="" required>
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">PREV POST WEIGHT:</div></label>
-						<input type="text" name="prev_post_weight" id="prev_post_weight" class="purplebg" value="" >
+						<input type="text" name="prev_post_weight" id="prev_post_weight" class="" value="" rdonly required>
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
 						<label> MACHINE NO:</label>
-						<input type="text" name="machine_no" id="machine_no" class="purplebg" value=""  >
+						<input type="text" name="machine_no" id="machine_no" class="purplebg" value="" required>
 					</div>
 				</div>
 				<div class="field">
 					<label> DIALYSATE CA:</label>
-					<select class="ui selection dropdown purplebg" id="dialysate_ca" name="dialysate_ca">
+					<select class="ui selection dropdown purplebg" id="dialysate_ca" name="dialysate_ca" required>
 					  <option value="">Select Here</option>
 					  <option value="1">1</option>
 					  <option value="1.25">1.25</option>
@@ -72,7 +72,7 @@
 				</div>
 				<div class="field">
 					<label> DIALYSER:</label>
-					<select class="ui selection dropdown purplebg" id="dialyser" name="dialyser">
+					<select class="ui selection dropdown purplebg" id="dialyser" name="dialyser" required>
 					  <option value="">Select Here</option>
 					  <option value="SINGLE USE">SINGLE USE</option>
 					  <option value="REUSE">REUSE</option>
@@ -84,18 +84,18 @@
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">LAST VISIT:</div></label>
-						<input type="text" name="last_visit" id="last_visit" class="purplebg" value="" >
+						<input type="date" name="last_visit" id="last_visit" class="" value="" rdonly>
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
 					    <label><div class="label_hd">PRE WEIGHT:</div></label>
-						<input type="text" name="pre_weight" id="pre_weight" class="purplebg" value="" >
+						<input type="text" name="pre_weight" id="pre_weight" class="purplebg" value="" required>
 					</div>
 				</div>
 				<div class="field">
 					<label> HEPARIN TYPE:</label>
-					<select class="ui selection dropdown purplebg" id="heparin_type" name="heparin_type">
+					<select class="ui selection dropdown purplebg" id="heparin_type" name="heparin_type" required>
 					  <option value="">Select Here</option>
 					  <option value="NORMAL">NORMAL</option>
 					  <option value="TIGHT">TIGHT</option>
@@ -105,7 +105,7 @@
 
 				 <div class="field">
 					<label> DIALYSATE FLOW:</label>
-					<select class="ui selection dropdown purplebg" id="dialysate_flow" name="dialysate_flow">
+					<select class="ui selection dropdown purplebg" id="dialysate_flow" name="dialysate_flow" required>
 					  <option value="">Select Here</option>
 					  <option value="300">300</option>
 					  <option value="500">500</option>
@@ -136,25 +136,25 @@
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">DURATION OF HD:</div></label>
-						<input type="text" name="duration_of_hd" id="duration_of_hd" class="" value="" >
+						<input type="text" name="duration_of_hd" id="duration_of_hd" class="" value="" rdonly >
 					</div>
 				</div>
 			    <div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">IDWG:</div></label>
-						<input type="text" name="idwg" id="idwg" class="purplebg" value="" >
+						<input type="text" name="idwg" id="idwg" class="" value="" rdonly >
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
 						<label> HEPARIN BOLUS:</label>
-						<input type="text" name="heparin_bolus" id="heparin_bolus" class="purplebg" value=""  >
+						<input type="text" name="heparin_bolus" id="heparin_bolus" class="purplebg" value="" required>
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
 						<label> CONDUCTIVITY:</label>
-						<input type="text" name="conductivity" id="conductivity" class="purplebg" value=""  >
+						<input type="text" name="conductivity" id="conductivity" class="purplebg" value="" required>
 					</div>
 				</div>
 				<div class="field"></div>
@@ -164,25 +164,25 @@
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">DRY WEIGHT:</div></label>
-						<input type="text" name="dry_weight" id="dry_weight" class="" value="" >
+						<input type="text" name="dry_weight" id="dry_weight" class="" value="" rdonly >
 					</div>
 				</div>
 			    <div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">TARGET WEIGHT:</div></label>
-						<input type="text" name="target_weight" id="target_weight" class="purplebg" value="" >
+						<input type="text" name="target_weight" id="target_weight" class="" value="" rdonly >
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
 						<label> HEPARIN MAINTAINANCE:</label>
-						<input type="text" name="heparin_maintainance" id="heparin_maintainance" class="purplebg" value=""  >
+						<input type="text" name="heparin_maintainance" id="heparin_maintainance" class="purplebg" value="" required>
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
 						<label> CHECK FOR RESIDUAL:</label>
-						<input type="text" name="check_for_residual" id="check_for_residual" class="purplebg" value=""  >
+						<input type="text" name="check_for_residual" id="check_for_residual" class="purplebg" value="" required>
 					</div>
 				</div>
 				<div class="field">
@@ -193,25 +193,28 @@
 			    <div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">TARGET UF:</div></label>
-						<input type="text" name="target_uf" id="target_uf" class="purplebg" value="" >
+						<input type="text" name="target_uf" id="target_uf" class="purplebg" value="" required>
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
 						<label> PRIME BY:</label>
-						<input type="text" name="prime_by" id="prime_by" class="purplebg" value=""  >
+						<input type="text" name="prime_by" id="prime_by" class="purplebg" value="" required>
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
 						<label> INITIATED BY:</label>
-						<input type="text" name="initiated_by" id="initiated_by" class="purplebg" value=""  >
+						<input type="text" name="initiated_by" id="initiated_by" class="" value="" rdonly>
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
 						<label> VERIFIED BY:</label>
-						<input type="text" name="verified_by" id="verified_by" class="purplebg" value=""  >
+						<div class="ui action mini input">
+						  <input type="text" name="verified_by" id="verified_by" rdonly>
+						  <button class="ui button" type="button" id="verified_btn">Select User</button>
+						</div>
 					</div>
 				</div>
 				<div class="field">
@@ -229,11 +232,11 @@
 			  				<div class="two fields">
 			  					<div class="ui labeled input" style="padding-right:5px">
 			  						<div class="ui label">Systolic</div>
-			  						<input type="text" name="prehd_systolic" id="prehd_systolic" class="purplebg" value="" >
+			  						<input type="text" name="prehd_systolic" id="prehd_systolic" class="purplebg" value="" required>
 			  					</div>
 			  					<div class="ui labeled input">
 			  						<div class="ui label">Diastolic</div>
-			  						<input type="text" name="prehd_diastolic" id="prehd_diastolic" class="purplebg" value="" >
+			  						<input type="text" name="prehd_diastolic" id="prehd_diastolic" class="purplebg" value="" required>
 			  					</div>
 			  				</div>
 			  		</div>
@@ -243,9 +246,9 @@
 					<div class="clinic_code">
 						<label style="">T.P.R:</label>
 		  				<div class="three fields" style="padding-left:5px">
-							<input type="text" placeholder="Temperature" name="prehd_temperature" id="prehd_temperature" value="" style="margin-right: 5px;" class="purplebg">
-	  						<input type="text" placeholder="Pulse" name="prehd_pulse" id="prehd_pulse" value="" style="margin-right: 5px;" class="purplebg">
-	  						<input type="text" placeholder="Respiratory" name="prehd_respiratory" id="prehd_respiratory" value="" class="purplebg">
+							<input type="text" placeholder="Temperature" name="prehd_temperature" id="prehd_temperature" value="" style="margin-right: 5px;" class="purplebg" required>
+	  						<input type="text" placeholder="Pulse" name="prehd_pulse" id="prehd_pulse" value="" style="margin-right: 5px;" class="purplebg" required>
+	  						<input type="text" placeholder="Respiratory" name="prehd_respiratory" id="prehd_respiratory" value="" class="purplebg" required>
 		  				</div>
 					</div>
 				</div>
@@ -254,7 +257,7 @@
 			<div class="four fields">
 			    <div class="field">
 		  			<label >EYE:</label>
-					<select class="ui selection dropdown purplebg" id="eye" name="eye">
+					<select class="ui selection dropdown purplebg" id="eye" name="eye" required>
 					  <option value="">Select Here</option>
 					  <option value="PERIOBITAL EDEMA">PERIOBITAL EDEMA</option>
 					  <option value="REDNESS">REDNESS</option>
@@ -264,7 +267,7 @@
 
 			    <div class="field">
 					<label> NECK:</label>
-					<select class="ui selection dropdown purplebg" id="neck" name="neck">
+					<select class="ui selection dropdown purplebg" id="neck" name="neck" required>
 					  <option value="">Select Here</option>
 					  <option value="JUGULAR VENOUS DISTENSION">JUGULAR VENOUS DISTENSION</option>
 					  <option value="N/A">N/A</option>
@@ -273,7 +276,7 @@
 
 			    <div class="field">
 					<label> ABDOMEN:</label>
-					<select class="ui selection dropdown purplebg" id="abdomen" name="abdomen">
+					<select class="ui selection dropdown purplebg" id="abdomen" name="abdomen" required>
 					  <option value="">Select Here</option>
 					  <option value="DISTENDED">DISTENDED</option>
 					  <option value="SOFT & NON-TENDER">SOFT & NON-TENDER</option>
@@ -282,7 +285,7 @@
 
 			    <div class="field">
 					<label> SKIN:</label>
-					<select class="ui selection dropdown purplebg" id="skin" name="skin">
+					<select class="ui selection dropdown purplebg" id="skin" name="skin" required>
 					  <option value="">Select Here</option>
 					  <option value="DRY">DRY</option>
 					  <option value="RASHES">RASHES</option>
@@ -295,7 +298,7 @@
 			<div class="four fields">
 			    <div class="field">
 					<label> LOWER LIMB:</label>
-					<select class="ui selection dropdown purplebg" id="lower_limb" name="lower_limb">
+					<select class="ui selection dropdown purplebg" id="lower_limb" name="lower_limb" required>
 					  <option value="">Select Here</option>
 					  <option value="OEDEMATOUS">OEDEMATOUS</option>
 					  <option value="ULCER">ULCER</option>
@@ -306,7 +309,7 @@
 
 			    <div class="field">
 					<label> ACCESS:</label>
-					<select class="ui selection dropdown purplebg" id="access" name="access">
+					<select class="ui selection dropdown purplebg" id="access" name="access" required>
 					  <option value="">Select Here</option>
 					  <option value="PERMANENT">PERMANENT</option>
 					  <option value="TEMPORARY">TEMPORARY</option>
@@ -315,7 +318,7 @@
 
 			    <div class="field">
 					<label> TYPE:</label>
-					<select class="ui selection dropdown purplebg" id="type" name="type">
+					<select class="ui selection dropdown purplebg" id="type" name="type" required>
 					  <option value="">Select Here</option>
 					  <option value="RIGHT IJC">RIGHT IJC</option>
 					  <option value="LEFT IJC">LEFT IJC</option>
@@ -333,7 +336,7 @@
 
 			    <div class="field">
 					<label> BRUIT:</label>
-					<select class="ui selection dropdown purplebg" id="bruit" name="bruit">
+					<select class="ui selection dropdown purplebg" id="bruit" name="bruit" required>
 					  <option value="">Select Here</option>
 					  <option value="YES">YES</option>
 					  <option value="NO">NO</option>
@@ -344,7 +347,7 @@
 			<div class="four fields">
 		    	<div class="field">
 					<label> THRILL:</label>
-					<select class="ui selection dropdown purplebg" id="thrill" name="thrill">
+					<select class="ui selection dropdown purplebg" id="thrill" name="thrill" required>
 					  <option value="">Select Here</option>
 					  <option value="YES">YES</option>
 					  <option value="NO">NO</option>
@@ -353,7 +356,7 @@
 
 			    <div class="field">
 					<label> DRESSING:</label>
-					<select class="ui selection dropdown purplebg" id="dressing" name="dressing">
+					<select class="ui selection dropdown purplebg" id="dressing" name="dressing" required>
 					  <option value="">Select Here</option>
 					  <option value="INTACT">INTACT</option>
 					  <option value="WET">WET</option>
@@ -363,7 +366,7 @@
 
 			    <div class="field">
 					<label> RESPIRATORY:</label>
-					<select class="ui selection dropdown purplebg" id="respiratory" name="respiratory">
+					<select class="ui selection dropdown purplebg" id="respiratory" name="respiratory" required>
 					  <option value="">Select Here</option>
 					  <option value="EUPNEA">EUPNEA</option>
 					  <option value="BRADYPNEA">BRADYPNEA</option>
@@ -375,15 +378,15 @@
 			    <div class="field">
 					<div class="clinic_code">
 						<label> CONDITION AVF/EXIT SITE:</label>
-						<input type="text" name="cond_avf_ext_site" id="cond_avf_ext_site" class="purplebg" value=""  >
+						<input type="text" name="cond_avf_ext_site" id="cond_avf_ext_site" class="purplebg" value="" required>
 					</div>
 			    </div>
 			</div>
 		    
 			<div class="field">
 				<div class="clinic_code">
-		       	<label style="">General Assesment:</label>
-					<textarea name="general_assesment" id="general_assesment" rows="3" cols="100" class="purplebg"></textarea>
+		       		<label style="">General Assesment:</label>
+					<textarea name="general_assesment" id="general_assesment" rows="3" cols="100" class="purplebg" required></textarea>
 				</div>
 			</div>
 
@@ -410,14 +413,14 @@
 				<tbody>
 					<tr style="background-color:#f3ffff;">
 						<td class="labeltd">1st Hour:</td>
-						<td><input type="text" name="5_bp" id="5_bp" value="" placeholder="BP"></td>
-						<td><input type="text" name="5_pulse" id="5_bp" value="" placeholder="PULSE"></td>
-						<td><input type="text" name="5_dh" id="5_dh" value="" placeholder="DELIVERED HEPARIN"></td>
-						<td><input type="text" name="5_bfr" id="5_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
-						<td><input type="text" name="5_vp" id="5_vp" value="" placeholder="VENOUS PRESSURE"></td>
-						<td><input type="text" name="5_tmp" id="5_tmp" value="" placeholder="TMP"></td>
-						<td><input type="text" name="5_uv" id="5_uv" value="" placeholder="UF VOLUME"></td>
-						<td><input type="text" name="5_f" id="5_f" value="" placeholder="FLUIDS"></td>
+						<td><input type="text" name="1_bp" id="1_bp" value="" placeholder="BP"></td>
+						<td><input type="text" name="1_pulse" id="1_pulse" value="" placeholder="PULSE"></td>
+						<td><input type="text" name="1_dh" id="1_dh" value="" placeholder="DELIVERED HEPARIN"></td>
+						<td><input type="text" name="1_bfr" id="1_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
+						<td><input type="text" name="1_vp" id="1_vp" value="" placeholder="VENOUS PRESSURE"></td>
+						<td><input type="text" name="1_tmp" id="1_tmp" value="" placeholder="TMP"></td>
+						<td><input type="text" name="1_uv" id="1_uv" value="" placeholder="UF VOLUME"></td>
+						<td><input type="text" name="1_f" id="1_f" value="" placeholder="FLUIDS"></td>
 					</tr>
 					<tr style="background-color:#f3ffff;">
 						<td class="labeltd">Remarks:</td>
@@ -426,7 +429,7 @@
 					<tr style="background-color:#e4ffe4;">
 						<td class="labeltd">2nd Hour:</td>
 						<td><input type="text" name="2_bp" id="2_bp" value="" placeholder="BP"></td>
-						<td><input type="text" name="2_pulse" id="2_bp" value="" placeholder="PULSE"></td>
+						<td><input type="text" name="2_pulse" id="2_pulse" value="" placeholder="PULSE"></td>
 						<td><input type="text" name="2_dh" id="2_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="2_bfr" id="2_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
 						<td><input type="text" name="2_vp" id="2_vp" value="" placeholder="VENOUS PRESSURE"></td>
@@ -441,7 +444,7 @@
 					<tr style="background-color:#ffdcdc;">
 						<td class="labeltd">3rd Hour:</td>
 						<td><input type="text" name="3_bp" id="3_bp" value="" placeholder="BP"></td>
-						<td><input type="text" name="3_pulse" id="3_bp" value="" placeholder="PULSE"></td>
+						<td><input type="text" name="3_pulse" id="3_pulse" value="" placeholder="PULSE"></td>
 						<td><input type="text" name="3_dh" id="3_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="3_bfr" id="3_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
 						<td><input type="text" name="3_vp" id="3_vp" value="" placeholder="VENOUS PRESSURE"></td>
@@ -456,7 +459,7 @@
 					<tr style="background-color:#ffffc9;">
 						<td class="labeltd">4th Hour:</td>
 						<td><input type="text" name="4_bp" id="4_bp" value="" placeholder="BP"></td>
-						<td><input type="text" name="4_pulse" id="4_bp" value="" placeholder="PULSE"></td>
+						<td><input type="text" name="4_pulse" id="4_pulse" value="" placeholder="PULSE"></td>
 						<td><input type="text" name="4_dh" id="4_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="4_bfr" id="4_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
 						<td><input type="text" name="4_vp" id="4_vp" value="" placeholder="VENOUS PRESSURE"></td>
@@ -471,7 +474,7 @@
 					<tr style="background-color:#fff5e8;">
 						<td class="labeltd">5th Hour:</td>
 						<td><input type="text" name="5_bp" id="5_bp" value="" placeholder="BP"></td>
-						<td><input type="text" name="5_pulse" id="5_bp" value="" placeholder="PULSE"></td>
+						<td><input type="text" name="5_pulse" id="5_pulse" value="" placeholder="PULSE"></td>
 						<td><input type="text" name="5_dh" id="5_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="5_bfr" id="5_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
 						<td><input type="text" name="5_vp" id="5_vp" value="" placeholder="VENOUS PRESSURE"></td>
@@ -581,7 +584,6 @@
 			    <div class="field"></div>
 		    	<div class="field" style="position:relative;"><button id="complete_btn" class="ui red button" type="button" style="position:absolute; bottom: 0px;right: 20px;" disabled>Completed</button></div>
 			</div>
-			<div class="ui error message"></div>
 		</form>
 	</div>
 </div>

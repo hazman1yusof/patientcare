@@ -111,7 +111,8 @@ $(document).ready(function () {
 			refreshGrid("#jqGrid_trans", urlParam_trans);
         }, 
         errorfunc: function(rowid,response){
-        	
+ 			console.log(response);
+	        // alert(data.responseText);
         },
         beforeSaveRow: function(options, rowid) {
         	let selrow = selrowData('#jqGrid');

@@ -1,4 +1,8 @@
 
+form#daily_form .error{
+    border-color: #df7676;
+}
+
 .purplebg{
     background: #e0e8f5 !important;
 }
