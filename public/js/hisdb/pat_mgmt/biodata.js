@@ -18,7 +18,7 @@
             },
         },
         errorPlacement: function(error, element) {
-            var elem_dialog = ['txt_ID_Type','txt_RaceCode','txt_Religion','txt_LanguageCode','txt_pat_citizen','txt_pat_area','txt_payer_company','txt_pat_occupation','DOB'];
+            var elem_dialog = ['txt_ID_Type','txt_RaceCode','txt_Religion','txt_pat_citizen','txt_pat_area','txt_payer_company','txt_pat_occupation','DOB'];
             if( elem_dialog.includes(element.attr("name")) ){
                 error.insertAfter( element.closest(".input-group") );
             }else{
@@ -97,9 +97,6 @@
         var urlreligion = 'pat_mast/get_entry?action=get_patient_religioncode';
         loadlist($('select#cmb_pat_religion').get(0),urlreligion,'Code','Description');
 
-        var urllanguagecode = 'pat_mast/get_entry?action=get_patient_language';
-        loadlist($('select#cmb_pat_langcode').get(0),urllanguagecode,'Code','Description');
-
         var urlRel = 'pat_mast/get_entry?action=get_patient_relationship';
         loadlist($('select#cmb_grtr_relation').get(0),urlRel,'relationshipcode','description');
         
@@ -142,7 +139,7 @@
             .find("input[type=checkbox], input[type=radio]")
             .prop("checked", "")
             .end(); //this for clearing input after hide modal
-        $("#tabNok_emr,#tabCorp,#tabPatrec,#tabNok_pat").collapse("hide");
+        $("#tabCorp,#tabPatrec,#tabNok_pat").collapse("hide");
         $("img#photobase64").attr('src',$("img#photobase64").attr("defaultsrc"));
         // parent_close_disabled(false);
     });
@@ -162,19 +159,23 @@
 	$("#copy_reg").click(function(){
         var reg_add1 = document.getElementById('txt_pat_curradd1').value;
         var curr_add1 = document.getElementById("txt_pat_padd1");
-        curr_add1.value += reg_add1;
+        curr_add1.value = reg_add1;
 
         var reg_add2 = document.getElementById('txt_pat_curradd2').value;
         var curr_add2 = document.getElementById("txt_pat_padd2");
-        curr_add2.value += reg_add2;
+        curr_add2.value = reg_add2;
 
         var reg_add3 = document.getElementById('txt_pat_curradd3').value;
         var curr_add3 = document.getElementById("txt_pat_padd3");
-        curr_add3.value += reg_add3;
+        curr_add3.value = reg_add3;
 
         var reg_postcode = document.getElementById('txt_pat_currpostcode').value;
         var curr_postcode = document.getElementById("txt_pat_ppostcode");
-        curr_postcode.value += reg_postcode;
+        curr_postcode.value = reg_postcode;
+
+        var reg_telhome = document.getElementById('txt_pat_telh').value;
+        var curr_telhome = document.getElementById("txt_pat_ptel");
+        curr_telhome.value = reg_telhome;
 	});
 	
 	$('#btn_register_patient').on('click',default_click_register);
@@ -215,7 +216,7 @@
     function save_patient(oper,idno,mrn="nothing"){
         var saveParam={
             action:'save_patient',
-            field:['Name','MRN','Newic','Oldic','ID_Type','idnumber','DOB','telh','telhp','Email','AreaCode','Sex','Citizencode','RaceCode','TitleCode','Religion','MaritalCode','LanguageCode','Remarks','RelateCode','CorpComp','Staffid','OccupCode','Email_official','Childno','Address1','Address2','Address3','Offadd1','Offadd2','Offadd3','pAdd1','pAdd2','pAdd3','Postcode','OffPostcode','pPostCode','Active','Confidential','MRFolder','PatientCat','NewMrn','bloodgrp','Episno','first_visit_date','last_visit_date','loginid','pat_category','MRFolder','bloodgrp','NewMrn'],
+            field:['Name','MRN','Newic','Oldic','ID_Type','idnumber','DOB','telh','telhp','Email','AreaCode','Sex','Citizencode','RaceCode','TitleCode','Religion','MaritalCode','Remarks','RelateCode','CorpComp','Staffid','OccupCode','Email_official','Childno','Address1','Address2','Address3','OffAdd1','OffAdd2','OffAdd3','pAdd1','pAdd2','pAdd3','Postcode','OffPostcode','pPostCode','Active','Confidential','PatientCat','NewMrn','bloodgrp','Episno','first_visit_date','last_visit_date','bloodgrp','NewMrn','ptel','telo','Tel_O_Ext'],
             oper:oper,
             table_name:'hisdb.pat_mast',
             table_id:'idno',
@@ -346,7 +347,6 @@
         {code:'#hid_pat_area',desc:'#txt_pat_area',id:'areacode'},
         {code:'#hid_pat_title',desc:'#txt_pat_title',id:'titlecode'},
         {code:'#hid_ID_Type',desc:'#txt_ID_Type',id:'idtype'},
-        {code:'#hid_LanguageCode',desc:'#txt_LanguageCode',id:'language'},
         {code:'#hid_RaceCode',desc:'#txt_RaceCode',id:'race'},
         {code:'#hid_Religion',desc:'#txt_Religion',id:'religioncode'},
         {code:'#hid_pat_occupation',desc:'#txt_pat_occupation',id:'occupation'},
@@ -360,7 +360,6 @@
         this.citizencode={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.areacode={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.idtype={code:'code',desc:'description'};//data simpan dekat dalam ni
-        this.language={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.race={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.religioncode={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.occupation={code:'code',desc:'description'};//data simpan dekat dalam ni
@@ -370,7 +369,6 @@
             load_for_desc(this,'citizencode','pat_mast/get_entry?action=get_patient_citizen');
             load_for_desc(this,'areacode','pat_mast/get_entry?action=get_patient_areacode');
             load_for_desc(this,'idtype','pat_mast/get_entry?action=get_patient_idtype');
-            load_for_desc(this,'language','pat_mast/get_entry?action=get_patient_language');
             load_for_desc(this,'race','pat_mast/get_entry?action=get_patient_race');
             load_for_desc(this,'religioncode','pat_mast/get_entry?action=get_patient_religioncode');
             load_for_desc(this,'occupation','pat_mast/get_entry?action=get_patient_occupation');
@@ -478,7 +476,6 @@
         $('#txt_pat_mrn').val(('0000000' + rowdata.MRN).slice(-7));
         $('#txt_pat_episno').val(rowdata.Episno);
         $('#pat_mrn').val(rowdata.MRN);
-        $('#hid_LanguageCode').val(rowdata.LanguageCode);
         $('#hid_RaceCode').val(rowdata.RaceCode);
         $('#hid_Religion').val(rowdata.Religion);
         $('#hid_ID_Type').val(rowdata.ID_Type);
@@ -493,29 +490,28 @@
         $('#cmb_pat_racecode').val(rowdata.RaceCode);
         $('#cmb_pat_religion').val(rowdata.Religion);
         $('#maritalcode').val(rowdata.MaritalCode);
-        $('#cmb_pat_langcode').val(rowdata.LanguageCode);
         $('#txt_pat_curradd1').val(rowdata.Address1);
         $('#txt_pat_curradd2').val(rowdata.Address2);
         $('#txt_pat_curradd3').val(rowdata.Address3);
-        $('#txt_pat_offadd1').val(rowdata.Offadd1);
-        $('#txt_pat_offadd2').val(rowdata.Offadd2);
-        $('#txt_pat_offadd3').val(rowdata.Offadd3);
+        $('#txt_pat_offadd1').val(rowdata.OffAdd1);
+        $('#txt_pat_offadd2').val(rowdata.OffAdd2);
+        $('#txt_pat_offadd3').val(rowdata.OffAdd3);
         $('#txt_pat_padd1').val(rowdata.pAdd1);
         $('#txt_pat_padd2').val(rowdata.pAdd2);
         $('#txt_pat_padd3').val(rowdata.pAdd3);
         $('#txt_pat_currpostcode').val(rowdata.Postcode);
         $('#txt_pat_offpostcode').val(rowdata.OffPostcode);
+        $('#txt_pat_telo').val(rowdata.telo);
+        $('#txt_pat_teloext').val(rowdata.Tel_O_Ext);
         $('#txt_pat_ppostcode').val(rowdata.pPostCode);
+        $('#txt_pat_ptel').val(rowdata.ptel);
         $('#active').val(rowdata.Active);
         $('#confidential').val(rowdata.Confidential);
-        $('#mrfolder').val(rowdata.MRFolder);
         $('#patientcat').val(rowdata.PatientCat);
         $('#newmrn').val(rowdata.NewMrn);
         $('#blood_grp').val(rowdata.bloodgrp);
-        $('#cmb_pat_category').val(rowdata.pat_category);
         $('#cmb_pat_active').val(rowdata.Active);
         $('#cmb_pat_Confidential').val(rowdata.Confidential);
-        $('#cmb_pat_MRFolder').val(rowdata.MRFolder);
         $('#txt_bloodgroup').val(rowdata.bloodgrp);
         $('#txt_newmrn').val(rowdata.NewMrn);
         if(rowdata.PatientImage != null && rowdata.PatientImage.startsWith('data')){
@@ -526,15 +522,6 @@
         // $('#name').val(rowdata.name);
 
         //populate_payer_guarantee_info(d); tgk balik nanti
-
-        $("#toggle_tabNok_emr").parent().show();
-        if(rowdata.Episno == 0 || rowdata.Episno == null){
-            $("#toggle_tabNok_pat").parent().hide();
-        }else{
-            $("#toggle_tabNok_pat").parent().show();
-        }
-
-        $("#toggle_tabNok_emr").parent().show();
     }
 
     function populate_data_from_mrn(mrn,form){

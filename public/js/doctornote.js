@@ -88,16 +88,6 @@ $(document).ready(function () {
 		}, 0);
 	});
 
-	//bmi calculator
-	$('form#formDoctorNote #height').blur(function(event) {
-		getBMI();
-	});
-
-	$('form#formDoctorNote #weight').blur(function(event) {
-		getBMI();
-	});
-	//bmi calculator ends
-
 	// change diagnosis value
 	$('#icdcode').change(function() {
 		$('#diagfinal').val($('#icdcode').val());
@@ -249,20 +239,6 @@ $(document).ready(function () {
 	
 });
 
-//bmi calculator
-function getBMI() {
-    var height = parseFloat($("form#formDoctorNote #height").val());
-    var weight = parseFloat($("form#formDoctorNote #weight").val());
-
-	var myBMI = (weight / height / height) * 10000;
-
-    var bmi = myBMI.toFixed(2);
-
-    if (isNaN(bmi)) bmi = 0;
-
-    $('form#formDoctorNote #bmi').val((bmi));
-}
-
 //to disable all input fields except additional note
 function disableOtherFields() {
 	// var fieldsNotToBeDisabled = new Array("additionalnote");
@@ -275,12 +251,12 @@ function disableOtherFields() {
 	// 	return fieldsNotToBeDisabled.indexOf($(this).attr("name"))<0;
 	// }).prop("disabled", true);
 
-	$('#remarks, #clinicnote, #pmh, #drugh, #allergyh, #socialh, #fmh, #followuptime, #followupdate, #examination, #diagfinal, #icdcode, #plan_, #height, #weight, #bp_sys1, #bp_dias2, #pulse, #temperature, #respiration').prop('disabled',true);
+	$('#remarks, #clinicnote, #pmh, #drugh, #allergyh, #socialh, #fmh, #examination, #diagfinal, #icdcode, #plan_, #height, #weight, #bp_sys1, #bp_dias2, #pulse, #temperature, #respiration').prop('disabled',true);
 }
 
 //to enable fields when choose current
 function enableFields() {
-	$('#remarks, #clinicnote, #pmh, #drugh, #allergyh, #socialh, #fmh, #followuptime, #followupdate, #examination, #diagfinal, #icdcode, #plan_, #height, #weight, #bp_sys1, #bp_dias2, #pulse, #temperature, #respiration').prop('disabled',false);
+	$('#remarks, #clinicnote, #pmh, #drugh, #allergyh, #socialh, #fmh, #examination, #diagfinal, #icdcode, #plan_, #height, #weight, #bp_sys1, #bp_dias2, #pulse, #temperature, #respiration').prop('disabled',false);
 }
 
 var errorField = [];
@@ -645,7 +621,6 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
 			autoinsert_rowdata_doctorNote("#formDoctorNote",data.nursassess_doc);
 			textare_init_doctornote();
 			refreshGrid('#jqGridAddNotes',urlParam_AddNotes,'add_notes');
-			getBMI();
 
 			if(data.pathealth == undefined){
     			button_state_doctorNote('add');
