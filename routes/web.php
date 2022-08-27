@@ -38,10 +38,12 @@ Route::get('/dialysis','DialysisController@index');
 Route::get('/dialysis_event','DialysisController@dialysis_event');
 Route::post('/change_status', "DialysisController@change_status");
 Route::post('/save_dialysis', "DialysisController@save_dialysis");
+Route::post('/save_dialysis_completed', "DialysisController@save_dialysis_completed");
 Route::post('/save_epis_dialysis', "DialysisController@save_epis_dialysis");
 Route::get('/get_data_dialysis', "DialysisController@get_data_dialysis");
 Route::post('/dialysis_transaction_save', "DialysisController@dialysis_transaction_save");
 Route::get('/check_pt_mode', "DialysisController@check_pt_mode");
+Route::get('/verifyuser_dialysis', "DialysisController@verifyuser_dialysis");
 
 Route::get('/prescription', "PrescriptionController@index");
 Route::get('/prescription/{id}', "PrescriptionController@detail");
