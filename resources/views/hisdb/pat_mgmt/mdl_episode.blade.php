@@ -117,18 +117,18 @@
                                         <small for="txt_epis_doctor">Doctor</small>
                                         <div class="input-group">
                                             <span class="input-group-addon" id="doc_nephro">Nephrologist</span>
-                                            <input type="text" class="form-control form-mandatory" name="txt_epis_doc_nephro" id="txt_epis_doc_nephro" required tabindex=4>
-                                            <input type="hidden" id="hid_epis_doc_nephro" name="admdoctor"/>
+                                            <input type="text" class="form-control form-mandatory" name="txt_admdoctor" id="txt_admdoctor" required tabindex=4>
+                                            <input type="hidden" id="hid_admdoctor" name="admdoctor"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-info" id="btn_epis_doctor" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('epis_doctor');"><span class="fa fa-ellipsis-h"></span> </button>
+                                                <button type="button" class="btn btn-info" id="btn_admdoctor" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('admdoctor');"><span class="fa fa-ellipsis-h"></span> </button>
                                             </span>
                                         </div>
                                         <div class="input-group" style="padding-top: 5px;">
-                                            <span class="input-group-addon" id="doc_pic">PIC</span>
-                                            <input type="text" class="form-control form-mandatory" name="txt_epis_doc_pic" id="txt_epis_doc_pic" required tabindex=4>
-                                            <input type="hidden" id="hid_epis_doc_pic" name="admdoctor"/>
+                                            <span class="input-group-addon" id="doc_pic">PIC &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+                                            <input type="text" class="form-control form-mandatory" name="txt_picdoctor" id="txt_picdoctor" required tabindex=4>
+                                            <input type="hidden" id="hid_picdoctor" name="picdoctor"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-info" id="btn_epis_doctor" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('epis_doctor');"><span class="fa fa-ellipsis-h"></span> </button>
+                                                <button type="button" class="btn btn-info" id="btn_picdoctor" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('picdoctor');"><span class="fa fa-ellipsis-h"></span> </button>
                                             </span>
                                         </div>
                                     </div>
@@ -200,7 +200,7 @@
                                         </div>
                                     </div>
                                 </div>                                        
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <div class="col-md-offset-1 col-md-10">
                                         <small for="txt_epis_refno">Reference No</small>
                                         <div class="input-group">
@@ -214,7 +214,7 @@
                                         <small for="txt_epis_our_refno">Our Reference No</small>
                                         <input id="txt_epis_our_refno" name="txt_epis_our_refno" type="text" class="form-control"  readonly>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <div class="col-md-offset-1 col-md-4">
                                         <small for="rad_epis_fee">Admin Fee</small>
@@ -265,7 +265,7 @@
                                     <div class="form-group">
                                         <div class="col-md-12">
                                         <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
-                                        id="btn_grp_edit_doc">
+                                        id="btn_grp_edit_doc" style="display: none;">
                                             <button type="button" class="btn btn-default" id="add_dialysis">
                                                 <span class="fa fa-plus-square-o fa-lg"></span> Add Arrival
                                             </button>
@@ -284,7 +284,7 @@
                                     <div class="form-group">
                                         <input id="dialysis_idno" name="dialysis_idno" type="hidden">
                                         <div class="col-md-2">
-                                            <small for="dialysis_no">Dialysis No.</small>
+                                            <small for="dialysis_no">Sequence No.</small>
                                             <input id="dialysis_no" name="dialysis_no" type="text" class="form-control" data-validation="required" rdonly>
                                         </div>
                                         <div class="col-md-10">
@@ -314,7 +314,7 @@
                         </div>
 
                         <!-- doctor -->
-                        <div class="panel panel-default" style="position: relative;" id="div_doctor">
+                        <!-- <div class="panel panel-default" style="position: relative;" id="div_doctor">
                             <div class="panel-heading clearfix collapsed" id="toggle_tabDoctor" data-toggle="collapse" data-target="#tabDoctor">
                                 <i class="fa fa-angle-double-up" style="font-size:24px;margin: 0 0 0 12px"></i>
                                 <i class="fa fa-angle-double-down" style="font-size:24px;margin: 0 0 0 12px"></i >
@@ -399,7 +399,7 @@
                                 </div>
                             </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- bed -->
                         @if (request()->get('epistycode') == 'IP')
@@ -516,7 +516,7 @@
                         @endif
 
                         <!-- NOK -->
-                        <div class="panel panel-default" style="position: relative;" id="div_nok">
+                        <!-- <div class="panel panel-default" style="position: relative;" id="div_nok">
                             <div class="panel-heading clearfix collapsed" id="toggle_tabNok" data-toggle="collapse" data-target="#tabNok">
 
                             <i class="fa fa-angle-double-up" style="font-size:24px;margin: 0 0 0 12px"></i>
@@ -617,10 +617,10 @@
                                 </div>
                             </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- payer -->
-                        <div class="panel panel-default" style="position: relative;" id="div_payer">
+                        <!-- <div class="panel panel-default" style="position: relative;" id="div_payer">
                             <div class="panel-heading clearfix collapsed" id="toggle_tabPayer" data-toggle="collapse" data-target="#tabPayer">
 
                             <i class="fa fa-angle-double-up" style="font-size:24px;margin: 0 0 0 12px"></i>
@@ -635,10 +635,10 @@
 
                             </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- deposit -->
-                        <div class="panel panel-default" style="position: relative;" id="div_deposit">
+                        <!-- <div class="panel panel-default" style="position: relative;" id="div_deposit">
                             <div class="panel-heading clearfix collapsed" id="toggle_tabDeposit" data-toggle="collapse" data-target="#tabDeposit">
 
                             <i class="fa fa-angle-double-up" style="font-size:24px;margin: 0 0 0 12px"></i>
@@ -653,7 +653,7 @@
 
                             </div>
                             </div>
-                        </div>
+                        </div> -->
                 
                     </div>
                 </div>

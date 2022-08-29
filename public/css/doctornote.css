@@ -1,3 +1,9 @@
+
+.myslider{
+    padding-left: 20px  !important;
+    font-size: 0.8em  !important;
+}
+
 .wrap{
     word-wrap: break-word;
     white-space: pre-line !important;

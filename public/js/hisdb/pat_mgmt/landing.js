@@ -266,6 +266,7 @@ $(document).ready(function() {
         }else{
             $("#btn_discharge").hide();
         }
+        populate_dialysis_epis(rows[bootgrid_last_rowid]);
     });
     var bootgrid_last_rowid = 0;
 
@@ -716,7 +717,8 @@ if($('#epistycode').val() == 'OP'){
         {code:'#hid_epis_dept',desc:'#txt_epis_dept',id:'regdept'},
         {code:'#hid_epis_source',desc:'#txt_epis_source',id:'regsource'},
         {code:'#hid_epis_case',desc:'#txt_epis_case',id:'case'},
-        {code:'#hid_epis_doctor',desc:'#txt_epis_doctor',id:'doctor'},
+        {code:'#hid_admdoctor',desc:'#txt_admdoctor',id:'doctor'},
+        {code:'#hid_picdoctor',desc:'#txt_picdoctor',id:'picdoctor'},
         {code:'#hid_epis_fin',desc:'#txt_epis_fin',id:'epis_fin'},
         {code:'#hid_epis_payer',desc:'#txt_epis_payer',id:'epis_payer'},
         {code:'#hid_epis_bill_type',desc:'#txt_epis_bill_type',id:'bill_type'},

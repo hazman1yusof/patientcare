@@ -48,6 +48,7 @@ $(document).ready(function () {
 		onSelectRow:function(rowid, selected){
 			closealltab();
 			button_state_dialysis('disableAll');
+			$('button#timer_stop').click();
 
 			if(selrowData('#jqGrid').arrival != 0){
 				$('#dialysis_episode_idno').val(selrowData('#jqGrid').arrival);
@@ -93,7 +94,6 @@ $(document).ready(function () {
 
 	searchClick_scroll("#jqGrid","#SearchForm",urlParam);
 
-
 	$('.ui.checkbox.myslider.showall').checkbox({
 		onChecked: function() {
 			urlParam.showall = true;
@@ -121,6 +121,32 @@ $(document).ready(function () {
 	});
 
 	stop_scroll_on();
+
+	$('button#timer_play').click(function(){
+		timer_start_tbl();
+		$('button#timer_play').addClass('disabled');
+		$('button#timer_stop').removeClass('disabled');
+	});
+
+	$('button#timer_stop').click(function(){
+		timer_stop_tbl();
+		$('button#timer_play').removeClass('disabled');
+		$('button#timer_stop').addClass('disabled');
+	});
+
+	var fetch_tbl;
+	timer_start_tbl();
+	function timer_start_tbl(){
+		fetch_tbl = setInterval(function(){
+			$('.jqgridsegment').addClass('loading');
+			curpage=null;
+			refreshGrid("#jqGrid", urlParam);
+		}, 5000);
+	}
+
+	function timer_stop_tbl(){
+	  	clearInterval(fetch_tbl);
+	}
 
 });
 

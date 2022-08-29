@@ -9,14 +9,60 @@
     <input type="hidden" id="doctornote_route" value="{{route('doctornote_route')}}">
     <input type="hidden" id="user_groupid" value="{{Auth::user()->groupid}}">
 
-    <div class="ui stackable two column grid">
+    <div class="ui grid">
+        <div class="column" style="margin:0px;">
+            <div class="ui teal segment" style="padding-bottom: 45px;">
+                <h2 class="h2">Current Patient List</h2>
+                <form class="ui form" id="SearchForm" autocomplete="off" style="margin-bottom: 10px;">
+                    <div class="inline field">
+                        <select class="ui dropdown" name="Scol">
+                          <option value="Name">Patient Name</option>
+                          <option value="MRN">MRN</option>
+                          <option value="I/C">IC Number</option>
+                        </select>
+                        <input type="text" placeholder="Type Search here" name="Stext" style="min-width: 50%">
+                        <div class="ui slider checkbox myslider showall" >
+                          <input type="checkbox" class="hidden" id="arriv_cb">
+                          <label>Show all patient</label>
+                        </div>
+                        <div class="ui slider checkbox myslider showcomplete" >
+                          <input type="checkbox" class="hidden" id="comple_cb">
+                          <label>Show completed</label>
+                        </div>
+                    </div>
+                </form>
+                <table id="jqGrid" class="table table-striped"></table>
+                <div id="jqGridPager"></div>
+                <a class="ui grey label left floated" style="margin-top: 8px;">
+                    <i class="user icon"></i>
+                    Patient : <span id="no_of_pat">0</span>
+                </a>
+
+                <div style="float: right;padding: 5px 4px 10px 10px;">
+
+                    <div class="mini basic ui buttons">
+                      <button id="timer_play" class="ui disabled icon button">
+                        <i class="left play icon"></i>
+                        Play
+                      </button>
+                      <button id="timer_stop" class="ui icon button">
+                        <i class="right stop icon"></i>
+                        Stop
+                      </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="ui stackable two column grid">
         <div class="five wide tablet five wide computer column" id="calendar_div">
             <div class="ui orange segment" style="z-index:100">
                 <div id="calendar"></div>
             </div>
         </div>
 
-        <div class="eleven wide tablet eleven wide computer right floated column" style="margin:0px;"  id="jqgrid_div">
+        <div class="sixteen wide tablet sixteen wide computer right floated column" style="margin:0px;"  id="jqgrid_div">
             <div class="ui teal segment jqgridsegment" style="padding-bottom: 40px;">
                 
                 <div class="if_tablet left floated" style="display:none;">
@@ -50,7 +96,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <input id="user_dept" name="user_dept" value="{{ Auth::user()->dept }}" type="hidden">
     <input id="sel_date" name="sel_date" value="{{ \Carbon\Carbon::now()->toDateString() }}" type="hidden">
@@ -221,14 +267,14 @@
     <script type="text/ecmascript" src="{{ asset('assets/form-validator/jquery.form-validator.min.js') }}/"></script>
     <script type="text/javascript" src="{{ asset('js/userfile.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/transaction_diet.js') }}"></script>
+    <!-- <script type="text/javascript" src="{{ asset('js/transaction_diet.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction_phys.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/phys_cardiograph.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/phys_cardiograph.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('js/doctornote.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/nursing.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/dieteticCareNotes.js') }}"></script>
+    <!-- <script type="text/javascript" src="{{ asset('js/dieteticCareNotes.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/physioterapy.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/physioterapy_ncase.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/physioterapy_ncase.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('js/doctornote_main.js') }}"></script>
 @endsection
 

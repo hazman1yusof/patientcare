@@ -933,7 +933,8 @@ class PatmastController extends defaultController
         $epis_dept = $request->epis_dept;
         $epis_src = $request->epis_src;
         $epis_case = $request->epis_case;
-        $epis_doctor = $request->epis_doctor;
+        $admdoctor = $request->admdoctor;
+        $picdoctor = $request->picdoctor;
         $epis_fin = $request->epis_fin;
         $epis_paymode = $request->epis_pay;
         $epis_payer = $request->epis_payer;
@@ -980,7 +981,8 @@ class PatmastController extends defaultController
                     "regdept" => $epis_dept,
                     "admsrccode" => $epis_src,
                     "case_code" => $epis_case,
-                    "admdoctor" => $epis_doctor,
+                    "admdoctor" => $admdoctor,
+                    "picdoctor" => $picdoctor,
                     "pay_type" => $epis_fin,
                     "pyrmode" => $epis_paymode,
                     "billtype" => $epis_billtype,
@@ -1160,7 +1162,7 @@ class PatmastController extends defaultController
                         'Adddate' => Carbon::now("Asia/Kuala_Lumpur"),
                         'AddUser' => session('username'),
                         'Epistycode' => $epis_type,
-                        'DoctorCode' => $epis_doctor,
+                        'DoctorCode' => $admdoctor,
                         'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
                         'LastUser' => session('username'),
                         'ASDate' => Carbon::now("Asia/Kuala_Lumpur"),
@@ -1204,7 +1206,7 @@ class PatmastController extends defaultController
                         'mrn' => $epis_mrn,
                         'episno' => $epis_no,
                         'name' => $patmast_data->Name,
-                        'admdoctor' => $epis_doctor
+                        'admdoctor' => $admdoctor
                     ]);
 
                 }
@@ -1277,8 +1279,8 @@ class PatmastController extends defaultController
             if(!$queueAll_obj->exists()){
                 DB::table('hisdb.queue')
                     ->insert([
-                        'AdmDoctor' => $epis_doctor,
-                        'AttnDoctor' => $epis_doctor,
+                        'AdmDoctor' => $admdoctor,
+                        'AttnDoctor' => $admdoctor,
                         'BedType' => '',
                         'Case_Code' => "MED",
                         'CompCode' => session('compcode'),
@@ -1316,8 +1318,8 @@ class PatmastController extends defaultController
             if(!$queueSPEC_obj->exists()){
                 DB::table('hisdb.queue')
                     ->insert([
-                        'AdmDoctor' => $epis_doctor,
-                        'AttnDoctor' => $epis_doctor,
+                        'AdmDoctor' => $admdoctor,
+                        'AttnDoctor' => $admdoctor,
                         'BedType' => '',
                         'Case_Code' => "MED",
                         'CompCode' => session('compcode'),
@@ -1380,7 +1382,8 @@ class PatmastController extends defaultController
         $epis_dept = $request->epis_dept;
         $epis_src = $request->epis_src;
         $epis_case = $request->epis_case;
-        $epis_doctor = $request->epis_doctor;
+        $admdoctor = $request->admdoctor;
+        $picdoctor = $request->picdoctor;
         $epis_fin = $request->epis_fin;
         $epis_paymode = $request->epis_pay;
         $epis_payer = $request->epis_payer;
@@ -1419,7 +1422,8 @@ class PatmastController extends defaultController
                     "regdept" => $epis_dept,
                     "admsrccode" => $epis_src,
                     "case_code" => $epis_case,
-                    "admdoctor" => $epis_doctor,
+                    "admdoctor" => $admdoctor,
+                    "picdoctor" => $picdoctor,
                     "pay_type" => $epis_fin,
                     "pyrmode" => $epis_paymode,
                     "billtype" => $epis_billtype,
@@ -1599,7 +1603,7 @@ class PatmastController extends defaultController
                         'Adddate' => Carbon::now("Asia/Kuala_Lumpur"),
                         'AddUser' => session('username'),
                         'Epistycode' => $epis_type,
-                        'DoctorCode' => $epis_doctor,
+                        'DoctorCode' => $admdoctor,
                         'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
                         'LastUser' => session('username'),
                         'ASDate' => Carbon::now("Asia/Kuala_Lumpur"),
@@ -1620,7 +1624,7 @@ class PatmastController extends defaultController
                         'Adddate' => Carbon::now("Asia/Kuala_Lumpur"),
                         'AddUser' => session('username'),
                         'Epistycode' => $epis_type,
-                        'DoctorCode' => $epis_doctor,
+                        'DoctorCode' => $admdoctor,
                         'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
                         'LastUser' => session('username'),
                         'ASDate' => Carbon::now("Asia/Kuala_Lumpur"),
@@ -1683,7 +1687,7 @@ class PatmastController extends defaultController
                         'mrn' => $epis_mrn,
                         'episno' => $epis_no,
                         'name' => $patmast_data->Name,
-                        'admdoctor' => $epis_doctor
+                        'admdoctor' => $admdoctor
                     ]);
 
                     DB::table("hisdb.episode")

@@ -20,20 +20,6 @@ $(document).ready(function () {
 		},
 	};
 
-	var urlParam_dialysis = {
-		action:'get_table_default',
-		url:'util/get_table_default',
-		field: '',
-		fixPost:'true',
-		table_name: ['hisdb.dialysis_episode AS de','hisdb.pat_mast AS pm'],
-		join_type:['LEFT JOIN'],
-		join_onCol:['de.mrn'],
-		join_onVal:['pm.MRN'],
-		filterCol:['de.compcode','de.episno','de.mrn'],
-		filterVal:['session.compcode',$("#txt_epis_no").val(),$("#mrn_episode").val()],
-		sortby:['de_idno desc']
-	}
-
 	var last_lineno_ = 1;
 	$("#jqGrid_dialysis").jqGrid({
 		datatype: "local",
@@ -123,7 +109,7 @@ $(document).ready(function () {
 
 	$("#save_dialysis").click(function(){
 		disableForm('#form_dialysis');
-		if( $('#form_dialysis').isValid({requiredFields: ''}, conf_doc, true) ) {
+		if( $('#form_dialysis').isValid({requiredFields: ''}) ) {
 			saveForm_dialysis(function(){
 				refreshGrid("#jqGrid_dialysis", urlParam_dialysis);
 			});
@@ -200,3 +186,40 @@ $(document).ready(function () {
 	}
 
 });
+
+
+var urlParam_dialysis = {
+	action:'get_table_default',
+	url:'util/get_table_default',
+	field: '',
+	fixPost:'true',
+	table_name: ['hisdb.dialysis_episode AS de','hisdb.pat_mast AS pm'],
+	join_type:['LEFT JOIN'],
+	join_onCol:['de.mrn'],
+	join_onVal:['pm.MRN'],
+	filterCol:['de.compcode','de.episno','de.mrn'],
+	filterVal:['session.compcode','',''],
+	sortby:['de_idno desc']
+}
+
+function populate_dialysis_epis(obj){
+	urlParam_dialysis.filterVal[1] = obj.Episno;
+	urlParam_dialysis.filterVal[2] = obj.MRN;
+}
+
+function autoadd_dialysis(){
+	var postobj={
+	    _token : $('#csrf_token').val(),
+        oper:'autoadd',
+    	mrn : $("#mrn_episode").val(),
+    	episno : $("#txt_epis_no").val(),
+    };
+
+    $.post( "./save_epis_dialysis", $.param(postobj) , function( data ) {
+        
+    },'json').fail(function(data){
+		refreshGrid("#jqGrid_dialysis", urlParam_dialysis);
+    }).success(function(data){
+		refreshGrid("#jqGrid_dialysis", urlParam_dialysis);
+    });
+}

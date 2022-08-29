@@ -4,291 +4,214 @@ $.jgrid.defaults.styleUI = 'Bootstrap';
 
 $(document).ready(function () {
 
-	$('#calendar').fullCalendar({
-		// events: events,
-  		defaultView: 'month',
-  		header: {
-			left: 'prev,next today',
-			center: 'title',
-			right: 'month,listMonth'
-		},
-		buttonText:{
-			today: "Today"
-		},
-		contentHeight:"auto",
-		dayClick: function(date, allDay, jsEvent, view) {
-			$( ".fc-bg td.fc-day" ).removeClass( "selected_day" );
-			$(this).addClass( "selected_day" );
+	var urlParam = {
+		action: 'patmast_current_patient',
+		url: './pat_mast/post_entry',
+		curpat: 'true',
+		showall:false,
+		showcomplete:false,
+	}
 
-			urlParam.filterVal[0] = date.format('YYYY-MM-DD');
+	// $("#jqGrid").jqGrid({
+	// 	datatype: "local",
+	// 	colModel: [
+	// 		{ label: 'MRN', name: 'MRN', width: 7, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
+	// 		{ label: 'Epis. No', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' , hidden:true},
+	// 		{ label: 'Time', name: 'reg_time', width: 8 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
+	// 		{ label: 'Name', name: 'Name', width: 12 ,classes: 'wrap' },
+	// 		{ label: 'Payer', name: 'payer', width: 12 ,classes: 'wrap' },
+	// 		{ label: 'Dept', name: 'regdept', width: 8 ,classes: 'wrap' },
+	// 		{ label: 'I/C', name: 'Newic', width: 12 ,classes: 'wrap' },
+	// 		{ label: 'Rehab', name: 'reff_rehab', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
+	// 		{ label: 'Physio', name: 'reff_physio', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
+	// 		{ label: 'Diet', name: 'reff_diet', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
+	// 		{ label: 'HP', name: 'telhp', width: 10 ,classes: 'wrap' },
+	// 		{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
+	// 		{ label: 'Mode', name: 'pyrmode', width: 10 ,classes: 'wrap'},
+	// 		{ label: 'Seen', name: 'doctorstatus', width: 5 ,classes: 'wrap',formatter: formatterstatus_tick,hidden: true },
+	// 		{ label: 'idno', name: 'idno', hidden: true, key:true},
+	// 		{ label: 'DOB', name: 'DOB', hidden: true },
+	// 		{ label: 'RaceCode', name: 'RaceCode', hidden: true },
+	// 		{ label: 'religion', name: 'religion', hidden: true },
+	// 		{ label: 'OccupCode', name: 'OccupCode', hidden: true },
+	// 		{ label: 'Citizencode', name: 'Citizencode', hidden: true },
+	// 		{ label: 'AreaCode', name: 'AreaCode', hidden: true },
+	// 		{ label: 'stats_doctor', name: 'stats_doctor', hidden: true },
+	// 		{ label: 'stats_rehab', name: 'stats_rehab', hidden: true },
+	// 		{ label: 'stats_physio', name: 'stats_physio', hidden: true },
+	// 		{ label: 'stats_diet', name: 'stats_diet', hidden: true },
+	// 	],
+	// 	autowidth: true,
+	// 	viewrecords: true,
+	// 	sortorder: "episode.reg_time",
+	// 	sortorder: "desc",
+	// 	width: 900,
+	// 	height: 365,
+	// 	rowNum: 30,
+	// 	onSelectRow:function(rowid, selected){
+	// 		if(checkifedited()){
+	// 			return false;
+	// 		}
+	// 		empty_userfile();
+	// 		$('button#timer_stop').click();
+	// 		urlParam_trans.mrn = selrowData('#jqGrid').MRN;
+	// 		urlParam_trans.episno = selrowData('#jqGrid').Episno;
+	// 		urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
+	// 		urlParam_trans_diet.episno = selrowData('#jqGrid').Episno;
+	// 		urlParam_trans_phys.mrn = selrowData('#jqGrid').MRN;
+	// 		urlParam_trans_phys.episno = selrowData('#jqGrid').Episno;
+	// 		urlParam_card.mrn = selrowData('#jqGrid').MRN;
 
-			$('#sel_date').val(date.format('YYYY-MM-DD'));
-			refreshGrid("#jqGrid", urlParam);
+	// 		addmore_onadd = false;
+	// 		addmore_onadd_phys = false;
+	// 		addmore_onadd_diet = false;
+	// 		refreshGrid("#jqGrid_trans", urlParam_trans);
+	// 		refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
+	// 		refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
+	// 		refreshGrid("#jqGrid_card", urlParam_card);
+ //            populate_currDoctorNote(selrowData('#jqGrid'));
+ //            populate_triage_currpt(selrowData('#jqGrid'));
+ //            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
+ //            populate_userfile(selrowData('#jqGrid'));
+ //            populate_phys(selrowData('#jqGrid'));
+
+	// 		// if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
+	// 		// 	$('#checkbox_completed').prop('disabled',true);
+	// 		// 	$('#checkbox_completed').prop('checked', true);
+	// 		// }else{//kalau belum completed
+	// 		// 	$('#checkbox_completed').prop('disabled',false);
+	// 		// 	$('#checkbox_completed').prop('checked', false);
+	// 		// }
+
+	// 	},
+	// 	ondblClickRow: function (rowid, iRow, iCol, e) {
+	// 	},
+	// 	gridComplete: function () {
+	// 		$('.jqgridsegment').removeClass('loading');
+	// 		hide_tran_button(true);
+	// 		hide_tran_button_diet(true);
+	// 		hide_tran_button_phys(true);
+	// 		hide_card_button(true);
+	// 		$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
+	// 		empty_currDoctorNote();
+	// 		empty_transaction();
+	// 		empty_transaction_diet();
+	// 		empty_transaction_phys();
+	// 		empty_dietcarenote();
+	// 		empty_userfile();
+	// 		empty_currphys();
+	// 		empty_formNursing();
+
+	// 		let discharge_btn_data = $('#discharge_btn').data('idno');
+	// 		if(discharge_btn_data == undefined || discharge_btn_data == 'none'){
+	// 			if(!$("button#timer_play").hasClass("disabled")){
+	// 				$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+	// 			}
+	// 		}else{
+	// 			$("#jqGrid").setSelection(discharge_btn_data);
+	// 		}
+
+	// 	},
+	// });
+
+
+	var curpage=null; // to prevent duplicate entry curpage kena falsekan blk setiap kali nak refresh dari awal 
+	$("#jqGrid").jqGrid({
+		datatype: "local",
+		colModel: [
+			{ label: 'idno', name: 'idno',hidden: true, key:true},
+			{ label: 'MRN', name: 'MRN', width: 5, classes: 'wrap', formatter: padzero, unformat: unpadzero },
+			{ label: 'Episode', name: 'Episno', width: 5 ,align: 'left',classes: 'wrap' },
+			// { label: 'Time', name: 'reg_time', width: 10 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
+			{ label: 'Name', name: 'Name', width: 30 ,classes: 'wrap' },
+			{ label: 'Payer', name: 'payer', width: 20 ,classes: 'wrap' },
+			{ label: 'I/C', name: 'Newic', width: 15 ,classes: 'wrap' },
+			{ label: 'DOB', name: 'DOB', hidden: true},
+			{ label: 'HP', name: 'telhp', hidden:true},
+			{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
+			{ label: 'Arrival Date', name: 'arrival_date', width: 7. ,align: 'center', formatter:dateFormatter, unformat:dateUNFormatter},
+			{ label: 'Arrival', name: 'arrival', width: 5. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
+			{ label: 'Complete', name: 'complete', width: 6. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
+			{ label: 'Order', name: 'order', hidden: true},
+			{ label: 'RaceCode', name: 'RaceCode', hidden: true },
+			{ label: 'religion', name: 'religion', hidden: true },
+			{ label: 'OccupCode', name: 'OccupCode', hidden: true },
+			{ label: 'Citizencode', name: 'Citizencode', hidden: true },
+			{ label: 'AreaCode', name: 'AreaCode', hidden: true },
+		],
+		autowidth: true,
+		viewrecords: false,
+		width: 900,
+		height: 300,
+		rowNum: 50,
+		loadonce:false,
+		scroll: true,
+		sortname: 'idno',
+		sortorder: "desc",
+		onSelectRow:function(rowid, selected){
+			closealltab();
+			empty_userfile();
+			$('button#timer_stop').click();
+
+			urlParam_trans.mrn = selrowData('#jqGrid').MRN;
+			urlParam_trans.episno = selrowData('#jqGrid').Episno;
+
+			addmore_onadd = false;
+			addmore_onadd_phys = false;
+			addmore_onadd_diet = false;
+			refreshGrid("#jqGrid_trans", urlParam_trans);
+			// refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
+			// refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
+			// refreshGrid("#jqGrid_card", urlParam_card);
+            populate_currDoctorNote(selrowData('#jqGrid'));
+            populate_triage_currpt(selrowData('#jqGrid'));
+            populate_userfile(selrowData('#jqGrid'));
+            // populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
+            // populate_phys(selrowData('#jqGrid'));
+
+			// if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
+			// 	$('#checkbox_completed').prop('disabled',true);
+			// 	$('#checkbox_completed').prop('checked', true);
+			// }else{//kalau belum completed
+			// 	$('#checkbox_completed').prop('disabled',false);
+			// 	$('#checkbox_completed').prop('checked', false);
+			// }
 
 		},
-		eventRender: function(eventObj, $el) {
-			$(".fc-today-button").html('<small class="mysmall">'+moment().format('ddd')+'</small><br/><b class="myb">'+moment().format('DD')+'</b>');
-			// $('div.fc-right').append('<p>sdssd</p>').insertAfter
+		ondblClickRow: function (rowid, iRow, iCol, e) {
 		},
-		eventAfterRender: function(event, element, view){
-			let d1 = new Date(event.start.format('YYYY-MM-DD'));
-			let d2 = new Date($('#sel_date').val());
-			if(d1.getTime() === d2.getTime()){
-				$('#no_of_pat').text(event.title.split(" ")[0]);
+		gridComplete: function () {
+			$('.jqgridsegment').removeClass('loading');
+			hide_tran_button(true);			
+			$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
+			// empty_currDoctorNote();
+			empty_transaction();
+			// empty_transaction_diet();
+			// empty_transaction_phys();
+			// empty_dietcarenote();
+			empty_userfile();
+			// empty_currphys();
+			empty_formNursing();
+
+			// let discharge_btn_data = $('#discharge_btn').data('idno');
+			// if(discharge_btn_data == undefined || discharge_btn_data == 'none'){
+			// 	if(!$("button#timer_play").hasClass("disabled")){
+			// 		$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
+			// 	}
+			// }else{
+			// 	$("#jqGrid").setSelection(discharge_btn_data);
+			// }
+
+		},
+		beforeProcessing: function(data, status, xhr){
+			if(curpage == data.current){
+				return false;
+			}else{
+				curpage = data.current;
 			}
-		},
-		eventClick: function(event) {
-			var view = $('#calendar').fullCalendar('getView');
-			if(view.type == 'listMonth'){
-				urlParam.filterVal[0] = event.start.format('YYYY-MM-DD');
-				refreshGrid("#jqGrid", urlParam);
-			}
-		},
-		eventSources: [
-			{	
-				id: 'doctornote_event',
-				url: './doctornote/table',
-				type: 'GET',
-				data: {
-					type: 'apptbook',
-					action: 'doctornote_event'
-				}
-			},
-	    ]
-
-
+		}
 	});
 
-	var urlParam = {
-		action: 'get_table_doctornote',
-		url: $('#doctornote_route').val(),
-		filterVal : [moment().format("YYYY-MM-DD")]
-	}
-
-	var istablet = $(window).width() <= 1024;
-	// istablet =  true;
-
-	if(istablet){
-
-		$('#calendar_div').hide();
-		$('.if_tablet').show();
-
-		$('#jqgrid_div').removeClass('eleven wide tablet eleven wide computer');
-		$('#jqgrid_div').addClass('sixteen wide tablet sixteen wide computer');
-
-		$('#button_calendar').calendar({
-			type: 'date',
-			today: true,
-			onChange: function(date){
-			},
-			onSelect: function(date,mode){
-
-				let new_date = date.toISOString().split('T')[0];
-
-				urlParam.filterVal[0] = new_date;
-
-				$('#sel_date').val(new_date);
-				refreshGrid("#jqGrid", urlParam);
-				$('#sel_date_span').text(new_date);
-			}
-
-		});
-		
-
-		$("#jqGrid").jqGrid({
-			datatype: "local",
-			colModel: [
-				{ label: 'MRN', name: 'MRN', width: 9, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
-				{ label: ' ', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' , hidden:true},
-				{ label: 'Time', name: 'reg_time', width: 10 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
-				{ label: 'Name', name: 'Name', width: 12 ,classes: 'wrap' },
-				{ label: 'Payer', name: 'payer', width: 12 ,classes: 'wrap' },
-				{ label: 'Dept', name: 'regdept', width: 8 ,classes: 'wrap' },
-				{ label: 'I/C', name: 'Newic', width: 15 ,classes: 'wrap' },
-				{ label: 'Rehab', name: 'reff_rehab', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
-				{ label: 'Physio', name: 'reff_physio', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
-				{ label: 'Diet', name: 'reff_diet', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
-				{ label: 'HP', name: 'telhp', width: 13 ,classes: 'wrap' , hidden:true},
-				{ label: 'Sex', name: 'Sex', width: 6 ,classes: 'wrap' },
-				{ label: 'Mode', name: 'pyrmode', width: 8 ,classes: 'wrap'},
-				{ label: 'Seen', name: 'doctorstatus', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick,hidden: true },
-				{ label: 'idno', name: 'idno', hidden: true, key:true},
-				{ label: 'DOB', name: 'DOB', hidden: true },
-				{ label: 'RaceCode', name: 'RaceCode', hidden: true },
-				{ label: 'religion', name: 'religion', hidden: true },
-				{ label: 'OccupCode', name: 'OccupCode', hidden: true },
-				{ label: 'Citizencode', name: 'Citizencode', hidden: true },
-				{ label: 'AreaCode', name: 'AreaCode', hidden: true },
-				{ label: 'stats_doctor', name: 'stats_doctor', hidden: true },
-				{ label: 'stats_rehab', name: 'stats_rehab', hidden: true },
-				{ label: 'stats_physio', name: 'stats_physio', hidden: true },
-				{ label: 'stats_diet', name: 'stats_diet', hidden: true },
-			],
-			autowidth: true,
-			viewrecords: true,
-			width: 900,
-			height: 365,
-			rowNum: 30,
-			onSelectRow:function(rowid, selected){
-				if(checkifedited()){
-					return false;
-				}
-				empty_userfile();
-				$('button#timer_stop').click();
-				urlParam_trans.mrn = selrowData('#jqGrid').MRN;
-				urlParam_trans.episno = selrowData('#jqGrid').Episno;
-				urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
-				urlParam_trans_diet.episno = selrowData('#jqGrid').Episno;
-				urlParam_trans_phys.mrn = selrowData('#jqGrid').MRN;
-				urlParam_trans_phys.episno = selrowData('#jqGrid').Episno;
-				urlParam_card.mrn = selrowData('#jqGrid').MRN;
-				addmore_onadd = false;
-				addmore_onadd_phys = false;
-				addmore_onadd_diet = false;
-				refreshGrid("#jqGrid_trans", urlParam_trans);
-				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
-				refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
-				refreshGrid("#jqGrid_card", urlParam_card);
-	            populate_currDoctorNote(selrowData('#jqGrid'));
-	            populate_triage_currpt(selrowData('#jqGrid'));
-	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
-	            populate_userfile(selrowData('#jqGrid'));
-	            populate_phys(selrowData('#jqGrid'));
-
-			},
-			ondblClickRow: function (rowid, iRow, iCol, e) {
-			},
-			gridComplete: function () {
-				$('.jqgridsegment').removeClass('loading');
-				hide_tran_button(true);
-				hide_tran_button_diet(true);
-				hide_tran_button_phys(true);
-				hide_card_button(true);
-				$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
-				empty_currDoctorNote();
-				empty_transaction();
-				empty_transaction_diet();
-				empty_transaction_phys();
-				empty_dietcarenote();
-				empty_userfile();
-				empty_currphys();
-				empty_formNursing();
-
-				let discharge_btn_data = $('#discharge_btn').data('idno');
-				if(discharge_btn_data == undefined || discharge_btn_data == 'none'){
-					if(!$("button#timer_play").hasClass("disabled")){
-						$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
-					}
-				}else{
-					$("#jqGrid").setSelection(discharge_btn_data);
-				}
-			},
-		});
-	}else{
-
-		$("#jqGrid").jqGrid({
-			datatype: "local",
-			colModel: [
-				{ label: 'MRN', name: 'MRN', width: 7, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
-				{ label: 'Epis. No', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' , hidden:true},
-				{ label: 'Time', name: 'reg_time', width: 8 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
-				{ label: 'Name', name: 'Name', width: 12 ,classes: 'wrap' },
-				{ label: 'Payer', name: 'payer', width: 12 ,classes: 'wrap' },
-				{ label: 'Dept', name: 'regdept', width: 8 ,classes: 'wrap' },
-				{ label: 'I/C', name: 'Newic', width: 12 ,classes: 'wrap' },
-				{ label: 'Rehab', name: 'reff_rehab', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
-				{ label: 'Physio', name: 'reff_physio', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
-				{ label: 'Diet', name: 'reff_diet', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
-				{ label: 'HP', name: 'telhp', width: 10 ,classes: 'wrap' },
-				{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
-				{ label: 'Mode', name: 'pyrmode', width: 10 ,classes: 'wrap'},
-				{ label: 'Seen', name: 'doctorstatus', width: 5 ,classes: 'wrap',formatter: formatterstatus_tick,hidden: true },
-				{ label: 'idno', name: 'idno', hidden: true, key:true},
-				{ label: 'DOB', name: 'DOB', hidden: true },
-				{ label: 'RaceCode', name: 'RaceCode', hidden: true },
-				{ label: 'religion', name: 'religion', hidden: true },
-				{ label: 'OccupCode', name: 'OccupCode', hidden: true },
-				{ label: 'Citizencode', name: 'Citizencode', hidden: true },
-				{ label: 'AreaCode', name: 'AreaCode', hidden: true },
-				{ label: 'stats_doctor', name: 'stats_doctor', hidden: true },
-				{ label: 'stats_rehab', name: 'stats_rehab', hidden: true },
-				{ label: 'stats_physio', name: 'stats_physio', hidden: true },
-				{ label: 'stats_diet', name: 'stats_diet', hidden: true },
-			],
-			autowidth: true,
-			viewrecords: true,
-			sortorder: "episode.reg_time",
-			sortorder: "desc",
-			width: 900,
-			height: 365,
-			rowNum: 30,
-			onSelectRow:function(rowid, selected){
-				if(checkifedited()){
-					return false;
-				}
-				empty_userfile();
-				$('button#timer_stop').click();
-				urlParam_trans.mrn = selrowData('#jqGrid').MRN;
-				urlParam_trans.episno = selrowData('#jqGrid').Episno;
-				urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
-				urlParam_trans_diet.episno = selrowData('#jqGrid').Episno;
-				urlParam_trans_phys.mrn = selrowData('#jqGrid').MRN;
-				urlParam_trans_phys.episno = selrowData('#jqGrid').Episno;
-				urlParam_card.mrn = selrowData('#jqGrid').MRN;
-
-				addmore_onadd = false;
-				addmore_onadd_phys = false;
-				addmore_onadd_diet = false;
-				refreshGrid("#jqGrid_trans", urlParam_trans);
-				refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
-				refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
-				refreshGrid("#jqGrid_card", urlParam_card);
-	            populate_currDoctorNote(selrowData('#jqGrid'));
-	            populate_triage_currpt(selrowData('#jqGrid'));
-	            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
-	            populate_userfile(selrowData('#jqGrid'));
-	            populate_phys(selrowData('#jqGrid'));
-
-				// if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
-				// 	$('#checkbox_completed').prop('disabled',true);
-				// 	$('#checkbox_completed').prop('checked', true);
-				// }else{//kalau belum completed
-				// 	$('#checkbox_completed').prop('disabled',false);
-				// 	$('#checkbox_completed').prop('checked', false);
-				// }
-
-			},
-			ondblClickRow: function (rowid, iRow, iCol, e) {
-			},
-			gridComplete: function () {
-				$('.jqgridsegment').removeClass('loading');
-				hide_tran_button(true);
-				hide_tran_button_diet(true);
-				hide_tran_button_phys(true);
-				hide_card_button(true);
-				$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
-				empty_currDoctorNote();
-				empty_transaction();
-				empty_transaction_diet();
-				empty_transaction_phys();
-				empty_dietcarenote();
-				empty_userfile();
-				empty_currphys();
-				empty_formNursing();
-
-				let discharge_btn_data = $('#discharge_btn').data('idno');
-				if(discharge_btn_data == undefined || discharge_btn_data == 'none'){
-					if(!$("button#timer_play").hasClass("disabled")){
-						$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
-					}
-				}else{
-					$("#jqGrid").setSelection(discharge_btn_data);
-				}
-
-			},
-		});
-
-	}
 	$("#jqGrid").jqGrid('setGroupHeaders', {
 		useColSpanStyle: true, 
 		groupHeaders:[
@@ -300,33 +223,11 @@ $(document).ready(function () {
 	$("#jqGrid").jqGrid('navGrid', '#jqGridPager', {
 		view: false, edit: false, add: false, del: false, search: false,
 		beforeRefresh: function () {
+			curpage=null;
 			refreshGrid("#jqGrid", urlParam);
 		},
 	});
-
-	function formatterstatus_tick(cellvalue, option, rowObject) {
-		if (cellvalue == 'SEEN') {
-			return '<span class="fa fa-check" ></span>';
-		}else{
-			return "";
-		}
-	}
-
-	function formatterstatus_tick2(cellvalue, option, rowObject) {
-		if (cellvalue != null && cellvalue.toUpperCase() == 'YES') {
-			return '<span class="fa fa-check" ></span>';
-		}else{
-			return "";
-		}
-	}
-
-	function UNformatterstatus_tick2(cellvalue, option, rowObject) {
-		if ($(rowObject).children().length) {
-			return 'YES';
-		}else{
-			return "NO";
-		}
-	}
+	
 
 	function ordercompleteFormatter(cellvalue, option, rowObject) {
 		if (cellvalue == '1') {
@@ -375,77 +276,78 @@ $(document).ready(function () {
 
 	var fetch_tbl,fetch_evt;
 	timer_start_tbl();
-	timer_start_evt();
+	// timer_start_evt();
 
 	function timer_start_tbl(){
 		fetch_tbl = setInterval(function(){
 			$('.jqgridsegment').addClass('loading');
+			curpage=null;
 			refreshGrid("#jqGrid", urlParam);
 		}, 5000);
 	}
 
-	function timer_start_evt(){
-		fetch_evt = setInterval(function(){
-			$('#calendar').fullCalendar( 'refetchEventSources', 'doctornote_event' );
-		}, 5000);
-	}
+	// function timer_start_evt(){
+	// 	fetch_evt = setInterval(function(){
+	// 		$('#calendar').fullCalendar( 'refetchEventSources', 'doctornote_event' );
+	// 	}, 5000);
+	// }
 
 	function timer_stop_tbl(){
 	  	clearInterval(fetch_tbl);
 	}
 
-	function ordercompleteInit(){
+	// function ordercompleteInit(){
 
-		$('input[type=checkbox].checkbox_completed').on('change',function(e){
-			let cont = visiblecancel();
+	// 	$('input[type=checkbox].checkbox_completed').on('change',function(e){
+	// 		let cont = visiblecancel();
 
-			if(cont ==  false){
-				$.alert({
-				    title: 'Alert',
-				    content: 'Please enter charges',
-				});
-				$(this).prop('checked', false);
-			}else{
-				let self = this;
-				let rowid = $(this).data('rowid');
-				let rowdata = $('#jqGrid').jqGrid ('getRowData', rowid);
+	// 		if(cont ==  false){
+	// 			$.alert({
+	// 			    title: 'Alert',
+	// 			    content: 'Please enter charges',
+	// 			});
+	// 			$(this).prop('checked', false);
+	// 		}else{
+	// 			let self = this;
+	// 			let rowid = $(this).data('rowid');
+	// 			let rowdata = $('#jqGrid').jqGrid ('getRowData', rowid);
 
-				$.confirm({
-				    title: 'Confirm',
-				    content: 'Do you want to complete all entries?',
-				    buttons: {
-				        Yes:{
-				        	btnClass: 'btn-blue',
-				        	action: function () {
-					        	var param = {
-									_token: $("#_token").val(),
-									action: 'change_status',
-									mrn: rowdata.mrn,
-									episno: rowdata.episno,
-								}
+	// 			$.confirm({
+	// 			    title: 'Confirm',
+	// 			    content: 'Do you want to complete all entries?',
+	// 			    buttons: {
+	// 			        Yes:{
+	// 			        	btnClass: 'btn-blue',
+	// 			        	action: function () {
+	// 				        	var param = {
+	// 								_token: $("#_token").val(),
+	// 								action: 'change_status',
+	// 								mrn: rowdata.mrn,
+	// 								episno: rowdata.episno,
+	// 							}
 
-								$.post( "./change_status?"+$.param(param),{}, function( data ){
-									if(data.success == 'success'){
-										toastr.success('Patient status completed',{timeOut: 1000})
-										refreshGrid("#jqGrid", urlParam);
-									}
-								},'json');
-					         }
+	// 							$.post( "./change_status?"+$.param(param),{}, function( data ){
+	// 								if(data.success == 'success'){
+	// 									toastr.success('Patient status completed',{timeOut: 1000})
+	// 									refreshGrid("#jqGrid", urlParam);
+	// 								}
+	// 							},'json');
+	// 				         }
 
-				        },
-				        No: {
-				        	action: function () {
-								$(self).prop('checked', false);
-					        },
-				        }
-				    }
+	// 			        },
+	// 			        No: {
+	// 			        	action: function () {
+	// 							$(self).prop('checked', false);
+	// 				        },
+	// 			        }
+	// 			    }
 
-				});
+	// 			});
 
-			}
-		});
+	// 		}
+	// 	});
 		
-	}
+	// }
 
 	function checkifedited(){
 		if(!$('#save_doctorNote').is(':disabled')){
@@ -507,4 +409,56 @@ $(document).ready(function () {
 		}
 	}
 
+	$('.ui.checkbox.myslider.showall').checkbox({
+		onChecked: function() {
+			urlParam.showall = true;
+			curpage = null;
+			refreshGrid("#jqGrid", urlParam);
+	    },
+	    onUnchecked: function() {
+			urlParam.showall = false;
+			curpage = null;
+			refreshGrid("#jqGrid", urlParam);
+	    },
+	});
+
+	$('.ui.checkbox.myslider.showcomplete').checkbox({
+		onChecked: function() {
+			urlParam.showcomplete = true;
+			curpage = null;
+			refreshGrid("#jqGrid", urlParam);
+	    },
+	    onUnchecked: function() {
+			urlParam.showcomplete = false;
+			curpage = null;
+			refreshGrid("#jqGrid", urlParam);
+	    },
+	});
+
 });
+
+function closealltab(except){
+	var tab_arr = ["#tab_trans","#tab_daily","#tab_weekly","#tab_monthly"];
+	tab_arr.forEach(function(e,i){
+		if(e != except){
+			$(e).collapse('hide');
+		}
+	});
+}
+
+function formatterstatus_tick(cellvalue, option, rowObject) {
+	if (cellvalue != null && cellvalue != 0) {
+		return '<span class="fa fa-check" data-value="'+cellvalue+'"></span>';
+	}else{
+		return "";//if value is zero will capture as "" when unformat
+	}
+}
+
+function UNformatterstatus_tick(cellvalue, option, cell) {
+	if($('span.fa', cell).data('value') == undefined){
+		return 0;
+	}else{
+		return $('span.fa', cell).data('value');
+	}
+}
+

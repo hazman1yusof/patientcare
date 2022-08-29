@@ -597,11 +597,11 @@
     <form class="ui form" id="verify_form" autocomplete="off">
 	  <div class="field">
 	    <label>Username</label>
-	    <input type="text" name="username_verify" id="username_verify" placeholder="Username" required>
+	    <input type="text" name="username_verify" id="username_verify" placeholder="Username" required autocomplete="off">
 	  </div>
 	  <div class="field">
 	    <label>Password</label>
-	    <input type="password" name="password_verify" id="password_verify" placeholder="Password" required>
+	    <input type="password" name="password_verify" id="password_verify" placeholder="Password" required autocomplete="off">
 	  </div>
 	  <button class="ui primary button" type="button" id="verify_btn">VERIFIED</button>
 	  <div class="ui red left basic label" id="verify_error" style="display: none;">Username or password wrong</div>

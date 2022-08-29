@@ -8,7 +8,7 @@
 
     <div class="ui grid">
         <div class="column" style="margin:0px;">
-            <div class="ui teal segment">
+            <div class="ui teal segment" style="padding-bottom: 45px;">
                 <h2 class="h2">Current Patient List</h2>
                 <form class="ui form" id="SearchForm" autocomplete="off" style="margin-bottom: 10px;">
                     <div class="inline field">
@@ -30,6 +30,24 @@
                 </form>
                 <table id="jqGrid" class="table table-striped"></table>
                 <div id="jqGridPager"></div>
+                <a class="ui grey label left floated" style="margin-top: 8px;">
+                    <i class="user icon"></i>
+                    Patient : <span id="no_of_pat">0</span>
+                </a>
+
+                <div style="float: right;padding: 5px 4px 10px 10px;">
+
+                    <div class="mini basic ui buttons">
+                      <button id="timer_play" class="ui disabled icon button">
+                        <i class="left play icon"></i>
+                        Play
+                      </button>
+                      <button id="timer_stop" class="ui icon button">
+                        <i class="right stop icon"></i>
+                        Stop
+                      </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

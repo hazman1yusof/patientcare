@@ -462,17 +462,57 @@ class DialysisController extends Controller
         
                 $table->insert($array_insert);
 
-            }else if($request->oper == 'edit'){
-                $table
-                    ->where('idno','=',$request->idno);
+            }else if($request->oper == 'autoadd'){
+                //check if date,mrn,episno duplicate
+                $dialysis_epis = DB::table('hisdb.dialysis_episode')
+                                    ->where('compcode',session('compcode'))
+                                    ->where('mrn',$request->mrn)
+                                    ->where('episno',$request->episno)
+                                    ->whereDate('arrival_date',Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d'));
 
-                $array_update = [
-                    'packagecode'=>$request->packagecode,
-                    'arrival_date'=>$request->arrival_date,
-                    'arrival_time'=>$request->arrival_time,
-                ];
-        
-                $table->update($array_update);
+                if(!$dialysis_epis->exists()){
+                    $dialysis_epis = DB::table('hisdb.dialysis_episode')
+                                    ->where('compcode',session('compcode'))
+                                    ->where('mrn',$request->mrn)
+                                    ->where('episno',$request->episno);
+
+                    if($dialysis_epis->exists()){
+                        $lineno_ = intval($dialysis_epis->max('lineno_')) + 1;
+
+                        $dialysis_epis_latest = DB::table('hisdb.dialysis_episode')
+                                        ->where('compcode',session('compcode'))
+                                        ->where('mrn',$request->mrn)
+                                        ->where('episno',$request->episno)
+                                        ->where('lineno_',intval($dialysis_epis->max('lineno_')));
+
+                        $mcrstat = $dialysis_epis_latest->first()->mcrstat;
+                        $hdstat = $dialysis_epis_latest->first()->hdstat;
+                        $packagecode = $dialysis_epis_latest->first()->packagecode;
+                    }else{
+                        $lineno_ = 1;
+                        $mcrstat = 0;
+                        $hdstat = 0;
+                        $packagecode = 'EPO';
+                    }
+
+                    $array_insert = [
+                        'compcode'=>session('compcode'),
+                        'mrn'=>$request->mrn,
+                        'episno'=>$request->episno,
+                        'lineno_'=>$lineno_,
+                        'mcrstat'=>$mcrstat,
+                        'hdstat'=>$hdstat,
+                        'arrival_date'=>Carbon::now("Asia/Kuala_Lumpur"),
+                        'arrival_time'=>Carbon::now("Asia/Kuala_Lumpur"),
+                        'packagecode'=>$packagecode,
+                        'order'=>0,
+                        'complete'=>0
+                    ];
+            
+                    $table->insert($array_insert);
+                }
+
+                
             }
 
             $responce = new stdClass();

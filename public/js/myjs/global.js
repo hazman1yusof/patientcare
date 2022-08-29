@@ -86,6 +86,16 @@ var Global = function () {
 				title = "Select Patient Doctor";
                 mdl = "none";
 				break;
+			case "admdoctor":
+				act = "get_reg_doctor";
+				title = "Select Patient Doctor";
+                mdl = "none";
+				break;
+			case "picdoctor":
+				act = "get_reg_doctor";
+				title = "Select Patient Doctor";
+                mdl = "none";
+				break;
 			case "epis_fin":
 				act = "get_reg_fin";
 				title = "Select Patient Finance";

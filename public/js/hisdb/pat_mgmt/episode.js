@@ -3,6 +3,7 @@
     $('#editEpisode').on('shown.bs.modal', function (e) {
         // parent_close_disabled(true);
         if($("#episode_oper").val() == 'edit'){ // tutup episode, bkk arrival
+            autoadd_dialysis();
             if($('#toggle_tabdialysis').hasClass('collapsed')){
                 $("#toggle_tabdialysis").click();
             }
@@ -83,8 +84,9 @@
                     $("#hid_epis_source").val(data.data.admsrccode);
                     $("#txt_epis_case").val(data.data.cas_desc);
                     $("#hid_epis_case").val(data.data.case_code);
-                    $("#txt_epis_doctor").val(data.data.doc_name);
-                    $("#hid_epis_doctor").val(data.data.admdoctor);
+                    $("#txt_admdoctor").val(data.data.admdoctor);
+                    $("#txt_picdoctor").val(data.data.admdoctor);
+                    // $("#hid_epis_doctor").val(data.data.admdoctor);
                     $("#hid_epis_fin").val(data.data.pay_type);
                     $("#txt_epis_fin").val(data.data.dbty_desc).change();
                     $("#cmb_epis_pay_mode").val(data.data.pyrmode);
@@ -321,7 +323,8 @@
         var episdept = $("#hid_epis_dept").val();
         var epissrc = $("#hid_epis_source").val();
         var episcase = $("#hid_epis_case").val();
-        var episdoctor = $("#hid_epis_doctor").val();
+        var admdoctor = $("#hid_admdoctor").val();
+        var picdoctor = $("#hid_picdoctor").val();
         var episfin = $("#hid_epis_fin").val();
         var epispay = $("#cmb_epis_pay_mode").val();
         var epispayer = $("#hid_epis_payer").val();
@@ -346,7 +349,8 @@
                     epis_dept : episdept,
                     epis_src : epissrc,
                     epis_case : episcase,
-                    epis_doctor : episdoctor,
+                    admdoctor : admdoctor,
+                    picdoctor : picdoctor,
                     epis_fin : episfin,
                     epis_pay : epispay,
                     epis_payer : epispayer,
@@ -414,7 +418,8 @@
                 $('#hid_epis_dept').val(episdata.regdept);
                 $('#hid_epis_source').val(episdata.admsrccode);
                 $('#hid_epis_case').val(episdata.case_code);
-                $('#hid_epis_doctor').val(episdata.admdoctor);
+                $('#hid_admdoctor').val(episdata.admdoctor);
+                $('#hid_picdoctor').val(episdata.picdoctor);
                 $('#hid_epis_fin').val(episdata.pay_type);
                 if($('#epistycode').val() == 'IP'){
                     $("#txt_epis_bed").val(bed.ward);
@@ -458,14 +463,14 @@
     textfield_modal.checking();
 
     function textfield_modal(){
-        this.textfield_array = ['#txt_epis_dept','#txt_epis_source','#txt_epis_case','#txt_epis_doctor','#txt_epis_fin','#txt_pat_title','#txt_ID_Type','#txt_RaceCode','#txt_Religion','#txt_LanguageCode','#txt_pat_citizen','#txt_pat_area','#txt_payer_company','#txt_pat_occupation'];
+        this.textfield_array = ['#txt_epis_dept','#txt_epis_source','#txt_epis_case','#txt_admdoctor','#txt_picdoctor','#txt_epis_fin','#txt_pat_title','#txt_ID_Type','#txt_RaceCode','#txt_Religion','#txt_LanguageCode','#txt_pat_citizen','#txt_pat_area','#txt_payer_company','#txt_pat_occupation'];
 
         this.ontabbing = function(){
-            $("#txt_epis_dept,#txt_epis_source,#txt_epis_case,#txt_epis_doctor,#txt_epis_fin,#txt_pat_title,#txt_ID_Type,#txt_RaceCode,#txt_Religion,#txt_LanguageCode,#txt_pat_citizen,#txt_pat_area,#txt_payer_company,#txt_pat_occupation").on('keydown',{data:this},onTab);
+            $("#txt_epis_dept,#txt_epis_source,#txt_epis_case,#txt_admdoctor,#txt_picdoctor,#txt_epis_fin,#txt_pat_title,#txt_ID_Type,#txt_RaceCode,#txt_Religion,#txt_LanguageCode,#txt_pat_citizen,#txt_pat_area,#txt_payer_company,#txt_pat_occupation").on('keydown',{data:this},onTab);
         }
 
         this.checking = function(){
-            $("#txt_epis_dept,#txt_epis_source,#txt_epis_case,#txt_epis_doctor,#txt_epis_fin,#txt_pat_title,#txt_ID_Type,#txt_RaceCode,#txt_Religion,#txt_LanguageCode,#txt_pat_citizen,#txt_pat_area,#txt_payer_company,#txt_pat_occupation").on('blur',{data:this},onCheck);
+            $("#txt_epis_dept,#txt_epis_source,#txt_epis_case,#txt_admdoctor,#txt_picdoctor,#txt_epis_fin,#txt_pat_title,#txt_ID_Type,#txt_RaceCode,#txt_Religion,#txt_LanguageCode,#txt_pat_citizen,#txt_pat_area,#txt_payer_company,#txt_pat_occupation").on('blur',{data:this},onCheck);
         }
         this.blurring = false;
 
@@ -747,6 +752,7 @@
         this.regsource={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.case={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.doctor={code:'code',desc:'description'};//data simpan dekat dalam ni
+        this.picdoctor={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.epis_bed={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.epis_fin={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.epis_payer={code:'debtorcode',desc:'name'};//data simpan dekat dalam ni
@@ -762,6 +768,7 @@
             load_for_desc(this,'regsource','pat_mast/get_entry?action=get_reg_source');
             load_for_desc(this,'case','pat_mast/get_entry?action=get_reg_case');
             load_for_desc(this,'doctor','pat_mast/get_entry?action=get_reg_doctor');
+            load_for_desc(this,'picdoctor','pat_mast/get_entry?action=get_reg_doctor');
             load_for_desc(this,'epis_bed','pat_mast/get_entry?action=get_reg_bed');
             load_for_desc(this,'epis_fin','pat_mast/get_entry?action=get_reg_fin');
             load_for_desc(this,'epis_payer','pat_mast/get_entry?action=get_debtor_list');
