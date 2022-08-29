@@ -120,6 +120,8 @@ $(document).ready(function () {
 	    },
 	});
 
+	stop_scroll_on();
+
 });
 
 function closealltab(except){
@@ -159,6 +161,16 @@ function UNformatterstatus_tick(cellvalue, option, cell) {
 	}else{
 		return $('span.fa', cell).data('value');
 	}
+}
+
+function stop_scroll_on(){
+	$('div.paneldiv').on('mouseenter',function(){
+		$('body').addClass('stop-scrolling');
+	});
+
+	$('div.paneldiv').on('mouseleave',function(){
+		$('body').removeClass('stop-scrolling')
+	});
 }
 
 

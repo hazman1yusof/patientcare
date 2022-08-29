@@ -3,7 +3,7 @@
 	<div class="ui secondary segment bluecloudsegment">
 		<div class="ui labeled small input">
 			<div class="ui blue label">Visit Date</div>
-			<input type="visit_date" readonly value="{{Carbon\Carbon::now()->format('Y-m-d')}}">
+			<input type="date" name="visit_date" id="visit_date" readonly value="{{Carbon\Carbon::now()->format('Y-m-d')}}">
 		</div>
 		<select class="ui small dropdown" id="dialysisbefore">
 		  <option value="">Dialysis Before</option>
@@ -136,7 +136,7 @@
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">DURATION OF HD:</div></label>
-						<input type="text" name="duration_of_hd" id="duration_of_hd" class="" value="" rdonly >
+						<input type="text" name="duration_of_hd" id="duration_of_hd" class="" value="" rdonly required>
 					</div>
 				</div>
 			    <div class="field">
@@ -164,13 +164,13 @@
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">DRY WEIGHT:</div></label>
-						<input type="text" name="dry_weight" id="dry_weight" class="" value="" rdonly >
+						<input type="text" name="dry_weight" id="dry_weight" class="" value="" rdonly required>
 					</div>
 				</div>
 			    <div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">TARGET WEIGHT:</div></label>
-						<input type="text" name="target_weight" id="target_weight" class="" value="" rdonly >
+						<input type="text" name="target_weight" id="target_weight" class="" value="" rdonly required>
 					</div>
 				</div>
 				<div class="field">
@@ -205,15 +205,15 @@
 				<div class="field">
 					<div class="clinic_code">
 						<label> INITIATED BY:</label>
-						<input type="text" name="initiated_by" id="initiated_by" class="" value="" rdonly>
+						<input type="text" name="initiated_by" id="initiated_by" class="" value="" rdonly required>
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
 						<label> VERIFIED BY:</label>
-						<div class="ui action mini input">
-						  <input type="text" name="verified_by" id="verified_by" rdonly>
-						  <button class="ui button" type="button" id="verified_btn">Select User</button>
+						<div class="ui action input">
+						  <input type="text" name="verified_by" id="verified_by" rdonly required>
+						  <button class="ui button" type="button" id="verified_btn">Verifiy</button>
 						</div>
 					</div>
 				</div>
@@ -497,6 +497,9 @@
 
 		    <hr>
 
+		</form>
+
+		<form id="daily_form_completed" class="ui mini form" autocomplete="off">
 			<h4 class="ui dividing header">POST HD ASSESSMENT</h4>
 
 			<div class="five fields">
@@ -506,11 +509,11 @@
 			  				<div class="two fields">
 			  					<div class="ui labeled input" style="padding-right:5px">
 			  						<div class="ui label">Systolic</div>
-			  						<input type="text" name="posthd_systolic" id="posthd_systolic" value="" >
+			  						<input type="text" name="posthd_systolic" id="posthd_systolic" value="" class="purplebg" required>
 			  					</div>
 			  					<div class="ui labeled input">
 			  						<div class="ui label">Diastolic</div>
-			  						<input type="text" name="posthd_diastolic" id="posthd_diastolic" value="" >
+			  						<input type="text" name="posthd_diastolic" id="posthd_diastolic" value="" class="purplebg" required>
 			  					</div>
 			  				</div>
 			  		</div>
@@ -520,9 +523,9 @@
 					<div class="clinic_code">
 						<label style="">T.P.R:</label>
 		  				<div class="three fields" style="padding-left:5px">
-							<input type="text" placeholder="Temperature" name="posthd_temperatue" id="posthd_temperatue" value="" style="margin-right: 5px;">
-	  						<input type="text" placeholder="Pulse" name="posthd_pulse" id="posthd_pulse" value="" style="margin-right: 5px;">
-	  						<input type="text" placeholder="Respiratory" name="posthd_respiratory" id="posthd_respiratory" value="" >
+							<input type="text" placeholder="Temperature" name="posthd_temperatue" id="posthd_temperatue" value="" style="margin-right: 5px;" class="purplebg" required>
+	  						<input type="text" placeholder="Pulse" name="posthd_pulse" id="posthd_pulse" value="" style="margin-right: 5px;" class="purplebg" required>
+	  						<input type="text" placeholder="Respiratory" name="posthd_respiratory" id="posthd_respiratory" value="" class="purplebg" required>
 		  				</div>
 					</div>
 				</div>
@@ -533,27 +536,27 @@
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">TIME COMPLETE:</div></label>
-						<input type="time" name="time_complete" id="time_complete" value="">
+						<input type="time" name="time_complete" id="time_complete" value="" class="purplebg" required>
 					</div>
 				</div>
 			    <div class="field">
 					<div class="clinic_code">
 						<label> POST WEIGHT:</label>
-						<input type="text" name="post_weight" id="post_weight" value="">
+						<input type="text" name="post_weight" id="post_weight" value="" class="purplebg" required>
 					</div>
 			    </div>
 
 			    <div class="field">
 					<div class="clinic_code">
 						<label> WEIGHT LOSS:</label>
-						<input type="text" name="weight_loss" id="weight_loss" value="">
+						<input type="text" name="weight_loss" id="weight_loss" value="" class="purplebg" required>
 					</div>
 			    </div>
 
 			    <div class="field">
 					<div class="clinic_code">
 						<label> INTRADIALYTIC COMPLICATION:</label>
-						<input type="text" name="i_complication" id="i_complication" value="">
+						<input type="text" name="i_complication" id="i_complication" value="" class="purplebg" required>
 					</div>
 			    </div>
 
@@ -564,26 +567,44 @@
 			    <div class="field">
 					<div class="clinic_code">
 						<label> HD ADEQUANCY:</label>
-						<input type="text" name="hd_adequancy" id="hd_adequancy" value="" class="purplebg">
+						<input type="text" name="hd_adequancy" id="hd_adequancy" value="" class="purplebg" required>
 					</div>
 			    </div>
 
 			    <div class="field">
 					<div class="clinic_code">
 						<label> KT/V :</label>
-						<input type="text" name="ktv" id="ktv" value="">
+						<input type="text" name="ktv" id="ktv" value="" class="purplebg" required>
 					</div>
 			    </div>
 
 			    <div class="field">
 					<div class="clinic_code">
 						<label> TERMINATE BY:</label>
-						<input type="text" name="terminate_by" id="terminate_by" value="">
+						<input type="text" name="terminate_by" id="terminate_by" value="" class="purplebg" required>
 					</div>
 			    </div>
 			    <div class="field"></div>
-		    	<div class="field" style="position:relative;"><button id="complete_btn" class="ui red button" type="button" style="position:absolute; bottom: 0px;right: 20px;" disabled>Completed</button></div>
+		    	<div class="field" style="position:relative;"><button id="complete_dialysis" class="ui red button" type="button" style="position:absolute; bottom: 0px;right: 20px;" disabled>Completed</button></div>
 			</div>
 		</form>
 	</div>
+</div>
+
+<div class="ui mini modal scrolling" id="password_mdl">
+  <i class="close icon" style="position: inherit;color: black;"></i>
+  <div class="content">
+    <form class="ui form" id="verify_form" autocomplete="off">
+	  <div class="field">
+	    <label>Username</label>
+	    <input type="text" name="username_verify" id="username_verify" placeholder="Username" required>
+	  </div>
+	  <div class="field">
+	    <label>Password</label>
+	    <input type="password" name="password_verify" id="password_verify" placeholder="Password" required>
+	  </div>
+	  <button class="ui primary button" type="button" id="verify_btn">VERIFIED</button>
+	  <div class="ui red left basic label" id="verify_error" style="display: none;">Username or password wrong</div>
+	</form>
+  </div>
 </div>

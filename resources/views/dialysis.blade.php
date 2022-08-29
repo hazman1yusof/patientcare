@@ -52,7 +52,7 @@
         </div>
 
         <div id="tab_trans" class="panel-collapse collapse">
-            <div class="panel-body">
+            <div class="panel-body paneldiv">
                 @include('transaction_charges')
             </div>
         </div>
@@ -88,7 +88,7 @@
         </div>
 
         <div id="tab_weekly" class="panel-collapse collapse">
-            <div class="panel-body">
+            <div class="panel-body paneldiv">
                 @include('weekly_clinical_record')
             </div>
         </div>
@@ -107,7 +107,7 @@
         </div>
 
         <div id="tab_monthly" class="panel-collapse collapse">
-            <div class="panel-body" style="position: relative;">
+            <div class="panel-body paneldiv" style="position: relative;">
                 @include('monthly_clinical_record')
             </div>
         </div>

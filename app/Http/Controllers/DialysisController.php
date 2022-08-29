@@ -96,8 +96,9 @@ class DialysisController extends Controller
 
             $post = DB::table('hisdb.dialysis')
                     ->where('mrn','=',$request->mrn)
-                    ->whereYear('start_date', '=', $carbon->year)
-                    ->whereMonth('start_date', '=', $carbon->month)
+                    // ->where('episno','=',$request->episno)
+                    ->whereYear('visit_date', '=', $carbon->year)
+                    ->whereMonth('visit_date', '=', $carbon->month)
                     ->get();
         }
 
@@ -113,8 +114,10 @@ class DialysisController extends Controller
             $dateto = new Carbon($request->dateto);
 
             $post = DB::table('hisdb.dialysis')
+                    ->where('compcode',session('compcode'))
                     ->where('mrn','=',$request->mrn)
-                    ->whereBetween('start_date', [$datefrom, $dateto])
+                    ->where('episno','=',$request->episno)
+                    ->whereBetween('visit_date', [$datefrom, $dateto])
                     ->take(3)
                     ->get();
         }
@@ -126,13 +129,10 @@ class DialysisController extends Controller
 
     public function get_dia_daily(Request $request){
         $post = [];
-        if(!empty($request->date)){
-            $carbon = new Carbon($request->date);
-
+        if(!empty($request->idno)){
             $post = DB::table('hisdb.dialysis')
-                    ->where('mrn','=',$request->mrn)
-                    ->whereDate('start_date', '=', $carbon)
-                    ->get();
+                    ->where('idno','=',$request->idno)
+                    ->first();
         }
 
         $responce = new stdClass();
@@ -144,26 +144,30 @@ class DialysisController extends Controller
 
         $table = DB::table('hisdb.dialysis');
         try {
+
+            $visit_date = new Carbon($request->visit_date);
+
             if($request->oper == 'add'){
                 $array_insert = [
                     'compcode'=>session('compcode'),
                     'mrn'=>$request->mrn,
                     'episno'=>$request->episno,
                     'arrivalno'=>$request->arrivalno,
-                    'visit_date'=>$request->visit_date
+                    'visit_date'=>$visit_date
                 ];
 
                 foreach ($_POST as $key => $value) {
-                    if(!empty($value)){
+                    if(strlen(trim($value)) > 0){
                         $array_insert[$key] = $value;
                     }
                 }
-                dd($array_insert);
         
                 $table->insert($array_insert);
 
             }else if($request->oper == 'edit'){
                 $table
+                    ->where('compcode','=',session('compcode'))
+                    ->where('arrivalno','=',$request->arrivalno)
                     ->where('mrn','=',$request->mrn)
                     ->where('episno','=',$request->episno);
 
@@ -182,7 +186,54 @@ class DialysisController extends Controller
             $responce->success = 'success';
             echo json_encode($responce);
 
-            // DB::commit();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response('Error'.$e, 500);
+        }
+        
+    }
+
+    public function save_dialysis_completed(Request $request){
+
+        $table = DB::table('hisdb.dialysis');
+        try {
+            
+            $table
+                ->where('compcode','=',session('compcode'))
+                ->where('arrivalno','=',$request->arrivalno)
+                ->where('mrn','=',$request->mrn)
+                ->where('episno','=',$request->episno);
+
+            $array_update = [];
+
+            foreach ($_POST as $key => $value) {
+                if(!empty($value)){
+                    $array_update[$key] = $value;
+                }
+            }
+    
+            $table->update($array_update);
+
+            //update dialysis_episode charges
+            $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                    ->where('idno',$request->arrivalno)
+                                    ->where('complete',0);
+
+            if($dialysis_episode->exists()){
+                DB::table('hisdb.dialysis_episode')
+                    ->where('idno',$request->arrivalno)
+                    ->update([
+                        'complete' => 1
+                    ]);
+            }
+
+            $responce = new stdClass();
+            $responce->success = 'success';
+            echo json_encode($responce);
+
+            DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
 
@@ -203,7 +254,7 @@ class DialysisController extends Controller
                         ->first();
 
 
-            //check duplicate
+            //check duplicate dialysis
             $chgtrx = DB::table('hisdb.chargetrx')
                         ->where('compcode','=',session('compcode'))
                         ->where('trxdate','=',Carbon::now("Asia/Kuala_Lumpur"))
@@ -439,12 +490,28 @@ class DialysisController extends Controller
     public function check_pt_mode(Request $request){
 
         $responce = new stdClass();
+
+        $dialysis_b4 = DB::table('hisdb.dialysis')
+                        ->select('idno','visit_date')
+                        ->where('mrn',$request->mrn)
+                        ->where('episno',$request->episno)
+                        ->where('arrivalno','!=',$request->dialysis_episode_idno);
+
+        if($dialysis_b4->exists()){
+            $datab4 = [];
+            foreach ($dialysis_b4->get() as $key => $value) {
+                $obj_ = new stdClass();
+                $obj_->idno = $value->idno;
+                $obj_->visit_date = Carbon::parse($value->visit_date)->format('d-m-Y');
+                array_push($datab4,$obj_);
+            }
+            $responce->datab4 = $datab4;
+        }
         
         //check dkt dialysis_episode ada order ke tak
         $dialysis_episode = DB::table('hisdb.dialysis_episode')
                             ->where('idno',$request->dialysis_episode_idno)
                             ->where('order',1);
-
 
         if($dialysis_episode->exists()){
 
@@ -631,6 +698,22 @@ class DialysisController extends Controller
 
         return $responce;               
 
+    }
+
+    public function verifyuser_dialysis(Request $request){
+        $responce = new stdClass();
+
+        $verify = DB::table('sysdb.users')
+                    ->where('username',$request->username)
+                    ->where('password',$request->password);
+
+        if($verify->exists()){
+            $responce->success = 'success';
+        }else{
+            $responce->success = 'fail';
+        }
+
+        echo json_encode($responce); 
     }
 
 
