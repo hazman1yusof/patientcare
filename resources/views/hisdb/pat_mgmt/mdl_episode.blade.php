@@ -116,8 +116,17 @@
                                     <div class="col-md-offset-1 col-md-10">
                                         <small for="txt_epis_doctor">Doctor</small>
                                         <div class="input-group">
-                                            <input type="text" class="form-control form-mandatory" name="txt_epis_doctor" id="txt_epis_doctor" required tabindex=4>
-                                            <input type="hidden" id="hid_epis_doctor" name="admdoctor"/>
+                                            <span class="input-group-addon" id="doc_nephro">Nephrologist</span>
+                                            <input type="text" class="form-control form-mandatory" name="txt_epis_doc_nephro" id="txt_epis_doc_nephro" required tabindex=4>
+                                            <input type="hidden" id="hid_epis_doc_nephro" name="admdoctor"/>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-info" id="btn_epis_doctor" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('epis_doctor');"><span class="fa fa-ellipsis-h"></span> </button>
+                                            </span>
+                                        </div>
+                                        <div class="input-group" style="padding-top: 5px;">
+                                            <span class="input-group-addon" id="doc_pic">PIC</span>
+                                            <input type="text" class="form-control form-mandatory" name="txt_epis_doc_pic" id="txt_epis_doc_pic" required tabindex=4>
+                                            <input type="hidden" id="hid_epis_doc_pic" name="admdoctor"/>
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-info" id="btn_epis_doctor" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('epis_doctor');"><span class="fa fa-ellipsis-h"></span> </button>
                                             </span>
