@@ -193,11 +193,11 @@ var urlParam_dialysis = {
 	url:'util/get_table_default',
 	field: '',
 	fixPost:'true',
-	table_name: ['hisdb.dialysis_episode AS de','hisdb.pat_mast AS pm'],
+	table_name: ['hisdb.dialysis_episode AS de','hisdb.episode AS pm'],
 	join_type:['LEFT JOIN'],
 	join_onCol:['de.mrn'],
 	join_onVal:['pm.MRN'],
-	filterCol:['de.compcode','de.episno','de.mrn'],
+	filterCol:['pm.compcode','de.episno','de.mrn'],
 	filterVal:['session.compcode','',''],
 	sortby:['de_idno desc']
 }

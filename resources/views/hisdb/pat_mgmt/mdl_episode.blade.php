@@ -125,10 +125,10 @@
                                         </div>
                                         <div class="input-group" style="padding-top: 5px;">
                                             <span class="input-group-addon" id="doc_pic">PIC &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
-                                            <input type="text" class="form-control form-mandatory" name="txt_picdoctor" id="txt_picdoctor" required tabindex=4>
-                                            <input type="hidden" id="hid_picdoctor" name="picdoctor"/>
+                                            <input type="text" class="form-control form-mandatory" name="txt_attndoctor" id="txt_attndoctor" required tabindex=4>
+                                            <input type="hidden" id="hid_attndoctor" name="attndoctor"/>
                                             <span class="input-group-btn">
-                                                <button type="button" class="btn btn-info" id="btn_picdoctor" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('picdoctor');"><span class="fa fa-ellipsis-h"></span> </button>
+                                                <button type="button" class="btn btn-info" id="btn_attndoctor" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('attndoctor');"><span class="fa fa-ellipsis-h"></span> </button>
                                             </span>
                                         </div>
                                     </div>

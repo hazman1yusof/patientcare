@@ -67,7 +67,7 @@ class SessionController extends Controller
                 if(Auth::user()->groupid == 'patient'){
                     return redirect('/preview');
                 }else if(strtoupper(Auth::user()->groupid) == 'DOCTOR'){
-                    return redirect('/doctornote');
+                    return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'REHABILITATION'){
                     $this->setsession_($request);
                     return redirect('/doctornote');
@@ -79,13 +79,13 @@ class SessionController extends Controller
                 }else if(strtoupper(Auth::user()->groupid) == 'CLINICAL'){
                     return redirect('/emergency');
                 }else if(strtoupper(Auth::user()->groupid) == 'ADMIN'){
-                    return redirect('/dashboard');
+                    return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'MR'){
                     return redirect('/dashboard');
                 }else if(strtoupper(Auth::user()->groupid) == 'REGISTER'){
                     return redirect('/mainlanding');
                 }else{
-                    return redirect('/dashboard');
+                    return redirect('/dialysis');
                 }
             }else{
                 return back()->withErrors(['Try again, Password entered incorrect']);

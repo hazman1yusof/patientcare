@@ -52,7 +52,7 @@ $(document).ready(function () {
 		],
 		autowidth: false,
 		width: 900,
-		height: 365,
+		height: 80,
 		rowNum: 30,
 		pager:'#jqGrid_transPager',
 		viewrecords: true,
@@ -61,7 +61,7 @@ $(document).ready(function () {
 		sortname: 'id',
 		sortorder: "desc",
 		onSelectRow:function(rowid, selected){
-
+			calc_jq_height_onchange("jqGrid_trans");
 		},
 		ondblClickRow: function (rowid, iRow, iCol, e) {
 			if($('td#jqGrid_trans_iledit').is(':visible')){
@@ -69,6 +69,7 @@ $(document).ready(function () {
 			}
 		},
 		loadComplete: function () {
+			$("#jqGrid_trans").setSelection($("#jqGrid_trans").getDataIDs()[0]);
 			// get_trans_tbl_data();
         	$('#jqGrid_trans_ildelete').removeClass('ui-disabled');
 			if(addmore_onadd == true){
@@ -185,6 +186,7 @@ $(document).ready(function () {
 			$("#jqGrid_trans").jqGrid('setGridParam', { editurl: editurl });
         },
         afterrestorefunc : function( response ) {
+			$("#jqGrid_trans").setSelection($("#jqGrid_trans").getDataIDs()[0]);
         	$('#jqGrid_trans_ildelete').removeClass('ui-disabled');
 	    }
     };
@@ -233,6 +235,7 @@ $(document).ready(function () {
 			$("#jqGrid_trans").jqGrid('setGridParam', { editurl: editurl });
         },
         afterrestorefunc : function( response ) {
+			$("#jqGrid_trans").setSelection($("#jqGrid_trans").getDataIDs()[0]);
         	$('#jqGrid_trans_ildelete').removeClass('ui-disabled');
 	    }
     };
@@ -528,4 +531,14 @@ function empty_transaction(kosongkan = 'kosongkan'){
 	addmore_onadd = false;
 	hide_tran_button(true);
 	refreshGrid("#jqGrid_trans", urlParam_trans,kosongkan);
+}
+
+function calc_jq_height_onchange(jqgrid){
+	let scrollHeight = $('#'+jqgrid+'>tbody').prop('scrollHeight');
+	if(scrollHeight<50){
+		scrollHeight = 50;
+	}else if(scrollHeight>300){
+		scrollHeight = 300;
+	}
+	$('#gview_'+jqgrid+' > div.ui-jqgrid-bdiv').css('height',scrollHeight);
 }

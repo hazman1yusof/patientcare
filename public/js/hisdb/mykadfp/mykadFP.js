@@ -51,7 +51,7 @@ $(document).ready(function () {
 		    hideDuration : 200,}
 		}).modal('show');
 
-		$.get( "https://mycard.test/read_mykad", function( data ) {
+		$.get( "http://127.0.0.1/mycard/public/read_mykad", function( data ) {
 			
 		},'json')
 		  .done(function( data ) {
@@ -132,7 +132,7 @@ $(document).ready(function () {
 		    hideDuration : 200,}
 		}).modal('show');
 
-		$.get( "https://mycard.test/read_mykid", function( data ) {
+		$.get( "http://127.0.0.1/mycard/public/read_mykid", function( data ) {
 			
 		},'json')
 		  .done(function( data ) {

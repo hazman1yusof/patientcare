@@ -253,6 +253,14 @@ class DialysisController extends Controller
                         ->where('chgcode','=',$request->chg_desc)
                         ->first();
 
+            $episode = DB::table('hisdb.episode')
+                        ->where('compcode','=',session('compcode'))
+                        ->where('mrn','=',$request->mrn)
+                        ->where('episno','=',$request->episno)
+                        ->first();
+                        
+            $isudept = $episode->regdept;
+
 
             //check duplicate dialysis
             $chgtrx = DB::table('hisdb.chargetrx')
@@ -301,7 +309,7 @@ class DialysisController extends Controller
                     'remarks' => $request->remarks,
                     'billflag' => '0',
                     'quantity' => $request->quantity,
-                    'isudept' => $request->isudept,
+                    'isudept' => $isudept,
                     'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
                     'lastuser' => Auth::user()->username,
                     'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
@@ -328,7 +336,7 @@ class DialysisController extends Controller
                         'chggroup' =>  $chgmast->chggroup,
                         'billflag' => '0',
                         'quantity' => 1,
-                        'isudept' => $request->isudept,
+                        'isudept' => $isudept,
                         'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
                         'lastuser' => Auth::user()->username,
                         'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
@@ -356,7 +364,7 @@ class DialysisController extends Controller
                         'chggroup' =>  $chgmast->chggroup,
                         'billflag' => '0',
                         'quantity' => 1,
-                        'isudept' => $request->isudept,
+                        'isudept' => $isudept,
                         'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
                         'lastuser' => Auth::user()->username,
                         'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")

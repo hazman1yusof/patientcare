@@ -664,23 +664,25 @@ class PatmastController extends defaultController
                 if($pat->Episno != 0){
                     $data = DB::table('hisdb.episode as e')
                                 ->select(
+                                    'newcaseP',
+                                    'newcaseNP',
+                                    'followupP',
+                                    'followupP',
                                     'e.admsrccode',
                                     'e.case_code',
                                     'e.admdoctor',
-                                    'e.admdoctor',
+                                    'e.attndoctor',
                                     'e.pay_type',
                                     'e.pyrmode',
                                     'e.payer',
                                     'e.billtype',
                                     'adm.description as adm_desc',
                                     'cas.description as cas_desc',
-                                    'doc.doctorname as doc_name',
                                     'dbty.description as dbty_desc',
                                     'dbms.name as dbms_name',
                                     'bmst.description as bmst_desc')
                                 ->leftJoin('hisdb.admissrc as adm', 'adm.admsrccode', '=', 'e.admsrccode')
                                 ->leftJoin('hisdb.casetype as cas', 'cas.case_code', '=', 'e.case_code')
-                                ->leftJoin('hisdb.doctor as doc', 'doc.doctorcode', '=', 'e.admdoctor')
                                 ->leftJoin('debtor.debtortype as dbty', 'dbty.debtortycode', '=', 'e.pay_type')
                                 ->leftJoin('debtor.debtormast as dbms', 'dbms.debtorcode', '=', 'e.payer')
                                 ->leftJoin('hisdb.billtymst as bmst', 'bmst.billtype', '=', 'e.billtype')
@@ -688,10 +690,29 @@ class PatmastController extends defaultController
                                 ->where('e.mrn',$request->mrn)
                                 ->where('e.episno',$pat->Episno);
 
+
+
                     if(!$data->exists()){
                         $data = 'nothing';
                     }else{
                         $data = $data->first();
+                        $admdoctor_desc = DB::table('hisdb.doctor')
+                                        ->where('doctorcode',$data->admdoctor);
+
+                        if($admdoctor_desc->exists()){
+                            $data->admdoctor_desc = $admdoctor_desc->first()->doctorname;
+                        }else{
+                            $data->admdoctor_desc = null;
+                        }
+
+                        $attndoctor_desc = DB::table('hisdb.doctor')
+                                        ->where('doctorcode',$data->attndoctor);
+
+                        if($attndoctor_desc->exists()){
+                            $data->attndoctor_desc = $attndoctor_desc->first()->doctorname;
+                        }else{
+                            $data->attndoctor_desc = null;
+                        }
                     }
 
 
@@ -934,7 +955,7 @@ class PatmastController extends defaultController
         $epis_src = $request->epis_src;
         $epis_case = $request->epis_case;
         $admdoctor = $request->admdoctor;
-        $picdoctor = $request->picdoctor;
+        $attndoctor = $request->attndoctor;
         $epis_fin = $request->epis_fin;
         $epis_paymode = $request->epis_pay;
         $epis_payer = $request->epis_payer;
@@ -982,7 +1003,7 @@ class PatmastController extends defaultController
                     "admsrccode" => $epis_src,
                     "case_code" => $epis_case,
                     "admdoctor" => $admdoctor,
-                    "picdoctor" => $picdoctor,
+                    "attndoctor" => $attndoctor,
                     "pay_type" => $epis_fin,
                     "pyrmode" => $epis_paymode,
                     "billtype" => $epis_billtype,
@@ -1383,7 +1404,7 @@ class PatmastController extends defaultController
         $epis_src = $request->epis_src;
         $epis_case = $request->epis_case;
         $admdoctor = $request->admdoctor;
-        $picdoctor = $request->picdoctor;
+        $attndoctor = $request->attndoctor;
         $epis_fin = $request->epis_fin;
         $epis_paymode = $request->epis_pay;
         $epis_payer = $request->epis_payer;
@@ -1423,7 +1444,7 @@ class PatmastController extends defaultController
                     "admsrccode" => $epis_src,
                     "case_code" => $epis_case,
                     "admdoctor" => $admdoctor,
-                    "picdoctor" => $picdoctor,
+                    "attndoctor" => $attndoctor,
                     "pay_type" => $epis_fin,
                     "pyrmode" => $epis_paymode,
                     "billtype" => $epis_billtype,
@@ -2235,16 +2256,73 @@ class PatmastController extends defaultController
 
     public function get_episode_by_mrn(Request $request){
 
-        $episode = DB::table('hisdb.episode')
-                ->where('mrn','=',$request->mrn)
-                ->where('episno','=',$request->episno)
-                ->first();
+        // $episode = DB::table('hisdb.episode')
+        //         ->where('mrn','=',$request->mrn)
+        //         ->where('episno','=',$request->episno)
+        //         ->first();
+
+
+
+
+        $episode = DB::table('hisdb.episode as e')
+                        ->select(
+                            'e.reg_date',
+                            'e.reg_time',
+                            'e.episno',
+                            'e.epistycode',
+                            'e.newcaseNP',
+                            'e.followupP',
+                            'e.followupP',
+                            'e.regdept',
+                            'e.admsrccode',
+                            'e.case_code',
+                            'e.admdoctor',
+                            'e.attndoctor',
+                            'e.pay_type',
+                            'e.pyrmode',
+                            'e.payer',
+                            'e.billtype',
+                            'e.bed',
+                            'dpt.description as rdp_desc',
+                            'adm.description as adm_desc',
+                            'cas.description as cas_desc',
+                            'dbty.description as dbty_desc',
+                            'dbms.name as dbms_name',
+                            'bmst.description as bmst_desc')
+                        ->leftJoin('hisdb.admissrc as adm', 'adm.admsrccode', '=', 'e.admsrccode')
+                        ->leftJoin('hisdb.casetype as cas', 'cas.case_code', '=', 'e.case_code')
+                        ->leftJoin('debtor.debtortype as dbty', 'dbty.debtortycode', '=', 'e.pay_type')
+                        ->leftJoin('debtor.debtormast as dbms', 'dbms.debtorcode', '=', 'e.payer')
+                        ->leftJoin('hisdb.billtymst as bmst', 'bmst.billtype', '=', 'e.billtype')
+                        ->leftJoin('sysdb.department as dpt', 'dpt.deptcode', '=', 'e.regdept')
+                        ->where('e.compcode','=',session('compcode'))
+                        ->where('e.mrn',$request->mrn)
+                        ->where('e.episno',$request->episno)
+                        ->first();
 
         $epispayer = DB::table('hisdb.epispayer')
                 ->where('compcode','=',session('compcode'))
                 ->where('mrn','=',$request->mrn)
                 ->where('Episno','=',$request->episno)
                 ->first();
+
+        $admdoctor_desc = DB::table('hisdb.doctor')
+                        ->where('doctorcode',$episode->admdoctor);
+
+        if($admdoctor_desc->exists()){
+            $episode->admdoctor_desc = $admdoctor_desc->first()->doctorname;
+        }else{
+            $episode->admdoctor_desc = null;
+        }
+
+        $attndoctor_desc = DB::table('hisdb.doctor')
+                        ->where('doctorcode',$episode->attndoctor);
+
+        if($attndoctor_desc->exists()){
+            $episode->attndoctor_desc = $attndoctor_desc->first()->doctorname;
+        }else{
+            $episode->attndoctor_desc = null;
+        }
 
         $txt_epis_refno = "";
         $txt_epis_our_refno = "";

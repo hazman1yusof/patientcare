@@ -80,13 +80,29 @@
         },'json').done(function(data) {
             if(!$.isEmptyObject(data)){
                 if(data.data != 'nothing'){
+
+                    if(data.data.newcaseP == 1){
+                        $('#cmb_epis_case_maturity').val(1);
+                        $('#cmb_epis_pregnancy').val("Pregnant");
+                    }else if(data.data.newcaseNP == 1){
+                        $('#cmb_epis_case_maturity').val(1);
+                        $('#cmb_epis_pregnancy').val("Non-Pregnant");
+                    }else if(data.data.followupP == 1){
+                        $('#cmb_epis_case_maturity').val(2);
+                        $('#cmb_epis_pregnancy').val("Pregnant");
+                    }else if(data.data.followupP == 1){
+                        $('#cmb_epis_case_maturity').val(2);
+                        $('#cmb_epis_pregnancy').val("Non-Pregnant");
+                    }
+                    
                     $("#txt_epis_source").val(data.data.adm_desc);
                     $("#hid_epis_source").val(data.data.admsrccode);
                     $("#txt_epis_case").val(data.data.cas_desc);
                     $("#hid_epis_case").val(data.data.case_code);
-                    $("#txt_admdoctor").val(data.data.admdoctor);
-                    $("#txt_picdoctor").val(data.data.admdoctor);
-                    // $("#hid_epis_doctor").val(data.data.admdoctor);
+                    $("#txt_admdoctor").val(data.data.admdoctor_desc);
+                    $("#hid_admdoctor").val(data.data.admdoctor);
+                    $("#txt_attndoctor").val(data.data.attndoctor_desc);
+                    $("#hid_attndoctor").val(data.data.attndoctor);
                     $("#hid_epis_fin").val(data.data.pay_type);
                     $("#txt_epis_fin").val(data.data.dbty_desc).change();
                     $("#cmb_epis_pay_mode").val(data.data.pyrmode);
@@ -324,7 +340,7 @@
         var epissrc = $("#hid_epis_source").val();
         var episcase = $("#hid_epis_case").val();
         var admdoctor = $("#hid_admdoctor").val();
-        var picdoctor = $("#hid_picdoctor").val();
+        var attndoctor = $("#hid_attndoctor").val();
         var episfin = $("#hid_epis_fin").val();
         var epispay = $("#cmb_epis_pay_mode").val();
         var epispayer = $("#hid_epis_payer").val();
@@ -350,7 +366,7 @@
                     epis_src : epissrc,
                     epis_case : episcase,
                     admdoctor : admdoctor,
-                    picdoctor : picdoctor,
+                    attndoctor : attndoctor,
                     epis_fin : episfin,
                     epis_pay : epispay,
                     epis_payer : epispayer,
@@ -415,30 +431,38 @@
                 $('#txt_epis_no').val(episdata.episno);
                 $('#txt_epis_type').val(episdata.epistycode);
 
+                $('#txt_epis_dept').val(episdata.rdp_desc);
                 $('#hid_epis_dept').val(episdata.regdept);
+                $('#txt_epis_source').val(episdata.adm_desc);
                 $('#hid_epis_source').val(episdata.admsrccode);
+                $('#txt_epis_case').val(episdata.cas_desc);
                 $('#hid_epis_case').val(episdata.case_code);
                 $('#hid_admdoctor').val(episdata.admdoctor);
-                $('#hid_picdoctor').val(episdata.picdoctor);
+                $('#txt_admdoctor').val(episdata.admdoctor_desc);
+                $('#hid_attndoctor').val(episdata.attndoctor);
+                $('#txt_attndoctor').val(episdata.attndoctor_desc);
+                $('#txt_epis_fin').val(episdata.dbty_desc);
                 $('#hid_epis_fin').val(episdata.pay_type);
-                if($('#epistycode').val() == 'IP'){
-                    $("#txt_epis_bed").val(bed.ward);
-                    $("#txt_epis_ward").val(bed.ward);
-                    $("#txt_epis_room").val(bed.room);
-                    $("#txt_epis_bedtype").val(episdata.bed);
-                }
-                $('#cmb_epis_pay_mode').removeClass('form-disabled').addClass('form-mandatory');
-                $('#cmb_epis_pay_mode').val(episdata.pyrmode.toUpperCase());
-                $('#txt_epis_payer').val(debtormast.name);
-                $('#hid_epis_payer').val(debtormast.debtorcode);
+                $('#txt_epis_payer').val(episdata.dbms_name);
+                $('#hid_epis_payer').val(episdata.payer);
+                $('#txt_epis_bill_type').val(episdata.bmst_desc);
                 $('#hid_epis_bill_type').val(episdata.billtype);
-                $('#txt_epis_refno').val(data.txt_epis_refno);
-                $('#txt_epis_our_refno').val(data.txt_epis_our_refno);
-                $('#txt_epis_queno').val();
+
+                // if($('#epistycode').val() == 'IP'){
+                //     $("#txt_epis_bed").val(bed.ward);
+                //     $("#txt_epis_ward").val(bed.ward);
+                //     $("#txt_epis_room").val(bed.room);
+                //     $("#txt_epis_bedtype").val(episdata.bed);
+                // }
+
+                // $('#txt_epis_refno').val(data.txt_epis_refno);
+                // $('#txt_epis_our_refno').val(data.txt_epis_our_refno);
+                // $('#txt_epis_queno').val();
 
                 $('#txt_epis_fin').change();
+                $('#cmb_epis_pay_mode').val(episdata.pyrmode);
 
-                epis_desc_show.write_desc(['epis_payer']);
+                // epis_desc_show.write_desc(['epis_payer']);
             }else{
                 alert('MRN not found')
             }
@@ -463,14 +487,14 @@
     textfield_modal.checking();
 
     function textfield_modal(){
-        this.textfield_array = ['#txt_epis_dept','#txt_epis_source','#txt_epis_case','#txt_admdoctor','#txt_picdoctor','#txt_epis_fin','#txt_pat_title','#txt_ID_Type','#txt_RaceCode','#txt_Religion','#txt_LanguageCode','#txt_pat_citizen','#txt_pat_area','#txt_payer_company','#txt_pat_occupation'];
+        this.textfield_array = ['#txt_epis_dept','#txt_epis_source','#txt_epis_case','#txt_admdoctor','#txt_attndoctor','#txt_epis_fin','#txt_pat_title','#txt_ID_Type','#txt_RaceCode','#txt_Religion','#txt_LanguageCode','#txt_pat_citizen','#txt_pat_area','#txt_payer_company','#txt_pat_occupation'];
 
         this.ontabbing = function(){
-            $("#txt_epis_dept,#txt_epis_source,#txt_epis_case,#txt_admdoctor,#txt_picdoctor,#txt_epis_fin,#txt_pat_title,#txt_ID_Type,#txt_RaceCode,#txt_Religion,#txt_LanguageCode,#txt_pat_citizen,#txt_pat_area,#txt_payer_company,#txt_pat_occupation").on('keydown',{data:this},onTab);
+            $("#txt_epis_dept,#txt_epis_source,#txt_epis_case,#txt_admdoctor,#txt_attndoctor,#txt_epis_fin,#txt_pat_title,#txt_ID_Type,#txt_RaceCode,#txt_Religion,#txt_LanguageCode,#txt_pat_citizen,#txt_pat_area,#txt_payer_company,#txt_pat_occupation").on('keydown',{data:this},onTab);
         }
 
         this.checking = function(){
-            $("#txt_epis_dept,#txt_epis_source,#txt_epis_case,#txt_admdoctor,#txt_picdoctor,#txt_epis_fin,#txt_pat_title,#txt_ID_Type,#txt_RaceCode,#txt_Religion,#txt_LanguageCode,#txt_pat_citizen,#txt_pat_area,#txt_payer_company,#txt_pat_occupation").on('blur',{data:this},onCheck);
+            $("#txt_epis_dept,#txt_epis_source,#txt_epis_case,#txt_admdoctor,#txt_attndoctor,#txt_epis_fin,#txt_pat_title,#txt_ID_Type,#txt_RaceCode,#txt_Religion,#txt_LanguageCode,#txt_pat_citizen,#txt_pat_area,#txt_payer_company,#txt_pat_occupation").on('blur',{data:this},onCheck);
         }
         this.blurring = false;
 
@@ -752,7 +776,7 @@
         this.regsource={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.case={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.doctor={code:'code',desc:'description'};//data simpan dekat dalam ni
-        this.picdoctor={code:'code',desc:'description'};//data simpan dekat dalam ni
+        this.attndoctor={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.epis_bed={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.epis_fin={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.epis_payer={code:'debtorcode',desc:'name'};//data simpan dekat dalam ni
@@ -768,7 +792,7 @@
             load_for_desc(this,'regsource','pat_mast/get_entry?action=get_reg_source');
             load_for_desc(this,'case','pat_mast/get_entry?action=get_reg_case');
             load_for_desc(this,'doctor','pat_mast/get_entry?action=get_reg_doctor');
-            load_for_desc(this,'picdoctor','pat_mast/get_entry?action=get_reg_doctor');
+            load_for_desc(this,'attndoctor','pat_mast/get_entry?action=get_reg_doctor');
             load_for_desc(this,'epis_bed','pat_mast/get_entry?action=get_reg_bed');
             load_for_desc(this,'epis_fin','pat_mast/get_entry?action=get_reg_fin');
             load_for_desc(this,'epis_payer','pat_mast/get_entry?action=get_debtor_list');

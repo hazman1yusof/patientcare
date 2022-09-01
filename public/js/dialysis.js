@@ -122,6 +122,8 @@ $(document).ready(function () {
 
 	$("#tab_daily").on("show.bs.collapse", function(){
 		closealltab("#tab_daily");
+		button_state_dialysis('disableAll');
+		check_pt_mode();
 	});
 
 	$("#tab_daily").on("hide.bs.collapse", function(){
@@ -131,7 +133,6 @@ $(document).ready(function () {
 
 	$("#tab_daily").on("shown.bs.collapse", function(){
 		SmoothScrollTo('#tab_daily', 300,undefined,90);
-		check_pt_mode();
 	});
 
 	$("#tab_weekly").on("show.bs.collapse", function(){

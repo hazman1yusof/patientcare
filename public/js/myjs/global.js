@@ -91,7 +91,7 @@ var Global = function () {
 				title = "Select Patient Doctor";
                 mdl = "none";
 				break;
-			case "picdoctor":
+			case "attndoctor":
 				act = "get_reg_doctor";
 				title = "Select Patient Doctor";
                 mdl = "none";
