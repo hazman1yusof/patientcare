@@ -138,6 +138,7 @@ $(document).ready(function() {
         grid.find(".command-edit").on("click", function(e){
             let rowid = $(this).data("rowId");
             $('#lastrowid').val(rowid);
+            empty_nok_jq();
 
             let rowdata = $("#grid-command-buttons").bootgrid("getCurrentRows")[rowid];
             populate_patient(rowdata);
@@ -300,7 +301,8 @@ $(document).ready(function() {
             $("#toggle_tabNok_emr,#toggle_tabNok_pat").parent().show();
             $("#btn_register_patient").data("oper","edit");
         }else{
-            $("#toggle_tabNok_emr,#toggle_tabNok_pat").parent().hide();
+            empty_nok_jq();
+            $("#toggle_tabNok_emr").parent().hide();
             $("#btn_register_patient").data("oper","add");
             $('#episno').val('1');
         }
@@ -722,8 +724,8 @@ if($('#epistycode').val() == 'OP'){
         {code:'#hid_epis_fin',desc:'#txt_epis_fin',id:'epis_fin'},
         {code:'#hid_epis_payer',desc:'#txt_epis_payer',id:'epis_payer'},
         {code:'#hid_epis_bill_type',desc:'#txt_epis_bill_type',id:'bill_type'},
-        {code:'#hid_newgl_occupcode',desc:'#txt_newgl_occupcode',id:'newgl_occupcode'},
-        {code:'#hid_newgl_relatecode',desc:'#txt_newgl_relatecode',id:'newgl_relatecode'}
+        // {code:'#hid_newgl_occupcode',desc:'#txt_newgl_occupcode',id:'newgl_occupcode'},
+        // {code:'#hid_newgl_relatecode',desc:'#txt_newgl_relatecode',id:'newgl_relatecode'}
     ]);
 }else if($('#epistycode').val() == 'IP'){
     var epis_desc_show = new loading_desc_epis([
@@ -735,9 +737,9 @@ if($('#epistycode').val() == 'OP'){
         {code:'#hid_epis_fin',desc:'#txt_epis_fin',id:'epis_fin'},
         {code:'#hid_epis_payer',desc:'#txt_epis_payer',id:'epis_payer'},
         {code:'#hid_epis_bill_type',desc:'#txt_epis_bill_type',id:'bill_type'},
-        {code:'#hid_newgl_occupcode',desc:'#txt_newgl_occupcode',id:'newgl_occupcode'},
-        {code:'#hid_newgl_relatecode',desc:'#txt_newgl_relatecode',id:'newgl_relatecode'},
-        {code:'#hid_newgl_corpcomp',desc:'#txt_newgl_corpcomp',id:'newgl_corpcomp'}
+        // {code:'#hid_newgl_occupcode',desc:'#txt_newgl_occupcode',id:'newgl_occupcode'},
+        // {code:'#hid_newgl_relatecode',desc:'#txt_newgl_relatecode',id:'newgl_relatecode'},
+        // {code:'#hid_newgl_corpcomp',desc:'#txt_newgl_corpcomp',id:'newgl_corpcomp'}
         // {code:'',desc:'',id:'bed_dept'},
         // {code:'',desc:'',id:'bed_ward'}
     ]);

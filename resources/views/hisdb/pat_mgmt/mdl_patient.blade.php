@@ -67,7 +67,7 @@
                                         <div class="col-md-10">
                                             <div class="row"><br /></div>
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <!-- <div class="col-md-3">
                                                     <small for="titlecode">Title</small>
                                                     <div class="input-group">
                                                         <input type="text" class="form-control" name="txt_pat_title" id="txt_pat_title">
@@ -76,8 +76,8 @@
                                                             <button type="button" class="btn btn-info" id="btn_pat_title" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('pat_title');"><span class="fa fa-ellipsis-h"></span></button>
                                                         </span>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
+                                                </div> -->
+                                                <div class="col-md-9">
                                                     <small for="txt_pat_name">Name</small>
                                                     <input class="form-control form-mandatory" name="Name" id="txt_pat_name" placeholder="" type="text" required>
                                                 </div>
@@ -173,7 +173,12 @@
 
                                         <div class="col-md-3">
                                             <small for="txt_pat_telhp">Mobile</small>
-                                            <input class="form-control" name="telhp" id="txt_pat_telhp" placeholder="" type="text">
+                                            <input class="form-control form-mandatory phone-group" name="telhp" id="txt_pat_telhp" placeholder="" type="text" required>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <small for="txt_pat_telhp2">Mobile 2</small>
+                                            <input class="form-control phone-group" name="telhp2" id="txt_pat_telhp2" placeholder="" type="text">
                                         </div>
                                     </div>
                                     
@@ -249,7 +254,7 @@
                                                             <p>CONTACT NO</p>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <p>HOUSE<input name="telh" id="txt_pat_telh" class="form-control form-mandatory phone-group" type="text"/></p>
+                                                            <p>HOUSE<input name="telh" id="txt_pat_telh" class="form-control " type="text"/></p>
                                                         </div>
                                                         <!--/div-->
                                                     </div>
@@ -287,7 +292,7 @@
                                                             <p>CONTACT NO</p>
                                                         </div>
                                                         <div class="col-md-4">
-                                                            <p>HOME TEL<input name="ptel" id="txt_pat_ptel" class="form-control form-mandatory" type="text" required /></p>
+                                                            <p>HOME TEL<input name="ptel" id="txt_pat_ptel" class="form-control" type="text" /></p>
                                                         </div>
                                                         <div class="col-md-4">
                                                             <p>EMAIL<input name="Email" id="txt_pat_email" class="form-control" type="email" /></p>
@@ -412,7 +417,7 @@
                                         <div class="form-group">
                                             <div class="col-md-3">
                                                 <small for="nok_postcode_pat">Postcode</small>
-                                                <input id="nok_postcode_pat" name="nok_postcode_pat" type="text" class="form-control" data-validation="required">
+                                                <input id="nok_postcode_pat" name="nok_postcode_pat" type="text" class="form-control" >
                                             </div>
 
                                             <div class="col-md-offset-3 col-md-6">
@@ -433,7 +438,7 @@
 
                                             <div class="col-md-6">
                                                 <small for="nok_telo_pat">Tel (O)</small>
-                                                <input id="nok_telo_pat" name="nok_telo_pat" type="text" class="form-control" data-validation="required" rdonly>
+                                                <input id="nok_telo_pat" name="nok_telo_pat" type="text" class="form-control"  rdonly>
                                             </div>
                                         </div>
 
@@ -445,7 +450,7 @@
 
                                             <div class="col-md-offset-3 col-md-3">
                                                 <small for="nok_ext_pat">Ext</small>
-                                                <input id="nok_ext_pat" name="nok_ext_pat" type="text" class="form-control" data-validation="required" rdonly>
+                                                <input id="nok_ext_pat" name="nok_ext_pat" type="text" class="form-control"  rdonly>
                                             </div>
                                         </div>
 
@@ -455,7 +460,7 @@
                             </div>
 
                             <!-- Corp info -->
-                            <div class="panel panel-default" style="position: relative;">
+                            <!-- <div class="panel panel-default" style="position: relative;">
                                 <div class="panel-heading clearfix collapsed" id="toggle_tabCorp" data-toggle="collapse" data-target="#tabCorp">
                                     <i class="fa fa-angle-double-up" style="font-size:24px;margin: 0 0 0 12px"></i>
                                     <i class="fa fa-angle-double-down" style="font-size:24px;margin: 0 0 0 12px"></i >
@@ -470,7 +475,6 @@
                                     <div class="form-group">
                                         <div class="col-md-offset-4 col-md-6">
                                             <small for="txt_payer_company">Company Name</small>
-                                            <!--input class="form-control" id="corpcomp" placeholder="" type="text"-->
                                             <div class="input-group">
                                                 <input type="text" class="form-control form-mandatory" name="txt_payer_company" id="txt_payer_company">
                                                 <input type="hidden" name="CorpComp" id="hid_payer_company" value="" />
@@ -508,14 +512,13 @@
                                             
                                         </div>
                                     </div>
-                                    <!-- end tabs -->
 
                                 </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <!-- pat rec -->
-                            <div class="panel panel-default" style="position: relative;">
+                            <!-- <div class="panel panel-default" style="position: relative;">
                                 <div class="panel-heading clearfix collapsed" id="toggle_tabPatrec" data-toggle="collapse" data-target="#tabPatrec">
                                     <i class="fa fa-angle-double-up" style="font-size:24px;margin: 0 0 0 12px"></i>
                                     <i class="fa fa-angle-double-down" style="font-size:24px;margin: 0 0 0 12px"></i >
@@ -551,11 +554,10 @@
                                             <input class="form-control" name="NewMrn" id="txt_newmrn" placeholder="" type="text">
                                         </div>
                                     </div>
-                                    <!-- end tabs -->
 
                                 </div>
                                 </div>
-                            </div>
+                            </div> -->
                             
                             <!-- <div role="tabpanel" class="tab-pane fade" id="tab12">
                                 <div class="form-group">

@@ -665,19 +665,22 @@ class DialysisController extends Controller
         if(1<=$mcrstat && $mcrstat<5 ){
 
             $dialysis_pkgdtl = DB::table('hisdb.dialysis_pkgdtl')
-                            ->where('pkgcode',$dialysis_episode->packagecode);
+                            ->where('pkgcode','micerra120');
+            //                 ->where('chgcode',$request->chg_desc);
 
+            // if($dialysis_pkgdtl->exists()){
             DB::table('hisdb.dialysis_episode')
-                    ->where('idno',$request->dialysis_episode_idno)
-                    ->update([
-                        'mcrstat' => $mcrstat + 1
-                    ]);
+                ->where('idno',$request->dialysis_episode_idno)
+                ->update([
+                    'mcrstat' => $mcrstat + 1
+                ]);
 
             $responce->auto = true;
             $responce->chgcode = $dialysis_pkgdtl->first()->epocode;
 
             return $responce;
-
+            // }
+            
         }else if($mcrstat == 0){
 
             //check ada dlm case
@@ -727,20 +730,11 @@ class DialysisController extends Controller
 
 
         if($lineno_>1){
-           $dialysis_episode_b4 = DB::table('hisdb.dialysis_episode')
-                                    ->where('mrn',$mrn)
-                                    ->where('episno',$episno)
-                                    ->where('lineno_',$lineno_ - 1)
-                                    ->first();
-
-            $dialysis_episode_idno_b4 = $dialysis_episode_b4->idno;
-
-            $dialysis = DB::table('hisdb.dialysis')
-                            ->where('arrivalno',$dialysis_episode_idno_b4);
+            $dialysis = DB::table('hisdb.dialysis')->latest('visit_date');
 
             if($dialysis->exists()){
-                $responce->prev_post_weight = $episode->post_weight;
-                $responce->last_visit = $episode->visit_date;
+                $responce->prev_post_weight = $dialysis->first()->post_weight;
+                $responce->last_visit = $dialysis->first()->visit_date;
             }
         }
 

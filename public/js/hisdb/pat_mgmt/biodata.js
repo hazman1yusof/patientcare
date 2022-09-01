@@ -1,7 +1,7 @@
 
 	$('#frm_patient_info').validate({
         rules: {
-            telh: {
+            telhp2: {
               require_from_group: [1, ".phone-group"]
             },
             telhp: {
@@ -216,7 +216,7 @@
     function save_patient(oper,idno,mrn="nothing"){
         var saveParam={
             action:'save_patient',
-            field:['Name','MRN','Newic','Oldic','ID_Type','idnumber','DOB','telh','telhp','Email','AreaCode','Sex','Citizencode','RaceCode','TitleCode','Religion','MaritalCode','Remarks','RelateCode','CorpComp','Staffid','OccupCode','Email_official','Childno','Address1','Address2','Address3','OffAdd1','OffAdd2','OffAdd3','pAdd1','pAdd2','pAdd3','Postcode','OffPostcode','pPostCode','Active','Confidential','PatientCat','NewMrn','bloodgrp','Episno','first_visit_date','last_visit_date','bloodgrp','NewMrn','ptel','telo','Tel_O_Ext'],
+            field:['Name','MRN','Newic','Oldic','ID_Type','idnumber','DOB','telh','telhp','telhp2','Email','AreaCode','Sex','Citizencode','RaceCode','TitleCode','Religion','MaritalCode','Remarks','RelateCode','CorpComp','Staffid','OccupCode','Email_official','Childno','Address1','Address2','Address3','OffAdd1','OffAdd2','OffAdd3','pAdd1','pAdd2','pAdd3','Postcode','OffPostcode','pPostCode','Active','Confidential','PatientCat','NewMrn','bloodgrp','Episno','first_visit_date','last_visit_date','bloodgrp','NewMrn','ptel','telo','Tel_O_Ext'],
             oper:oper,
             table_name:'hisdb.pat_mast',
             table_id:'idno',
@@ -225,6 +225,8 @@
 
         if(oper=='add'){
             saveParam.sysparam = {source:$('#PatClass').val(),trantype:'MRN',useOn:'MRN'};
+            saveParam.nok=get_nok_table_fornewpt();
+            empty_nok_jq();
         }
         var postobj = (mrn!="nothing")?
                     {_token:_token,func_after_pat:$('#func_after_pat').val(),idno:idno,MRN:mrn}:
@@ -345,12 +347,12 @@
     desc_show = new loading_desc_bio([
         {code:'#hid_pat_citizen',desc:'#txt_pat_citizen',id:'citizencode'},
         {code:'#hid_pat_area',desc:'#txt_pat_area',id:'areacode'},
-        {code:'#hid_pat_title',desc:'#txt_pat_title',id:'titlecode'},
+        // {code:'#hid_pat_title',desc:'#txt_pat_title',id:'titlecode'},
         {code:'#hid_ID_Type',desc:'#txt_ID_Type',id:'idtype'},
         {code:'#hid_RaceCode',desc:'#txt_RaceCode',id:'race'},
         {code:'#hid_Religion',desc:'#txt_Religion',id:'religioncode'},
-        {code:'#hid_pat_occupation',desc:'#txt_pat_occupation',id:'occupation'},
-        {code:'#hid_payer_company',desc:'#txt_payer_company',id:'company'}
+        // {code:'#hid_pat_occupation',desc:'#txt_pat_occupation',id:'occupation'},
+        // {code:'#hid_payer_company',desc:'#txt_payer_company',id:'company'}
     ]);
     desc_show.load_desc();
 
@@ -483,6 +485,7 @@
         $('#txt_pat_age').val(gettheage(rowdata.DOB));
         $('#txt_pat_telh').val(rowdata.telh);
         $('#txt_pat_telhp').val(rowdata.telhp);
+        $('#txt_pat_telhp2').val(rowdata.telhp2);
         $('#txt_pat_email').val(rowdata.Email);
         $('#hid_pat_area').val(rowdata.AreaCode);
         $('#cmb_pat_sex').val(rowdata.Sex); // dlm modal Patient                    

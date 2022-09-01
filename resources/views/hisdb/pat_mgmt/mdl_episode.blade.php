@@ -215,7 +215,7 @@
                                         <input id="txt_epis_our_refno" name="txt_epis_our_refno" type="text" class="form-control"  readonly>
                                     </div>
                                 </div> -->
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <div class="col-md-offset-1 col-md-4">
                                         <small for="rad_epis_fee">Admin Fee</small>
                                         <div class="panel-body">
@@ -227,7 +227,7 @@
                                         <small for="txt_epis_queno">Queue No</small>
                                         <input id="txt_epis_queno"  type="text" class="form-control">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <div class="col-md-offset-8 col-md-4">
                                     <div class="pull-right">
