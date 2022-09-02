@@ -114,8 +114,10 @@ $(document).ready(function () {
 	// 	},
 	// });
 
+	$("input[name='Stext']").click(function(){
+		$('button#timer_stop').click();
+	})
 
-	var curpage=null; // to prevent duplicate entry curpage kena falsekan blk setiap kali nak refresh dari awal 
 	$("#jqGrid").jqGrid({
 		datatype: "local",
 		colModel: [
@@ -180,6 +182,9 @@ $(document).ready(function () {
 		},
 		ondblClickRow: function (rowid, iRow, iCol, e) {
 		},
+		onSortCol: function(index, iCol, sortorder) {
+		    curpage = null;
+		},
 		gridComplete: function () {
 			$('.jqgridsegment').removeClass('loading');
 			hide_tran_button(true);			
@@ -218,6 +223,7 @@ $(document).ready(function () {
 			{startColumnName: 'reff_rehab', numberOfColumns: 3, titleText: '<em>Referral</em>'},
 		]
 	});
+	jqgrid_label_align('#jqGrid');
 	addParamField('#jqGrid',true,urlParam,['action']);
 	/////////////////////////start grid pager/////////////////////////////////////////////////////////
 	$("#jqGrid").jqGrid('navGrid', '#jqGridPager', {
@@ -227,7 +233,8 @@ $(document).ready(function () {
 			refreshGrid("#jqGrid", urlParam);
 		},
 	});
-	
+
+	searchClick_scroll("#jqGrid","#SearchForm",urlParam);	
 
 	function ordercompleteFormatter(cellvalue, option, rowObject) {
 		if (cellvalue == '1') {
@@ -437,6 +444,7 @@ $(document).ready(function () {
 
 });
 
+var curpage=null; // to prevent duplicate entry curpage kena falsekan blk setiap kali nak refresh dari awal 
 function closealltab(except){
 	var tab_arr = ["#tab_trans","#tab_daily","#tab_weekly","#tab_monthly"];
 	tab_arr.forEach(function(e,i){
@@ -446,8 +454,22 @@ function closealltab(except){
 	});
 }
 
+function searchClick_scroll(grid,form,urlParam){
+	$(form+' [name=Stext]').on( "keyup", function() {
+		delay(function(){
+			curpage = null;
+			search(grid,$(form+' [name=Stext]').val(),$(form+' [name=Scol] option:selected').val(),urlParam);
+		}, 500 );
+	});
+
+	$(form+' [name=Scol]').on( "change", function() {
+		curpage = null;
+		search(grid,$(form+' [name=Stext]').val(),$(form+' [name=Scol] option:selected').val(),urlParam);
+	});
+}
+
 function formatterstatus_tick(cellvalue, option, rowObject) {
-	if (cellvalue != null && cellvalue != 0) {
+	if (cellvalue != null && cellvalue != 0 && moment().isSame(rowObject.arrival_date, 'day')) {
 		return '<span class="fa fa-check" data-value="'+cellvalue+'"></span>';
 	}else{
 		return "";//if value is zero will capture as "" when unformat
