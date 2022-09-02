@@ -28,19 +28,7 @@
             <div class="ui form" >
                 <div class="six wide column">
                     <div class="inline fields" style="margin-bottom: 0px;">
-                        <label style="color: rgba(0,0,0,.6);">DOCTOR NOTES</label> 
-                        <div class="field">
-                          <div class="ui radio checkbox checked pastcurr">
-                            <input type="radio" name="toggle_type" checked="" tabindex="0" class="hidden" id="current" value="current" checked>
-                            <label>Current</label>
-                          </div>
-                        </div>
-                        <div class="field">
-                          <div class="ui radio checkbox pastcurr">
-                            <input type="radio" name="toggle_type" tabindex="0" class="hidden" id="past" value="past" >
-                            <label>Past History</label>
-                          </div>
-                        </div>
+                        <label style="color: rgba(0,0,0,.6);">DOCTOR NOTES</label>
                     </div>
                 </div>
             </div>
@@ -58,6 +46,20 @@
             <div class="three wide column" style="position: absolute;
                         left: 10px;
                         top: 60px;">
+                <div class="ui segment"> 
+                    <div class="field">
+                        <div class="ui radio checkbox checked pastcurr">
+                            <input type="radio" name="toggle_type" checked="" tabindex="0" class="hidden" id="current" value="current" checked>
+                            <label for="current">Current</label>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui radio checkbox pastcurr">
+                            <input type="radio" name="toggle_type" tabindex="0" class="hidden" id="past" value="past" >
+                            <label for="past">Past History</label>
+                        </div>
+                    </div>
+                </div>
                 <table id="docnote_date_tbl" class="ui celled table" style="min-width: 200px;">
                     <thead>
                         <tr>
@@ -87,7 +89,7 @@
                         <div class="ten wide column">
                             <div class="field">
                                 <label>Patient Complaint</label>
-                                <input id="remarks" name="remarks" type="text" data-validation="required" data-validation-error-msg-required="Please enter Patient Complaint.">
+                                <input id="remarks" name="remarks" type="text">
                             </div>
                         </div>
 
@@ -229,7 +231,8 @@
 
                                     <div class="field">
                                         <label>Duration of HD</label>
-                                        <input type="text" id="duration_hd" name="duration_hd">
+                                        <input type="text" id="duration_hd" name="duration_hd" data-validation="required" data-validation-error-msg-required="Please enter Duration of HD." data-validation-error-msg-container="#error-duration_hd">
+                                        <div class="error-msg" id="error-duration_hd"></div>
                                     </div>
                                 </div>
                             </div>
