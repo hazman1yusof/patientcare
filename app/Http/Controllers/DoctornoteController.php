@@ -656,7 +656,6 @@ class DoctornoteController extends Controller
             ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno)
-            ->where('adddate','=',$request->date)
             ->orderBy('adddate','desc');
 
         if($patepisode->exists()){
@@ -676,7 +675,7 @@ class DoctornoteController extends Controller
                     $pathealth = $pathealth->get();
 
                     foreach ($pathealth as $key2 => $value2) {
-                        $date['date'] = Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y').' '.$value2->recordtime;
+                        $date['date'] = Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y');
                         $date['mrn'] = $value2->mrn;
                         $date['episno'] = $value2->episno;
                         $date['adduser'] = $value2->adduser;
@@ -689,7 +688,7 @@ class DoctornoteController extends Controller
 
                 }else{
                     
-                    $date['date'] = Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y').' '.$value->reg_time;
+                    $date['date'] = Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y');
                     $date['mrn'] = $value->mrn;
                     $date['episno'] = $value->episno;
                     $date['adduser'] = $value->adduser;
@@ -737,7 +736,7 @@ class DoctornoteController extends Controller
                     $pathealth = $pathealth->get();
 
                     foreach ($pathealth as $key2 => $value2) {
-                        $date['date'] = Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y').' '.$value2->recordtime;
+                        $date['date'] = Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y');
                         $date['mrn'] = $value2->mrn;
                         $date['episno'] = $value2->episno;
                         $date['adduser'] = $value2->adduser;
@@ -750,7 +749,7 @@ class DoctornoteController extends Controller
 
                 }else{
                     
-                    $date['date'] = Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y').' '.$value->reg_time;
+                    $date['date'] = Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y');
                     $date['mrn'] = $value->mrn;
                     $date['episno'] = $value->episno;
                     $date['adduser'] = $value->adduser;
@@ -776,7 +775,7 @@ class DoctornoteController extends Controller
         $responce = new stdClass();
 
         $episode_obj = DB::table('hisdb.episode')
-            ->select('remarks','diagfinal','dry_weight','duration_hd')
+            ->select('remarks','diagfinal','dry_weight','duration_hd','lastupdate as lastupdate_','lastuser as lastuser_')
             ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno);

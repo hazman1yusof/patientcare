@@ -12,7 +12,10 @@ $(document).ready(function () {
 		showcomplete:false,
 	}
 
-	var curpage=null; // to prevent duplicate entry curpage kena falsekan blk setiap kali nak refresh dari awal 
+	$("input[name='Stext']").click(function(){
+		$('button#timer_stop').click();
+	})
+
 	$("#jqGrid").jqGrid({
 		datatype: "local",
 		colModel: [
@@ -26,7 +29,7 @@ $(document).ready(function () {
 			{ label: 'DOB', name: 'DOB', hidden: true},
 			{ label: 'HP', name: 'telhp', hidden:true},
 			{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
-			{ label: 'Arrival Date', name: 'arrival_date', width: 7. ,align: 'center', formatter:dateFormatter, unformat:dateUNFormatter},
+			{ label: 'Last<br/>Arrival Date', name: 'arrival_date', width: 7. ,align: 'center', formatter:dateFormatter, unformat:dateUNFormatter},
 			{ label: 'Arrival', name: 'arrival', width: 5. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
 			{ label: 'Complete', name: 'complete', width: 6. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
 			{ label: 'Order', name: 'order', hidden: true},
@@ -67,13 +70,15 @@ $(document).ready(function () {
 		},
 		ondblClickRow: function (rowid, iRow, iCol, e) {
 		},
+		onSortCol: function(index, iCol, sortorder) {
+		    curpage = null;
+		},
 		gridComplete: function () {
 			urlParam_trans.mrn = "";
 			urlParam_trans.episno =  "";
 			empty_dialysis();
 			empty_transaction();
-			// $("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
-
+			$('#no_of_pat').text($('#jqGrid').jqGrid('getGridParam', 'reccount'));
 		},
 		beforeProcessing: function(data, status, xhr){
 			if(curpage == data.current){
@@ -83,6 +88,7 @@ $(document).ready(function () {
 			}
 		}
 	});
+	jqgrid_label_align('#jqGrid');
 	addParamField('#jqGrid',true,urlParam,['action']);
 	/////////////////////////start grid pager/////////////////////////////////////////////////////////
 	$("#jqGrid").jqGrid('navGrid', '#jqGridPager', {
@@ -150,6 +156,7 @@ $(document).ready(function () {
 
 });
 
+var curpage=null; // to prevent duplicate entry curpage kena falsekan blk setiap kali nak refresh dari awal 
 function closealltab(except){
 	var tab_arr = ["#tab_trans","#tab_daily","#tab_weekly","#tab_monthly"];
 	tab_arr.forEach(function(e,i){
@@ -161,8 +168,8 @@ function closealltab(except){
 
 function searchClick_scroll(grid,form,urlParam){
 	$(form+' [name=Stext]').on( "keyup", function() {
-		curpage = null;
 		delay(function(){
+			curpage = null;
 			search(grid,$(form+' [name=Stext]').val(),$(form+' [name=Scol] option:selected').val(),urlParam);
 		}, 500 );
 	});
@@ -174,7 +181,7 @@ function searchClick_scroll(grid,form,urlParam){
 }
 
 function formatterstatus_tick(cellvalue, option, rowObject) {
-	if (cellvalue != null && cellvalue != 0) {
+	if (cellvalue != null && cellvalue != 0 && moment().isSame(rowObject.arrival_date, 'day')) {
 		return '<span class="fa fa-check" data-value="'+cellvalue+'"></span>';
 	}else{
 		return "";//if value is zero will capture as "" when unformat

@@ -97,11 +97,11 @@
                             <div class="inline fields">
                                 <div class="field">
                                     <label>Added by</label>
-                                    <input id="adduser" name="adduser" type="text" rdonly>
+                                    <input id="lastuser" name="lastuser_" type="text" rdonly>
                                 </div>
                                 <div class="field">
                                     <label>Added Date</label>
-                                    <input id="adddate" name="adddate" type="text" rdonly>
+                                    <input id="lastupdate" name="lastupdate_" type="text" rdonly>
                                 </div>
                             </div>
                         </div>

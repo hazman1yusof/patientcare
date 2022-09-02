@@ -425,6 +425,8 @@ function check_pt_mode(){
 			populate_other_data(data.other_data);
         }else if(data.mode == 'disableAll'){
 			button_state_dialysis('disableAll');
+			last_other_data = data.other_data;
+			populate_other_data(data.other_data);
         }
     }).fail(function(data){
         alert('error in checking this patient mode..');

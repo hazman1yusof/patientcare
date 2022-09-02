@@ -748,6 +748,18 @@ function jqgrid_label_align_right(grid){
 	});
 }
 
+function jqgrid_label_align(grid){
+	$.each($(grid).jqGrid('getGridParam','colModel'), function( index, value ) {
+		if(value['align'] == 'right'){
+			$(grid).jqGrid('setLabel',value['name'],value['label'],{'text-align':'right'});
+		}else if(value['align'] == 'left'){
+			$(grid).jqGrid('setLabel',value['name'],value['label'],{'text-align':'left'});
+		}else if(value['align'] == 'center'){
+			$(grid).jqGrid('setLabel',value['name'],value['label'],{'text-align':'center'});
+		}
+	});
+}
+
 
 function checkbox_selection(grid,colname,idno='idno',recstatus = "recstatus"){
 	this.idno=idno

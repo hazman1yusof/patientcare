@@ -468,7 +468,18 @@ class DialysisController extends Controller
                     'complete'=>0
                 ];
         
-                $table->insert($array_insert);
+                $latest_idno = $table->insertGetId($array_insert);
+
+                dd($latest_idno);
+
+                DB::table('hisdb.episode')
+                        ->where('mrn',$request->mrn)
+                        ->where('episno',$request->episno)
+                        ->update([
+                            'lastarrivalno' => $latest_idno,
+                            'lastarrivaldate' => $request->arrival_date,
+                            'lastarrivaltime' => $request->arrival_time,
+                        ]);
 
             }else if($request->oper == 'autoadd'){
                 //check if date,mrn,episno duplicate
@@ -517,7 +528,16 @@ class DialysisController extends Controller
                         'complete'=>0
                     ];
             
-                    $table->insert($array_insert);
+                    $latest_idno = $table->insertGetId($array_insert);
+
+                    DB::table('hisdb.episode')
+                        ->where('mrn',$request->mrn)
+                        ->where('episno',$request->episno)
+                        ->update([
+                            'lastarrivalno' => $latest_idno,
+                            'lastarrivaldate' => Carbon::now("Asia/Kuala_Lumpur"),
+                            'lastarrivaltime' => Carbon::now("Asia/Kuala_Lumpur")
+                        ]);
                 }
 
                 
@@ -543,7 +563,8 @@ class DialysisController extends Controller
                         ->select('idno','visit_date')
                         ->where('mrn',$request->mrn)
                         ->where('episno',$request->episno)
-                        ->where('arrivalno','!=',$request->dialysis_episode_idno);
+                        ->where('arrivalno','!=',$request->dialysis_episode_idno)
+                        ->orderBy('idno','DESC');
 
         if($dialysis_b4->exists()){
             $datab4 = [];
@@ -561,13 +582,14 @@ class DialysisController extends Controller
                             ->where('idno',$request->dialysis_episode_idno)
                             ->where('order',1);
 
-        if($dialysis_episode->exists()){
-
-            $other_data = $this->get_data_for_dialysis(
-                                $dialysis_episode->first()->mrn,
-                                $dialysis_episode->first()->episno,
+        $other_data = $this->get_data_for_dialysis(
+                                $request->mrn,
+                                $request->episno,
                                 $request->dialysis_episode_idno);
 
+        $responce->other_data = $other_data;
+
+        if($dialysis_episode->exists()){
             //check dkt dialysis ada data ke tak hari tu
             $dialysis = DB::table('hisdb.dialysis')
                             ->where('arrivalno',$request->dialysis_episode_idno);
@@ -576,12 +598,10 @@ class DialysisController extends Controller
                 //populate data hari tu
                 $responce->mode = 'edit';
                 $responce->data = $dialysis->first();
-                $responce->other_data = $other_data;
 
             }else{
                 //add new dialysis daily
                 $responce->mode = 'add';
-                $responce->other_data = $other_data;
             }
 
         }else{
@@ -721,16 +741,24 @@ class DialysisController extends Controller
         $responce->prev_post_weight = 0;
         $responce->last_visit = '';
 
-
         $dialysis_episode = DB::table('hisdb.dialysis_episode')
                                 ->where('idno',$dialysis_episode_idno)
                                 ->first();
 
-        $lineno_ = intval($dialysis_episode->lineno_);
+        $dialysis = DB::table('hisdb.dialysis')
+                        ->where('arrivalno',$dialysis_episode_idno);
 
+        if($dialysis->exists()){
+            $dialysis = $dialysis->first();
 
-        if($lineno_>1){
-            $dialysis = DB::table('hisdb.dialysis')->latest('visit_date');
+            $responce->prev_post_weight = $dialysis->post_weight;
+            $responce->last_visit = $dialysis->visit_date;
+
+        }else{
+            $dialysis = DB::table('hisdb.dialysis')
+                                ->where('mrn',$dialysis_episode->mrn)
+                                ->where('episno',$dialysis_episode->episno)
+                                ->latest('visit_date');
 
             if($dialysis->exists()){
                 $responce->prev_post_weight = $dialysis->first()->post_weight;

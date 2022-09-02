@@ -475,6 +475,7 @@ function autoinsert_rowdata_doctorNote(form,rowData){
 				input.val(newval);
 			}
 		}else{
+			console.log(value);
 			input.val(value);
 		}
 	});
@@ -612,6 +613,7 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
 			
 	},'json').done(function(data) {
 		if(!$.isEmptyObject(data)){
+			console.log(data.episode);
 			autoinsert_rowdata_doctorNote("#formDoctorNote",data.episode);
 			autoinsert_rowdata_doctorNote("#formDoctorNote",data.pathealth);
 			autoinsert_rowdata_doctorNote("#formDoctorNote",data.pathistory);
