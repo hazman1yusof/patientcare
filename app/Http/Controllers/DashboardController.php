@@ -56,17 +56,17 @@ class DashboardController extends Controller
     public function redirect()
     {
         if(Auth::user()->groupid == 'patient'){
-            return redirect('/chat');
+            return redirect('/dialysis');
         }else if(strtoupper(Auth::user()->groupid) == 'DOCTOR'){
-            return redirect('/doctornote');
+            return redirect('/dialysis');
         }else if(strtoupper(Auth::user()->groupid) == 'CLINICAL'){
-            return redirect('/doctornote');
+            return redirect('/dialysis');
         }else if(strtoupper(Auth::user()->groupid) == 'ADMIN'){
-            return redirect('/doctornote');
+            return redirect('/dialysis');
         }else if(strtoupper(Auth::user()->groupid) == 'MR'){
-            return redirect('/doctornote');
+            return redirect('/dialysis');
         }else{
-            return redirect('/doctornote');
+            return redirect('/dialysis');
         }
     }
 }

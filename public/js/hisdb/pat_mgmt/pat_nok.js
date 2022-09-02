@@ -25,9 +25,10 @@ $(document).ready(function () {
 		url:'util/get_table_default',
 		field: '',
 		table_name: 'hisdb.nok_ec',
-		filterCol:['compcode','episno','mrn'],
-		filterVal:['session.compcode',$("#txt_pat_episno").val(),$("#pat_mrn").val()],
+		filterCol:['compcode','mrn'],
+		filterVal:['session.compcode',$("#pat_mrn").val()],
 	}
+
 
 	$("#jqGrid_nok_pat").jqGrid({
 		datatype: "local",
@@ -83,7 +84,9 @@ $(document).ready(function () {
 		buttonicon: "glyphicon glyphicon-refresh",
 		title: "Refresh Table",
 		onClickButton: function () {
-			refreshGrid("#jqGrid_nok_pat", urlParam_nok_pat);
+			if(!if_addnew_nok()){
+				refreshGrid("#jqGrid_nok_pat", urlParam_nok_pat);
+			}
 		},
 	});
 
@@ -91,9 +94,11 @@ $(document).ready(function () {
 
 	$("#tabNok_pat").on("shown.bs.collapse", function(){
 		$("#jqGrid_nok_pat").jqGrid ('setGridWidth', Math.floor($("#jqGrid_nok_pat_c")[0].offsetWidth-$("#jqGrid_nok_pat_c")[0].offsetLeft-0));
-		urlParam_nok_pat.filterCol = ['compcode','episno','mrn'],
-		urlParam_nok_pat.filterVal = ['session.compcode',$("#txt_pat_episno").val(),$("#pat_mrn").val()]
-		refreshGrid("#jqGrid_nok_pat", urlParam_nok_pat);
+		urlParam_nok_pat.filterCol = ['compcode','mrn'],
+		urlParam_nok_pat.filterVal = ['session.compcode',$("#pat_mrn").val()]
+		if(!if_addnew_nok()){
+			refreshGrid("#jqGrid_nok_pat", urlParam_nok_pat);
+		}
 	});
 
 	var search_relate_pat = new ordialog(
@@ -142,9 +147,13 @@ $(document).ready(function () {
 	$("#save_nok_pat").click(function(){
 		disableForm('#form_nok_pat');
 		if( $('#form_nok_pat').isValid({requiredFields: ''}, conf_nok, true) ) {
-			saveForm_nok_pat(function(){
-				refreshGrid("#jqGrid_nok_pat", urlParam_nok_pat);
-			});
+			if(if_addnew_nok()){
+				add_newlocal_nok();
+			}else{
+				saveForm_nok_pat(function(){
+					refreshGrid("#jqGrid_nok_pat", urlParam_nok_pat);
+				});
+			}
 		}else{
 			enableForm('#form_nok_pat',['nok_relate_pat']);
 		}
@@ -186,31 +195,21 @@ $(document).ready(function () {
 		disableForm('#form_nok_pat');
 		search_relate_pat.off();
 		emptyFormdata_div('#form_nok_pat');
-		refreshGrid("#jqGrid_nok_pat", urlParam_nok_pat);
+		if(!if_addnew_nok()){
+			refreshGrid("#jqGrid_nok_pat", urlParam_nok_pat);
+		}else{
+			let reccount = $('#jqGrid_nok_pat').jqGrid('getGridParam', 'reccount');
+			if(reccount>0){
+				button_state_nok_pat('add_edit');
+			}else{
+				button_state_nok_pat('add');
+			}
+		}
 
 	});
 
 	disableForm('#form_nok_pat');
 	button_state_nok_pat('add');
-	function button_state_nok_pat(state){
-		switch(state){
-			case 'empty':
-				$('#add_nok_pat,#edit_nok_pat,#save_nok_pat,#cancel_nok_pat').attr('disabled',true);
-				break;
-			case 'add_edit':
-				$("#add_nok_pat,#edit_nok_pat").attr('disabled',false);
-				$('#save_nok_pat,#cancel_nok_pat').attr('disabled',true);
-				break;
-			case 'add':
-				$("#add_nok_pat").attr('disabled',false);
-				$('#edit_nok_pat,#save_nok_pat,#cancel_nok_pat').attr('disabled',true);
-				break;
-			case 'wait':
-				$("#save_nok_pat,#cancel_nok_pat").attr('disabled',false);
-				$('#add_nok_pat,#edit_nok_pat').attr('disabled',true);
-				break;
-		}
-	}
 
 	function populate_nok_pat(obj){
 		$("#nok_idno_pat").val(obj.idno);
@@ -227,3 +226,71 @@ $(document).ready(function () {
 	}
 
 });
+
+function button_state_nok_pat(state){
+	switch(state){
+		case 'empty':
+			$('#add_nok_pat,#edit_nok_pat,#save_nok_pat,#cancel_nok_pat').attr('disabled',true);
+			break;
+		case 'add_edit':
+			$("#add_nok_pat,#edit_nok_pat").attr('disabled',false);
+			$('#save_nok_pat,#cancel_nok_pat').attr('disabled',true);
+			break;
+		case 'add':
+			$("#add_nok_pat").attr('disabled',false);
+			$('#edit_nok_pat,#save_nok_pat,#cancel_nok_pat').attr('disabled',true);
+			break;
+		case 'wait':
+			$("#save_nok_pat,#cancel_nok_pat").attr('disabled',false);
+			$('#add_nok_pat,#edit_nok_pat').attr('disabled',true);
+			break;
+	}
+}
+
+function add_newlocal_nok(){
+	var reccount = $('#jqGrid_nok_pat').jqGrid('getGridParam', 'reccount');
+	var rowid = 1;
+	if(reccount==0){
+		rowid=1
+	}else{
+		rowid=reccount+1;
+	}
+	var rowdata={
+		idno:rowid,
+		mrn:'',
+		episno:'',
+		name:$("#nok_name_pat").val(),
+		relationshipcode:$("#nok_relate_pat").val(),
+		address1:$("#nok_addr1_pat").val(),
+		address2:$("#nok_addr2_pat").val(),
+		address3:$("#nok_addr3_pat").val(),
+		postcode:$("#nok_postcode_pat").val(),
+		tel_h:$("#nok_telh_pat").val(),
+		tel_hp:$("#nok_telhp_pat").val(),
+		tel_o:$("#nok_telo_pat").val(),
+		tel_o_ext:$("#nok_ext_pat").val()
+	}
+	$('#jqGrid_nok_pat').jqGrid ('addRowData', rowid, rowdata,'first');
+
+	$('#jqGrid_nok_pat').jqGrid('setSelection', rowid);
+	button_state_nok_pat('add_edit');
+}
+
+function if_addnew_nok(){
+	if($("#btn_register_patient").data("oper") == "add"){
+		return true;
+	}else if($("#btn_register_patient").data("oper") == "edit"){
+		return false;
+	}else{
+		return true;
+	}
+}
+
+function get_nok_table_fornewpt(){
+	let rowdatas = $('#jqGrid_nok_pat').jqGrid ('getRowData');
+	return rowdatas;
+}
+
+function empty_nok_jq(){
+	refreshGrid("#jqGrid_nok_pat", 'urlParam_nok_pat','kosongkan');
+}

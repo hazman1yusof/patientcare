@@ -330,6 +330,7 @@ function populate_other_data(data=last_other_data){
 		$('#dry_weight').val(data.dry_weight);
 		$('#prev_post_weight').val(data.prev_post_weight);
 		$('#initiated_by').val(data.initiated_by);
+		$('#terminate_by').val(data.initiated_by);
 		if(data.last_visit != ''){
 			$('#last_visit').val(data.last_visit);
 		}
@@ -432,6 +433,8 @@ function check_pt_mode(){
 
 function add_edit_mode(){
 	$('#no_of_use').parent().addClass('disabled');
+	$('#heparin_bolus,#heparin_maintainance,#1_dh,#2_dh,#3_dh,#4_dh,#5_dh').prop('disabled',true);
+
 	$('#dialyser').on('change',function(){
 		if($(this).val() == 'REUSE'){
 			$('#no_of_use').attr('required','').parent().removeClass('disabled');
@@ -449,7 +452,7 @@ function add_edit_mode(){
 		let dry_weight = $('#dry_weight').val();
 
 		if(pre_weight.trim() != '' && prev_post_weight.trim() != ''){
-			let idwg = parseFloat(pre_weight) - parseFloat(prev_post_weight);
+			let idwg = parseFloat(prev_post_weight) - parseFloat(pre_weight);
 			$('#idwg').val(idwg.toFixed(2));
 		}
 
@@ -458,10 +461,39 @@ function add_edit_mode(){
 			$('#target_weight').val(target_weight.toFixed(2));
 		}
 	});
+
+	$('#heparin_type').on('change',function(){
+		if($(this).val() == 'FREE'){
+			$('#heparin_bolus,#heparin_maintainance,#1_dh,#2_dh,#3_dh,#4_dh,#5_dh').val('');
+			$('#heparin_bolus,#heparin_maintainance,#1_dh,#2_dh,#3_dh,#4_dh,#5_dh').prop('disabled',true);
+
+		}else{
+			$('#heparin_bolus,#heparin_maintainance,#1_dh,#2_dh,#3_dh,#4_dh,#5_dh').prop('disabled',false);
+		}
+	});
+
+	$('#time_complete').on('blur',function(){
+		if($('#tc_0').val().trim() != ''){
+			if($('#time_complete').val().trim() != ''){
+
+				var startTime = moment($('#tc_0').val().trim(), 'hh:mm:ss a');
+				var endTime = moment($('#time_complete').val().trim(), 'hh:mm:ss a');
+				if(endTime.diff(startTime) > 0){
+					var duration_hrs = moment.utc(endTime.diff(startTime)).format("H");
+					var duration_min = moment.utc(endTime.diff(startTime)).format("m");
+					$('#delivered_duration').val([duration_hrs, duration_min].join(' hour and ')+' minute');
+				}else{
+					$('#delivered_duration').val();
+				}
+			}
+		}else{
+			alert('Time commencing is empty, cant calculate duration of hd');
+		}
+	});
 }
 
 function off_edit_mode(){
-	$('#dialyser').off('change');
+	$('#dialyser,#heparin_type').off('change');
 	$('#pre_weight').off('blur');
 }
 

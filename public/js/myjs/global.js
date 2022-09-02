@@ -87,12 +87,12 @@ var Global = function () {
                 mdl = "none";
 				break;
 			case "admdoctor":
-				act = "get_reg_doctor";
+				act = "get_reg_admdoctor";
 				title = "Select Patient Doctor";
                 mdl = "none";
 				break;
 			case "attndoctor":
-				act = "get_reg_doctor";
+				act = "get_reg_attndoctor";
 				title = "Select Patient Doctor";
                 mdl = "none";
 				break;

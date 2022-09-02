@@ -197,6 +197,8 @@ var urlParam_dialysis = {
 	join_type:['LEFT JOIN'],
 	join_onCol:['de.mrn'],
 	join_onVal:['pm.MRN'],
+	join_filterCol : [['pm.episno on =']],
+    join_filterVal : [['de.episno']],
 	filterCol:['pm.compcode','de.episno','de.mrn'],
 	filterVal:['session.compcode','',''],
 	sortby:['de_idno desc']

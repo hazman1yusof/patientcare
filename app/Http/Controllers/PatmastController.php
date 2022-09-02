@@ -37,7 +37,6 @@ class PatmastController extends defaultController
     }
 
     public function save_patient(Request $request){
-        DB::connection()->enableQueryLog();
         switch ($request->oper) {
             case 'add':
                 $this->_add($request);
@@ -493,6 +492,36 @@ class PatmastController extends defaultController
                 
                 break;
 
+            case 'get_reg_admdoctor':
+                $data = DB::table('hisdb.doctor')
+                        ->select('doctorcode as code','doctorname as description')
+                        ->where('recstatus','=','ACTIVE')
+                        ->where('specialitycode','=','NEPHR')
+                        ->where('compcode','=',session('compcode'));
+
+                if(!empty($request->search)){
+                    $data = $data->where('description','=',$request->search)->first();
+                }else{
+                    $data = $data->get();
+                }
+                
+                break;
+
+            case 'get_reg_attndoctor':
+                $data = DB::table('hisdb.doctor')
+                        ->select('doctorcode as code','doctorname as description')
+                        ->where('recstatus','=','ACTIVE')
+                        ->where('specialitycode','=','PIC')
+                        ->where('compcode','=',session('compcode'));
+
+                if(!empty($request->search)){
+                    $data = $data->where('description','=',$request->search)->first();
+                }else{
+                    $data = $data->get();
+                }
+                
+                break;
+
             case 'get_patient_idtype':
                 return  '{"data":[{"sysno":"5","Comp":"","code":"O","description":"Own IC","createdBy":"admin","createdDate":"2013-04-11","LastUpdate":"0000-00-00","LastUser":"","RecStatus":""},{"sysno":"7","Comp":"","code":"F","description":"Father","createdBy":"admin","createdDate":"2013-04-11","LastUpdate":"0000-00-00","LastUser":"","RecStatus":""},{"sysno":"8","Comp":"","code":"M","description":"Mother","createdBy":"","createdDate":"0000-00-00","LastUpdate":"0000-00-00","LastUser":"","RecStatus":""},{"sysno":"9","Comp":"","code":"P","description":"Polis","createdBy":"","createdDate":"0000-00-00","LastUpdate":"0000-00-00","LastUser":"","RecStatus":""},{"sysno":"10","Comp":"","code":"T","description":"Tentera","createdBy":"","createdDate":"0000-00-00","LastUpdate":"0000-00-00","LastUser":"","RecStatus":""}]}';
                 break;
@@ -735,48 +764,65 @@ class PatmastController extends defaultController
     public function _add(Request $request){
         DB::beginTransaction();
 
-        $table = DB::table('hisdb.pat_mast');
-
-        if(!empty($request->Email_official)){
-            $loginid = $request->Email_official;
-        }else{
-            $loginid = $request->Newic;
-        }
-
-        if(!empty($request->PatientImage)){
-            $PatientImage = $request->PatientImage;
-        }else{
-            $PatientImage = null;
-        }
-
-        $array_insert = [
-            'loginid' => $loginid,
-            'compcode' => session('compcode'),
-            'adduser' => session('username'),
-            'adddate' => Carbon::now("Asia/Kuala_Lumpur"),
-            'recstatus' => 'A',
-            'Active' => 1,
-            'PatientImage' => $PatientImage,
-        ];
-
-        $request['first_visit_date'] = Carbon::now("Asia/Kuala_Lumpur");
-        $request['last_visit_date'] = Carbon::now("Asia/Kuala_Lumpur");
-
-        foreach ($request->field as $key => $value) {
-            if(empty($request[$request->field[$key]]))continue;
-            // dump($request[$request->field[$key]]);
-            $array_insert[$value] = strtoupper($request[$request->field[$key]]);
-        }
-
         try {
+
+            $table = DB::table('hisdb.pat_mast');
+
+            if(!empty($request->Email_official)){
+                $loginid = $request->Email_official;
+            }else{
+                $loginid = $request->Newic;
+            }
+
+            if(!empty($request->PatientImage)){
+                $PatientImage = $request->PatientImage;
+            }else{
+                $PatientImage = null;
+            }
+
+            $array_insert = [
+                'loginid' => $loginid,
+                'compcode' => session('compcode'),
+                'adduser' => session('username'),
+                'adddate' => Carbon::now("Asia/Kuala_Lumpur"),
+                'recstatus' => 'A',
+                'Active' => 1,
+                'PatientImage' => $PatientImage,
+            ];
+
+            $request['first_visit_date'] = Carbon::now("Asia/Kuala_Lumpur");
+            $request['last_visit_date'] = Carbon::now("Asia/Kuala_Lumpur");
+
+            foreach ($request->field as $key => $value) {
+                if(empty($request[$request->field[$key]]))continue;
+                // dump($request[$request->field[$key]]);
+                $array_insert[$value] = strtoupper($request[$request->field[$key]]);
+            }
 
             $mrn = $this->defaultSysparam('HIS','MRN');
             $array_insert['MRN'] = $mrn;
             $lastidno = $table->insertGetId($array_insert);
 
-            if(!empty($request->func_after)){
-                if($request->func_after == 'save_preepis'){
-                    $this->save_preepis($request,$mrn);
+            if(!empty($request->nok)){
+                $nok_arr = $request->nok;
+
+                foreach ($nok_arr as $key => $value) {
+                    DB::table('hisdb.nok_ec')
+                        ->insert([
+                            'compcode' => session('compcode'),
+                            'mrn'    =>  $mrn,
+                            'episno'  =>  1,
+                            'name'  =>  $value['name'],
+                            'relationshipcode' =>  $value['relationshipcode'], 
+                            'address1'    =>  $value['address1'],
+                            'address2'    =>  $value['address2'],
+                            'address3'    =>  $value['address3'],
+                            'postcode'    =>  $value['postcode'],
+                            'tel_h'    =>   $value['tel_h'],
+                            'tel_hp'    =>   $value['tel_hp'],
+                            'tel_o'    =>  $value['tel_o'],
+                            'tel_o_ext'    =>  $value['tel_o_ext']
+                        ]);
                 }
             }
 
@@ -807,7 +853,7 @@ class PatmastController extends defaultController
             'recstatus' => 'A'
         ];
 
-        $array_ignore = ['mrn','MRN','first_visit_date','last_visit_date','Episno'];
+        $array_ignore = ['mrn','MRN','first_visit_date','last_visit_date','Episno','Active','PatStatus'];
         // dd($request->field);
 
         foreach ($request->field as $key => $value) {
@@ -1378,7 +1424,7 @@ class PatmastController extends defaultController
 
             $queries = DB::getQueryLog();
 
-            $this->savetofile($epis_mrn,$epis_no,$request->savelocation);
+            // $this->savetofile($epis_mrn,$epis_no,$request->savelocation);
 
             // dump($queries);
 
@@ -1722,111 +1768,10 @@ class PatmastController extends defaultController
 
             }
 
-
-            //QUEUE FOR ALL
-                //epistycode = IP if epis_type  = IP @ DP
-                //epistycode = OP if epis_type  = OP @ OTC
-
-            // if($epis_type == "IP" || $epis_type == "DP"){
-            //     $epistycode_q = "IP";
-            // }else{
-            //     $epistycode_q = "OP";
-            // }
-
-            // $queueAll_obj=DB::table('hisdb.queue')
-            //     ->where('mrn','=',$epis_mrn)
-            //     ->where('episno','=',$epis_no)
-            //     ->where('deptcode','=','ALL');
-
-            // if(!$queueAll_obj->exists()){
-            //     DB::table('hisdb.queue')
-            //         ->insert([
-            //             'AdmDoctor' => $epis_doctor,
-            //             'AttnDoctor' => $epis_doctor,
-            //             'BedType' => '',
-            //             'Case_Code' => "MED",
-            //             'CompCode' => session('compcode'),
-            //             'Episno' => $epis_no,
-            //             'EpisTyCode' => $epistycode_q,
-            //             'LastTime' => Carbon::now("Asia/Kuala_Lumpur")->toTimeString(),
-            //             'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
-            //             'Lastuser' => session('username'),
-            //             'MRN' => $epis_mrn,
-            //             'Reg_Date' => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
-            //             'Reg_Time' => Carbon::now("Asia/Kuala_Lumpur")->toDateTimeString(),
-            //             'Bed' => '',
-            //             'Room' => '',
-            //             'QueueNo' => $current_pvalue1+1,
-            //             'Deptcode' => 'ALL',
-            //             'DOB' => $this->null_date($patmast_data->DOB),
-            //             'NAME' => $patmast_data->Name,
-            //             'Newic' => $patmast_data->Newic,
-            //             'Oldic' => $patmast_data->Oldic,
-            //             'Sex' => $patmast_data->Sex,
-            //             'Religion' => $patmast_data->Religion,
-            //             'RaceCode' => $patmast_data->RaceCode,
-            //             'EpisStatus' => '',
-            //             'chggroup' => $epis_billtype
-            //         ]);
-            // }else{
-            //     $queueAll_obj
-            //         ->update([
-            //             'AdmDoctor' => $epis_doctor,
-            //             'AttnDoctor' => $epis_doctor,
-            //             'chggroup' => $epis_billtype
-            //         ]);
-            // }
-
-            // //QUEUE FOR SPECIALIST
-
-            // $queueSPEC_obj=DB::table('hisdb.queue')
-            //     ->where('mrn','=',$epis_mrn)
-            //     ->where('episno','=',$epis_no)
-            //     ->where('deptcode','=','SPEC');
-
-            // if(!$queueSPEC_obj->exists()){
-            //     DB::table('hisdb.queue')
-            //         ->insert([
-            //             'AdmDoctor' => $epis_doctor,
-            //             'AttnDoctor' => $epis_doctor,
-            //             'BedType' => '',
-            //             'Case_Code' => "MED",
-            //             'CompCode' => session('compcode'),
-            //             'Episno' => $epis_no,
-            //             'EpisTyCode' => $epistycode_q,
-            //             'LastTime' => Carbon::now("Asia/Kuala_Lumpur")->toTimeString(),
-            //             'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
-            //             'Lastuser' => session('username'),
-            //             'MRN' => $epis_mrn,
-            //             'Reg_Date' => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
-            //             'Reg_Time' => Carbon::now("Asia/Kuala_Lumpur")->toDateTimeString(),
-            //             'Bed' => '',
-            //             'Room' => '',
-            //             'QueueNo' => $current_pvalue1+1,
-            //             'Deptcode' => 'SPEC',
-            //             'DOB' => $this->null_date($patmast_data->DOB),
-            //             'NAME' => $patmast_data->Name,
-            //             'Newic' => $patmast_data->Newic,
-            //             'Oldic' => $patmast_data->Oldic,
-            //             'Sex' => $patmast_data->Sex,
-            //             'Religion' => $patmast_data->Religion,
-            //             'RaceCode' => $patmast_data->RaceCode,
-            //             'EpisStatus' => '',
-            //             'chggroup' => $epis_billtype
-            //         ]);
-            // }else{
-            //     $queueSPEC_obj
-            //         ->update([
-            //             'AdmDoctor' => $epis_doctor,
-            //             'AttnDoctor' => $epis_doctor,
-            //             'chggroup' => $epis_billtype
-            //         ]);
-            // }
-
-            $queries = DB::getQueryLog();
+            // $queries = DB::getQueryLog();
             DB::commit();
 
-            $this->savetofile($epis_mrn,$epis_no,$request->savelocation);
+            // $this->savetofile($epis_mrn,$epis_no,$request->savelocation);
 
             // dump($queries);
 

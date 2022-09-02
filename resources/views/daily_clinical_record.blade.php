@@ -147,8 +147,8 @@
 				</div>
 				<div class="field">
 					<div class="clinic_code">
-						<label> HEPARIN BOLUS:</label>
-						<input type="text" name="heparin_bolus" id="heparin_bolus" class="purplebg" value="" required>
+						<label> HEPARIN BOLUS (IU):</label>
+						<input type="text" name="heparin_bolus" id="heparin_bolus" class="purplebg" value="">
 					</div>
 				</div>
 				<div class="field">
@@ -175,15 +175,17 @@
 				</div>
 				<div class="field">
 					<div class="clinic_code">
-						<label> HEPARIN MAINTAINANCE:</label>
-						<input type="text" name="heparin_maintainance" id="heparin_maintainance" class="purplebg" value="" required>
+						<label> HEPARIN MAINTAINANCE (IU):</label>
+						<input type="text" name="heparin_maintainance" id="heparin_maintainance" class="purplebg" value="">
 					</div>
 				</div>
 				<div class="field">
-					<div class="clinic_code">
-						<label> CHECK FOR RESIDUAL:</label>
-						<input type="text" name="check_for_residual" id="check_for_residual" class="purplebg" value="" required>
-					</div>
+					<label> CHECK FOR RESIDUAL:</label>
+					<select class="ui selection dropdown purplebg" id="check_for_residual" name="check_for_residual">
+					  <option value="">Select Here</option>
+					  <option value="YES">YES</option>
+					  <option value="NO">NO</option>
+					</select>
 				</div>
 				<div class="field">
 				</div>
@@ -300,6 +302,7 @@
 					<label> LOWER LIMB:</label>
 					<select class="ui selection dropdown purplebg" id="lower_limb" name="lower_limb" required>
 					  <option value="">Select Here</option>
+					  <option value="NORMAL">NORMAL</option>
 					  <option value="OEDEMATOUS">OEDEMATOUS</option>
 					  <option value="ULCER">ULCER</option>
 					  <option value="CALLUSES">CALLUSES</option>
@@ -335,7 +338,7 @@
 			    </div>
 
 			    <div class="field">
-					<label> BRUIT:</label>
+					<label> BRUIT & THRILL:</label>
 					<select class="ui selection dropdown purplebg" id="bruit" name="bruit" required>
 					  <option value="">Select Here</option>
 					  <option value="YES">YES</option>
@@ -345,24 +348,6 @@
 			</div>
 
 			<div class="four fields">
-		    	<div class="field">
-					<label> THRILL:</label>
-					<select class="ui selection dropdown purplebg" id="thrill" name="thrill" required>
-					  <option value="">Select Here</option>
-					  <option value="YES">YES</option>
-					  <option value="NO">NO</option>
-					</select>
-	    		</div>
-
-			    <div class="field">
-					<label> DRESSING:</label>
-					<select class="ui selection dropdown purplebg" id="dressing" name="dressing" required>
-					  <option value="">Select Here</option>
-					  <option value="INTACT">INTACT</option>
-					  <option value="WET">WET</option>
-					  <option value="LOOSE">LOOSE</option>
-					</select>
-			    </div>
 
 			    <div class="field">
 					<label> RESPIRATORY:</label>
@@ -372,6 +357,17 @@
 					  <option value="BRADYPNEA">BRADYPNEA</option>
 					  <option value="TACHYPNEA">TACHYPNEA</option>
 					  <option value="HYPERPNEA">HYPERPNEA</option>
+					</select>
+			    </div>
+
+			    <div class="field">
+					<label> DRESSING:</label>
+					<select class="ui selection dropdown purplebg" id="dressing" name="dressing" required>
+					  <option value="">Select Here</option>
+					  <option value="N/A">N/A</option>
+					  <option value="INTACT">INTACT</option>
+					  <option value="WET">WET</option>
+					  <option value="LOOSE">LOOSE</option>
 					</select>
 			    </div>
 
@@ -397,7 +393,13 @@
 			<table class="table ui form" id="preHDListMeasure">
 				<thead>
 					<tr>
-						<th style="text-align: right;"></th>
+						<th style="text-align: left;">
+							Commencing</br>Hour:
+							</br>
+							<div class="ui small icon input">
+							  <input type="time" placeholder="" id="tc_0" name="tc_0">
+							</div>
+						</th>
 						<th style="text-align: center;">BP</th>
 						<th style="text-align: center;">PULSE</th>
 						<th style="text-align: center;">DELIVERED HEPARIN</th>
@@ -412,13 +414,18 @@
 
 				<tbody>
 					<tr style="background-color:#f3ffff;">
-						<td class="labeltd">1st Hour:</td>
+						<td class="labeltd">1st Hour:
+							</br>
+							<div class="ui small icon input">
+							  <input type="time" placeholder="" id="tc_1" name="tc_1">
+							</div>
+						</td>
 						<td><input type="text" name="1_bp" id="1_bp" value="" placeholder="BP"></td>
 						<td><input type="text" name="1_pulse" id="1_pulse" value="" placeholder="PULSE"></td>
-						<td><input type="text" name="1_dh" id="1_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="1_bfr" id="1_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
 						<td><input type="text" name="1_vp" id="1_vp" value="" placeholder="VENOUS PRESSURE"></td>
 						<td><input type="text" name="1_tmp" id="1_tmp" value="" placeholder="TMP"></td>
+						<td><input type="text" name="1_dh" id="1_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="1_uv" id="1_uv" value="" placeholder="UF VOLUME"></td>
 						<td><input type="text" name="1_f" id="1_f" value="" placeholder="FLUIDS"></td>
 					</tr>
@@ -427,13 +434,18 @@
 						<td colspan="8"><textarea name="1_remarks" id="1_remarks" rows="3" cols="100" style="background-color: #dcf7f7;"></textarea></td>
 					</tr>
 					<tr style="background-color:#e4ffe4;">
-						<td class="labeltd">2nd Hour:</td>
+						<td class="labeltd">2nd Hour:
+							</br>
+							<div class="ui small icon input">
+							  <input type="time" placeholder="" id="tc_2" name="tc_2">
+							</div>
+						</td>
 						<td><input type="text" name="2_bp" id="2_bp" value="" placeholder="BP"></td>
 						<td><input type="text" name="2_pulse" id="2_pulse" value="" placeholder="PULSE"></td>
-						<td><input type="text" name="2_dh" id="2_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="2_bfr" id="2_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
 						<td><input type="text" name="2_vp" id="2_vp" value="" placeholder="VENOUS PRESSURE"></td>
 						<td><input type="text" name="2_tmp" id="2_tmp" value="" placeholder="TMP"></td>
+						<td><input type="text" name="2_dh" id="2_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="2_uv" id="2_uv" value="" placeholder="UF VOLUME"></td>
 						<td><input type="text" name="2_f" id="2_f" value="" placeholder="FLUIDS"></td>
 					</tr>
@@ -442,13 +454,19 @@
 						<td colspan="8"><textarea name="2_remarks" id="2_remarks" rows="3" cols="100" style="background-color: #d9f1d9;"></textarea></td>
 					</tr>
 					<tr style="background-color:#ffdcdc;">
-						<td class="labeltd">3rd Hour:</td>
+						<td class="labeltd">3rd Hour:
+							</br>
+							<div class="ui small icon input">
+							  <input type="time" placeholder="" id="tc_3" name="tc_3">
+							</div>
+
+						</td>
 						<td><input type="text" name="3_bp" id="3_bp" value="" placeholder="BP"></td>
 						<td><input type="text" name="3_pulse" id="3_pulse" value="" placeholder="PULSE"></td>
-						<td><input type="text" name="3_dh" id="3_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="3_bfr" id="3_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
 						<td><input type="text" name="3_vp" id="3_vp" value="" placeholder="VENOUS PRESSURE"></td>
 						<td><input type="text" name="3_tmp" id="3_tmp" value="" placeholder="TMP"></td>
+						<td><input type="text" name="3_dh" id="3_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="3_uv" id="3_uv" value="" placeholder="UF VOLUME"></td>
 						<td><input type="text" name="3_f" id="3_f" value="" placeholder="FLUIDS"></td>
 					</tr>
@@ -457,13 +475,18 @@
 						<td colspan="8"><textarea name="3_remarks" id="3_remarks" rows="3" cols="100" style="background-color: #ebcaca;"></textarea></td>
 					</tr>
 					<tr style="background-color:#ffffc9;">
-						<td class="labeltd">4th Hour:</td>
+						<td class="labeltd">4th Hour:
+							</br>
+							<div class="ui small icon input">
+							  <input type="time" placeholder="" id="tc_4" name="tc_4">
+							</div>
+						</td>
 						<td><input type="text" name="4_bp" id="4_bp" value="" placeholder="BP"></td>
 						<td><input type="text" name="4_pulse" id="4_pulse" value="" placeholder="PULSE"></td>
-						<td><input type="text" name="4_dh" id="4_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="4_bfr" id="4_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
 						<td><input type="text" name="4_vp" id="4_vp" value="" placeholder="VENOUS PRESSURE"></td>
 						<td><input type="text" name="4_tmp" id="4_tmp" value="" placeholder="TMP"></td>
+						<td><input type="text" name="4_dh" id="4_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="4_uv" id="4_uv" value="" placeholder="UF VOLUME"></td>
 						<td><input type="text" name="4_f" id="4_f" value="" placeholder="FLUIDS"></td>
 					</tr>
@@ -472,13 +495,18 @@
 						<td colspan="8"><textarea name="4_remarks" id="4_remarks" rows="3" cols="100" style="background-color: #efefbe;"></textarea></td>
 					</tr>
 					<tr style="background-color:#fff5e8;">
-						<td class="labeltd">5th Hour:</td>
+						<td class="labeltd">5th Hour:
+							</br>
+							<div class="ui small icon input">
+							  <input type="time" placeholder="" id="tc_5" name="tc_5">
+							</div>
+						</td>
 						<td><input type="text" name="5_bp" id="5_bp" value="" placeholder="BP"></td>
 						<td><input type="text" name="5_pulse" id="5_pulse" value="" placeholder="PULSE"></td>
-						<td><input type="text" name="5_dh" id="5_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="5_bfr" id="5_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
 						<td><input type="text" name="5_vp" id="5_vp" value="" placeholder="VENOUS PRESSURE"></td>
 						<td><input type="text" name="5_tmp" id="5_tmp" value="" placeholder="TMP"></td>
+						<td><input type="text" name="5_dh" id="5_dh" value="" placeholder="DELIVERED HEPARIN"></td>
 						<td><input type="text" name="5_uv" id="5_uv" value="" placeholder="UF VOLUME"></td>
 						<td><input type="text" name="5_f" id="5_f" value="" placeholder="FLUIDS"></td>
 					</tr>
@@ -554,16 +582,33 @@
 			    </div>
 
 			    <div class="field">
-					<div class="clinic_code">
-						<label> INTRADIALYTIC COMPLICATION:</label>
-						<input type="text" name="i_complication" id="i_complication" value="" class="purplebg" required>
-					</div>
+					<label> INTRADIALYTIC COMPLICATION:</label>
+					<select class="ui selection dropdown purplebg" id="i_complication" name="i_complication" required>
+					  <option value="">Select Here</option>
+					  <option value="HYPOTENSION">HYPOTENSION</option>
+					  <option value="PYROGENIC REACTION">PYROGENIC REACTION</option>
+					  <option value="AIR EMBOLISM">AIR EMBOLISM</option>
+					  <option value="MUSCLE CRAMPS">MUSCLE CRAMPS</option>
+					  <option value="FIRST USE SYNDROME">FIRST USE SYNDROME</option>
+					  <option value="CHEST PAIN">CHEST PAIN</option>
+					  <option value="BLEEDING">BLEEDING </option>
+					  <option value="HEMOLYSIS">HEMOLYSIS </option>
+					  <option value="DISEQUILIBRIUM SYNDROME">DISEQUILIBRIUM SYNDROME</option>
+					  <option value="SEIZURE">SEIZURE</option>
+					  <option value="TECHNICAL">TECHNICAL</option>
+					</select>
 			    </div>
 
 		    	<div class="field"></div>
 			</div>
 
 			<div class="five fields">
+			    <div class="field">
+					<div class="clinic_code">
+						<label> DELIVERED DURATION:</label>
+						<input type="text" name="delivered_duration" id="delivered_duration" value="" class="purplebg" rdonly required>
+					</div>
+			    </div>
 			    <div class="field">
 					<div class="clinic_code">
 						<label> HD ADEQUANCY:</label>
@@ -581,7 +626,7 @@
 			    <div class="field">
 					<div class="clinic_code">
 						<label> TERMINATE BY:</label>
-						<input type="text" name="terminate_by" id="terminate_by" value="" class="purplebg" required>
+						<input type="text" name="terminate_by" id="terminate_by" value="" class="purplebg" rdonly>
 					</div>
 			    </div>
 			    <div class="field"></div>
