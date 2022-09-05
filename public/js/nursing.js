@@ -29,7 +29,7 @@ $(document).ready(function () {
 
 	$('#tab_triage').on('shown.bs.collapse', function () {
 		SmoothScrollTo('#tab_triage', 300);
-		$("#jqGridAddNotesTriage").jqGrid ('setGridWidth', Math.floor($("#jqGridAddNotesTriage_c")[0].offsetWidth-$("#jqGridAddNotesTriage_c")[0].offsetLeft-14));
+		$("#jqGridAddNotesTriage").jqGrid('setGridWidth', Math.floor($("#jqGridAddNotesTriage_c")[0].offsetWidth-$("#jqGridAddNotesTriage_c")[0].offsetLeft-25));
 	});
 
 	disableForm('#formTriageInfo');
@@ -153,6 +153,9 @@ $(document).ready(function () {
 		height: 200,
 		rowNum: 30,
 		pager: "#jqGridPagerAddNotesTriage",
+		onSelectRow:function(rowid, selected){
+			// calc_jq_height_onchange("jqGridAddNotesTriage");
+		},
 		loadComplete: function(){
 			if(addmore_jqgrid.more == true){$('#jqGridAddNotesTriage_iladd').click();}
 			else{
@@ -160,6 +163,8 @@ $(document).ready(function () {
 			}
 			$('.ui-pg-button').prop('disabled',true);
 			addmore_jqgrid.edit = addmore_jqgrid.more = false; //reset
+			
+			calc_jq_height_onchange("jqGridAddNotesTriage");
 		},
 		ondblClickRow: function(rowid, iRow, iCol, e){
 			$("#jqGridAddNotesTriage_iledit").click();
@@ -838,5 +843,15 @@ function examination(){
 		`);
 
 	}
+}
+
+function calc_jq_height_onchange(jqgrid){
+	let scrollHeight = $('#'+jqgrid+'>tbody').prop('scrollHeight');
+	if(scrollHeight<50){
+		scrollHeight = 50;
+	}else if(scrollHeight>300){
+		scrollHeight = 300;
+	}
+	$('#gview_'+jqgrid+' > div.ui-jqgrid-bdiv').css('height',scrollHeight);
 }
 

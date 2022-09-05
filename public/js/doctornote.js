@@ -120,6 +120,9 @@ $(document).ready(function () {
 		height: 200,
 		rowNum: 30,
 		pager: "#jqGridPagerAddNotes",
+		onSelectRow:function(rowid, selected){
+			// calc_jq_height_onchange("jqGridAddNotes");
+		},
 		loadComplete: function(){
 			if(addmore_jqgrid.more == true){$('#jqGridAddNotes_iladd').click();}
 			else{
@@ -127,6 +130,8 @@ $(document).ready(function () {
 			}
 			$('.ui-pg-button').prop('disabled',true);
 			addmore_jqgrid.edit = addmore_jqgrid.more = false; //reset
+			
+			calc_jq_height_onchange("jqGridAddNotes");
 		},
 		ondblClickRow: function(rowid, iRow, iCol, e){
 			$("#jqGridAddNotes_iledit").click();
@@ -571,7 +576,7 @@ $('#tab_doctornote').on('shown.bs.collapse', function () {
 	SmoothScrollTo('#tab_doctornote', 300);
 	// datable_medication.columns.adjust();
 	$('div#docnote_date_tbl_sticky').show();
-	$("#jqGrid_trans").jqGrid ('setGridWidth', Math.floor($("#jqGrid_trans_c")[0].offsetWidth-$("#jqGrid_trans_c")[0].offsetLeft-14));
+	$("#jqGrid_trans").jqGrid('setGridWidth', Math.floor($("#jqGrid_trans_c")[0].offsetWidth-$("#jqGrid_trans_c")[0].offsetLeft-25));
 	textare_init_doctornote();
 });
 
@@ -587,7 +592,7 @@ $("input[name=toggle_type]").on('change', function () {
 		emptyFormdata_div("#formDoctorNote",['#mrn_doctorNote','#episno_doctorNote']);
 		// $('#docnote_date_tbl tbody tr:eq(0)').click();	//to select first row
     });
-	$("#jqGridAddNotes").jqGrid('setGridWidth', Math.floor($("#jqGridAddNotes_c")[0].offsetWidth-$("#jqGridAddNotes_c")[0].offsetLeft));
+	$("#jqGridAddNotes").jqGrid('setGridWidth', Math.floor($("#jqGridAddNotes_c")[0].offsetWidth-$("#jqGridAddNotes_c")[0].offsetLeft-25));
 });
 
 $('#docnote_date_tbl tbody').on('click', 'tr', function () { 
@@ -674,4 +679,14 @@ function textare_init_doctornote(){
 	  		this.style.height = (40) + 'px';
 		}
 	});
+}
+
+function calc_jq_height_onchange(jqgrid){
+	let scrollHeight = $('#'+jqgrid+'>tbody').prop('scrollHeight');
+	if(scrollHeight<50){
+		scrollHeight = 50;
+	}else if(scrollHeight>300){
+		scrollHeight = 300;
+	}
+	$('#gview_'+jqgrid+' > div.ui-jqgrid-bdiv').css('height',scrollHeight);
 }
