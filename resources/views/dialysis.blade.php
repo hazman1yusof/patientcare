@@ -52,14 +52,14 @@
         </div>
     </div>
 
+    <input id="user_name" name="user_name" value="{{ Auth::user()->username }}" type="hidden">
     <input id="user_dept" name="user_dept" value="{{ Auth::user()->dept }}" type="hidden">
     <input id="sel_date" name="sel_date" value="{{ \Carbon\Carbon::now()->toDateString() }}" type="hidden">
-    <input id="dialysis_episode_idno" name="dialysis_episode_idno" type="hidden">
     <input id="_token" name="_token" value="{{ csrf_token() }}" type="hidden">
 
 
-    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="transaction_panel">
-        <div class="panel-heading clearfix collapsed" id="toggle_trans" data-toggle="collapse" data-target="#tab_trans">
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="tab_trans_panel">
+        <div class="panel-heading clearfix collapsed mainpanel" id="toggle_trans" data-toggle="collapse" data-target="#tab_trans">
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
         <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
@@ -76,8 +76,8 @@
         </div>
     </div>
 
-    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
-        <div class="panel-heading clearfix collapsed" id="toggle_daily" data-toggle="collapse" data-target="#tab_daily">
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="tab_daily_panel">
+        <div class="panel-heading clearfix collapsed mainpanel" id="toggle_daily" data-toggle="collapse" data-target="#tab_daily">
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
         <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
@@ -94,8 +94,8 @@
         </div>
     </div>
 
-    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
-        <div class="panel-heading clearfix collapsed" id="toggle_weekly" data-toggle="collapse" data-target="#tab_weekly">
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="tab_weekly_panel">
+        <div class="panel-heading clearfix collapsed mainpanel" id="toggle_weekly" data-toggle="collapse" data-target="#tab_weekly">
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
         <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
@@ -112,8 +112,8 @@
         </div>
     </div>
 
-    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px">
-        <div class="panel-heading clearfix collapsed" id="toggle_monthly" data-toggle="collapse" data-target="#tab_monthly">
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="tab_monthly_panel">
+        <div class="panel-heading clearfix collapsed mainpanel" id="toggle_monthly" data-toggle="collapse" data-target="#tab_monthly">
 
         <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
         <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
@@ -139,7 +139,7 @@
         </div>
     </div> -->
 
-@include('itemselector')
+@include('itemselector_dialysis')
 @endsection
 
 @section('css')
@@ -175,6 +175,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="{{ asset('js/dialysis_main.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dialysis.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/patmedication_dialysis.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction_dialysis.js') }}"></script>
 @endsection
 

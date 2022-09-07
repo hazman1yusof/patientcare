@@ -9,7 +9,8 @@
 		  <option value="">Dialysis Before</option>
 		</select>
 
-		<a class="ui orange disabled label" id="stats_diet" style="display: none;"></a>
+		<button class="ui yellow small button" id="edit_permission" style="display: none;"><i class="unlock icon"></i> Edit Permission</button>
+
 		<div class="ui small blue icon buttons" id="btn_grp_dialysis" style="position: absolute;
 					padding: 0 0 0 0;
 					right: 40px;
@@ -41,7 +42,11 @@
 
 		<input type="hidden" name="episno" id="episno">
 		<input type="hidden" name="mrn" id="mrn">
+    	<input id="dialysis_episode_idno" name="dialysis_episode_idno" type="hidden">
+
 		<form id="daily_form" class="ui mini form" autocomplete="off">
+			<input type="hidden" name="idno" id="idno">
+			<input type="hidden" name="arrivalno" id="arrivalno">
 			<div class="four fields">
 				<div class="field">
 					<div class="clinic_code">
@@ -397,17 +402,57 @@
 							Commencing</br>Hour:
 							</br>
 							<div class="ui small icon input">
-							  <input type="time" placeholder="" id="tc_0" name="tc_0">
+							  <input type="time" placeholder="" id="0_tc" name="0_tc">
 							</div>
 						</th>
-						<th style="text-align: center;">BP</th>
-						<th style="text-align: center;">PULSE</th>
-						<th style="text-align: center;">DELIVERED HEPARIN</th>
-						<th style="text-align: center;">BLOOD FLOW RATE</th>
-						<th style="text-align: center;">VENOUS PRESSURE</th>
-						<th style="text-align: center;">TMP</th>
-						<th style="text-align: center;">UF VOLUME</th>
-						<th style="text-align: center;">FLUIDS</th>
+						<th style="text-align: center;">BP
+							</br>
+							<div class="ui small icon input">
+							  <input type="text" placeholder="" id="0_bp" name="0_bp">
+							</div>
+						</th>
+						<th style="text-align: center;">PULSE
+							</br>
+							<div class="ui small icon input">
+							  <input type="text" placeholder="" id="0_pulse" name="0_pulse">
+							</div>
+						</th>
+						<th style="text-align: center;">BLOOD FLOW RATE
+							</br>
+							<div class="ui small icon input">
+							  <input type="text" placeholder="" id="0_bfr" name="0_bfr">
+							</div>
+						</th>
+						<th style="text-align: center;">VENOUS PRESSURE
+							</br>
+							<div class="ui small icon input">
+							  <input type="text" placeholder="" id="0_vp" name="0_vp">
+							</div>
+						</th>
+						<th style="text-align: center;">TMP
+							</br>
+							<div class="ui small icon input">
+							  <input type="text" placeholder="" id="0_tmp" name="0_tmp">
+							</div>
+						</th>
+						<th style="text-align: center;">DELIVERED HEPARIN
+							</br>
+							<div class="ui small icon input">
+							  <input type="text" placeholder="" id="0_dh" name="0_dh">
+							</div>
+						</th>
+						<th style="text-align: center;">UF VOLUME
+							</br>
+							<div class="ui small icon input">
+							  <input type="text" placeholder="" id="0_uv" name="0_uv">
+							</div>
+						</th>
+						<th style="text-align: center;">FLUIDS
+							</br>
+							<div class="ui small icon input">
+							  <input type="text" placeholder="" id="0_f" name="0_f">
+							</div>
+						</th>
 					</tr>
 				</thead>
 
@@ -417,7 +462,7 @@
 						<td class="labeltd">1st Hour:
 							</br>
 							<div class="ui small icon input">
-							  <input type="time" placeholder="" id="tc_1" name="tc_1">
+							  <input type="time" placeholder="" id="1_tc" name="1_tc">
 							</div>
 						</td>
 						<td><input type="text" name="1_bp" id="1_bp" value="" placeholder="BP"></td>
@@ -437,7 +482,7 @@
 						<td class="labeltd">2nd Hour:
 							</br>
 							<div class="ui small icon input">
-							  <input type="time" placeholder="" id="tc_2" name="tc_2">
+							  <input type="time" placeholder="" id="2_tc" name="2_tc">
 							</div>
 						</td>
 						<td><input type="text" name="2_bp" id="2_bp" value="" placeholder="BP"></td>
@@ -457,7 +502,7 @@
 						<td class="labeltd">3rd Hour:
 							</br>
 							<div class="ui small icon input">
-							  <input type="time" placeholder="" id="tc_3" name="tc_3">
+							  <input type="time" placeholder="" id="3_tc" name="3_tc">
 							</div>
 
 						</td>
@@ -478,7 +523,7 @@
 						<td class="labeltd">4th Hour:
 							</br>
 							<div class="ui small icon input">
-							  <input type="time" placeholder="" id="tc_4" name="tc_4">
+							  <input type="time" placeholder="" id="4_tc" name="4_tc">
 							</div>
 						</td>
 						<td><input type="text" name="4_bp" id="4_bp" value="" placeholder="BP"></td>
@@ -498,7 +543,7 @@
 						<td class="labeltd">5th Hour:
 							</br>
 							<div class="ui small icon input">
-							  <input type="time" placeholder="" id="tc_5" name="tc_5">
+							  <input type="time" placeholder="" id="5_tc" name="5_tc">
 							</div>
 						</td>
 						<td><input type="text" name="5_bp" id="5_bp" value="" placeholder="BP"></td>
@@ -524,6 +569,53 @@
 			</table>
 
 		    <hr>
+
+		</form>
+
+		<form id="daily_form_patmedication" class="ui mini form" autocomplete="off" style="margin-bottom:30px">
+			<h4 class="ui dividing header">DRUG ADMINISTRATION</h4>
+			<div class="ui grid">
+				<div class="two wide column">
+					<table id="patmedication_trx_tbl" class="ui celled table" style="min-width:100%;">
+		                <thead>
+		                    <tr>
+		                        <th class="scope">idn</th>
+		                        <th class="scope">mrn</th>
+		                        <th class="scope">episno</th>
+		                        <th class="scope">Drug List</th>
+		                        <th class="scope">chg_code</th>
+		                        <th class="scope">quantity</th>
+		                        <th class="scope">ins_code</th>
+		                        <th class="scope">dos_code</th>
+		                        <th class="scope">fre_code</th>
+		                        <th class="scope">ins_desc</th>
+		                        <th class="scope">dos_desc</th>
+		                        <th class="scope">fre_desc</th>
+		                    </tr>
+		                </thead>
+		            </table>
+				</div>
+				
+
+				<input type="hidden" name="patmedication_trx_tbl_idno" id="patmedication_trx_tbl_idno">
+				<div class="fourteen wide column">
+					<table id="patmedication_tbl" class="ui celled table" style="min-width:100%;" data-addmode='false'>
+		                <thead>
+		                    <tr>
+		                        <th class="scope">idno</th>
+		                        <th class="scope">chgcode</th>
+		                        <th class="scope">Drug Name</th>
+		                        <th class="scope">Dosage</th>
+		                        <th class="scope">Frequancy</th>
+		                        <th class="scope">Quantity</th>
+		                        <th class="scope">Initiated By</th>
+		                        <th class="scope">Verified By</th>
+		                        <th class="scope">Status</th>
+		                    </tr>
+		                </thead>
+		            </table>
+				</div>
+			</div>
 
 		</form>
 
@@ -596,6 +688,7 @@
 					  <option value="DISEQUILIBRIUM SYNDROME">DISEQUILIBRIUM SYNDROME</option>
 					  <option value="SEIZURE">SEIZURE</option>
 					  <option value="TECHNICAL">TECHNICAL</option>
+					  <option value="NA">NA</option>
 					</select>
 			    </div>
 
@@ -607,6 +700,7 @@
 					<div class="clinic_code">
 						<label> DELIVERED DURATION:</label>
 						<input type="text" name="delivered_duration" id="delivered_duration" value="" class="purplebg" rdonly required>
+						<span id="delivered_duration_errortext" class="error"></span>
 					</div>
 			    </div>
 			    <div class="field">

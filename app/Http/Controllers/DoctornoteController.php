@@ -247,6 +247,7 @@ class DoctornoteController extends Controller
                 $array_edit = [
                     'chgcode' => $request->chg_desc,
                     'chggroup' =>  $chgmast->chggroup,
+                    'chgtype' =>  $chgmast->chgtype,
                     'quantity' => $request->quantity,
                     'instruction' => $request->ins_desc,
                     'doscode' => $request->dos_desc,
@@ -267,6 +268,7 @@ class DoctornoteController extends Controller
                     'trxdate' => $request->trxdate,
                     'chgcode' => $request->chg_desc,
                     'chggroup' =>  $chgmast->chggroup,
+                    'chgtype' =>  $chgmast->chgtype,
                     'instruction' => $request->ins_desc,
                     'doscode' => $request->dos_desc,
                     'frequency' => $request->fre_desc,

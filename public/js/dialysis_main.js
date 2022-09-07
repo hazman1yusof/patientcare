@@ -198,6 +198,8 @@ function UNformatterstatus_tick(cellvalue, option, cell) {
 
 function stop_scroll_on(){
 	$('div.paneldiv').on('mouseenter',function(){
+		// directScrollTo('#'+$('div.mainpanel[aria-expanded=true]').parent('div.panel.panel-default').attr('id'),40);
+		SmoothScrollTo('#'+$('div.mainpanel[aria-expanded=true]').parent('div.panel.panel-default').attr('id'), 300,undefined,40);
 		$('body').addClass('stop-scrolling');
 	});
 

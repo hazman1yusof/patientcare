@@ -7,6 +7,10 @@ form#daily_form .error,form#daily_form_completed .error,form#verify_form .error{
     border-color: #df7676;
 }
 
+span.error{
+    color: darkred;
+}
+
 .purplebg{
     background: #e0e8f5 !important;
 }

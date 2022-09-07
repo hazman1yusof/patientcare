@@ -90,12 +90,6 @@ class PatmastController extends defaultController
                                     if($showcomplete == 'false'){
                                         $join = $join->where('dialysis_episode.complete','=',0);
                                     }
-
-                                    // if($sel_epistycode == 'OP'){
-                                    //     $join = $join->whereIn('queue.epistycode', ['OP','OTC']);
-                                    // }else{
-                                    //     $join = $join->whereIn('queue.epistycode', ['IP','DP']);
-                                    // }
                                 });
                             }else{
                                 $table_patm = $table_patm->join('hisdb.dialysis_episode', function($join) use ($request){
@@ -119,9 +113,8 @@ class PatmastController extends defaultController
                             ->leftJoin('hisdb.areacode','areacode.areacode','=','pat_mast.AreaCode')
                             ->where('pat_mast.compcode','=',session('compcode'))
                             ->where('pat_mast.PatStatus','=','1')
-                            ->where('pat_mast.Active','=','1');
-                            // ->whereIn('pat_mast.mrn', $arr_mrn)
-                            // ->whereBetween('pat_mast.MRN',$mrn_range);
+                            ->where('episode.episactive','=','1');
+
             // dump($table_patm->get());
             // dd($table_patm->paginate());
 

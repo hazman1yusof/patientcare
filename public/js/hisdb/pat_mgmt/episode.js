@@ -238,8 +238,8 @@
             console.log(debtor_item);
             $('#hid_epis_payer').val(debtor_item["debtorcode"]);
             $('#txt_epis_payer').val(debtor_item["name"]);
-            $('#txt_epis_bill_type').val(debtor_item["billtype_desc"]);
-            $('#hid_epis_bill_type').val(debtor_item["billtype"]);
+            // $('#txt_epis_bill_type').val(debtor_item["billtype_desc"]);
+            // $('#hid_epis_bill_type').val(debtor_item["billtype"]);
             $('#mdl_epis_pay_mode').modal('hide');
         } );
             

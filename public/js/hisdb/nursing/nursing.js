@@ -430,6 +430,7 @@ $(document).ready(function () {
 					episno:$('#episno_ti').val(),
 					mrn:$('#mrn_ti').val(),
 					action: 'addNotesTriage_save',
+					_token: $("#csrf_token").val()
 				});
 			$("#jqGridAddNotesTriage").jqGrid('setGridParam', { editurl: editurl });
 		},

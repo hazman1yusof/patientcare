@@ -131,7 +131,7 @@ $(document).ready(function () {
 			{ label: 'DOB', name: 'DOB', hidden: true},
 			{ label: 'HP', name: 'telhp', hidden:true},
 			{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
-			{ label: 'Arrival Date', name: 'arrival_date', width: 7. ,align: 'center', formatter:dateFormatter, unformat:dateUNFormatter},
+			{ label: 'Last<br/>Arrival Date', name: 'arrival_date', width: 7. ,align: 'center', formatter:dateFormatter, unformat:dateUNFormatter},
 			{ label: 'Arrival', name: 'arrival', width: 5. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
 			{ label: 'Complete', name: 'complete', width: 6. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
 			{ label: 'Order', name: 'order', hidden: true},
