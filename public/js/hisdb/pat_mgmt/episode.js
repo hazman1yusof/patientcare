@@ -235,7 +235,6 @@
 
         $('#tbl_epis_debtor').on('dblclick', 'tr', function () {
             let debtor_item = debtor_table.row( this ).data();
-            console.log(debtor_item);
             $('#hid_epis_payer').val(debtor_item["debtorcode"]);
             $('#txt_epis_payer').val(debtor_item["name"]);
             // $('#txt_epis_bill_type').val(debtor_item["billtype_desc"]);
