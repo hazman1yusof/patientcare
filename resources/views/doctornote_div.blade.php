@@ -175,7 +175,7 @@
                                         <label>Height</label>
                                         <div class="ui right labeled input">
                                           <input type="text" onKeyPress="if(this.value.length==6) return false;" id="height" name="height">
-                                          <div class="ui basic label">CM</div>
+                                          <div class="ui basic label mylabel">CM</div>
                                         </div>
                                     </div>
 
