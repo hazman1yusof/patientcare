@@ -104,13 +104,35 @@ class PatmastController extends defaultController
                                             ->on('epispayer.episno','=','episode.episno');
 
                             })
-                            ->leftJoin('debtor.debtormast','debtormast.debtorcode','=','epispayer.payercode')
-                            ->leftJoin('hisdb.doctor','doctor.doctorcode','=','queue.admdoctor')
-                            ->leftJoin('hisdb.racecode','racecode.Code','=','pat_mast.RaceCode')
-                            ->leftJoin('hisdb.religion','religion.Code','=','pat_mast.Religion')
-                            ->leftJoin('hisdb.occupation','occupation.occupcode','=','pat_mast.OccupCode')
-                            ->leftJoin('hisdb.citizen','citizen.Code','=','pat_mast.Citizencode')
-                            ->leftJoin('hisdb.areacode','areacode.areacode','=','pat_mast.AreaCode')
+                            ->leftJoin('debtor.debtormast', function($join) use ($request){
+                                $join = $join->on('debtormast.debtorcode', '=', 'epispayer.payercode')
+                                                ->where('debtormast.compcode','=',session('compcode'));
+                            })
+                            ->leftJoin('hisdb.doctor', function($join) use ($request){
+                                $join = $join->on('doctor.doctorcode', '=', 'queue.admdoctor')
+                                                ->where('doctor.compcode','=',session('compcode'));
+                            })
+                            ->leftJoin('hisdb.racecode', function($join) use ($request){
+                                $join = $join->on('racecode.Code', '=', 'pat_mast.RaceCode')
+                                                ->where('racecode.compcode','=',session('compcode'));
+                            })
+                            ->leftJoin('hisdb.religion', function($join) use ($request){
+                                $join = $join->on('religion.Code', '=', 'pat_mast.Religion')
+                                                ->where('religion.compcode','=',session('compcode'));
+                            })
+                            ->leftJoin('hisdb.occupation', function($join) use ($request){
+                                $join = $join->on('occupation.occupcode', '=', 'pat_mast.OccupCode')
+                                                ->where('occupation.compcode','=',session('compcode'));
+                            })
+                            ->leftJoin('hisdb.citizen', function($join) use ($request){
+                                $join = $join->on('citizen.Code', '=', 'pat_mast.Citizencode')
+                                                ->where('citizen.compcode','=',session('compcode'));
+                            })
+                            ->leftJoin('hisdb.areacode', function($join) use ($request){
+                                $join = $join->on('areacode.areacode', '=', 'pat_mast.AreaCode')
+                                                ->where('areacode.compcode','=',session('compcode'));
+                            })
+
                             ->where('pat_mast.compcode','=',session('compcode'))
                             ->where('pat_mast.PatStatus','=','1')
                             ->where('episode.episactive','=','1');

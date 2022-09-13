@@ -607,7 +607,6 @@ class DialysisController extends Controller
         $dialysis_b4 = DB::table('hisdb.dialysis')
                         ->select('idno','visit_date')
                         ->where('mrn',$request->mrn)
-                        ->where('episno',$request->episno)
                         ->where('arrivalno','!=',$request->dialysis_episode_idno)
                         ->orderBy('idno','DESC');
 
@@ -656,15 +655,6 @@ class DialysisController extends Controller
 
 
         echo json_encode($responce); 
-    }
-
-    public static function mydump($obj,$line='null'){
-        dd([
-            $line,
-            $obj->toSql(),
-            $obj->getBindings()
-        ]);
-
     }
 
     public function updateorder(Request $request){
@@ -777,7 +767,6 @@ class DialysisController extends Controller
 
         $episode = DB::table('hisdb.episode')
                     ->where('mrn',$mrn)
-                    ->where('episno',$episno)
                     ->first();
 
         $responce->dry_weight = $episode->dry_weight;
@@ -802,7 +791,6 @@ class DialysisController extends Controller
         }else{
             $dialysis = DB::table('hisdb.dialysis')
                                 ->where('mrn',$dialysis_episode->mrn)
-                                ->where('episno',$dialysis_episode->episno)
                                 ->latest('visit_date');
 
             if($dialysis->exists()){
@@ -1094,6 +1082,11 @@ class DialysisController extends Controller
             return response($e->getMessage(), 500);
         }
         
+    }
+
+    public function mydump2($builder){
+        $addSlashes = str_replace('?', "'?'", $builder->toSql());
+        dump(vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings()));
     }
 
 
