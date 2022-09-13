@@ -465,14 +465,14 @@
 							  <input type="time" placeholder="" id="1_tc" name="1_tc">
 							</div>
 						</td>
-						<td><input type="text" name="1_bp" id="1_bp" value="" placeholder="BP"></td>
-						<td><input type="text" name="1_pulse" id="1_pulse" value="" placeholder="PULSE"></td>
-						<td><input type="text" name="1_bfr" id="1_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
-						<td><input type="text" name="1_vp" id="1_vp" value="" placeholder="VENOUS PRESSURE"></td>
-						<td><input type="text" name="1_tmp" id="1_tmp" value="" placeholder="TMP"></td>
-						<td><input type="text" name="1_dh" id="1_dh" value="" placeholder="DELIVERED HEPARIN"></td>
-						<td><input type="text" name="1_uv" id="1_uv" value="" placeholder="UF VOLUME"></td>
-						<td><input type="text" name="1_f" id="1_f" value="" placeholder="FLUIDS"></td>
+						<td>&nbsp;</br><input type="text" name="1_bp" id="1_bp" value="" placeholder="BP"></td>
+						<td>&nbsp;</br><input type="text" name="1_pulse" id="1_pulse" value="" placeholder="PULSE"></td>
+						<td>&nbsp;</br><input type="text" name="1_bfr" id="1_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
+						<td>&nbsp;</br><input type="text" name="1_vp" id="1_vp" value="" placeholder="VENOUS PRESSURE"></td>
+						<td>&nbsp;</br><input type="text" name="1_tmp" id="1_tmp" value="" placeholder="TMP"></td>
+						<td>&nbsp;</br><input type="text" name="1_dh" id="1_dh" value="" placeholder="DELIVERED HEPARIN"></td>
+						<td>&nbsp;</br><input type="text" name="1_uv" id="1_uv" value="" placeholder="UF VOLUME"></td>
+						<td>&nbsp;</br><input type="text" name="1_f" id="1_f" value="" placeholder="FLUIDS"></td>
 					</tr>
 					<tr style="background-color:#f3ffff;">
 						<td class="labeltd">Remarks:</td>
@@ -688,7 +688,7 @@
 					  <option value="DISEQUILIBRIUM SYNDROME">DISEQUILIBRIUM SYNDROME</option>
 					  <option value="SEIZURE">SEIZURE</option>
 					  <option value="TECHNICAL">TECHNICAL</option>
-					  <option value="NA">NA</option>
+					  <option value="N/A">N/A</option>
 					</select>
 			    </div>
 
