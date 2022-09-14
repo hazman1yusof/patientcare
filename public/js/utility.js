@@ -1856,6 +1856,14 @@ function SmoothScrollTo(id_or_Name, timelength,callback,minustop=120){
   }
 }
 
+function directScrollTo(id_or_Name,minustop=120){
+  $('html, body').scrollTop($(id_or_Name).offset().top-minustop);
+
+  // {
+  //     scrollTop: $(id_or_Name).offset().top-minustop
+  // }
+}
+
 function SmoothScrollToTop(){
   $("html, body").stop().animate({
   		scrollTop:0

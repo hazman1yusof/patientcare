@@ -50,7 +50,7 @@
                     <div class="field">
                         <div class="ui radio checkbox checked pastcurr">
                             <input type="radio" name="toggle_type" checked="" tabindex="0" class="hidden" id="current" value="current" checked>
-                            <label for="current">Current</label>
+                            <label for="current">Current Month</label>
                         </div>
                     </div>
                     <div class="field">
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <table id="docnote_date_tbl" class="ui celled table" style="min-width: 200px;">
+                <table id="docnote_date_tbl" class="ui celled table" style="min-width: 200px; max-height: 60vh;">
                     <thead>
                         <tr>
                             <th class="scope">mrn</th>
@@ -175,7 +175,7 @@
                                         <label>Height</label>
                                         <div class="ui right labeled input">
                                           <input type="text" onKeyPress="if(this.value.length==6) return false;" id="height" name="height">
-                                          <div class="ui basic label">CM</div>
+                                          <div class="ui basic label mylabel">CM</div>
                                         </div>
                                     </div>
 

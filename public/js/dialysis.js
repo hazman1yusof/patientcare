@@ -39,9 +39,8 @@ $(document).ready(function () {
 		button_state_dialysis('wait');
 		enableForm('form#daily_form');
 		rdonly('form#daily_form');
-		add_edit_mode();
+		add_edit_mode('add');
 		populate_other_data();
-		$('#complete_dialysis').prop('disabled',false);
 	});
 
 	$('#edit_dialysis').click(function(){
@@ -49,7 +48,8 @@ $(document).ready(function () {
 		enableForm('form#daily_form');
 		enableForm('form#daily_form_completed');
 		rdonly('form#daily_form');
-		add_edit_mode();
+		rdonly('form#daily_form_completed');
+		add_edit_mode('edit');
 		$('#complete_dialysis').prop('disabled',false);
 	});
 
@@ -75,24 +75,32 @@ $(document).ready(function () {
 
 	$('#save_dialysis').click(function(){
 		if($("form#daily_form").valid()) {
+			let curoper = $('#cancel_dialysis').data('oper');
+
 			var param = {
 				_token: $("#_token").val(),
 				action: 'save_dialysis',
 				oper: $('#cancel_dialysis').data('oper'),
-				arrivalno: $('#dialysis_episode_idno').val(),
-				mrn:$("#mrn").val(),
-				episno:$("#episno").val(),
-				visit_date:$("#visit_date").val()
+				arrivalno_post: $('#dialysis_episode_idno').val(),
+				mrn_post:$("#mrn").val(),
+				episno_post:$("#episno").val(),
+				idno_post:$("#idno").val(),
+				visit_date_post:$("#visit_date").val()
 			}
 
-			var values = $("form#daily_form").serializeArray();
+			var daily_form = $("form#daily_form").serializeArray();
 
-			$.post( "./save_dialysis?"+$.param(param),$.param(values), function( data ){
+			$.post( "./save_dialysis?"+$.param(param),$.param(daily_form), function( data ){
 				$('#cancel_dialysis').data('oper','edit');
 				button_state_dialysis('edit');
 				$('#complete_dialysis').prop('disabled',true);
 				disableForm('form#daily_form');
 				disableForm('form#daily_form_completed');
+
+				if(curoper == 'add'){
+					$('#idno').val(data.idno);
+					$('#arrivalno').val(data.arrivalno);
+				}
 			},'json');
 		}
 	});
@@ -102,15 +110,17 @@ $(document).ready(function () {
 			var param = {
 				_token: $("#_token").val(),
 				action: 'save_dialysis_completed',
-				arrivalno: $('#dialysis_episode_idno').val(),
-				mrn:$("#mrn").val(),
-				episno:$("#episno").val(),
-				visit_date:$("#visit_date").val()
+				arrivalno_post: $('#arrivalno').val(),
+				mrn_post:$("#mrn").val(),
+				episno_post:$("#episno").val(),
+				idno_post:$("#idno").val(),
+				visit_date_post:$("#visit_date").val()
 			}
 
-			var values = $("form#daily_form_completed").serializeArray();
+			var daily_form = $("form#daily_form").serializeArray();
+			var daily_form_completed = $("form#daily_form_completed").serializeArray();
 
-			$.post( "./save_dialysis_completed?"+$.param(param),$.param(values), function( data ){
+			$.post( "./save_dialysis_completed?"+$.param(param),$.param(daily_form)+'&'+$.param(daily_form_completed), function( data ){
 				$('#cancel_dialysis').data('oper','edit');
 				button_state_dialysis('edit');
 				$('#complete_dialysis').prop('disabled',true);
@@ -124,6 +134,8 @@ $(document).ready(function () {
 		closealltab("#tab_daily");
 		button_state_dialysis('disableAll');
 		check_pt_mode();
+		load_patmedication_trx($("#mrn").val(),$("#episno").val(),$("#visit_date").val());
+		load_patmedication($("#mrn").val(),$("#episno").val(),$("#visit_date").val());
 	});
 
 	$("#tab_daily").on("hide.bs.collapse", function(){
@@ -240,6 +252,21 @@ $(document).ready(function () {
   		}
   	});
 
+  	$('#edit_permission').click(function(){
+  		// if(!$('#save_dialysis').is("[disabled]")){
+	  		emptyFormdata([],'form#verify_form');
+	  		$('#verify_btn').off();
+	  		$('#verify_btn').on('click',function(){
+				if($("form#verify_form").valid()) {
+	  				verifyuser_permission();
+				}
+	  		});
+	  		$('#password_mdl').modal('show');
+	  		$('body,#password_mdl').addClass('scrolling');
+	  		$('#verify_error').hide();
+  		// }
+  	});
+
 
 });
 
@@ -330,7 +357,6 @@ function populate_other_data(data=last_other_data){
 		$('#dry_weight').val(data.dry_weight);
 		$('#prev_post_weight').val(data.prev_post_weight);
 		$('#initiated_by').val(data.initiated_by);
-		$('#terminate_by').val(data.initiated_by);
 		if(data.last_visit != ''){
 			$('#last_visit').val(data.last_visit);
 		}
@@ -350,6 +376,9 @@ function populatedialysis(data){
 	last_dialysis_data=null;
     emptied_dialysisb4();
 	emptyFormdata([],'form#daily_form');
+	emptyFormdata([],'form#daily_form_completed');
+	$('form#daily_form .ui.dropdown,form#daily_form_completed .ui.dropdown').dropdown('restore defaults');
+	$('#visit_date').val($('#sel_date').val());
 	disableForm('form#daily_form');
 	$('span.metal').text(data.Name+' - MRN:'+data.MRN);
 	$('#mrn').val(data.MRN);
@@ -398,7 +427,13 @@ function button_state_dialysis(state){
 
 var last_dialysis_data=null;
 var last_other_data=null;
+var last_mode=null;
 function check_pt_mode(){
+
+	if($("#mrn").val().trim()=='' || $("#episno").val().trim()=='' || $("#dialysis_episode_idno").val().trim()==''){
+		return false;
+	}
+
 	var param={
         action:'check_pt_mode',
 		mrn:$("#mrn").val(),
@@ -419,24 +454,27 @@ function check_pt_mode(){
 			autoinsert_rowdata_dialysis('form#daily_form',data.data);
 			autoinsert_rowdata_dialysis('form#daily_form_completed',data.data);
 			last_dialysis_data = data.data;
+			last_mode = 'edit';
         }else if(data.mode == 'add'){
 			button_state_dialysis('add');
 			last_other_data = data.other_data;
 			populate_other_data(data.other_data);
+			last_mode = 'add';
         }else if(data.mode == 'disableAll'){
 			button_state_dialysis('disableAll');
 			last_other_data = data.other_data;
 			populate_other_data(data.other_data);
+			last_mode = 'disableAll';
         }
     }).fail(function(data){
         alert('error in checking this patient mode..');
     });
 }
 
-function add_edit_mode(){
-	$('#no_of_use').parent().addClass('disabled');
-	$('#heparin_bolus,#heparin_maintainance,#1_dh,#2_dh,#3_dh,#4_dh,#5_dh').prop('disabled',true);
+function add_edit_mode(mode){
 
+	//part dialyser
+	$('#no_of_use').parent().addClass('disabled');
 	$('#dialyser').on('change',function(){
 		if($(this).val() == 'REUSE'){
 			$('#no_of_use').attr('required','').parent().removeClass('disabled');
@@ -448,6 +486,7 @@ function add_edit_mode(){
 		}
 	});
 
+	//part pre weight 
 	$('#pre_weight').on('blur',function(){
 		let prev_post_weight = $('#prev_post_weight').val();
 		let pre_weight = $('#pre_weight').val();
@@ -464,6 +503,8 @@ function add_edit_mode(){
 		}
 	});
 
+	//part heparin
+	$('#heparin_bolus,#heparin_maintainance,#1_dh,#2_dh,#3_dh,#4_dh,#5_dh').prop('disabled',true);
 	$('#heparin_type').on('change',function(){
 		if($(this).val() == 'FREE'){
 			$('#heparin_bolus,#heparin_maintainance,#1_dh,#2_dh,#3_dh,#4_dh,#5_dh').val('');
@@ -473,12 +514,17 @@ function add_edit_mode(){
 			$('#heparin_bolus,#heparin_maintainance,#1_dh,#2_dh,#3_dh,#4_dh,#5_dh').prop('disabled',false);
 		}
 	});
+	if(mode == 'edit'){
+		$('#heparin_type').change();
+	}
 
-	$('#time_complete').on('blur',function(){
-		if($('#tc_0').val().trim() != ''){
+	//part delivery duration
+	$('#time_complete,#0_tc').on('blur',function(){
+		if($('#0_tc').val().trim() != ''){
+			$('#delivered_duration_errortext').text('');
 			if($('#time_complete').val().trim() != ''){
 
-				var startTime = moment($('#tc_0').val().trim(), 'hh:mm:ss a');
+				var startTime = moment($('#0_tc').val().trim(), 'hh:mm:ss a');
 				var endTime = moment($('#time_complete').val().trim(), 'hh:mm:ss a');
 				if(endTime.diff(startTime) > 0){
 					var duration_hrs = moment.utc(endTime.diff(startTime)).format("H");
@@ -489,14 +535,19 @@ function add_edit_mode(){
 				}
 			}
 		}else{
-			alert('Time commencing is empty, cant calculate duration of hd');
+			$('#delivered_duration_errortext').text('Time commencing is empty, cant calculate duration of hd');
 		}
 	});
+
+	//part terminate by
+	if($('#terminate_by').val().trim() == ''){
+		$('#terminate_by').val($('#user_name').val());
+	}
 }
 
 function off_edit_mode(){
 	$('#dialyser,#heparin_type').off('change');
-	$('#pre_weight').off('blur');
+	$('#pre_weight,#time_complete,#0_tc').off('blur');
 }
 
 function autoinsert_rowdata_dialysis(form,rowData){
@@ -546,18 +597,28 @@ function dropdown_dialysisb4(datab4){
 		if(parseInt(value)>0){
 			button_state_dialysis('disableAll');
 			get_dialysis_daily(value);
+			$("#edit_permission").show();
 		}else{
-			if(last_dialysis_data!=null){
+			$("#edit_permission").hide();
+			if(last_mode == 'edit'){
 				button_state_dialysis('edit');
 				autoinsert_rowdata_dialysis('form#daily_form',last_dialysis_data);
 				autoinsert_rowdata_dialysis('form#daily_form_completed',last_dialysis_data);
 				$('#visit_date').val(last_dialysis_data.visit_date);
-			}else{
-				button_state_dialysis('add');
+			}else if(last_mode == 'add'){
+				check_pt_mode();
 				emptyFormdata([],'form#daily_form');
 				emptyFormdata([],'form#daily_form_completed');
-				$('form#daily_form .ui.dropdown').dropdown('restore defaults');
+				$('form#daily_form .ui.dropdown,form#daily_form_completed .ui.dropdown').dropdown('restore defaults');
 				$('#visit_date').val($('#sel_date').val());
+				populate_other_data();
+			}else{
+				check_pt_mode();
+				emptyFormdata([],'form#daily_form');
+				emptyFormdata([],'form#daily_form_completed');
+				$('form#daily_form .ui.dropdown,form#daily_form_completed .ui.dropdown').dropdown('restore defaults');
+				$('#visit_date').val($('#sel_date').val());
+				populate_other_data();
 			}
 		}
 	});
@@ -594,6 +655,28 @@ function verifyuser(){
   			$('#verify_error').show();
     	}else{
     		$('#verified_by').val($('#username_verify').val());
+  			$('#verify_error').hide();
+  			$('#password_mdl').modal('hide');
+    	}
+    }).fail(function(data){
+        alert('error verify');
+    });
+}
+
+function verifyuser_permission(){
+	var param={
+		action:'verifyuser',
+		username:$('#username_verify').val(),
+		password:$('#password_verify').val(),
+    };
+
+    $.get( "./verifyuser_dialysis?"+$.param(param), function( data ) {
+
+    },'json').done(function(data) {
+    	if(data.success == 'fail'){
+  			$('#verify_error').show();
+    	}else{
+    		button_state_dialysis('edit');
   			$('#verify_error').hide();
   			$('#password_mdl').modal('hide');
     	}

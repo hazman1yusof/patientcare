@@ -423,13 +423,12 @@ $(document).ready(function () {
 			$('#p_error').text('');
 
 			let data = $('#jqGridAddNotesTriage').jqGrid ('getRowData', rowid);
-			console.log(data);
-
 			let editurl = "./nursing/form?"+
 				$.param({
 					episno:$('#episno_ti').val(),
 					mrn:$('#mrn_ti').val(),
 					action: 'addNotesTriage_save',
+					_token: $("#csrf_token").val()
 				});
 			$("#jqGridAddNotesTriage").jqGrid('setGridParam', { editurl: editurl });
 		},

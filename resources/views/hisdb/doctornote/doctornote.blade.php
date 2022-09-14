@@ -54,7 +54,7 @@
                         <div class="panel panel-info">
                             <div class="panel-body">
 
-                                <table id="docnote_date_tbl" class="ui celled table" style="width: 100%;">
+                                <table id="docnote_date_tbl" class="ui celled table" style="width: 100%;min-height: 50vh;">
                                     <thead>
                                         <tr>
                                             <th class="scope">mrn</th>
@@ -93,7 +93,7 @@
                                                 @if (Request::path() != 'casenote')
                                                     checked
                                                 @endif>
-                                                <label class="form-check-label" for="current">Current</label>
+                                                <label class="form-check-label" for="current">Current Month</label>
                                             </label>
                                             <label class="radio-inline" style="margin-left: 0px;">
                                                 <input class="form-check-input" type="radio" name="toggle_type" id="past" value="past"

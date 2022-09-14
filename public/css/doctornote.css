@@ -1,4 +1,9 @@
 
+.mylabel{
+    padding-right: 6px !important;
+    padding-left: 6px !important;
+}
+
 .myslider{
     padding-left: 20px  !important;
     font-size: 0.8em  !important;

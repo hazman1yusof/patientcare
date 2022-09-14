@@ -32,8 +32,7 @@ $(document).ready(function () {
 				edittype:'custom',	editoptions:
 				    {  custom_element:chgcodeCustomEdit,
 				       custom_value:galGridCustomValue 	
-				    },
-			},
+				    },},
 			{ label: 'Qty', name: 'quantity', width: 20 , align: 'right', editable:true, classes: 'input',
 				editrules:{required: true, custom:true, custom_func:cust_rules},
 				formatter: 'number',formatoptions:{decimalPlaces: 0, defaultValue: '1'}},
@@ -50,6 +49,13 @@ $(document).ready(function () {
 				editrules:{required: false},
 				edittype:'custom',	editoptions:
 				    {  custom_element:frequencyCustomEdit,
+				       custom_value:galGridCustomValue 	
+				    },},
+			{ label: 'ins_code', name: 'ins_code', hidden: true },
+			{ label: 'Instruction', name: 'ins_desc', classes: 'wrap', width: 40 , editable:true,
+				editrules:{required: false},
+				edittype:'custom',	editoptions:
+				    {  custom_element:instructionCustomEdit,
 				       custom_value:galGridCustomValue 	
 				    },},
 		],
@@ -104,15 +110,15 @@ $(document).ready(function () {
 					t_isudept:$('#user_dept').val()
 				});
 
-			$("#jqGrid_trans input[name='chgcode'],#jqGrid_trans input[name='dosecode'],#jqGrid_trans input[name='freqcode']").on('keydown',{data:this},onTab);
+			$("#jqGrid_trans input[name='chgcode'],#jqGrid_trans input[name='dosecode'],#jqGrid_trans input[name='freqcode'],#jqGrid_trans input[name='inscode']").on('keydown',{data:this},onTab);
         },
         aftersavefunc: function (rowid, response, options) {
         	curpage_tran = null;
 			refreshGrid("#jqGrid_trans", urlParam_trans);
         }, 
         errorfunc: function(rowid,response){
- 			console.log(response);
-	        // alert(data.responseText);
+ 			// console.log(response);
+	        alert(response.responseText);
         },
         beforeSaveRow: function(options, rowid) {
         	let selrow = selrowData('#jqGrid');
@@ -150,6 +156,7 @@ $(document).ready(function () {
         	$("#jqGrid_trans input[name='chgcode']").val(selrow_tran.chg_code);
         	$("#jqGrid_trans input[name='dosecode']").val(selrow_tran.dos_code);
         	$("#jqGrid_trans input[name='freqcode']").val(selrow_tran.fre_code);
+        	$("#jqGrid_trans input[name='inscode']").val(selrow_tran.ins_code);
 
 			$("#jqGrid_trans input[name='chgcode'],#jqGrid_trans input[name='dosecode'],#jqGrid_trans input[name='freqcode']").on('keydown',{data:this},onTab);
         },
@@ -268,6 +275,11 @@ $(document).ready(function () {
 		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="freqcode" type="text" mytype="freqcode" class="form-control input" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('freqcode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
 	}
 
+	function instructionCustomEdit(val,opt){  	
+		val = (val == "undefined") ? "" : val;
+		return $(`<div class="input-group"><input jqgrid="jqGrid_trans" optid="`+opt.rowId+`" id="`+opt.id+`" name="inscode" type="text" mytype="inscode" class="form-control input" data-validation="required" value="`+val+`" style="z-index: 0" ><a class="input-group-addon btn btn-primary" onclick="pop_item_select('inscode','`+opt.id+`','`+opt.rowId+`',true);"><span class="fa fa-ellipsis-h"></span></a></div><span class="help-block wrap"></span>`);
+	}
+
     function galGridCustomValue (elem, operation, value){
 		if(operation == 'get') {
 			return $(elem).find("input").val();
@@ -282,7 +294,7 @@ $(document).ready(function () {
 
 var addmore_onadd = false;
 var urlParam_trans = {
-	url:'./doctornote/table',
+	url:'./dialysis/table',
 	isudept:'CLINIC',
 	action: 'get_transaction_table',
 	mrn:'',
@@ -356,7 +368,7 @@ function pop_item_select(type,id,rowid,ontab=false){
 	$('body,#mdl_item_selector').addClass('scrolling');
     
     selecter = $('#tbl_item_select').DataTable( {
-            "ajax": "./doctornote/table?action=" + act,
+            "ajax": "./dialysis/table?action=" + act,
             "ordering": false,
             "lengthChange": false,
             "info": true,
@@ -368,16 +380,39 @@ function pop_item_select(type,id,rowid,ontab=false){
             "columns": [
                         {'data': 'code'}, 
                         {'data': 'description'},
+                        {'data': 'doseqty'},
+                        {'data': 'dosecode'},
+                        {'data': 'dosecode_'},
+                        {'data': 'freqcode'},
+                        {'data': 'freqcode_'},
+                        {'data': 'instruction'},
+                        {'data': 'instruction_'},
                        ],
 
             "columnDefs": [ {
-            	"width": "20%",
-                "targets": 0,
-                "data": "code",
-                "render": function ( data, type, row, meta ) {
-                    return data;
-                }
-              } ],
+	            	"width": "20%",
+	                "targets": 0,
+	                "data": "code",
+	                "render": function ( data, type, row, meta ) {
+	                    return data;
+	                }
+	              },{
+	                "targets": 2,visible: false,searchable: false,
+	              },{
+	                "targets": 3,visible: false,searchable: false,
+	              },{
+	                "targets": 4,visible: false,searchable: false,
+	              },{
+	                "targets": 5,visible: false,searchable: false,
+	              },{
+	                "targets": 6,visible: false,searchable: false,
+	              },{
+	                "targets": 7,visible: false,searchable: false,
+	              },{
+	                "targets": 8,visible: false,searchable: false,
+	              }
+
+            ],
 
             "initComplete": function(oSettings, json) {
 		        delay(function(){
@@ -390,18 +425,21 @@ function pop_item_select(type,id,rowid,ontab=false){
     
     // dbl click will return the description in text box and code into hidden input, dialog will be closed automatically
     $('#tbl_item_select tbody').on('click', 'tr', function () {
-        // $('#txt_' + type).removeClass('error myerror').addClass('valid');
-        // setTimeout(function(type){
-        //     $('#txt_' + type).removeClass('error myerror').addClass('valid'); 
-        // }, 1000,type);
-        
-        // $('#hid_' + type).val(item["code"]);
-        // $('#txt_' + type).val(item["description"]);
         item = selecter.row( this ).data();
         $('input[name='+type+'][optid='+rowid+']').val(item["code"]);
-        $('input[name='+type+'][optid='+rowid+']').parent().next().html(item["description"])
-        // $("#jqGrid_trans").jqGrid('setRowData', rowid ,{m_description:item["description"]});
-            
+        $('input[name='+type+'][optid='+rowid+']').parent().next().html(item["description"]);
+        if(type == "chgcode"){
+	        $('input[name=quantity][optid='+rowid+']').val(item["doseqty"]);
+
+	        $('input[name=dosecode][optid='+rowid+']').val(item["dosecode"]);
+	        $('input[name=dosecode][optid='+rowid+']').parent().next().html(item["dosecode_"]);
+
+	        $('input[name=freqcode][optid='+rowid+']').val(item["freqcode"]);
+	        $('input[name=freqcode][optid='+rowid+']').parent().next().html(item["freqcode_"]);
+
+	        $('input[name=inscode][optid='+rowid+']').val(item["instruction"]);
+	        $('input[name=inscode][optid='+rowid+']').parent().next().html(item["instruction_"]);
+        }
         $('#mdl_item_selector').modal('hide');
     });
         
@@ -426,6 +464,9 @@ function get_url(type){
             break;
         case "dosecode":
             act = "get_dosecode";
+            break;
+        case "inscode":
+            act = "get_inscode";
             break;
     }
     return act;

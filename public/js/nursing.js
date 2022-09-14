@@ -154,7 +154,7 @@ $(document).ready(function () {
 		rowNum: 30,
 		pager: "#jqGridPagerAddNotesTriage",
 		onSelectRow:function(rowid, selected){
-			// calc_jq_height_onchange("jqGridAddNotesTriage");
+			calc_jq_height_onchange("jqGridAddNotesTriage");
 		},
 		loadComplete: function(){
 			if(addmore_jqgrid.more == true){$('#jqGridAddNotesTriage_iladd').click();}
@@ -210,6 +210,7 @@ $(document).ready(function () {
 					episno:$('#episno_ti').val(),
 					mrn:$('#mrn_ti').val(),
 					action: 'addNotesTriage_save',
+					_token: $("#_token").val()
 				});
 			$("#jqGridAddNotesTriage").jqGrid('setGridParam', { editurl: editurl });
 		},

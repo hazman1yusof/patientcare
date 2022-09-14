@@ -29,7 +29,8 @@ $(document).ready(function () {
 			{ label: 'DOB', name: 'DOB', hidden: true},
 			{ label: 'HP', name: 'telhp', hidden:true},
 			{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
-			{ label: 'Last<br/>Arrival Date', name: 'arrival_date', width: 7. ,align: 'center', formatter:dateFormatter, unformat:dateUNFormatter},
+			{ label: 'Last<br/>Arrival Date', name: 'arrival_date', width: 7. ,align: 'center', formatter:dateFormatter2, unformat:dateUNFormatter2},
+			{ label: 'dialysis date', name: 'arrival_time',hidden: true},
 			{ label: 'Arrival', name: 'arrival', width: 5. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
 			{ label: 'Complete', name: 'complete', width: 6. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
 			{ label: 'Order', name: 'order', hidden: true},
@@ -198,12 +199,23 @@ function UNformatterstatus_tick(cellvalue, option, cell) {
 
 function stop_scroll_on(){
 	$('div.paneldiv').on('mouseenter',function(){
+		// directScrollTo('#'+$('div.mainpanel[aria-expanded=true]').parent('div.panel.panel-default').attr('id'),40);
+		SmoothScrollTo('#'+$('div.mainpanel[aria-expanded=true]').parent('div.panel.panel-default').attr('id'), 300,undefined,40);
 		$('body').addClass('stop-scrolling');
 	});
 
 	$('div.paneldiv').on('mouseleave',function(){
 		$('body').removeClass('stop-scrolling')
 	});
+}
+
+function dateFormatter2(cellvalue, options, rowObject){
+	if(cellvalue == null) return '';
+	return moment(cellvalue).format("DD/MM/YYYY") + '</br>' + rowObject.arrival_time + `<span data-original=`+cellvalue+`><span>`;
+}
+
+function dateUNFormatter2(cellvalue, options, rowObject){
+	return $(rowObject).children('span').data('original');
 }
 
 

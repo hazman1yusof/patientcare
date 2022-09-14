@@ -79,7 +79,7 @@
             
         },'json').done(function(data) {
             if(!$.isEmptyObject(data)){
-                if(data.data != 'nothing'){
+                if(data.data.empty != 'yes'){
 
                     if(data.data.newcaseP == 1){
                         $('#cmb_epis_case_maturity').val(1);
@@ -111,6 +111,16 @@
                     $("#txt_epis_bill_type").val(data.data.bmst_desc);
                     $("#hid_epis_bill_type").val(data.data.billtype);
 
+                }else{
+                    $('#cmb_epis_case_maturity').val(1);
+                    $('#cmb_epis_pregnancy').val("Non-Pregnant");
+
+                    $("#txt_epis_source").val(data.data.adm_desc);
+                    $("#hid_epis_source").val(data.data.admsrccode);
+                    $("#txt_epis_case").val(data.data.cas_desc);
+                    $("#hid_epis_case").val(data.data.case_code); 
+                    $("#txt_epis_bill_type").val(data.data.bmst_desc);
+                    $("#hid_epis_bill_type").val(data.data.billtype);
                 }
             }
         });
@@ -235,11 +245,10 @@
 
         $('#tbl_epis_debtor').on('dblclick', 'tr', function () {
             let debtor_item = debtor_table.row( this ).data();
-            console.log(debtor_item);
             $('#hid_epis_payer').val(debtor_item["debtorcode"]);
             $('#txt_epis_payer').val(debtor_item["name"]);
-            $('#txt_epis_bill_type').val(debtor_item["billtype_desc"]);
-            $('#hid_epis_bill_type').val(debtor_item["billtype"]);
+            // $('#txt_epis_bill_type').val(debtor_item["billtype_desc"]);
+            // $('#hid_epis_bill_type').val(debtor_item["billtype"]);
             $('#mdl_epis_pay_mode').modal('hide');
         } );
             
