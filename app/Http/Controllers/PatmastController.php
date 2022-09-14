@@ -106,7 +106,7 @@ class PatmastController extends defaultController
                             $table_patm = $table_patm->join('hisdb.epispayer', function($join) use ($request){
                                 $join = $join->on('epispayer.mrn', '=', 'episode.mrn')
                                             ->on('epispayer.episno','=','episode.episno')
-                                            ->where('debtormast.compcode','=',session('compcode'));
+                                            ->where('epispayer.compcode','=',session('compcode'));
 
                             })
                             ->leftJoin('debtor.debtormast', function($join) use ($request){
