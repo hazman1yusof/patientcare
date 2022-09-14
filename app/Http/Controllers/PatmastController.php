@@ -92,7 +92,7 @@ class PatmastController extends defaultController
                                     }
                                 });
                             }else{
-                                $table_patm = $table_patm->join('hisdb.dialysis_episode', function($join) use ($request){
+                                $table_patm = $table_patm->leftJoin('hisdb.dialysis_episode', function($join) use ($request){
                                     $join = $join->on('dialysis_episode.mrn', '=', 'episode.mrn')
                                                 ->on('dialysis_episode.episno','=','episode.episno')
                                                 ->on('dialysis_episode.idno','episode.lastarrivalno');
@@ -713,11 +713,18 @@ class PatmastController extends defaultController
 
 
                     if(!$data->exists()){
-                        $data = 'nothing';
+
+                        $data = new stdClass();
+                        $data->empty = 'yes';
+
                     }else{
+
                         $data = $data->first();
+                        $data->empty = 'no';
+
                         $admdoctor_desc = DB::table('hisdb.doctor')
-                                        ->where('doctorcode',$data->admdoctor);
+                                        ->where('doctorcode',$data->admdoctor)
+                                        ->where('compcode','=',session('compcode'));
 
                         if($admdoctor_desc->exists()){
                             $data->admdoctor_desc = $admdoctor_desc->first()->doctorname;
@@ -726,7 +733,8 @@ class PatmastController extends defaultController
                         }
 
                         $attndoctor_desc = DB::table('hisdb.doctor')
-                                        ->where('doctorcode',$data->attndoctor);
+                                        ->where('doctorcode',$data->attndoctor)
+                                        ->where('compcode','=',session('compcode'));
 
                         if($attndoctor_desc->exists()){
                             $data->attndoctor_desc = $attndoctor_desc->first()->doctorname;
@@ -738,7 +746,25 @@ class PatmastController extends defaultController
 
 
                 }else{
-                    $data = 'nothing';
+                    $data = new stdClass();
+                    $data->empty = 'yes';
+                }
+
+
+
+                if($data->empty == 'yes'){
+
+                    $admissrc = DB::table('hisdb.admissrc')->where('admsrccode','APPT')->where('compcode','=',session('compcode'));
+                    $casetype = DB::table('hisdb.casetype')->where('case_code','HDS')->where('compcode','=',session('compcode'));
+                    $billtymst = DB::table('hisdb.billtymst')->where('billtype','OP')->where('compcode','=',session('compcode'));
+
+                    $data->adm_desc = $admissrc->first()->description;
+                    $data->admsrccode = $admissrc->first()->admsrccode;
+                    $data->cas_desc = $casetype->first()->description;
+                    $data->case_code = $casetype->first()->case_code;
+                    $data->bmst_desc = $billtymst->first()->description;
+                    $data->billtype = $billtymst->first()->billtype;
+
                 }
 
                 break;
@@ -1405,12 +1431,70 @@ class PatmastController extends defaultController
                     ]);
             }
 
-            if(!empty($epis_apptidno)){
-                DB::table('hisdb.pre_episode')
-                        ->where('apptidno','=',$epis_apptidno)
-                        ->update([
-                            'episno' => $epis_no
-                        ]);
+            // if(!empty($epis_apptidno)){
+            //     DB::table('hisdb.pre_episode')
+            //             ->where('apptidno','=',$epis_apptidno)
+            //             ->update([
+            //                 'episno' => $epis_no
+            //             ]);
+            // }
+
+            //check if date,mrn,episno duplicate
+            $dialysis_epis = DB::table('hisdb.dialysis_episode')
+                                ->where('compcode',session('compcode'))
+                                ->where('mrn',$epis_mrn)
+                                ->where('episno',$epis_no)
+                                ->whereDate('arrival_date',Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d'));
+
+            if(!$dialysis_epis->exists()){
+                $dialysis_epis = DB::table('hisdb.dialysis_episode')
+                                ->where('compcode',session('compcode'))
+                                ->where('mrn',$epis_mrn)
+                                ->where('episno',$epis_no);
+
+                if($dialysis_epis->exists()){
+                    $lineno_ = intval($dialysis_epis->max('lineno_')) + 1;
+
+                    $dialysis_epis_latest = DB::table('hisdb.dialysis_episode')
+                                    ->where('compcode',session('compcode'))
+                                    ->where('mrn',$epis_mrn)
+                                    ->where('episno',$epis_no)
+                                    ->where('lineno_',intval($dialysis_epis->max('lineno_')));
+
+                    $mcrstat = $dialysis_epis_latest->first()->mcrstat;
+                    $hdstat = $dialysis_epis_latest->first()->hdstat;
+                    $packagecode = $dialysis_epis_latest->first()->packagecode;
+                }else{
+                    $lineno_ = 1;
+                    $mcrstat = 0;
+                    $hdstat = 0;
+                    $packagecode = 'EPO';
+                }
+
+                $array_insert = [
+                    'compcode'=>session('compcode'),
+                    'mrn'=>$epis_mrn,
+                    'episno'=>$epis_no,
+                    'lineno_'=>$lineno_,
+                    'mcrstat'=>$mcrstat,
+                    'hdstat'=>$hdstat,
+                    'arrival_date'=>Carbon::now("Asia/Kuala_Lumpur"),
+                    'arrival_time'=>Carbon::now("Asia/Kuala_Lumpur"),
+                    'packagecode'=>$packagecode,
+                    'order'=>0,
+                    'complete'=>0
+                ];
+        
+                $latest_idno = DB::table('hisdb.dialysis_episode')->insertGetId($array_insert);
+
+                DB::table('hisdb.episode')
+                    ->where('mrn',$epis_mrn)
+                    ->where('episno',$epis_no)
+                    ->update([
+                        'lastarrivalno' => $latest_idno,
+                        'lastarrivaldate' => Carbon::now("Asia/Kuala_Lumpur"),
+                        'lastarrivaltime' => Carbon::now("Asia/Kuala_Lumpur")
+                    ]);
             }
 
             $queries = DB::getQueryLog();
