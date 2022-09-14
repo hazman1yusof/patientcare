@@ -20,11 +20,11 @@
                         <input type="text" placeholder="Type Search here" name="Stext" style="min-width: 50%">
                         <div class="ui slider checkbox myslider showall" >
                           <input type="checkbox" class="hidden" id="arriv_cb">
-                          <label>Show all patient</label>
+                          <label style="color:black;">Show all patient</label>
                         </div>
                         <div class="ui slider checkbox myslider showcomplete" >
                           <input type="checkbox" class="hidden" id="comple_cb">
-                          <label>Show completed</label>
+                          <label style="color:black;">Show completed</label>
                         </div>
                     </div>
                 </form>

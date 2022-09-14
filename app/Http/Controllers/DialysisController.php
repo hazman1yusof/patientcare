@@ -773,6 +773,10 @@ class DialysisController extends Controller
         $responce->prev_post_weight = 0;
         $responce->last_visit = '';
 
+        if($dialysis_episode_idno == 0){
+            return $responce;
+        }
+
         $dialysis_episode = DB::table('hisdb.dialysis_episode')
                                 ->where('idno',$dialysis_episode_idno)
                                 ->first();
@@ -797,7 +801,7 @@ class DialysisController extends Controller
             }
         }
 
-        return $responce;               
+        return $responce;             
 
     }
 
@@ -849,11 +853,31 @@ class DialysisController extends Controller
         }
 
         $table_chgtrx = $table_chgtrx
-                            ->leftJoin('hisdb.chgmast','chgmast.chgcode','=','trx.chgcode')
-                            ->leftJoin('hisdb.instruction','instruction.inscode','=','trx.instruction')
-                            ->leftJoin('hisdb.freq','freq.freqcode','=','trx.frequency')
-                            ->leftJoin('hisdb.dose','dose.dosecode','=','trx.doscode')
-                            ->leftJoin('hisdb.drugindicator','drugindicator.drugindcode','=','trx.drugindicator')
+                            ->leftJoin('hisdb.chgmast', function($join) use ($request){
+                                $join = $join->on('chgmast.chgcode', '=', 'trx.chgcode')
+                                                ->where('chgmast.compcode','=',session('compcode'));
+                            })
+                            ->leftJoin('hisdb.instruction', function($join) use ($request){
+                                $join = $join->on('instruction.inscode', '=', 'trx.instruction')
+                                                ->where('instruction.compcode','=',session('compcode'));
+                            })
+                            ->leftJoin('hisdb.freq', function($join) use ($request){
+                                $join = $join->on('freq.freqcode', '=', 'trx.frequency')
+                                                ->where('freq.compcode','=',session('compcode'));
+                            })
+                            ->leftJoin('hisdb.dose', function($join) use ($request){
+                                $join = $join->on('dose.dosecode', '=', 'trx.doscode')
+                                                ->where('dose.compcode','=',session('compcode'));
+                            })
+                            ->leftJoin('hisdb.drugindicator', function($join) use ($request){
+                                $join = $join->on('drugindicator.drugindcode', '=', 'trx.drugindicator')
+                                                ->where('drugindicator.compcode','=',session('compcode'));
+                            })
+                            // ->leftJoin('hisdb.chgmast','chgmast.chgcode','=','trx.chgcode')
+                            // ->leftJoin('hisdb.instruction','instruction.inscode','=','trx.instruction')
+                            // ->leftJoin('hisdb.freq','freq.freqcode','=','trx.frequency')
+                            // ->leftJoin('hisdb.dose','dose.dosecode','=','trx.doscode')
+                            // ->leftJoin('hisdb.drugindicator','drugindicator.drugindcode','=','trx.drugindicator')
                             ->orderBy('trx.id','desc');
 
         //////////paginate/////////
@@ -873,9 +897,21 @@ class DialysisController extends Controller
     public function get_chgcode(Request $request){
         $data = DB::table('hisdb.chgmast as cm')
                     ->select('cm.chgcode as code','cm.description as description','cm.doseqty','cm.dosecode','d.dosedesc as dosecode_','cm.freqcode','f.freqdesc as freqcode_','cm.instruction','i.description as instruction_')
-                    ->leftJoin('hisdb.dose as d','d.dosecode','=','cm.dosecode')
-                    ->leftJoin('hisdb.freq as f','f.freqcode','=','cm.freqcode')
-                    ->leftJoin('hisdb.instruction as i','i.inscode','=','cm.instruction')
+                    ->leftJoin('hisdb.dose as d', function($join) use ($request){
+                        $join = $join->on('d.dosecode', '=', 'cm.dosecode')
+                                        ->where('d.compcode','=',session('compcode'));
+                    })
+                    ->leftJoin('hisdb.freq as f', function($join) use ($request){
+                        $join = $join->on('f.freqcode', '=', 'cm.freqcode')
+                                        ->where('f.compcode','=',session('compcode'));
+                    })
+                    ->leftJoin('hisdb.instruction as i', function($join) use ($request){
+                        $join = $join->on('i.inscode', '=', 'cm.instruction')
+                                        ->where('i.compcode','=',session('compcode'));
+                    })
+                    // ->leftJoin('hisdb.dose as d','d.dosecode','=','cm.dosecode')
+                    // ->leftJoin('hisdb.freq as f','f.freqcode','=','cm.freqcode')
+                    // ->leftJoin('hisdb.instruction as i','i.inscode','=','cm.instruction')
                     ->whereIn('cm.chggroup',['HD','EP'])
                     ->where('cm.compcode','=',session('compcode'))
                     ->where('cm.active','=',1);
@@ -884,10 +920,10 @@ class DialysisController extends Controller
         //     $data = $data->where('chggroup','=',session('chggroup'));
         // }
 
-        $data = $data->orderBy('chgcode', 'ASC');
+        $data = $data->orderBy('cm.chgcode', 'ASC');
 
         if(!empty($request->search)){
-            $data = $data->where('description','LIKE','%'.$request->search.'%')->first();
+            $data = $data->where('cm.description','LIKE','%'.$request->search.'%')->first();
         }else{
             $data = $data->get();
         }

@@ -653,22 +653,23 @@ class DoctornoteController extends Controller
 
         $data = [];
 
-        $patepisode = DB::table('hisdb.episode')
-            ->select('mrn','episno','reg_time','adddate','adduser')
+        $dialysis_episode = DB::table('hisdb.dialysis_episode')
+            ->select('mrn','episno','arrival_time','arrival_date')
             ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno)
             ->orderBy('adddate','desc');
 
-        if($patepisode->exists()){
-            $patepisode = $patepisode->get();
+        if($dialysis_episode->exists()){
+            $dialysis_episode = $dialysis_episode->get();
 
-            foreach ($patepisode as $key => $value) {
+            foreach ($dialysis_episode as $key => $value) {
 
                 $pathealth = DB::table('hisdb.pathealth')
                     ->select('mrn','episno','recordtime','adddate','adduser')
                     ->where('compcode','=',session('compcode'))
                     ->where('mrn','=',$value->mrn)
+                    ->where('arrival_date','=',$value->arrival_date)
                     ->where('episno','=',$value->episno)
                     ->orderBy('idno','desc');
 
@@ -716,11 +717,11 @@ class DoctornoteController extends Controller
 
         $data = [];
 
-        $patepisode = DB::table('hisdb.episode')
-            ->select('mrn','episno','reg_time','adddate','adduser')
-            ->where('compcode','=',session('compcode'))
-            ->where('mrn','=',$request->mrn)
-            ->orderBy('adddate','desc');
+        $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                    ->select('mrn','episno','arrival_time','arrival_date')
+                    ->where('compcode','=',session('compcode'))
+                    ->where('mrn','=',$request->mrn)
+                    ->orderBy('adddate','desc');
 
         if($patepisode->exists()){
             $patepisode = $patepisode->get();

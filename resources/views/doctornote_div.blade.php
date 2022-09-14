@@ -50,7 +50,7 @@
                     <div class="field">
                         <div class="ui radio checkbox checked pastcurr">
                             <input type="radio" name="toggle_type" checked="" tabindex="0" class="hidden" id="current" value="current" checked>
-                            <label for="current">Current</label>
+                            <label for="current">Current Month</label>
                         </div>
                     </div>
                     <div class="field">
@@ -60,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <table id="docnote_date_tbl" class="ui celled table" style="min-width: 200px;">
+                <table id="docnote_date_tbl" class="ui celled table" style="min-width: 200px; max-height: 60vh;">
                     <thead>
                         <tr>
                             <th class="scope">mrn</th>
