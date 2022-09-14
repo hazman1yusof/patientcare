@@ -95,20 +95,26 @@
                                                 <label>Temperature</label>
                                                 <div class="ui right labeled input">
                                                   <input type="text" onKeyPress="if(this.value.length==6) return false;" id="vs_temperature" name="vs_temperature">
-                                                  <div class="ui basic label">°C</div>
+                                                  <div class="ui basic label mylabel">°C</div>
                                                 </div>
                                             </div>
 
                                             <div class="field eight wide column" style="margin:0px; padding: 3px 14px 0px 14px;">
                                                 <label>Pulse Rate</label>
-                                                <input type="text" onKeyPress="if(this.value.length==6) return false;" id="vs_pulse" name="vs_pulse">
+                                                <div class="ui right labeled input">
+                                                    <input type="text" onKeyPress="if(this.value.length==6) return false;" id="vs_pulse" name="vs_pulse">
+                                                  <div class="ui basic label mylabel">bpm</div>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="ui grid">
                                             <div class="field eight wide column" style="margin:0px; padding: 3px 14px 0px 14px;">
                                                 <label>Respiration</label>
-                                                <input type="text" onKeyPress="if(this.value.length==6) return false;" id="vs_respiration" name="vs_respiration">
+                                                <div class="ui right labeled input">
+                                                    <input type="text" onKeyPress="if(this.value.length==6) return false;" id="vs_respiration" name="vs_respiration">
+                                                  <div class="ui basic label mylabel">/minute</div>
+                                                </div>
                                             </div>
 
                                             <div class="field eight wide column" style="margin:0px; padding: 3px 14px 0px 14px;">
@@ -116,7 +122,7 @@
                                                 <div class="ui right labeled input">
                                                   <input type="text" onKeyPress="if(this.value.length==6) return false;" id="vs_bp_sys1" name="vs_bp_sys1" style="width:25%">
                                                   <input type="text" onKeyPress="if(this.value.length==6) return false;" id="vs_bp_dias2" name="vs_bp_dias2" style="width:25%">
-                                                  <div class="ui basic label">mmHg</div>
+                                                  <div class="ui basic label mylabel">mmHg</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -126,7 +132,7 @@
                                                 <label>Height</label>
                                                 <div class="ui right labeled input">
                                                   <input type="text" onKeyPress="if(this.value.length==6) return false;" id="height" name="height">
-                                                  <div class="ui basic label">CM</div>
+                                                  <div class="ui basic label mylabel">CM</div>
                                                 </div>
                                             </div>
 
@@ -134,7 +140,7 @@
                                                 <label>Weight</label>
                                                 <div class="ui right labeled input">
                                                   <input type="text" onKeyPress="if(this.value.length==6) return false;" id="weight" name="weight">
-                                                  <div class="ui basic label">KG</div>
+                                                  <div class="ui basic label mylabel">KG</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -144,7 +150,7 @@
                                                 <label>Pain Score</label>
                                                 <div class="ui right labeled input">
                                                   <input type="text" onKeyPress="if(this.value.length==6) return false;" id="vs_painscore" name="vs_painscore">
-                                                  <div class="ui basic label">/10</div>
+                                                  <div class="ui basic label mylabel">/10</div>
                                                 </div>
                                             </div>
                                         </div>

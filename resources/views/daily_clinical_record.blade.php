@@ -57,7 +57,10 @@
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">PREV POST WEIGHT:</div></label>
-						<input type="text" name="prev_post_weight" id="prev_post_weight" class="" value="" rdonly required>
+						<div class="ui right labeled input">
+							<input type="text" name="prev_post_weight" id="prev_post_weight" class="" value="" rdonly required>
+							<div class="ui basic label mylabel">KG</div>
+						</div>
 					</div>
 				</div>
 				<div class="field">
@@ -95,7 +98,10 @@
 				<div class="field">
 					<div class="clinic_code">
 					    <label><div class="label_hd">PRE WEIGHT:</div></label>
-						<input type="text" name="pre_weight" id="pre_weight" class="purplebg" value="" required>
+							<div class="ui right labeled input">
+								<input type="text" name="pre_weight" id="pre_weight" class="purplebg" value="" required>
+								<div class="ui basic label mylabel">KG</div>
+							</div>
 					</div>
 				</div>
 				<div class="field">
@@ -133,6 +139,7 @@
 					  <option value="10">10</option>
 					  <option value="11">11</option>
 					  <option value="12">12</option>
+					  <option value="13">13</option>
 					</select>
 				</div>
 			</div>
@@ -141,25 +148,37 @@
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">DURATION OF HD:</div></label>
-						<input type="text" name="duration_of_hd" id="duration_of_hd" class="" value="" rdonly required>
+						<div class="ui right labeled input">
+							<input type="text" name="duration_of_hd" id="duration_of_hd" class="" value="" rdonly required>
+							<div class="ui basic label mylabel">HRS</div>
+						</div>
 					</div>
 				</div>
 			    <div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">IDWG:</div></label>
-						<input type="text" name="idwg" id="idwg" class="" value="" rdonly >
+						<div class="ui right labeled input">
+							<input type="text" name="idwg" id="idwg" class="" value="" rdonly >
+							<div class="ui basic label mylabel">KG</div>
+						</div>
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
-						<label> HEPARIN BOLUS (IU):</label>
-						<input type="text" name="heparin_bolus" id="heparin_bolus" class="purplebg" value="">
+						<label> HEPARIN BOLUS:</label>
+						<div class="ui right labeled input">
+							<input type="text" name="heparin_bolus" id="heparin_bolus" class="purplebg" value="">
+							<div class="ui basic label mylabel">iu</div>
+						</div>
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
 						<label> CONDUCTIVITY:</label>
-						<input type="text" name="conductivity" id="conductivity" class="purplebg" value="" required>
+						<div class="ui right labeled input">
+							<input type="text" name="conductivity" id="conductivity" class="purplebg" value="" required>
+							<div class="ui basic label mylabel">mS/cm</div>
+						</div>
 					</div>
 				</div>
 				<div class="field"></div>
@@ -169,19 +188,28 @@
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">DRY WEIGHT:</div></label>
-						<input type="text" name="dry_weight" id="dry_weight" class="" value="" rdonly required>
+						<div class="ui right labeled input">
+							<input type="text" name="dry_weight" id="dry_weight" class="" value="" rdonly required>
+							<div class="ui basic label mylabel">KG</div>
+						</div>
 					</div>
 				</div>
 			    <div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">TARGET WEIGHT:</div></label>
-						<input type="text" name="target_weight" id="target_weight" class="" value="" rdonly required>
+						<div class="ui right labeled input">
+							<input type="text" name="target_weight" id="target_weight" class="" value="" rdonly required>
+							<div class="ui basic label mylabel">KG</div>
+						</div>
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
-						<label> HEPARIN MAINTAINANCE (IU):</label>
-						<input type="text" name="heparin_maintainance" id="heparin_maintainance" class="purplebg" value="">
+						<label> HEPARIN MAINTAINANCE:</label>
+						<div class="ui right labeled input">
+							<input type="text" name="heparin_maintainance" id="heparin_maintainance" class="purplebg" value="">
+							<div class="ui basic label mylabel">iu</div>
+						</div>
 					</div>
 				</div>
 				<div class="field">
@@ -235,7 +263,7 @@
 			<div class="two fields">
 			  	<div class="field">
 			  		<div class="clinic_code">
-			  			<label style="">BLOOD PRESSURE:</label>
+			  			<label style="">BLOOD PRESSURE (mmHg):</label>
 			  				<div class="two fields">
 			  					<div class="ui labeled input" style="padding-right:5px">
 			  						<div class="ui label">Systolic</div>
@@ -253,9 +281,18 @@
 					<div class="clinic_code">
 						<label style="">T.P.R:</label>
 		  				<div class="three fields" style="padding-left:5px">
-							<input type="text" placeholder="Temperature" name="prehd_temperature" id="prehd_temperature" value="" style="margin-right: 5px;" class="purplebg" required>
-	  						<input type="text" placeholder="Pulse" name="prehd_pulse" id="prehd_pulse" value="" style="margin-right: 5px;" class="purplebg" required>
-	  						<input type="text" placeholder="Respiratory" name="prehd_respiratory" id="prehd_respiratory" value="" class="purplebg" required>
+								<div class="ui right labeled input">
+									<input type="text" placeholder="Temperature" name="prehd_temperature" id="prehd_temperature" value="" class="purplebg" required>
+									<div class="ui basic label mylabel" style="margin-right: 5px;">°C</div>
+								</div>
+								<div class="ui right labeled input">
+	  							<input type="text" placeholder="Pulse" name="prehd_pulse" id="prehd_pulse" value="" class="purplebg" required>
+									<div class="ui basic label mylabel" style="margin-right: 5px;">bpm</div>
+								</div>
+								<div class="ui right labeled input">
+									<input type="text" placeholder="Respiratory" name="prehd_respiratory" id="prehd_respiratory" value="" class="purplebg" required>
+									<div class="ui basic label mylabel">/minute</div>
+								</div>
 		  				</div>
 					</div>
 				</div>
@@ -405,52 +442,76 @@
 							  <input type="time" placeholder="" id="0_tc" name="0_tc">
 							</div>
 						</th>
-						<th style="text-align: center;">BP
+						<th style="text-align: center;">&nbsp;</br>BP
 							</br>
-							<div class="ui small icon input">
-							  <input type="text" placeholder="" id="0_bp" name="0_bp">
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" placeholder="" id="0_bp" name="0_bp">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</th>
-						<th style="text-align: center;">PULSE
+						<th style="text-align: center;">&nbsp;</br>PULSE
 							</br>
-							<div class="ui small icon input">
-							  <input type="text" placeholder="" id="0_pulse" name="0_pulse">
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" placeholder="" id="0_pulse" name="0_pulse">
+								</div>
+								<div class="ui basic label mylabel">bpm</div>
 							</div>
 						</th>
-						<th style="text-align: center;">BLOOD FLOW RATE
+						<th style="text-align: center;">&nbsp;</br>BLOOD FLOW RATE
 							</br>
-							<div class="ui small icon input">
-							  <input type="text" placeholder="" id="0_bfr" name="0_bfr">
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" placeholder="" id="0_bfr" name="0_bfr">
+								</div>
+								<div class="ui basic label mylabel">mls/minute</div>
 							</div>
 						</th>
-						<th style="text-align: center;">VENOUS PRESSURE
+						<th style="text-align: center;">&nbsp;</br>VENOUS PRESSURE
 							</br>
-							<div class="ui small icon input">
-							  <input type="text" placeholder="" id="0_vp" name="0_vp">
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" placeholder="" id="0_vp" name="0_vp">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</th>
-						<th style="text-align: center;">TMP
+						<th style="text-align: center;">&nbsp;</br>TMP
 							</br>
-							<div class="ui small icon input">
-							  <input type="text" placeholder="" id="0_tmp" name="0_tmp">
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" placeholder="" id="0_tmp" name="0_tmp">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</th>
-						<th style="text-align: center;">DELIVERED HEPARIN
+						<th style="text-align: center;">&nbsp;</br>DELIVERED HEPARIN
 							</br>
-							<div class="ui small icon input">
-							  <input type="text" placeholder="" id="0_dh" name="0_dh">
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" placeholder="" id="0_dh" name="0_dh">
+								</div>
+								<div class="ui basic label mylabel">iu</div>
 							</div>
 						</th>
-						<th style="text-align: center;">UF VOLUME
+						<th style="text-align: center;">&nbsp;</br>UF VOLUME
 							</br>
-							<div class="ui small icon input">
-							  <input type="text" placeholder="" id="0_uv" name="0_uv">
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" placeholder="" id="0_uv" name="0_uv">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</th>
-						<th style="text-align: center;">FLUIDS
+						<th style="text-align: center;">&nbsp;</br>FLUIDS
 							</br>
-							<div class="ui small icon input">
-							  <input type="text" placeholder="" id="0_f" name="0_f">
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" placeholder="" id="0_f" name="0_f">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</th>
 					</tr>
@@ -465,14 +526,70 @@
 							  <input type="time" placeholder="" id="1_tc" name="1_tc">
 							</div>
 						</td>
-						<td>&nbsp;</br><input type="text" name="1_bp" id="1_bp" value="" placeholder="BP"></td>
-						<td>&nbsp;</br><input type="text" name="1_pulse" id="1_pulse" value="" placeholder="PULSE"></td>
-						<td>&nbsp;</br><input type="text" name="1_bfr" id="1_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
-						<td>&nbsp;</br><input type="text" name="1_vp" id="1_vp" value="" placeholder="VENOUS PRESSURE"></td>
-						<td>&nbsp;</br><input type="text" name="1_tmp" id="1_tmp" value="" placeholder="TMP"></td>
-						<td>&nbsp;</br><input type="text" name="1_dh" id="1_dh" value="" placeholder="DELIVERED HEPARIN"></td>
-						<td>&nbsp;</br><input type="text" name="1_uv" id="1_uv" value="" placeholder="UF VOLUME"></td>
-						<td>&nbsp;</br><input type="text" name="1_f" id="1_f" value="" placeholder="FLUIDS"></td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="1_bp" id="1_bp" value="" placeholder="BP">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="1_pulse" id="1_pulse" value="" placeholder="PULSE">
+								</div>
+								<div class="ui basic label mylabel">bpm</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="1_bfr" id="1_bfr" value="" placeholder="BLOOD FLOW RATE">
+								</div>
+								<div class="ui basic label mylabel">mls/minute</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="1_vp" id="1_vp" value="" placeholder="VENOUS PRESSURE">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="1_tmp" id="1_tmp" value="" placeholder="TMP">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="1_dh" id="1_dh" value="" placeholder="DELIVERED HEPARIN">
+								</div>
+								<div class="ui basic label mylabel">iu</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="1_uv" id="1_uv" value="" placeholder="UF VOLUME">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="1_f" id="1_f" value="" placeholder="FLUIDS">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
 					</tr>
 					<tr style="background-color:#f3ffff;">
 						<td class="labeltd">Remarks:</td>
@@ -485,14 +602,70 @@
 							  <input type="time" placeholder="" id="2_tc" name="2_tc">
 							</div>
 						</td>
-						<td><input type="text" name="2_bp" id="2_bp" value="" placeholder="BP"></td>
-						<td><input type="text" name="2_pulse" id="2_pulse" value="" placeholder="PULSE"></td>
-						<td><input type="text" name="2_bfr" id="2_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
-						<td><input type="text" name="2_vp" id="2_vp" value="" placeholder="VENOUS PRESSURE"></td>
-						<td><input type="text" name="2_tmp" id="2_tmp" value="" placeholder="TMP"></td>
-						<td><input type="text" name="2_dh" id="2_dh" value="" placeholder="DELIVERED HEPARIN"></td>
-						<td><input type="text" name="2_uv" id="2_uv" value="" placeholder="UF VOLUME"></td>
-						<td><input type="text" name="2_f" id="2_f" value="" placeholder="FLUIDS"></td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="2_bp" id="2_bp" value="" placeholder="BP">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="2_pulse" id="2_pulse" value="" placeholder="PULSE">
+								</div>
+								<div class="ui basic label mylabel">bpm</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="2_bfr" id="2_bfr" value="" placeholder="BLOOD FLOW RATE">
+								</div>
+								<div class="ui basic label mylabel">mls/minute</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="2_vp" id="2_vp" value="" placeholder="VENOUS PRESSURE">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="2_tmp" id="2_tmp" value="" placeholder="TMP">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="2_dh" id="2_dh" value="" placeholder="DELIVERED HEPARIN">
+								</div>
+								<div class="ui basic label mylabel">iu</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="2_uv" id="2_uv" value="" placeholder="UF VOLUME">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="2_f" id="2_f" value="" placeholder="FLUIDS">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
 					</tr>
 					<tr style="background-color:#e4ffe4;">
 						<td class="labeltd">Remarks:</td>
@@ -506,14 +679,70 @@
 							</div>
 
 						</td>
-						<td><input type="text" name="3_bp" id="3_bp" value="" placeholder="BP"></td>
-						<td><input type="text" name="3_pulse" id="3_pulse" value="" placeholder="PULSE"></td>
-						<td><input type="text" name="3_bfr" id="3_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
-						<td><input type="text" name="3_vp" id="3_vp" value="" placeholder="VENOUS PRESSURE"></td>
-						<td><input type="text" name="3_tmp" id="3_tmp" value="" placeholder="TMP"></td>
-						<td><input type="text" name="3_dh" id="3_dh" value="" placeholder="DELIVERED HEPARIN"></td>
-						<td><input type="text" name="3_uv" id="3_uv" value="" placeholder="UF VOLUME"></td>
-						<td><input type="text" name="3_f" id="3_f" value="" placeholder="FLUIDS"></td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="3_bp" id="3_bp" value="" placeholder="BP">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="3_pulse" id="3_pulse" value="" placeholder="PULSE">
+								</div>
+								<div class="ui basic label mylabel">bpm</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="3_bfr" id="3_bfr" value="" placeholder="BLOOD FLOW RATE">
+								</div>
+								<div class="ui basic label mylabel">mls/minute</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="3_vp" id="3_vp" value="" placeholder="VENOUS PRESSURE">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="3_tmp" id="3_tmp" value="" placeholder="TMP">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="3_dh" id="3_dh" value="" placeholder="DELIVERED HEPARIN">
+								</div>
+								<div class="ui basic label mylabel">iu</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="3_uv" id="3_uv" value="" placeholder="UF VOLUME">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="3_f" id="3_f" value="" placeholder="FLUIDS">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
 					</tr>
 					<tr style="background-color:#ffdcdc;">
 						<td class="labeltd">Remarks:</td>
@@ -526,14 +755,70 @@
 							  <input type="time" placeholder="" id="4_tc" name="4_tc">
 							</div>
 						</td>
-						<td><input type="text" name="4_bp" id="4_bp" value="" placeholder="BP"></td>
-						<td><input type="text" name="4_pulse" id="4_pulse" value="" placeholder="PULSE"></td>
-						<td><input type="text" name="4_bfr" id="4_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
-						<td><input type="text" name="4_vp" id="4_vp" value="" placeholder="VENOUS PRESSURE"></td>
-						<td><input type="text" name="4_tmp" id="4_tmp" value="" placeholder="TMP"></td>
-						<td><input type="text" name="4_dh" id="4_dh" value="" placeholder="DELIVERED HEPARIN"></td>
-						<td><input type="text" name="4_uv" id="4_uv" value="" placeholder="UF VOLUME"></td>
-						<td><input type="text" name="4_f" id="4_f" value="" placeholder="FLUIDS"></td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="4_bp" id="4_bp" value="" placeholder="BP">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="4_pulse" id="4_pulse" value="" placeholder="PULSE">
+								</div>
+								<div class="ui basic label mylabel">bpm</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="4_bfr" id="4_bfr" value="" placeholder="BLOOD FLOW RATE">
+								</div>
+								<div class="ui basic label mylabel">mls/minute</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="4_vp" id="4_vp" value="" placeholder="VENOUS PRESSURE">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="4_tmp" id="4_tmp" value="" placeholder="TMP">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="4_dh" id="4_dh" value="" placeholder="DELIVERED HEPARIN">
+								</div>
+								<div class="ui basic label mylabel">iu</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="4_uv" id="4_uv" value="" placeholder="UF VOLUME">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="4_f" id="4_f" value="" placeholder="FLUIDS">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
 					</tr>
 					<tr style="background-color:#ffffc9;">
 						<td class="labeltd">Remarks:</td>
@@ -546,14 +831,70 @@
 							  <input type="time" placeholder="" id="5_tc" name="5_tc">
 							</div>
 						</td>
-						<td><input type="text" name="5_bp" id="5_bp" value="" placeholder="BP"></td>
-						<td><input type="text" name="5_pulse" id="5_pulse" value="" placeholder="PULSE"></td>
-						<td><input type="text" name="5_bfr" id="5_bfr" value="" placeholder="BLOOD FLOW RATE"></td>
-						<td><input type="text" name="5_vp" id="5_vp" value="" placeholder="VENOUS PRESSURE"></td>
-						<td><input type="text" name="5_tmp" id="5_tmp" value="" placeholder="TMP"></td>
-						<td><input type="text" name="5_dh" id="5_dh" value="" placeholder="DELIVERED HEPARIN"></td>
-						<td><input type="text" name="5_uv" id="5_uv" value="" placeholder="UF VOLUME"></td>
-						<td><input type="text" name="5_f" id="5_f" value="" placeholder="FLUIDS"></td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="5_bp" id="5_bp" value="" placeholder="BP">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="5_pulse" id="5_pulse" value="" placeholder="PULSE">
+								</div>
+								<div class="ui basic label mylabel">bpm</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="5_bfr" id="5_bfr" value="" placeholder="BLOOD FLOW RATE">
+								</div>
+								<div class="ui basic label mylabel">mls/minute</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="5_vp" id="5_vp" value="" placeholder="VENOUS PRESSURE">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="5_tmp" id="5_tmp" value="" placeholder="TMP">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="5_dh" id="5_dh" value="" placeholder="DELIVERED HEPARIN">
+								</div>
+								<div class="ui basic label mylabel">iu</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="5_uv" id="5_uv" value="" placeholder="UF VOLUME">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
+						<td>&nbsp;</br>
+							<div class="ui right labeled input">
+								<div class="ui small icon input">
+									<input type="text" name="5_f" id="5_f" value="" placeholder="FLUIDS">
+								</div>
+								<div class="ui basic label mylabel">mmHg</div>
+							</div>
+						</td>
 					</tr>
 					<tr style="background-color:#fff5e8;">
 						<td class="labeltd">Remarks:</td>
@@ -625,7 +966,7 @@
 			<div class="five fields">
 			  	<div class="six wide field">
 			  		<div class="clinic_code">
-			  			<label style="">BLOOD PRESSURE:</label>
+			  			<label style="">BLOOD PRESSURE (mmHg):</label>
 			  				<div class="two fields">
 			  					<div class="ui labeled input" style="padding-right:5px">
 			  						<div class="ui label">Systolic</div>
@@ -643,9 +984,18 @@
 					<div class="clinic_code">
 						<label style="">T.P.R:</label>
 		  				<div class="three fields" style="padding-left:5px">
-							<input type="text" placeholder="Temperature" name="posthd_temperatue" id="posthd_temperatue" value="" style="margin-right: 5px;" class="purplebg" required>
-	  						<input type="text" placeholder="Pulse" name="posthd_pulse" id="posthd_pulse" value="" style="margin-right: 5px;" class="purplebg" required>
-	  						<input type="text" placeholder="Respiratory" name="posthd_respiratory" id="posthd_respiratory" value="" class="purplebg" required>
+								<div class="ui right labeled input">
+									<input type="text" placeholder="Temperature" name="posthd_temperatue" id="posthd_temperatue" value="" class="purplebg" required>
+									<div class="ui basic label mylabel" style="margin-right: 5px;">°C</div>
+								</div>
+								<div class="ui right labeled input">
+	  							<input type="text" placeholder="Pulse" name="posthd_pulse" id="posthd_pulse" value="" class="purplebg" required>
+									<div class="ui basic label mylabel" style="margin-right: 5px;">bpm</div>
+								</div>
+								<div class="ui right labeled input">
+									<input type="text" placeholder="Respiratory" name="posthd_respiratory" id="posthd_respiratory" value="" class="purplebg" required>
+									<div class="ui basic label mylabel">/minute</div>
+								</div>
 		  				</div>
 					</div>
 				</div>
@@ -662,14 +1012,20 @@
 			    <div class="field">
 					<div class="clinic_code">
 						<label> POST WEIGHT:</label>
-						<input type="text" name="post_weight" id="post_weight" value="" class="purplebg" required>
+						<div class="ui right labeled input">
+							<input type="text" name="post_weight" id="post_weight" value="" class="purplebg" required>
+							<div class="ui basic label mylabel">KG</div>
+						</div>
 					</div>
 			    </div>
 
 			    <div class="field">
 					<div class="clinic_code">
 						<label> WEIGHT LOSS:</label>
-						<input type="text" name="weight_loss" id="weight_loss" value="" class="purplebg" required>
+						<div class="ui right labeled input">
+							<input type="text" name="weight_loss" id="weight_loss" value="" class="purplebg" required>
+							<div class="ui basic label mylabel">KG</div>
+						</div>
 					</div>
 			    </div>
 
