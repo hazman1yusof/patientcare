@@ -218,7 +218,7 @@
                             </div>
                         
                             <div class="ui segments">
-                                <div class="ui secondary segment">Hemodialysis</div>
+                                <div class="ui secondary segment">Haemodialysis</div>
                                 <div class="ui segment">
                                     <div class="field">
                                         <label>Dry Weight</label>
@@ -231,7 +231,10 @@
 
                                     <div class="field">
                                         <label>Duration of HD</label>
-                                        <input type="text" id="duration_hd" name="duration_hd" data-validation="required" data-validation-error-msg-required="Please enter Duration of HD." data-validation-error-msg-container="#error-duration_hd">
+                                        <div class="ui right labeled input">
+                                            <input type="text" id="duration_hd" name="duration_hd" data-validation="required" data-validation-error-msg-required="Please enter Duration of HD." data-validation-error-msg-container="#error-duration_hd">
+                                            <div class="ui basic label">HRS</div>
+                                        </div>
                                         <div class="error-msg" id="error-duration_hd"></div>
                                     </div>
                                 </div>

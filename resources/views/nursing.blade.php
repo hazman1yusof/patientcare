@@ -100,14 +100,20 @@
 
                                             <div class="field eight wide column" style="margin:0px; padding: 3px 14px 0px 14px;">
                                                 <label>Pulse Rate</label>
-                                                <input type="text" onKeyPress="if(this.value.length==6) return false;" id="vs_pulse" name="vs_pulse">
+                                                <div class="ui right labeled input">
+                                                    <input type="text" onKeyPress="if(this.value.length==6) return false;" id="vs_pulse" name="vs_pulse">
+                                                  <div class="ui basic label">bpm</div>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="ui grid">
                                             <div class="field eight wide column" style="margin:0px; padding: 3px 14px 0px 14px;">
                                                 <label>Respiration</label>
-                                                <input type="text" onKeyPress="if(this.value.length==6) return false;" id="vs_respiration" name="vs_respiration">
+                                                <div class="ui right labeled input">
+                                                    <input type="text" onKeyPress="if(this.value.length==6) return false;" id="vs_respiration" name="vs_respiration">
+                                                  <div class="ui basic label">/minute</div>
+                                                </div>
                                             </div>
 
                                             <div class="field eight wide column" style="margin:0px; padding: 3px 14px 0px 14px;">
