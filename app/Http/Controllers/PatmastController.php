@@ -75,16 +75,19 @@ class PatmastController extends defaultController
                             ->join('hisdb.queue', function($join) use ($request){
                                 $join = $join->on('queue.mrn', '=', 'episode.mrn')
                                             ->where('queue.billflag','=',0)
-                                            ->where('queue.deptcode','=',"ALL");
+                                            ->where('queue.deptcode','=',"ALL")
+                                            ->where('queue.compcode','=',session('compcode'));
                             })
                             ->join('hisdb.pat_mast', function($join) use ($request){
-                                $join = $join->on('pat_mast.MRN', '=', 'episode.mrn');
+                                $join = $join->on('pat_mast.MRN', '=', 'episode.mrn')
+                                            ->where('pat_mast.compcode','=',session('compcode'));
                             });
 
                             if($showall == 'false'){
                                 $table_patm = $table_patm->join('hisdb.dialysis_episode', function($join) use ($request,$showcomplete){
                                     $join = $join->on('dialysis_episode.mrn', '=', 'episode.mrn')
                                                 ->on('dialysis_episode.episno', '=', 'episode.episno')
+                                                ->where('dialysis_episode.compcode','=',session('compcode'))
                                                 ->whereDate('dialysis_episode.arrival_date',Carbon::today("Asia/Kuala_Lumpur"));
 
                                     if($showcomplete == 'false'){
@@ -95,13 +98,15 @@ class PatmastController extends defaultController
                                 $table_patm = $table_patm->leftJoin('hisdb.dialysis_episode', function($join) use ($request){
                                     $join = $join->on('dialysis_episode.mrn', '=', 'episode.mrn')
                                                 ->on('dialysis_episode.episno','=','episode.episno')
-                                                ->on('dialysis_episode.idno','episode.lastarrivalno');
+                                                ->on('dialysis_episode.idno','episode.lastarrivalno')
+                                                ->where('dialysis_episode.compcode','=',session('compcode'));
                                 });
                             }
 
                             $table_patm = $table_patm->join('hisdb.epispayer', function($join) use ($request){
                                 $join = $join->on('epispayer.mrn', '=', 'episode.mrn')
-                                            ->on('epispayer.episno','=','episode.episno');
+                                            ->on('epispayer.episno','=','episode.episno')
+                                            ->where('debtormast.compcode','=',session('compcode'));
 
                             })
                             ->leftJoin('debtor.debtormast', function($join) use ($request){
