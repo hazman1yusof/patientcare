@@ -183,7 +183,7 @@
                                         <label>Weight</label>
                                         <div class="ui right labeled input">
                                           <input type="text" onKeyPress="if(this.value.length==6) return false;" id="weight" name="weight">
-                                          <div class="ui basic label">KG</div>
+                                          <div class="ui basic label mylabel">KG</div>
                                         </div>
                                     </div>
 
@@ -192,26 +192,32 @@
                                         <div class="ui right labeled input">
                                           <input type="text" onKeyPress="if(this.value.length==6) return false;" id="bp_sys1" name="bp_sys1" style="width:25%">
                                           <input type="text" onKeyPress="if(this.value.length==6) return false;" id="bp_dias2" name="bp_dias2" style="width:25%">
-                                          <div class="ui basic label">mmHg</div>
+                                          <div class="ui basic label mylabel">mmHg</div>
                                         </div>
                                     </div>
 
                                     <div class="field">
                                         <label>Pulse Rate</label>
-                                        <input type="text" onKeyPress="if(this.value.length==6) return false;" id="pulse" name="pulse">
+                                        <div class="ui right labeled input">
+                                            <input type="text" onKeyPress="if(this.value.length==6) return false;" id="pulse" name="pulse">
+                                            <div class="ui basic label mylabel">bpm</div>
+                                        </div>
                                     </div>
 
                                     <div class="field">
                                         <label>Temperature</label>
                                         <div class="ui right labeled input">
                                           <input type="text" onKeyPress="if(this.value.length==6) return false;" id="temperature" name="temperature">
-                                          <div class="ui basic label">°C</div>
+                                          <div class="ui basic label mylabel">°C</div>
                                         </div>
                                     </div>
 
                                     <div class="field">
                                         <label>Respiration</label>
-                                        <input type="text" onKeyPress="if(this.value.length==6) return false;" id="respiration" name="respiration">
+                                        <div class="ui right labeled input">
+                                            <input type="text" onKeyPress="if(this.value.length==6) return false;" id="respiration" name="respiration">
+                                            <div class="ui basic label mylabel">/minute</div>
+                                        </div>
                                     </div>
 
                                 </div>
@@ -224,7 +230,7 @@
                                         <label>Dry Weight</label>
                                         <div class="ui right labeled input">
                                             <input type="text" onKeyPress="if(this.value.length==6) return false;" id="dry_weight" name="dry_weight" data-validation="required" data-validation-error-msg-required="Please enter Dry Weight." data-validation-error-msg-container="#error-dry_weight">
-                                            <div class="ui basic label">KG</div>
+                                            <div class="ui basic label mylabel">KG</div>
                                         </div>
                                         <div class="error-msg" id="error-dry_weight"></div>
                                     </div>
@@ -233,7 +239,7 @@
                                         <label>Duration of HD</label>
                                         <div class="ui right labeled input">
                                             <input type="text" id="duration_hd" name="duration_hd" data-validation="required" data-validation-error-msg-required="Please enter Duration of HD." data-validation-error-msg-container="#error-duration_hd">
-                                            <div class="ui basic label">HRS</div>
+                                            <div class="ui basic label mylabel">HRS</div>
                                         </div>
                                         <div class="error-msg" id="error-duration_hd"></div>
                                     </div>
