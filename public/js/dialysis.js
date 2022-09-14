@@ -325,10 +325,11 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#prehd_tmp_w').children('td').eq(i+1).text( e.prehd_temperature+' / '+e.prehd_pulse+' / '+e.prehd_respiratory);
 			$('table#dia_weekly tr#prehd_bp_w').children('td').eq(i+1).text(e.prehd_systolic+' / '+e.prehd_diastolic);
 			$('table#dia_weekly tr#pulse_pre_w').children('td').eq(i+1).text(e.prehd_pulse);
-			$('table#dia_weekly tr#prehd_bfr_w').children('td').eq(i+1).text(e.prehd_bfr);
+			$('table#dia_weekly tr#prehd_bfr_w').children('td').eq(i+1).text(e['0_bfr']);
 			$('table#dia_weekly tr#prehd_dfr_w').children('td').eq(i+1).text(e.prehd_dfr);
-			$('table#dia_weekly tr#prehd_vp_w').children('td').eq(i+1).text(e.prehd_vp);
-			$('table#dia_weekly tr#rec_2_w').children('td').eq(i+1).text(e.rec_2);
+			$('table#dia_weekly tr#prehd_vp_w').children('td').eq(i+1).text(e['0_vp']);
+
+			$('table#dia_weekly tr#1_tc_w').children('td').eq(i+1).text(e['1_tc']);
 			$('table#dia_weekly tr#1_bp_w').children('td').eq(i+1).text(e['1_bp']);
 			$('table#dia_weekly tr#1_pulse_w').children('td').eq(i+1).text(e['1_pulse']);
 			$('table#dia_weekly tr#1_dh_w').children('td').eq(i+1).text(e['1_dh']);
@@ -337,7 +338,48 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#1_tmp_w').children('td').eq(i+1).text(e['1_tmp']);
 			$('table#dia_weekly tr#1_uv_w').children('td').eq(i+1).text(e['1_uv']);
 			$('table#dia_weekly tr#1_f_w').children('td').eq(i+1).text(e['1_f']);
-			$('table#dia_weekly tr#posthd_bp_w').children('td').eq(i+1).text(e.posthd_bp);
+
+			$('table#dia_weekly tr#2_tc_w').children('td').eq(i+1).text(e['2_tc']);
+			$('table#dia_weekly tr#2_bp_w').children('td').eq(i+1).text(e['2_bp']);
+			$('table#dia_weekly tr#2_pulse_w').children('td').eq(i+1).text(e['2_pulse']);
+			$('table#dia_weekly tr#2_dh_w').children('td').eq(i+1).text(e['2_dh']);
+			$('table#dia_weekly tr#2_bfr_w').children('td').eq(i+1).text(e['2_bfr']);
+			$('table#dia_weekly tr#2_vp_w').children('td').eq(i+1).text(e['2_vp']);
+			$('table#dia_weekly tr#2_tmp_w').children('td').eq(i+1).text(e['2_tmp']);
+			$('table#dia_weekly tr#2_uv_w').children('td').eq(i+1).text(e['2_uv']);
+			$('table#dia_weekly tr#2_f_w').children('td').eq(i+1).text(e['2_f']);
+
+			$('table#dia_weekly tr#3_tc_w').children('td').eq(i+1).text(e['3_tc']);
+			$('table#dia_weekly tr#3_bp_w').children('td').eq(i+1).text(e['3_bp']);
+			$('table#dia_weekly tr#3_pulse_w').children('td').eq(i+1).text(e['3_pulse']);
+			$('table#dia_weekly tr#3_dh_w').children('td').eq(i+1).text(e['3_dh']);
+			$('table#dia_weekly tr#3_bfr_w').children('td').eq(i+1).text(e['3_bfr']);
+			$('table#dia_weekly tr#3_vp_w').children('td').eq(i+1).text(e['3_vp']);
+			$('table#dia_weekly tr#3_tmp_w').children('td').eq(i+1).text(e['3_tmp']);
+			$('table#dia_weekly tr#3_uv_w').children('td').eq(i+1).text(e['3_uv']);
+			$('table#dia_weekly tr#3_f_w').children('td').eq(i+1).text(e['3_f']);
+
+			$('table#dia_weekly tr#4_tc_w').children('td').eq(i+1).text(e['4_tc']);
+			$('table#dia_weekly tr#4bp_w').children('td').eq(i+1).text(e['4bp']);
+			$('table#dia_weekly tr#4pulse_w').children('td').eq(i+1).text(e['4pulse']);
+			$('table#dia_weekly tr#4dh_w').children('td').eq(i+1).text(e['4dh']);
+			$('table#dia_weekly tr#4bfr_w').children('td').eq(i+1).text(e['4bfr']);
+			$('table#dia_weekly tr#4vp_w').children('td').eq(i+1).text(e['4vp']);
+			$('table#dia_weekly tr#4tmp_w').children('td').eq(i+1).text(e['4tmp']);
+			$('table#dia_weekly tr#4uv_w').children('td').eq(i+1).text(e['4uv']);
+			$('table#dia_weekly tr#4f_w').children('td').eq(i+1).text(e['4f']);
+
+			$('table#dia_weekly tr#5_tc_w').children('td').eq(i+1).text(e['5_tc']);
+			$('table#dia_weekly tr#5_bp_w').children('td').eq(i+1).text(e['5_bp']);
+			$('table#dia_weekly tr#5_pulse_w').children('td').eq(i+1).text(e['5_pulse']);
+			$('table#dia_weekly tr#5_dh_w').children('td').eq(i+1).text(e['5_dh']);
+			$('table#dia_weekly tr#5_bfr_w').children('td').eq(i+1).text(e['5_bfr']);
+			$('table#dia_weekly tr#5_vp_w').children('td').eq(i+1).text(e['5_vp']);
+			$('table#dia_weekly tr#5_tmp_w').children('td').eq(i+1).text(e['5_tmp']);
+			$('table#dia_weekly tr#5_uv_w').children('td').eq(i+1).text(e['5_uv']);
+			$('table#dia_weekly tr#5_f_w').children('td').eq(i+1).text(e['5_f']);
+
+			$('table#dia_weekly tr#posthd_bp_w').children('td').eq(i+1).text(e.posthd_systolic +' / '+ e.posthd_diastolic);
 			$('table#dia_weekly tr#posthd_temperatue_w').children('td').eq(i+1).text(e.posthd_temperatue);
 			$('table#dia_weekly tr#posthd_pulse_w').children('td').eq(i+1).text(e.posthd_pulse);
 			$('table#dia_weekly tr#posthd_respiratory_w').children('td').eq(i+1).text(e.posthd_respiratory);

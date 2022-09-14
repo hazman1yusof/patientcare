@@ -17,6 +17,7 @@
         <form id="formTriageInfo" class="ui form">
             <input id="mrn_ti" name="mrn_ti" type="hidden">
             <input id="episno_ti" name="episno_ti" type="hidden">
+            <input id="arrival_date_ti" name="arrival_date_ti" type="hidden">
 
             <div class="ui grid">
 

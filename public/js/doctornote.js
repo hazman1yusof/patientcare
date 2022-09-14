@@ -606,6 +606,7 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
     doctornote_docnote.recordtime = data.recordtime;
     doctornote_docnote.mrn = data.mrn;
     doctornote_docnote.episno = data.episno;
+    doctornote_docnote.arrival_date = data.date;
 
     
 	urlParam_AddNotes.filterVal[0] = data.mrn;
@@ -613,6 +614,7 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
 
     $('#mrn_doctorNote_past').val(data.mrn);
     $('#episno_doctorNote_past').val(data.episno);
+    $('#arrival_date').val(data.date);
 
     $.get( "./doctornote/table?"+$.param(doctornote_docnote), function( data ) {
 			

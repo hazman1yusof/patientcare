@@ -1,4 +1,35 @@
 
+.color_1sthour_b{
+    background-color:#a4dbdb;
+}
+.color_1sthour{
+    background-color:#f3ffff;
+}
+.color_2ndthour_b{
+    background-color:#acddac;
+}
+.color_2ndthour{
+    background-color:#e4ffe4;
+}
+.color_3rdhour_b{
+    background-color:#e5a8a8;
+}
+.color_3rdhour{
+    background-color:#ffe7e7;
+}
+.color_4thhour_b{
+    background-color:#dddd5c;
+}
+.color_4thhour{
+    background-color:#ffffc9;
+}
+.color_5thhour_b{
+    background-color:#e9c08b;
+}
+.color_5thhour{
+    background-color:#fff5e8;
+}
+
 .stop-scrolling {
     overflow: hidden;
 }

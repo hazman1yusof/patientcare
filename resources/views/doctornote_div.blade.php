@@ -78,6 +78,7 @@
         <div class="ui segment">
             <div class="ui grid">
                 <form id="formDoctorNote" class="right floated ui form thirteen wide column">
+                    <input id="arrival_date" name="arrival_date" type="hidden">
                     <input id="mrn_doctorNote" name="mrn_doctorNote" type="hidden">
                     <input id="episno_doctorNote" name="episno_doctorNote" type="hidden">
                     <input id="recorddate" name="recorddate" type="hidden">
