@@ -515,8 +515,6 @@ class DialysisController extends Controller
         
                 $latest_idno = $table->insertGetId($array_insert);
 
-                dd($latest_idno);
-
                 DB::table('hisdb.episode')
                         ->where('mrn',$request->mrn)
                         ->where('episno',$request->episno)
