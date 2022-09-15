@@ -565,6 +565,7 @@ function deleting(){
 
 	$.post( "./dialysis_transaction_save",param, function( data ){
 		curpage_tran = null;
+		addmore_onadd = false;
 		refreshGrid("#jqGrid_trans", urlParam_trans);
 	},'json');
 }

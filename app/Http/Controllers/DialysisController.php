@@ -816,6 +816,7 @@ class DialysisController extends Controller
         $responce = new stdClass();
 
         $verify = DB::table('sysdb.users')
+                    ->where('compcode',session('compcode'))
                     ->where('username',$request->username)
                     ->where('password',$request->password)
                     ->where('groupid','ADMIN');
