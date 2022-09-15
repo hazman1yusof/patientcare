@@ -119,7 +119,7 @@
 	</tr>
 
 	<tr id="1_tc_w" class="color_1sthour_b">
-		<td width="200" align="left" ><b>1<sup>st Hour</sup></b></td>
+		<td width="200" align="left" ><b>1<sup>st</sup> Hour</b></td>
 		<td width="80" align="center" >&nbsp;</td>
 		<td width="80" align="center" >&nbsp;</td>
 		<td width="80" align="center" >&nbsp;</td>
@@ -174,7 +174,7 @@
 	</tr>
 
 	<tr id="2_tc_w" class="color_2ndthour_b">
-		<td width="200" align="left" ><b>2<sup>nd Hour</sup></b></td>
+		<td width="200" align="left" ><b>2<sup>nd</sup> Hour</b></td>
 		<td width="80" align="center" >&nbsp;</td>
 		<td width="80" align="center" >&nbsp;</td>
 		<td width="80" align="center" >&nbsp;</td>
@@ -229,7 +229,7 @@
 	</tr>
 
 	<tr id="3_tc_w" class="color_3rdhour_b">
-		<td width="200" align="left" ><b>3<sup>rd Hour</sup></b></td>
+		<td width="200" align="left" ><b>3<sup>rd</sup> Hour</b></td>
 		<td width="80" align="center" >&nbsp;</td>
 		<td width="80" align="center" >&nbsp;</td>
 		<td width="80" align="center" >&nbsp;</td>
@@ -284,7 +284,7 @@
 	</tr>
 
 	<tr id="4_tc_w" class="color_4thhour_b">
-		<td width="200" align="left" ><b>4<sup>th Hour</sup></b></td>
+		<td width="200" align="left" ><b>4<sup>th</sup> Hour</b></td>
 		<td width="80" align="center" >&nbsp;</td>
 		<td width="80" align="center" >&nbsp;</td>
 		<td width="80" align="center" >&nbsp;</td>
@@ -339,7 +339,7 @@
 	</tr>
 
 	<tr id="5_tc_w" class="color_5thhour_b">
-		<td width="200" align="left" ><b>5<sup>th Hour</sup></b></td>
+		<td width="200" align="left" ><b>5<sup>th</sup> Hour</b></td>
 		<td width="80" align="center" >&nbsp;</td>
 		<td width="80" align="center" >&nbsp;</td>
 		<td width="80" align="center" >&nbsp;</td>

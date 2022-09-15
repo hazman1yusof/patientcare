@@ -273,7 +273,7 @@ $(document).ready(function () {
 function populate_data(type,data){
 	if(type == 'monthly'){
 		data.forEach(function(e,i){
-			$('table#dia_monthly tr#visit_date_m').children('td').eq(i).text(e.start_date);
+			$('table#dia_monthly tr#visit_date_m').children('td').eq(i).text(e.visit_date);
 			$('table#dia_monthly tr#start_time_m').children('td').eq(i+1).text(e.start_time);
 			$('table#dia_monthly tr#dialyser_m').children('td').eq(i+1).text(e.dialyser);
 			$('table#dia_monthly tr#no_of_use_m').children('td').eq(i+1).text(e.no_of_use);
@@ -286,10 +286,11 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#prehd_tmp_m').children('td').eq(i+1).text( e.prehd_temperature+' / '+e.prehd_pulse+' / '+e.prehd_respiratory);
 			$('table#dia_monthly tr#prehd_bp_m').children('td').eq(i+1).text(e.prehd_systolic+' / '+e.prehd_diastolic);
 			$('table#dia_monthly tr#pulse_pre_m').children('td').eq(i+1).text(e.prehd_pulse);
-			$('table#dia_monthly tr#prehd_bfr_m').children('td').eq(i+1).text(e.prehd_bfr);
+			$('table#dia_monthly tr#prehd_bfr_m').children('td').eq(i+1).text(e['0_bfr']);
 			$('table#dia_monthly tr#prehd_dfr_m').children('td').eq(i+1).text(e.prehd_dfr);
-			$('table#dia_monthly tr#prehd_vp_m').children('td').eq(i+1).text(e.prehd_vp);
-			$('table#dia_monthly tr#rec_2_m').children('td').eq(i+1).text(e.rec_2);
+			$('table#dia_monthly tr#prehd_vp_m').children('td').eq(i+1).text(e['0_vp']);
+
+			$('table#dia_monthly tr#1_tc_m').children('td').eq(i+1).text(e['1_tc']);
 			$('table#dia_monthly tr#1_bp_m').children('td').eq(i+1).text(e['1_bp']);
 			$('table#dia_monthly tr#1_pulse_m').children('td').eq(i+1).text(e['1_pulse']);
 			$('table#dia_monthly tr#1_dh_m').children('td').eq(i+1).text(e['1_dh']);
@@ -298,6 +299,47 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#1_tmp_m').children('td').eq(i+1).text(e['1_tmp']);
 			$('table#dia_monthly tr#1_uv_m').children('td').eq(i+1).text(e['1_uv']);
 			$('table#dia_monthly tr#1_f_m').children('td').eq(i+1).text(e['1_f']);
+
+			$('table#dia_monthly tr#2_tc_m').children('td').eq(i+1).text(e['2_tc']);
+			$('table#dia_monthly tr#2_bp_m').children('td').eq(i+1).text(e['2_bp']);
+			$('table#dia_monthly tr#2_pulse_m').children('td').eq(i+1).text(e['2_pulse']);
+			$('table#dia_monthly tr#2_dh_m').children('td').eq(i+1).text(e['2_dh']);
+			$('table#dia_monthly tr#2_bfr_m').children('td').eq(i+1).text(e['2_bfr']);
+			$('table#dia_monthly tr#2_vp_m').children('td').eq(i+1).text(e['2_vp']);
+			$('table#dia_monthly tr#2_tmp_m').children('td').eq(i+1).text(e['2_tmp']);
+			$('table#dia_monthly tr#2_uv_m').children('td').eq(i+1).text(e['2_uv']);
+			$('table#dia_monthly tr#2_f_m').children('td').eq(i+1).text(e['2_f']);			
+
+			$('table#dia_monthly tr#3_tc_m').children('td').eq(i+1).text(e['3_tc']);
+			$('table#dia_monthly tr#3_bp_m').children('td').eq(i+1).text(e['3_bp']);
+			$('table#dia_monthly tr#3_pulse_m').children('td').eq(i+1).text(e['3_pulse']);
+			$('table#dia_monthly tr#3_dh_m').children('td').eq(i+1).text(e['3_dh']);
+			$('table#dia_monthly tr#3_bfr_m').children('td').eq(i+1).text(e['3_bfr']);
+			$('table#dia_monthly tr#3_vp_m').children('td').eq(i+1).text(e['3_vp']);
+			$('table#dia_monthly tr#3_tmp_m').children('td').eq(i+1).text(e['3_tmp']);
+			$('table#dia_monthly tr#3_uv_m').children('td').eq(i+1).text(e['3_uv']);
+			$('table#dia_monthly tr#3_f_m').children('td').eq(i+1).text(e['3_f']);			
+
+			$('table#dia_monthly tr#4_tc_m').children('td').eq(i+1).text(e['4_tc']);
+			$('table#dia_monthly tr#4_bp_m').children('td').eq(i+1).text(e['4_bp']);
+			$('table#dia_monthly tr#4_pulse_m').children('td').eq(i+1).text(e['4_pulse']);
+			$('table#dia_monthly tr#4_dh_m').children('td').eq(i+1).text(e['4_dh']);
+			$('table#dia_monthly tr#4_bfr_m').children('td').eq(i+1).text(e['4_bfr']);
+			$('table#dia_monthly tr#4_vp_m').children('td').eq(i+1).text(e['4_vp']);
+			$('table#dia_monthly tr#4_tmp_m').children('td').eq(i+1).text(e['4_tmp']);
+			$('table#dia_monthly tr#4_uv_m').children('td').eq(i+1).text(e['4_uv']);
+			$('table#dia_monthly tr#4_f_m').children('td').eq(i+1).text(e['4_f']);			
+
+			$('table#dia_monthly tr#5_tc_m').children('td').eq(i+1).text(e['5_tc']);
+			$('table#dia_monthly tr#5_bp_m').children('td').eq(i+1).text(e['5_bp']);
+			$('table#dia_monthly tr#5_pulse_m').children('td').eq(i+1).text(e['5_pulse']);
+			$('table#dia_monthly tr#5_dh_m').children('td').eq(i+1).text(e['5_dh']);
+			$('table#dia_monthly tr#5_bfr_m').children('td').eq(i+1).text(e['5_bfr']);
+			$('table#dia_monthly tr#5_vp_m').children('td').eq(i+1).text(e['5_vp']);
+			$('table#dia_monthly tr#5_tmp_m').children('td').eq(i+1).text(e['5_tmp']);
+			$('table#dia_monthly tr#5_uv_m').children('td').eq(i+1).text(e['5_uv']);
+			$('table#dia_monthly tr#5_f_m').children('td').eq(i+1).text(e['5_f']);
+
 			$('table#dia_monthly tr#posthd_bp_m').children('td').eq(i+1).text(e.posthd_bp);
 			$('table#dia_monthly tr#posthd_temperatue_m').children('td').eq(i+1).text(e.posthd_temperatue);
 			$('table#dia_monthly tr#posthd_pulse_m').children('td').eq(i+1).text(e.posthd_pulse);
@@ -312,7 +354,7 @@ function populate_data(type,data){
 
 	}else if(type == 'weekly'){
 		data.forEach(function(e,i){
-			$('table#dia_weekly tr#visit_date_w').children('td').eq(i).text(e.start_date);
+			$('table#dia_weekly tr#visit_date_w').children('td').eq(i).text(e.visit_date);
 			$('table#dia_weekly tr#start_time_w').children('td').eq(i+1).text(e.start_time);
 			$('table#dia_weekly tr#dialyser_w').children('td').eq(i+1).text(e.dialyser);
 			$('table#dia_weekly tr#no_of_use_w').children('td').eq(i+1).text(e.no_of_use);

@@ -749,7 +749,7 @@ class DoctornoteController extends Controller
         if($dialysis_episode->exists()){
             $dialysis_episode = $dialysis_episode->get();
 
-            foreach ($patepisode as $key => $value) {
+            foreach ($dialysis_episode as $key => $value) {
                 $pathealth = DB::table('hisdb.pathealth')
                     ->select('mrn','episno','recordtime','adddate','adduser')
                     ->where('compcode','=',session('compcode'))

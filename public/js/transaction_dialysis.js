@@ -25,8 +25,27 @@ $(document).ready(function () {
 			{ label: 'id', name: 'id', hidden: true,key:true },
 			{ label: 'chg_code', name: 'chg_code', hidden: true },
 			{ label: 'isudept', name: 'isudept', hidden: true },
-			{ label: 'Date', name: 'trxdate', width: 20 },
-			{ label: 'Time', name: 'trxtime', width: 20  },
+			{ label: 'Date', name: 'trxdate', width: 30 , editable:true,
+				formatter: "date", formatoptions: {srcformat: 'Y-m-d', newformat:'d-m-Y'},
+				editoptions: {
+                    dataInit: function (element) {
+                        $(element).datepicker({
+                            id: 'trxdate_datePicker',
+                            dateFormat: 'dd-mm-yy',
+                            showOn: 'focus',
+                            changeMonth: true,
+		  					changeYear: true,
+							onSelect : function(){
+								$(this).focus();
+							}
+                        });
+                    }
+                }
+			},
+			{ label: 'Time', name: 'trxtime', width: 30 , editable:true,edittype:'custom',editoptions:
+				    {  custom_element:trxtimeCustomEdit,
+				       custom_value:galGridCustomValue 	
+				    },},
 			{ label: 'Item', name: 'chg_desc', width: 40, editable:true, classes: 'wrap',
 				editrules:{required: true, custom:true, custom_func:cust_rules},
 				edittype:'custom',	editoptions:
@@ -36,7 +55,7 @@ $(document).ready(function () {
 			{ label: 'Qty', name: 'quantity', width: 20 , align: 'right', editable:true, classes: 'input',
 				editrules:{required: true, custom:true, custom_func:cust_rules},
 				formatter: 'number',formatoptions:{decimalPlaces: 0, defaultValue: '1'}},
-			{ label: 'Remarks', name: 'remarks', width: 80, classes: 'wrap', editable:true,edittype:'textarea',editoptions: { rows: 4 }},
+			{ label: 'Remarks', name: 'remarks', width: 65, classes: 'wrap', editable:true,edittype:'textarea',editoptions: { rows: 4 }},
 			{ label: 'dos_code', name: 'dos_code', hidden: true },
 			{ label: 'Dosage', name: 'dos_desc', classes: 'wrap', width: 40 , editable:true,
 				editrules:{required: false},
@@ -70,7 +89,14 @@ $(document).ready(function () {
 		sortname: 'id',
 		sortorder: "desc",
 		onSelectRow:function(rowid, selected){
+        	$('#jqGrid_trans_ildelete').addClass('ui-disabled');
 			calc_jq_height_onchange("jqGrid_trans");
+			if(!$('#jqGrid_trans_iladd').hasClass('ui-disabled')){
+				var trxdate = selrowData('#jqGrid_trans').trxdate;
+				if(moment().isSame(moment(trxdate, "DD-MM-YYYY"), 'day')){
+        			$('#jqGrid_trans_ildelete').removeClass('ui-disabled');
+				}
+			}
 		},
 		ondblClickRow: function (rowid, iRow, iCol, e) {
 
@@ -100,8 +126,12 @@ $(document).ready(function () {
 		    "episno": selrowData('#jqGrid').Episno,
         },
         oneditfunc: function (rowid) {
+        	calc_jq_height_onchange("jqGrid_trans");
         	addmore_onadd = true;
-        	let selrow = selrowData('#jqGrid');
+        	$("#jqGrid_trans input[name='chgcode']").focus();
+        	$("#jqGrid_trans input[name='trxdate']").val(moment().format("YYYY-MM-DD"));
+        	$("#jqGrid_trans input[name='trxtime']").val(moment().format("HH:MM"));
+
         	$('#jqGrid_trans_ildelete').addClass('ui-disabled');
 
 			$("#jqGrid_trans").jqGrid("setRowData", rowid, {
@@ -137,6 +167,7 @@ $(document).ready(function () {
         },
         afterrestorefunc : function( response ) {
 			$("#jqGrid_trans").setSelection($("#jqGrid_trans").getDataIDs()[0]);
+        	// $('#jqGrid_trans_ildelete').removeClass('ui-disabled');
 	    }
     };
 
@@ -196,51 +227,51 @@ $(document).ready(function () {
 			addRowParams: myEditOptions_add
 		},
 		editParams: myEditOptions_edit
-	});
-	// .jqGrid('navButtonAdd', "#jqGrid_transPager", {	
-	// 	id: "jqGrid_trans_ildelete",	
-	// 	caption: "", cursor: "pointer", position: "last",	
-	// 	buttonicon: "glyphicon glyphicon-trash",	
-	// 	title: "Delete Selected Row",	
-	// 	onClickButton: function () {	
-	// 		var rowid = $("#jqGrid_trans").jqGrid('getGridParam', 'selrow');	
-	// 		if (!rowid) {	
-	// 			alert('Please select row');	
-	// 		} else {
-	//         	let selrow = selrowData('#jqGrid');
-	//         	let selrow_trans = selrowData('#jqGrid_trans');
-	// 			$.confirm({
-	// 			    title: 'Confirm',
-	// 			    content: 'Are you sure you want to delete this row?',
-	// 			    buttons: {
-	// 			        confirm:{
-	// 			        	btnClass: 'btn-blue',
-	// 			        	action: function () {
-	// 				        	var param = {
-	// 								_token: $("#_token").val(),
-	// 								mrn: selrow.MRN,
-	// 					    		episno: selrow.Episno,
-	// 					    		id: selrow_trans.id,
-	// 					    		oper: 'del'
-	// 							}
+	})
+	.jqGrid('navButtonAdd', "#jqGrid_transPager", {	
+		id: "jqGrid_trans_ildelete",	
+		caption: "", cursor: "pointer", position: "last",	
+		buttonicon: "glyphicon glyphicon-trash error",	
+		title: "Delete Selected Row",	
+		onClickButton: function () {	
+			var rowid = $("#jqGrid_trans").jqGrid('getGridParam', 'selrow');	
+			if (!rowid) {	
+				alert('Please select row');	
+			} else {
+				let selrow_trans = selrowData('#jqGrid_trans');
+				$.confirm({
+				    title: 'Confirm',
+				    content: 'Are you sure you want to delete this item? <span class="error">'+selrow_trans.dos_desc+'</error>',
+				    buttons: {
+				        confirm:{
+				        	btnClass: 'btn-blue',
+				        	action: function () {
 
-	// 							$.post( "./dialysis_transaction_save",param, function( data ){
-	// 								refreshGrid("#jqGrid_trans", urlParam_trans);
-	// 							},'json');
-	// 				         }
+					        	emptyFormdata([],'form#verify_form');
+						  		$('#verify_btn').off();
+						  		$('#verify_btn').on('click',function(){
+									if($("form#verify_form").valid()) {
+						  				verifyuser_delete();
+									}
+						  		});
+						  		$('#password_mdl').modal('show');
+						  		$('body,#password_mdl').addClass('scrolling');
+						  		$('#verify_error').hide();
 
-	// 			        },
-	// 			        cancel: {
-	// 			        	action: function () {
+					         }
+
+				        },
+				        cancel: {
+				        	action: function () {
 								
-	// 				        },
-	// 			        }
-	// 			    }
+					        },
+				        }
+				    }
 
-	// 			});
-	// 		}	
-	// 	},	
-	// });
+				});
+			}	
+		},	
+	});
 
 	hide_tran_button(true);
 
@@ -258,6 +289,11 @@ $(document).ready(function () {
 			break;
 		}
 		return(temp.val() == '')?[false,"Please enter valid "+name+" value"]:[true,''];
+	}
+
+	function trxtimeCustomEdit(val,opt){
+		val = (val == "undefined") ? "" : val;
+		return $(`<div class="ui input"><input type="time" name="trxtime" ></div>`);
 	}
 
 	function chgcodeCustomEdit(val,opt){
@@ -494,5 +530,41 @@ function calc_jq_height_onchange(jqgrid){
 	}else if(scrollHeight>300){
 		scrollHeight = 300;
 	}
-	$('#gview_'+jqgrid+' > div.ui-jqgrid-bdiv').css('height',scrollHeight);
+	$('#gview_'+jqgrid+' > div.ui-jqgrid-bdiv').css('height',scrollHeight+50);
+}
+
+function verifyuser_delete(){
+	var param={
+		action:'verifyuser',
+		username:$('#username_verify').val(),
+		password:$('#password_verify').val(),
+    };
+
+    $.get( "./verifyuser_dialysis?"+$.param(param), function( data ) {
+
+    },'json').done(function(data) {
+    	if(data.success == 'fail'){
+  			$('#verify_error').show();
+    	}else{
+    		deleting();
+  			$('#verify_error').hide();
+  			$('#password_mdl').modal('hide');
+    	}
+    }).fail(function(data){
+        alert('error verify');
+    });
+}
+
+function deleting(){
+	let selrow_trans = selrowData('#jqGrid_trans');
+	var param = {
+		_token: $("#_token").val(),
+		id: selrow_trans.id,
+		oper: 'del'
+	}
+
+	$.post( "./dialysis_transaction_save",param, function( data ){
+		curpage_tran = null;
+		refreshGrid("#jqGrid_trans", urlParam_trans);
+	},'json');
 }
