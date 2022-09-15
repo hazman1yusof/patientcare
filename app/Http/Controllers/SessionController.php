@@ -70,20 +70,20 @@ class SessionController extends Controller
                     return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'REHABILITATION'){
                     $this->setsession_($request);
-                    return redirect('/doctornote');
+                    return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'PHYSIOTERAPHY'){
                     $this->setsession_($request);
-                    return redirect('/doctornote');
+                    return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'DIETICIAN'){
-                    return redirect('/doctornote');
+                    return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'CLINICAL'){
-                    return redirect('/emergency');
+                    return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'ADMIN'){
                     return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'MR'){
-                    return redirect('/dashboard');
+                    return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'REGISTER'){
-                    return redirect('/mainlanding');
+                    return redirect('/dialysis');
                 }else{
                     return redirect('/dialysis');
                 }
