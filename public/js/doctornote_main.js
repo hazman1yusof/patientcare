@@ -399,6 +399,8 @@ $(document).ready(function () {
 		$('#btn_grp_edit_doctorNote, #btn_grp_edit_phys, #btn_grp_edit_phys_ncase, #btn_grp_edit_dieteticCareNotes, #btn_grp_edit_dieteticCareNotes_fup').hide();
 		switch(groupid) {
 		  case 'DOCTOR':
+		  case 'ADMIN':
+		  case 'CLINICAL':
 		    $('#btn_grp_edit_doctorNote').show();
 		    break;
 		  case 'PHYSIOTERAPHY':
