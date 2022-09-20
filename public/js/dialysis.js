@@ -569,6 +569,9 @@ function add_edit_mode(mode){
 			$('#no_of_use').removeAttr('required').parent().addClass('disabled').removeClass('error');
 		}
 	});
+	if(mode == 'edit'){
+		$('#dialyser').change();
+	}
 
 	//part pre weight 
 	$('#pre_weight').on('blur',function(){
@@ -605,6 +608,23 @@ function add_edit_mode(mode){
 	});
 
 	// type
+	$('#bruit').parent().addClass('disabled');
+	$('#type').on('change',function(){
+		switch($(this).val().trim()){
+			case 'AVF':
+			case 'BCF':
+			case 'GRAFT':
+				$('#bruit').attr('required','').parent().removeClass('disabled');
+				break;
+			default:
+				$('#bruit').removeAttr('required').parent().addClass('disabled');
+				break;
+
+		}
+	});
+	if(mode == 'edit'){
+		$('#type').change();
+	}
 
 	//part heparin
 	$('#heparin_bolus,#heparin_maintainance,#1_dh,#2_dh,#3_dh,#4_dh,#5_dh').prop('disabled',true);
@@ -649,7 +669,7 @@ function add_edit_mode(mode){
 }
 
 function off_edit_mode(){
-	$('#dialyser,#heparin_type').off('change');
+	$('#dialyser,#heparin_type,#type').off('change');
 	$('#pre_weight,#time_complete,#post_weight,#0_tc').off('blur');
 }
 
