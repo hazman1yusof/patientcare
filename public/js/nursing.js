@@ -399,11 +399,13 @@ $(document).ready(function () {
 	    	arrival_date:data.date
 	    };
 
+	    loader_nursing(true);
 	    $.post( "./nursing/form?"+$.param(saveParam), $.param(postobj), function( data ) {
 	        
 	    },'json').fail(function(data) {
 	        alert('there is an error');
 	    }).done(function(data){
+	    	loader_nursing(false);
 	    	if(!$.isEmptyObject(data)){
 	    		$('#reg_date').val(data.triage_regdate);
 	    		if(data.triage != undefined){
@@ -611,6 +613,7 @@ function empty_formNursing(){
 }
 
 function saveForm_ti(callback){
+	loader_nursing(true);
 	var saveParam={
         action:'save_table_ti',
         oper:$("#cancel_ti").data('oper')
@@ -660,8 +663,10 @@ function saveForm_ti(callback){
         
     },'json').fail(function(data) {
         // alert('there is an error');
+		loader_nursing(false);
         callback();
     }).done(function(data){
+		loader_nursing(false);
         callback();
     });
 }
@@ -857,3 +862,10 @@ function calc_jq_height_onchange(jqgrid){
 	$('#gview_'+jqgrid+' > div.ui-jqgrid-bdiv').css('height',scrollHeight);
 }
 
+function loader_nursing(load){
+	if(load){
+		$('#loader_nursing').addClass('active');
+	}else{
+		$('#loader_nursing').removeClass('active');
+	}
+}

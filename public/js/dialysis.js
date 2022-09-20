@@ -75,6 +75,7 @@ $(document).ready(function () {
 
 	$('#save_dialysis').click(function(){
 		if($("form#daily_form").valid()) {
+			loader_daily(true);
 			let curoper = $('#cancel_dialysis').data('oper');
 
 			var param = {
@@ -91,6 +92,7 @@ $(document).ready(function () {
 			var daily_form = $("form#daily_form").serializeArray();
 
 			$.post( "./save_dialysis?"+$.param(param),$.param(daily_form), function( data ){
+				loader_daily(false);
 				$('#cancel_dialysis').data('oper','edit');
 				button_state_dialysis('edit');
 				$('#complete_dialysis').prop('disabled',true);
@@ -107,6 +109,7 @@ $(document).ready(function () {
 
 	$('#complete_dialysis').click(function(){
 		if($("form#daily_form_completed").valid()) {
+			loader_daily(true);
 			var param = {
 				_token: $("#_token").val(),
 				action: 'save_dialysis_completed',
@@ -121,6 +124,7 @@ $(document).ready(function () {
 			var daily_form_completed = $("form#daily_form_completed").serializeArray();
 
 			$.post( "./save_dialysis_completed?"+$.param(param),$.param(daily_form)+'&'+$.param(daily_form_completed), function( data ){
+				loader_daily(false);
 				$('#cancel_dialysis').data('oper','edit');
 				button_state_dialysis('edit');
 				$('#complete_dialysis').prop('disabled',true);
@@ -165,33 +169,33 @@ $(document).ready(function () {
 		SmoothScrollTo('#tab_monthly', 300,undefined,90);
 	});
 
-	$('#submit').click(function(){
+	// $('#submit').click(function(){
 
-		if($('form#daily_form').form('validate form')) {
-			var param = {
-				_token: $("#_token").val(),
-				action: 'save_dialysis',
-				oper: $(this).data('oper'),
-				mrn:$("#mrn").val(),
-				episno:$("#episno").val(),
-				seldate:$("#seldate").val()
-			}
+	// 	if($('form#daily_form').form('validate form')) {
+	// 		var param = {
+	// 			_token: $("#_token").val(),
+	// 			action: 'save_dialysis',
+	// 			oper: $(this).data('oper'),
+	// 			mrn:$("#mrn").val(),
+	// 			episno:$("#episno").val(),
+	// 			seldate:$("#seldate").val()
+	// 		}
 
-			var values = $("form#daily_form").serializeArray();
+	// 		var values = $("form#daily_form").serializeArray();
 
-			$.post( "./save_dialysis?"+$.param(param),$.param(values), function( data ){
-				if(data.success == 'success'){
-					$('#addnew_dia').prop('disabled',true);
-					$('#edit_dia').prop('disabled',false);
-					disableForm('form#daily_form');
-					$('#toTop').click();
-					toastr.success('Dialysis data saved!',{timeOut: 1000});
-					SmoothScrollTo('#tab_daily', 300,undefined,90);
-				}
-			},'json');
-		}
+	// 		$.post( "./save_dialysis?"+$.param(param),$.param(values), function( data ){
+	// 			if(data.success == 'success'){
+	// 				$('#addnew_dia').prop('disabled',true);
+	// 				$('#edit_dia').prop('disabled',false);
+	// 				disableForm('form#daily_form');
+	// 				$('#toTop').click();
+	// 				toastr.success('Dialysis data saved!',{timeOut: 1000});
+	// 				SmoothScrollTo('#tab_daily', 300,undefined,90);
+	// 			}
+	// 		},'json');
+	// 	}
 
-	});
+	// });
 
 	$('#rec_monthly_but').click(function(){
 		cleartabledata('monthly');
@@ -748,6 +752,7 @@ function dropdown_dialysisb4(datab4){
 }
 
 function get_dialysis_daily(idno){
+	loader_daily(true);
 	var param={
         idno:idno,
 		action:'get_dia_daily'
@@ -756,10 +761,12 @@ function get_dialysis_daily(idno){
     $.get( "./get_data_dialysis?"+$.param(param), function( data ) {
 
     },'json').done(function(data) {
+		loader_daily(false);
 		autoinsert_rowdata_dialysis('form#daily_form',data.data);
 		autoinsert_rowdata_dialysis('form#daily_form_completed',data.data);
 		$('#visit_date').val(data.data.visit_date);
     }).fail(function(data){
+		loader_daily(false);
         alert('error in get data');
     });
 }
@@ -806,4 +813,12 @@ function verifyuser_permission(){
     }).fail(function(data){
         alert('error verify');
     });
+}
+
+function loader_daily(load){
+	if(load){
+		$('#loader_daily').addClass('active');
+	}else{
+		$('#loader_daily').removeClass('active');
+	}
 }

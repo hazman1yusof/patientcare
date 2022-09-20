@@ -487,6 +487,7 @@ function autoinsert_rowdata_doctorNote(form,rowData){
 }
 
 function saveForm_doctorNote(callback){
+	loader_doctornote(true);
 	let oper = $("#cancel_doctorNote").data('oper');
 	var saveParam={
         action:'save_table_doctornote',
@@ -541,8 +542,10 @@ function saveForm_doctorNote(callback){
     $.post( "./doctornote/form?"+$.param(saveParam), $.param(postobj)+'&'+$.param(values) , function( data ) {
         
     },'json').done(function(data) {
+    	loader_doctornote(false);
         callback(data);
     }).fail(function(data){
+    	loader_doctornote(false);
         callback(data);
     });
 }
@@ -613,9 +616,11 @@ $('#docnote_date_tbl tbody').on('click', 'tr', function () {
     $('#episno_doctorNote_past').val(data.episno);
     $('#arrival_date').val(data.date);
 
+    loader_doctornote(true);
     $.get( "./doctornote/table?"+$.param(doctornote_docnote), function( data ) {
 			
 	},'json').done(function(data) {
+    	loader_doctornote(false);
 		if(!$.isEmptyObject(data)){
 			autoinsert_rowdata_doctorNote("#formDoctorNote",data.episode);
 			autoinsert_rowdata_doctorNote("#formDoctorNote",data.pathealth);
@@ -687,4 +692,12 @@ function calc_jq_height_onchange(jqgrid){
 		scrollHeight = 300;
 	}
 	$('#gview_'+jqgrid+' > div.ui-jqgrid-bdiv').css('height',scrollHeight);
+}
+
+function loader_doctornote(load){
+	if(load){
+		$('#loader_doctornote').addClass('active');
+	}else{
+		$('#loader_doctornote').removeClass('active');
+	}
 }

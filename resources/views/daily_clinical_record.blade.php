@@ -1,5 +1,8 @@
 
 <div class="ui segments" style="position: relative;">
+	<div class="ui inverted dimmer" id="loader_daily">
+	   <div class="ui large text loader">Loading</div>
+	</div>
 	<div class="ui secondary segment bluecloudsegment">
 		<div class="ui labeled small input">
 			<div class="ui blue label">Visit Date</div>

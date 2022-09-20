@@ -1,4 +1,7 @@
 <div class="ui segments" style="position: relative;">
+    <div class="ui inverted dimmer" id="loader_nursing">
+       <div class="ui large text loader">Loading</div>
+    </div>
     <div class="ui secondary segment bluecloudsegment">
         NURSING
         <div class="ui small blue icon buttons" id="btn_grp_edit_ti" style="position: absolute;

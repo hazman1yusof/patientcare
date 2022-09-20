@@ -24,6 +24,9 @@
 
 <div class="ui column">
     <div class="ui segments" style="position: relative;">
+        <div class="ui inverted dimmer" id="loader_doctornote">
+           <div class="ui large text loader">Loading</div>
+        </div>
         <div class="ui secondary segment bluecloudsegment">
             <div class="ui form" >
                 <div class="six wide column">
