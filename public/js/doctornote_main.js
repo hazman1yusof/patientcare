@@ -155,13 +155,13 @@ $(document).ready(function () {
 			empty_userfile();
 			$('button#timer_stop').click();
 
-			urlParam_trans.mrn = selrowData('#jqGrid').MRN;
-			urlParam_trans.episno = selrowData('#jqGrid').Episno;
+			// urlParam_trans.mrn = selrowData('#jqGrid').MRN;
+			// urlParam_trans.episno = selrowData('#jqGrid').Episno;
 
 			addmore_onadd = false;
 			addmore_onadd_phys = false;
 			addmore_onadd_diet = false;
-			refreshGrid("#jqGrid_trans", urlParam_trans);
+			// refreshGrid("#jqGrid_trans", urlParam_trans);
 			// refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
 			// refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
 			// refreshGrid("#jqGrid_card", urlParam_card);

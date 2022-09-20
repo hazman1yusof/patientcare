@@ -45,7 +45,9 @@
 
             <div class="three wide column" style="position: absolute;
                         left: 10px;
-                        top: 60px;">
+                        top: 60px;
+                        overflow-y: auto;
+                        max-height: 70vh;">
                 <div class="ui segment"> 
                     <div class="field">
                         <div class="ui radio checkbox checked pastcurr">

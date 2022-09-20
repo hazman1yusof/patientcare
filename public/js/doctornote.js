@@ -574,14 +574,11 @@ var docnote_date_tbl = $('#docnote_date_tbl').DataTable({
 
 $('#tab_doctornote').on('shown.bs.collapse', function () {
 	SmoothScrollTo('#tab_doctornote', 300);
-	// datable_medication.columns.adjust();
-	$('div#docnote_date_tbl_sticky').show();
 	$("#jqGrid_trans").jqGrid('setGridWidth', Math.floor($("#jqGrid_trans_c")[0].offsetWidth-$("#jqGrid_trans_c")[0].offsetLeft-25));
 	textare_init_doctornote();
 });
 
 $('#tab_doctornote').on('hide.bs.collapse', function () {
-	$('div#docnote_date_tbl_sticky').hide();
 });
 
 //to reload date table on radio btn click

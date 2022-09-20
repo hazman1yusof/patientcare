@@ -771,7 +771,10 @@ class DialysisController extends Controller
         $responce = new stdClass();
 
         $episode = DB::table('hisdb.episode')
+                    ->whereNotNull('dry_weight')
+                    ->whereNotNull('duration_hd')
                     ->where('mrn',$mrn)
+                    ->orderBy('idno','desc')
                     ->first();
 
         $responce->dry_weight = $episode->dry_weight;

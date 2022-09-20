@@ -31,8 +31,9 @@ $(document).ready(function () {
 			{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
 			{ label: 'Last<br/>Arrival Date', name: 'arrival_date', width: 7. ,align: 'center', formatter:dateFormatter2, unformat:dateUNFormatter2},
 			{ label: 'dialysis date', name: 'arrival_time',hidden: true},
-			{ label: 'Arrival', name: 'arrival', width: 5. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
-			{ label: 'Complete', name: 'complete', width: 6. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
+			{ label: 'Arrival', name: 'arrival', width: 5 ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
+			{ label: 'Complete', name: 'complete', width: 6 ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
+			{ label: 'Nursing', name: 'nurse', width: 5 ,align: 'center', formatter:formatterstatus_tick2, unformat:UNformatterstatus_tick},
 			{ label: 'Order', name: 'order', hidden: true},
 			{ label: 'RaceCode', name: 'RaceCode', hidden: true },
 			{ label: 'religion', name: 'religion', hidden: true },
@@ -183,6 +184,14 @@ function searchClick_scroll(grid,form,urlParam){
 
 function formatterstatus_tick(cellvalue, option, rowObject) {
 	if (cellvalue != null && cellvalue != 0 && moment().isSame(rowObject.arrival_date, 'day')) {
+		return '<span class="fa fa-check" data-value="'+cellvalue+'"></span>';
+	}else{
+		return "";//if value is zero will capture as "" when unformat
+	}
+}
+
+function formatterstatus_tick2(cellvalue, option, rowObject) {
+	if (cellvalue != null && cellvalue != 0 ) {
 		return '<span class="fa fa-check" data-value="'+cellvalue+'"></span>';
 	}else{
 		return "";//if value is zero will capture as "" when unformat

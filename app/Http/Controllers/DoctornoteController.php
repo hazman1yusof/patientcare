@@ -713,6 +713,10 @@ class DoctornoteController extends Controller
                     }
 
                 }else{
+
+                    if(!Carbon::createFromFormat('Y-m-d', $value->arrival_date)->isToday()){
+                        continue;
+                    }
                     
                     $date['date'] = Carbon::createFromFormat('Y-m-d', $value->arrival_date)->format('d-m-Y');
                     $date['mrn'] = $value->mrn;
@@ -775,6 +779,10 @@ class DoctornoteController extends Controller
                     }
 
                 }else{
+
+                    if(!Carbon::createFromFormat('Y-m-d', $value->arrival_date)->isToday()){
+                        continue;
+                    }
                     
                     $date['date'] = Carbon::createFromFormat('Y-m-d', $value->arrival_date)->format('d-m-Y');
                     $date['mrn'] = $value->mrn;
