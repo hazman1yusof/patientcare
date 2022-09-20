@@ -96,6 +96,7 @@ $(document).ready(function () {
 	$("#jqGrid").jqGrid('navGrid', '#jqGridPager', {
 		view: false, edit: false, add: false, del: false, search: false,
 		beforeRefresh: function () {
+			curpage=null;
 			refreshGrid("#jqGrid", urlParam);
 		},
 	});
@@ -144,6 +145,7 @@ $(document).ready(function () {
 
 	$('button#timer_refresh').click(function(){
 		$('button#timer_stop').click();
+		curpage=null;
 		refreshGrid("#jqGrid", urlParam);
 	});
 
