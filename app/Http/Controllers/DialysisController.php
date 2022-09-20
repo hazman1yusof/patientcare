@@ -330,6 +330,19 @@ class DialysisController extends Controller
                     if($chgtrx->exists()){
                         throw new \Exception('Patient already have dialysis for date: '.Carbon::parse($request->arrival_date)->format('d-m-Y'), 500);
                     }
+                }else if($chgmast->chggroup == 'EP'){
+
+                    $chgtrx = DB::table('hisdb.chargetrx')
+                                ->where('mrn','=',$request->mrn)
+                                ->where('episno','=',$request->episno)
+                                ->where('compcode','=',session('compcode'))
+                                ->where('recstatus','=',1)
+                                ->where('trxdate','=', $request->trxdate)
+                                ->where('chggroup','=','HD');
+
+                    if(!$chgtrx->exists()){
+                        throw new \Exception('No dialysis for date: '.Carbon::parse($request->arrival_date)->format('d-m-Y').', Please add dialysis first!', 500);
+                    }
                 }
 
                 $array_insert = [
