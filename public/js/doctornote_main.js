@@ -16,8 +16,6 @@ $(document).ready(function () {
 		$('button#timer_stop').click();
 	})
 
-	stop_scroll_on();
-
 	$("#jqGrid").jqGrid({
 		datatype: "local",
 		colModel: [
@@ -294,6 +292,8 @@ $(document).ready(function () {
 		});
 	}
 
+	stop_scroll_on();
+
 	user_groupid();
 	function user_groupid(){
 		var groupid = $('#user_groupid').val().toUpperCase();
@@ -407,7 +407,7 @@ function dateUNFormatter2(cellvalue, options, rowObject){
 
 function stop_scroll_on(){
 	$('div.paneldiv').on('mouseenter',function(){
-		SmoothScrollTo('#'+$('div.mainpanel[aria-expanded=true]').parent('div.panel.panel-default').attr('id'), 300,undefined,40);
+		SmoothScrollTo('#'+$('div.mainpanel[aria-expanded=true]').parent('div.panel.panel-default').attr('id'), 300,undefined,30);
 		$('body').addClass('stop-scrolling');
 	});
 
