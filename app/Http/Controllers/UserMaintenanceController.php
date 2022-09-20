@@ -33,7 +33,8 @@ class UserMaintenanceController extends defaultController
 
     public function table(Request $request)
     {   
-        $table = $this->table;
+        $table = $this->table
+                        ->where('compcode',session('compcode'));
 
         /////////where/////////
 
