@@ -1029,7 +1029,7 @@ class DialysisController extends Controller
                                 'freq.freqdesc as fre_desc')
 
 
-                            ->leftJoin('hisdb.chgmast', function($join) use ($request){
+                            ->join('hisdb.chgmast', function($join) use ($request){
                                 $join = $join->on('chgmast.chgcode', '=', 'trx.chgcode')
                                                 ->where('chgmast.compcode','=',session('compcode'))
                                                 ->whereNotNull('chgmast.dosecode');
