@@ -346,23 +346,25 @@
         $('#last_visit_date').val(moment().format('DD/MM/YYYY'));
 
         $('#txt_pat_name').val(obj.name);
-        $('#txt_pat_newic').val(obj.icnum);
-        if(obj.gender == 'P' || obj.gender == 'F'){
+        $('#txt_pat_newic').val(obj.icnum).blur();
+        if(obj.gender == 'P' || obj.gender == 'F' || obj.gender.toUpperCase() == 'FEMALE' || obj.gender.toUpperCase() == 'PEREMPUAN'){
         	$('#cmb_pat_sex').val('F');
-        }else if(obj.gender == 'L' || obj.gender == 'M'){
+        }else if(obj.gender == 'L' || obj.gender == 'M' || obj.gender.toUpperCase() == 'MALE' || obj.gender.toUpperCase() == 'LELAKI'){
         	$('#cmb_pat_sex').val('M');
         }
-        $('#txt_ID_Type').val("O");
 
-        var olddob = obj.dob;
-		newdob = [olddob.slice(0, 4), '-', olddob.slice(4,6), '-', olddob.slice(6)].join('');
+        $('#hid_ID_Type').val("O");
+        $('#txt_ID_Type').val("OWN IC");
 
-        $('#txt_pat_dob').val(newdob);
-        $('#txt_pat_age').val(gettheage(newdob));
+        // var olddob = obj.dob;
+		// newdob = [olddob.slice(0, 4), '-', olddob.slice(4,6), '-', olddob.slice(6)].join('');
+
+  //       $('#txt_pat_dob').val(newdob);
+  //       $('#txt_pat_age').val(gettheage(newdob));
         $('#hid_RaceCode').val(obj.race);
 
         $('#hid_Religion').val(obj.religion);
-        $('#cmb_pat_category').val(obj.pat_category);
+        // $('#cmb_pat_category').val('LOCAL');
         $('#hid_pat_citizen').val(obj.citizenship);
 
         $('#txt_pat_curradd1').val(obj.address1);

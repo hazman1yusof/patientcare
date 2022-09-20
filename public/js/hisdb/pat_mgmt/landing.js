@@ -1,4 +1,5 @@
 var preepisode;
+var bootgrid_last_rowid = 0;
 $(document).ready(function() {
     $(".preloader").fadeOut();
     $('#tab_patient_info a:last').hide();    // hide Medical Info tab
@@ -269,7 +270,6 @@ $(document).ready(function() {
         }
         populate_dialysis_epis(rows[bootgrid_last_rowid]);
     });
-    var bootgrid_last_rowid = 0;
 
     // populatecombo1();
 

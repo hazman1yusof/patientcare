@@ -183,8 +183,8 @@
     $('#btn_register_episode').on('click',open_episode);
 
     function open_episode(){
-        $('#btn_register_patient').click();
-        let mrn = $('#btn_register_episode').data('mrn');
+        let rows = $("#grid-command-buttons").bootgrid("getCurrentRows");
+        let mrn = rows[bootgrid_last_rowid].MRN;
         $('button#cmd_history'+mrn).click();
     }
 
