@@ -267,14 +267,8 @@
     <script type="text/ecmascript" src="{{ asset('assets/form-validator/jquery.form-validator.min.js') }}/"></script>
     <script type="text/javascript" src="{{ asset('js/userfile.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction.js') }}"></script>
-    <!-- <script type="text/javascript" src="{{ asset('js/transaction_diet.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/transaction_phys.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/phys_cardiograph.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('js/doctornote.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/nursing.js') }}"></script>
-    <!-- <script type="text/javascript" src="{{ asset('js/dieteticCareNotes.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/physioterapy.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/physioterapy_ncase.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('js/doctornote_main.js') }}"></script>
 @endsection
 
