@@ -103,7 +103,7 @@
     <input id="_token" name="_token" value="{{ csrf_token() }}" type="hidden">
 
     <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="doctornote_panel">
-        <div class="panel-heading clearfix collapsed" id="toggle_doctornote">
+        <div class="panel-heading clearfix collapsed mainpanel" id="toggle_doctornote">
 
             <b>NAME: <span id="name_show_doctorNote"></span></b><br>
             MRN: <span id="mrn_show_doctorNote"></span>
@@ -148,7 +148,7 @@
     </div>
 
     <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="nursing_panel">
-        <div class="panel-heading clearfix collapsed" id="toggle_triage">
+        <div class="panel-heading clearfix collapsed mainpanel" id="toggle_triage">
 
             <b>NAME: <span id="name_show_triage"></span></b><br>
             MRN: <span id="mrn_show_triage"></span>
@@ -193,7 +193,7 @@
     </div>
 
     <div class="panel panel-default" style="z-index: 100;position: relative;margin: 10px 0px 10px 0px" id="userfile_panel">
-        <div class="panel-heading clearfix collapsed" id="toggle_userfile" >
+        <div class="panel-heading clearfix collapsed mainpanel" id="toggle_userfile" >
 
         <b>NAME: <span id="name_show_userfile"></span></b><br>
         MRN: <span id="mrn_show_userfile"></span>

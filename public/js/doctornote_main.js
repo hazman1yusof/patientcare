@@ -16,6 +16,8 @@ $(document).ready(function () {
 		$('button#timer_stop').click();
 	})
 
+	stop_scroll_on();
+
 	$("#jqGrid").jqGrid({
 		datatype: "local",
 		colModel: [
@@ -402,5 +404,17 @@ function dateFormatter2(cellvalue, options, rowObject){
 function dateUNFormatter2(cellvalue, options, rowObject){
 	return $(rowObject).children('span').data('original');
 }
+
+function stop_scroll_on(){
+	$('div.paneldiv').on('mouseenter',function(){
+		SmoothScrollTo('#'+$('div.mainpanel[aria-expanded=true]').parent('div.panel.panel-default').attr('id'), 300,undefined,40);
+		$('body').addClass('stop-scrolling');
+	});
+
+	$('div.paneldiv').on('mouseleave',function(){
+		$('body').removeClass('stop-scrolling')
+	});
+}
+
 
 
