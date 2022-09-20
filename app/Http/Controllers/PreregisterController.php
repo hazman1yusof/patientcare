@@ -107,12 +107,14 @@ class PreregisterController extends defaultController
                         'lastarrivaldate' => Carbon::now("Asia/Kuala_Lumpur"),
                         'lastarrivaltime' => Carbon::now("Asia/Kuala_Lumpur")
                     ]);
+            }else{
+    			return redirect()->back()->withSuccess("You already registered today");
             }
 
             DB::commit();
 
     		return redirect()->back()->withSuccess("Thank you, you have succesfully registered");
-    		
+
         } catch (\Exception $e) {
             DB::rollback();
 
