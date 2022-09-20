@@ -139,7 +139,7 @@ class DialysisController extends Controller
                     ->where('mrn','=',$request->mrn)
                     ->where('episno','=',$request->episno)
                     ->whereBetween('visit_date', [$datefrom, $dateto]);
-            mydd($post);
+            $this->mydd($post);
                     // ->take(3)
                     // ->get();
         }
