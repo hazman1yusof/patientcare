@@ -137,11 +137,10 @@ class DialysisController extends Controller
             $post = DB::table('hisdb.dialysis')
                     ->where('compcode',session('compcode'))
                     ->where('mrn','=',$request->mrn)
-                    ->where('episno','=',$request->episno)
+                    // ->where('episno','=',$request->episno)
                     ->whereBetween('visit_date', [$datefrom, $dateto]);
-            $this->mydd($post);
-                    // ->take(3)
-                    // ->get();
+                    ->take(3)
+                    ->get();
         }
 
         $responce = new stdClass();
