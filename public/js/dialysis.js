@@ -575,6 +575,7 @@ function add_edit_mode(mode){
 		let prev_post_weight = $('#prev_post_weight').val();
 		let pre_weight = $('#pre_weight').val();
 		let dry_weight = $('#dry_weight').val();
+		let post_weight = $('#post_weight').val();
 
 		if(pre_weight.trim() != '' && prev_post_weight.trim() != ''){
 			let idwg = parseFloat(prev_post_weight) - parseFloat(pre_weight);
@@ -585,7 +586,25 @@ function add_edit_mode(mode){
 			let target_weight = parseFloat(pre_weight) - parseFloat(dry_weight);
 			$('#target_weight').val(target_weight.toFixed(2));
 		}
+
+		if(pre_weight.trim() != '' && post_weight.trim() != ''){
+			let weight_loss = parseFloat(pre_weight) - parseFloat(post_weight);
+			$('#weight_loss').val(weight_loss.toFixed(2));
+		}
 	});
+
+	$('#post_weight').on('blur',function(){
+		let pre_weight = $('#pre_weight').val();
+		let post_weight = $('#post_weight').val();
+
+		if(pre_weight.trim() != '' && post_weight.trim() != ''){
+			let weight_loss = parseFloat(pre_weight) - parseFloat(post_weight);
+			$('#weight_loss').val(weight_loss.toFixed(2));
+		}
+
+	});
+
+	// type
 
 	//part heparin
 	$('#heparin_bolus,#heparin_maintainance,#1_dh,#2_dh,#3_dh,#4_dh,#5_dh').prop('disabled',true);
@@ -631,7 +650,7 @@ function add_edit_mode(mode){
 
 function off_edit_mode(){
 	$('#dialyser,#heparin_type').off('change');
-	$('#pre_weight,#time_complete,#0_tc').off('blur');
+	$('#pre_weight,#time_complete,#post_weight,#0_tc').off('blur');
 }
 
 function autoinsert_rowdata_dialysis(form,rowData){

@@ -35,6 +35,7 @@
 }
 
 .stop-scrolling {
+    padding-right: 16px;
     overflow: hidden;
 }
 

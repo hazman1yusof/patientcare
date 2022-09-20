@@ -37,7 +37,7 @@
         
         <a class="item @if(Request::is('dialysis') || Request::is('dialysis/*')) {{'active'}} @endif" href="{{ url('/dialysis')}}"><i style="float: left" class="big procedures icon"></i>Dialysis</a>
 
-        <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
+        <!-- <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a> -->
 
     @elseif (strtoupper(Auth::user()->groupid) == 'REHABILITATION')
         <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
@@ -86,6 +86,8 @@
         <a class="item {{(Request::is('doctornote') ? 'active' : '')}}" href="{{ url('/doctornote')}}"><i style="float: left" class="stethoscope inverted big icon link"></i>Case Note</a>
         
         <a class="item @if(Request::is('dialysis') || Request::is('dialysis/*')) {{'active'}} @endif" href="{{ url('/dialysis')}}"><i style="float: left" class="big procedures icon"></i>Dialysis</a>
+        
+        <a class="item @if(Request::is('user_maintenance') || Request::is('user_maintenance/*')) {{'active'}} @endif" href="{{ url('/user_maintenance')}}"><i style="float: left" class="big user icon"></i>User</a>
 
     @elseif (strtoupper(Auth::user()->groupid) == 'MR')
 
