@@ -138,7 +138,7 @@ class DialysisController extends Controller
                     ->where('compcode',session('compcode'))
                     ->where('mrn','=',$request->mrn)
                     // ->where('episno','=',$request->episno)
-                    ->whereBetween('visit_date', [$datefrom, $dateto]);
+                    ->whereBetween('visit_date', [$datefrom, $dateto])
                     ->take(3)
                     ->get();
         }
