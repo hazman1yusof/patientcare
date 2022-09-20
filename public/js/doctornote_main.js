@@ -12,108 +12,6 @@ $(document).ready(function () {
 		showcomplete:false,
 	}
 
-	// $("#jqGrid").jqGrid({
-	// 	datatype: "local",
-	// 	colModel: [
-	// 		{ label: 'MRN', name: 'MRN', width: 7, classes: 'wrap', formatter: padzero, unformat: unpadzero, checked: true,  },
-	// 		{ label: 'Epis. No', name: 'Episno', width: 5 ,align: 'right',classes: 'wrap' , hidden:true},
-	// 		{ label: 'Time', name: 'reg_time', width: 8 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
-	// 		{ label: 'Name', name: 'Name', width: 12 ,classes: 'wrap' },
-	// 		{ label: 'Payer', name: 'payer', width: 12 ,classes: 'wrap' },
-	// 		{ label: 'Dept', name: 'regdept', width: 8 ,classes: 'wrap' },
-	// 		{ label: 'I/C', name: 'Newic', width: 12 ,classes: 'wrap' },
-	// 		{ label: 'Rehab', name: 'reff_rehab', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
-	// 		{ label: 'Physio', name: 'reff_physio', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
-	// 		{ label: 'Diet', name: 'reff_diet', width: 8 ,classes: 'wrap',formatter: formatterstatus_tick2, unformat: UNformatterstatus_tick2 },
-	// 		{ label: 'HP', name: 'telhp', width: 10 ,classes: 'wrap' },
-	// 		{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
-	// 		{ label: 'Mode', name: 'pyrmode', width: 10 ,classes: 'wrap'},
-	// 		{ label: 'Seen', name: 'doctorstatus', width: 5 ,classes: 'wrap',formatter: formatterstatus_tick,hidden: true },
-	// 		{ label: 'idno', name: 'idno', hidden: true, key:true},
-	// 		{ label: 'DOB', name: 'DOB', hidden: true },
-	// 		{ label: 'RaceCode', name: 'RaceCode', hidden: true },
-	// 		{ label: 'religion', name: 'religion', hidden: true },
-	// 		{ label: 'OccupCode', name: 'OccupCode', hidden: true },
-	// 		{ label: 'Citizencode', name: 'Citizencode', hidden: true },
-	// 		{ label: 'AreaCode', name: 'AreaCode', hidden: true },
-	// 		{ label: 'stats_doctor', name: 'stats_doctor', hidden: true },
-	// 		{ label: 'stats_rehab', name: 'stats_rehab', hidden: true },
-	// 		{ label: 'stats_physio', name: 'stats_physio', hidden: true },
-	// 		{ label: 'stats_diet', name: 'stats_diet', hidden: true },
-	// 	],
-	// 	autowidth: true,
-	// 	viewrecords: true,
-	// 	sortorder: "episode.reg_time",
-	// 	sortorder: "desc",
-	// 	width: 900,
-	// 	height: 365,
-	// 	rowNum: 30,
-	// 	onSelectRow:function(rowid, selected){
-	// 		if(checkifedited()){
-	// 			return false;
-	// 		}
-	// 		empty_userfile();
-	// 		$('button#timer_stop').click();
-	// 		urlParam_trans.mrn = selrowData('#jqGrid').MRN;
-	// 		urlParam_trans.episno = selrowData('#jqGrid').Episno;
-	// 		urlParam_trans_diet.mrn = selrowData('#jqGrid').MRN;
-	// 		urlParam_trans_diet.episno = selrowData('#jqGrid').Episno;
-	// 		urlParam_trans_phys.mrn = selrowData('#jqGrid').MRN;
-	// 		urlParam_trans_phys.episno = selrowData('#jqGrid').Episno;
-	// 		urlParam_card.mrn = selrowData('#jqGrid').MRN;
-
-	// 		addmore_onadd = false;
-	// 		addmore_onadd_phys = false;
-	// 		addmore_onadd_diet = false;
-	// 		refreshGrid("#jqGrid_trans", urlParam_trans);
-	// 		refreshGrid("#jqGrid_trans_diet", urlParam_trans_diet);
-	// 		refreshGrid("#jqGrid_trans_phys", urlParam_trans_phys);
-	// 		refreshGrid("#jqGrid_card", urlParam_card);
- //            populate_currDoctorNote(selrowData('#jqGrid'));
- //            populate_triage_currpt(selrowData('#jqGrid'));
- //            populate_dieteticCareNotes_currpt(selrowData('#jqGrid'));
- //            populate_userfile(selrowData('#jqGrid'));
- //            populate_phys(selrowData('#jqGrid'));
-
-	// 		// if(selrowData('#jqGrid').e_ordercomplete){ //kalau dah completed
-	// 		// 	$('#checkbox_completed').prop('disabled',true);
-	// 		// 	$('#checkbox_completed').prop('checked', true);
-	// 		// }else{//kalau belum completed
-	// 		// 	$('#checkbox_completed').prop('disabled',false);
-	// 		// 	$('#checkbox_completed').prop('checked', false);
-	// 		// }
-
-	// 	},
-	// 	ondblClickRow: function (rowid, iRow, iCol, e) {
-	// 	},
-	// 	gridComplete: function () {
-	// 		$('.jqgridsegment').removeClass('loading');
-	// 		hide_tran_button(true);
-	// 		hide_tran_button_diet(true);
-	// 		hide_tran_button_phys(true);
-	// 		hide_card_button(true);
-	// 		$('#no_of_pat').text($("#jqGrid").getGridParam("reccount"));
-	// 		empty_currDoctorNote();
-	// 		empty_transaction();
-	// 		empty_transaction_diet();
-	// 		empty_transaction_phys();
-	// 		empty_dietcarenote();
-	// 		empty_userfile();
-	// 		empty_currphys();
-	// 		empty_formNursing();
-
-	// 		let discharge_btn_data = $('#discharge_btn').data('idno');
-	// 		if(discharge_btn_data == undefined || discharge_btn_data == 'none'){
-	// 			if(!$("button#timer_play").hasClass("disabled")){
-	// 				$("#jqGrid").setSelection($("#jqGrid").getDataIDs()[0]);
-	// 			}
-	// 		}else{
-	// 			$("#jqGrid").setSelection(discharge_btn_data);
-	// 		}
-
-	// 	},
-	// });
-
 	$("input[name='Stext']").click(function(){
 		$('button#timer_stop').click();
 	})
@@ -131,9 +29,11 @@ $(document).ready(function () {
 			{ label: 'DOB', name: 'DOB', hidden: true},
 			{ label: 'HP', name: 'telhp', hidden:true},
 			{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
-			{ label: 'Last<br/>Arrival Date', name: 'arrival_date', width: 7. ,align: 'center', formatter:dateFormatter, unformat:dateUNFormatter},
+			{ label: 'Last<br/>Arrival Date', name: 'arrival_date', width: 7. ,align: 'center', formatter:dateFormatter2, unformat:dateUNFormatter2},
+			{ label: 'dialysis date', name: 'arrival_time',hidden: true},
 			{ label: 'Arrival', name: 'arrival', width: 5. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
 			{ label: 'Complete', name: 'complete', width: 6. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
+			{ label: 'Nursing', name: 'nurse', width: 5 ,align: 'center', formatter:formatterstatus_tick2, unformat:UNformatterstatus_tick},
 			{ label: 'Order', name: 'order', hidden: true},
 			{ label: 'RaceCode', name: 'RaceCode', hidden: true },
 			{ label: 'religion', name: 'religion', hidden: true },
@@ -478,6 +378,14 @@ function formatterstatus_tick(cellvalue, option, rowObject) {
 	}
 }
 
+function formatterstatus_tick2(cellvalue, option, rowObject) {
+	if (cellvalue != null && cellvalue != 0 ) {
+		return '<span class="fa fa-check" data-value="'+cellvalue+'"></span>';
+	}else{
+		return "";//if value is zero will capture as "" when unformat
+	}
+}
+
 function UNformatterstatus_tick(cellvalue, option, cell) {
 	if($('span.fa', cell).data('value') == undefined){
 		return 0;
@@ -485,4 +393,14 @@ function UNformatterstatus_tick(cellvalue, option, cell) {
 		return $('span.fa', cell).data('value');
 	}
 }
+
+function dateFormatter2(cellvalue, options, rowObject){
+	if(cellvalue == null) return '';
+	return moment(cellvalue).format("DD/MM/YYYY") + '</br>' + rowObject.arrival_time + `<span data-original=`+cellvalue+`><span>`;
+}
+
+function dateUNFormatter2(cellvalue, options, rowObject){
+	return $(rowObject).children('span').data('original');
+}
+
 
