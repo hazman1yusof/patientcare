@@ -142,6 +142,11 @@ $(document).ready(function () {
 		$('button#timer_stop').addClass('disabled');
 	});
 
+	$('button#timer_refresh').click(function(){
+		$('button#timer_stop').click();
+		refreshGrid("#jqGrid", urlParam);
+	});
+
 	var fetch_tbl;
 	timer_start_tbl();
 	function timer_start_tbl(){

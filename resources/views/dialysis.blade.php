@@ -36,7 +36,9 @@
                 </a>
 
                 <div style="float: right;padding: 5px 4px 10px 10px;">
-
+                    <button id="timer_refresh" class="ui circular basic mini icon button">
+                        <i class="redo alternate icon"></i>
+                    </button>
                     <div class="mini basic ui buttons">
                       <button id="timer_play" class="ui disabled icon button">
                         <i class="left play icon"></i>

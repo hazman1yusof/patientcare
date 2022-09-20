@@ -305,8 +305,8 @@ $(document).ready(function () {
 		},{
 			title:"Select Transaction Department",
 			open: function(){
-				dialog_deptcode.urlParam.filterCol=['recstatus'],
-				dialog_deptcode.urlParam.filterVal=['ACTIVE']
+				dialog_deptcode.urlParam.filterCol=['compcode','recstatus'],
+				dialog_deptcode.urlParam.filterVal=['session.compcode','ACTIVE']
 			}
 		},'urlParam', 'radio', 'tab'
 	);
