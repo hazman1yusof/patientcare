@@ -138,9 +138,10 @@ class DialysisController extends Controller
                     ->where('compcode',session('compcode'))
                     ->where('mrn','=',$request->mrn)
                     ->where('episno','=',$request->episno)
-                    ->whereBetween('visit_date', [$datefrom, $dateto])
-                    ->take(3)
-                    ->get();
+                    ->whereBetween('visit_date', [$datefrom, $dateto]);
+            mydd($post);
+                    // ->take(3)
+                    // ->get();
         }
 
         $responce = new stdClass();
@@ -1175,6 +1176,11 @@ class DialysisController extends Controller
     public function mydump2($builder){
         $addSlashes = str_replace('?', "'?'", $builder->toSql());
         dump(vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings()));
+    }
+
+    public function mydd($builder){
+        $addSlashes = str_replace('?', "'?'", $builder->toSql());
+        dd(vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings()));
     }
 
 
