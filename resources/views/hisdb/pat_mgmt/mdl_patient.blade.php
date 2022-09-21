@@ -237,7 +237,7 @@
                                                         <div class="col-md-4">
                                                             <p>POSTCODE<input name="Postcode" id="txt_pat_currpostcode" class="form-control form-mandatory" type="text" required /></p>
                                                         </div>
-                                                        <div class="col-md-4">
+                                                        <!-- <div class="col-md-4">
                                                             <small for="txt_pat_area">AREA</small>
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control form-mandatory" name="txt_pat_area" id="txt_pat_area" required>
@@ -246,7 +246,7 @@
                                                                     <button type="button" class="btn btn-info" id="btn_pat_area" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('pat_area');"><span class="fa fa-ellipsis-h"></span> </button>
                                                                 </span>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <div class="col-md-12">
                                                             <p></p>
                                                         </div>

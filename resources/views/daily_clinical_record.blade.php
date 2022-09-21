@@ -369,41 +369,40 @@
 
 			<div class="two fields">
 				<div class="field">
-					<input type="text" name="access_placeholder" placeholder="Access" rdonly>
+					<input class="purplebg" type="text" name="access_placeholder" placeholder="Access" rdonly id="access_placeholder">
 				</div>
 
 				<div class="field">
 					<div class="three fields" style="padding-left:5px">
 						<div class="field">
-							<!-- <label> TYPE:</label> -->
 							<select class="ui selection dropdown purplebg" id="type" name="type" required>
 							  <option value="">Access Type</option>
-							  <option value="PC">PC PERMANENT CATHETER</option>
-							  <option value="IJC">IJC INTRAJUGULAR CATHETER</option>
-							  <option value="FC">FC FEMORAL CATHETER</option>
-							  <option value="SVC">SVC SUBCLAVIAN CATHETER</option>
-							  <option value="AVF">AVF</option>
-							  <option value="BCF">BCF</option>
-							  <option value="BBF">BBF</option>
-							  <option value="GRAFT">GRAFT</option>
+							  <option value="PERMANENT CATHETER">PC - PERMANENT CATHETER</option>
+							  <option value="INTRAJUGULAR CATHETER">IJC - INTRAJUGULAR CATHETER</option>
+							  <option value="FEMORAL CATHETER">FC - FEMORAL CATHETER</option>
+							  <option value="SUBCLAVIAN CATHETER">SVC - SUBCLAVIAN CATHETER</option>
+							  <option value="ARTERIOVENOUS FISTULA">AVF - ARTERIOVENOUS FISTULA</option>
+							  <option value="BRACHIOCEPHALIC FISTULA">BCF - BRACHIOCEPHALIC FISTULA</option>
+							  <option value="BRACHIOBASILIC FISTULA">BBF - BRACHIOBASILIC FISTULA</option>
+							  <option value="ARTERIOVENOUS GRAFT">GRAFT - ARTERIOVENOUS GRAFT</option>
 							</select>
 					    </div>
 
 						<div class="field">
-							<!-- <label> site:</label>
-		 -->					<select class="ui selection dropdown purplebg" id="access" name="access" required>
-							  <option value="">Acess Site</option>
-							  <option value="PERMANENT">PERMANENT</option>
-							  <option value="TEMPORARY">TEMPORARY</option>
+							<select class="ui selection dropdown purplebg" id="site" name="site">
+							  <option value=""></option>
+							  <option value="LEFT">LEFT</option>
+							  <option value="RIGHT">RIGHT</option>
+							  <option value="NA">N/A</option>
 							</select>
 					    </div>
 
 					    <div class="field">
-							<!-- <label> ACCESS:</label>
-		 -->					<select class="ui selection dropdown purplebg" id="access" name="access" required>
-							  <option value="">Acess Category</option>
+							<select class="ui selection dropdown purplebg" id="access" name="access">
+							  <option value=""></option>
 							  <option value="PERMANENT">PERMANENT</option>
 							  <option value="TEMPORARY">TEMPORARY</option>
+							  <option value="NA">N/A</option>
 							</select>
 					    </div>
 					</div>

@@ -150,7 +150,13 @@ class PatmastController extends defaultController
             }
 
             if(!empty($request->sidx)){
-                $table_patm = $table_patm->orderBy($request->sidx, $request->sord);
+                if($request->sidx == 'arrival_date'){
+                    $table_patm = $table_patm->orderBy('dialysis_episode.arrival_time', $request->sord);
+                }else{
+                    $table_patm = $table_patm->orderBy($request->sidx, $request->sord);
+                }
+            }else{
+                $table_patm = $table_patm->orderBy('dialysis_episode.idno', 'ASC');
             }
 
             $paginate_patm = $table_patm->paginate($request->rows);

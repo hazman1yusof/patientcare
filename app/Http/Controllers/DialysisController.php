@@ -239,7 +239,7 @@ class DialysisController extends Controller
 
             $array_update = [];
 
-            $except_post = ['compcode','mrn','episno','arrivalno','visit_date','idno'];
+            $except_post = ['compcode','mrn','episno','arrivalno','visit_date','idno','access_placeholder'];
 
             foreach ($_POST as $key => $value) {
                 if(!in_array($key, $except_post)){
@@ -318,14 +318,14 @@ class DialysisController extends Controller
                             
                 $isudept = $episode->regdept;
 
-                if($chgmast->chggroup == 'HD'){
+                if($chgmast->chgtype == 'PKG'){
                     //check duplicate dialysis
                     $chgtrx = DB::table('hisdb.chargetrx')
                                 ->where('mrn','=',$request->mrn)
                                 ->where('episno','=',$request->episno)
                                 ->where('compcode','=',session('compcode'))
                                 ->where('trxdate','=', $request->trxdate)
-                                ->where('chggroup','=','HD');
+                                ->where('chgtype','=','PKG');
 
                     if($chgtrx->exists()){
                         throw new \Exception('Patient already have dialysis for date: '.Carbon::parse($request->arrival_date)->format('d-m-Y'), 500);
@@ -338,7 +338,7 @@ class DialysisController extends Controller
                                 ->where('compcode','=',session('compcode'))
                                 ->where('recstatus','=',1)
                                 ->where('trxdate','=', $request->trxdate)
-                                ->where('chggroup','=','HD');
+                                ->where('chgtype','=','PKG');
 
                     if(!$chgtrx->exists()){
                         throw new \Exception('No dialysis for date: '.Carbon::parse($request->arrival_date)->format('d-m-Y').', Please add dialysis first!', 500);
@@ -602,6 +602,17 @@ class DialysisController extends Controller
                 }
 
                 
+            }else if($request->oper == 'edit'){
+                $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                        ->where('idno',$request->idno);
+
+                if($dialysis_episode->exists()){
+                    DB::table('hisdb.dialysis_episode')
+                        ->where('idno',$request->idno)
+                        ->update([
+                            'packagecode' => $request->packagecode
+                        ]);
+                }
             }
 
             $responce = new stdClass();
@@ -941,6 +952,7 @@ class DialysisController extends Controller
                     // ->leftJoin('hisdb.dose as d','d.dosecode','=','cm.dosecode')
                     // ->leftJoin('hisdb.freq as f','f.freqcode','=','cm.freqcode')
                     // ->leftJoin('hisdb.instruction as i','i.inscode','=','cm.instruction')
+                    ->where('cm.auto','=',0)
                     ->whereIn('cm.chggroup',['HD','EP'])
                     ->where('cm.compcode','=',session('compcode'))
                     ->where('cm.active','=',1);
