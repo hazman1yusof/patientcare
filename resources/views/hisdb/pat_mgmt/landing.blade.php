@@ -451,8 +451,8 @@
 			<button id="btn_mykad" type="button" class="btn btn-default btn-md" >
 			<img src="img/mykad.png" width="35" /> My Kad</button>
 			&nbsp;&nbsp;
-			<button id="btn_biometric" type="button" class="btn btn-default btn-md" >
-			<img src="img/biometric.png" width="22" /> Biometric </button>
+			<a id="btn_biometric2" type="button" class="btn btn-default btn-md" target="_blank" href='http://localhost/mycard/public/read_mykad' >
+			<img src="img/biometric.png" width="22" /> Biometric </a>
 			&nbsp;&nbsp;
 			<button id="btn_discharge" type="button" class="btn btn-danger btn-md" style="display:none;"><span class="fa fa-paper-plane" aria-hidden="true"></span> Discharge</button>
 		</div>

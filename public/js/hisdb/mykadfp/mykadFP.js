@@ -53,7 +53,7 @@ $(document).ready(function () {
 
 		$.ajaxSetup({async: false,crossDomain:true});
 		// $.get( "http://localhost/mycard/public/read_mykad", function( data ) {
-		$.get( "http://localhost:8080/", function( data ) {
+		$.get( "https://localhost:8080/", function( data ) {
 			
 		},'json')
 		  .done(function( data ) {
