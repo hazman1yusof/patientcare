@@ -48,8 +48,6 @@ $(document).ready(function () {
 		rowNum: 50,
 		loadonce:false,
 		scroll: true,
-		sortname: 'idno',
-		sortorder: "desc",
 		onSelectRow:function(rowid, selected){
 			closealltab();
 			button_state_dialysis('disableAll');

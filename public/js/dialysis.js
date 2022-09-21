@@ -611,13 +611,22 @@ function add_edit_mode(mode){
 
 	});
 
+	//part access
+	$('#access_placeholder').on('focus',function(){
+		$('#type').dropdown('show');
+	});
+
 	// type
 	$('#bruit').parent().addClass('disabled');
-	$('#type').on('change',function(){
-		switch($(this).val().trim()){
-			case 'AVF':
-			case 'BCF':
-			case 'GRAFT':
+	$('#type').on('change',type_procedure);
+	$('#type').on('change',type_change);
+
+	function type_procedure(){
+		switch($('#type').val().trim()){
+			case 'ARTERIOVENOUS FISTULA':
+			case 'BRACHIOCEPHALIC FISTULA':
+			case 'BRACHIOBASILIC FISTULA':
+			case 'ARTERIOVENOUS GRAFT':
 				$('#bruit').attr('required','').parent().removeClass('disabled');
 				break;
 			default:
@@ -625,9 +634,44 @@ function add_edit_mode(mode){
 				break;
 
 		}
-	});
+	}
+
+	function type_change(){
+		write_access();
+		$('#site').dropdown('show');
+	}
+
 	if(mode == 'edit'){
-		$('#type').change();
+		type_procedure();
+		write_access();
+	}
+
+	// type
+	$('#site').on('change',function(){
+		write_access();
+		$('#access').dropdown('show');
+	});
+	//access
+	$('#access').on('change',function(){
+		write_access();
+	});
+
+	function write_access(){
+		let access_placeholder = '';
+		if($('#site').val().trim() == '' || $('#site').val().trim() == 'NA'){
+			access_placeholder = '';
+		}else{
+			access_placeholder = $('#site').val().trim()+ ' ';
+		}
+		if($('#access').val().trim() == '' || $('#access').val().trim() == 'NA'){
+			access_placeholder = access_placeholder;
+		}else{
+			access_placeholder = access_placeholder + $('#access').val().trim() + ' ';
+		}
+		if($('#type').val().trim() != ''){
+			access_placeholder = access_placeholder + $('#type').val().trim();
+		}
+		$('#access_placeholder').val(access_placeholder);
 	}
 
 	//part heparin

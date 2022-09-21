@@ -369,44 +369,40 @@
 
 			<div class="two fields">
 				<div class="field">
-					<input type="text" name="access_placeholder" placeholder="Access" rdonly>
+					<input class="purplebg" type="text" name="access_placeholder" placeholder="Access" rdonly id="access_placeholder">
 				</div>
 
 				<div class="field">
 					<div class="three fields" style="padding-left:5px">
 						<div class="field">
-							<!-- <label> TYPE:</label> -->
 							<select class="ui selection dropdown purplebg" id="type" name="type" required>
 							  <option value="">Access Type</option>
-							  <option value="PERMANENT CATHETER">PC PERMANENT CATHETER</option>
-							  <option value="LEFT IJC">IJC INTRAJAGULAR CATHETER</option>
-							  <option value="RIGHT SVC">RIGHT CATHETER</option>
-							  <option value="LEFT SVC">LEFT SVC</option>
-							  <option value="AVF">AVF</option>
-							  <option value="BCF">BCF</option>
-							  <option value="GRAFT">GRAFT</option>
-							  <option value="RIGHT PERMANENT CATHETER">RIGHT PERMANENT CATHETER</option>
-							  <option value="LEFT PERMANENT CATHETER">LEFT PERMANENT CATHETER</option>
-							  <option value="RIGHT FEMORAL PERMANENT CATHETER">RIGHT FEMORAL PERMANENT CATHETER</option>
-							  <option value="LEFT FEMORAL PERMANENT CATHETER">LEFT FEMORAL PERMANENT CATHETER</option>
+							  <option value="PERMANENT CATHETER">PC - PERMANENT CATHETER</option>
+							  <option value="INTRAJUGULAR CATHETER">IJC - INTRAJUGULAR CATHETER</option>
+							  <option value="FEMORAL CATHETER">FC - FEMORAL CATHETER</option>
+							  <option value="SUBCLAVIAN CATHETER">SVC - SUBCLAVIAN CATHETER</option>
+							  <option value="ARTERIOVENOUS FISTULA">AVF - ARTERIOVENOUS FISTULA</option>
+							  <option value="BRACHIOCEPHALIC FISTULA">BCF - BRACHIOCEPHALIC FISTULA</option>
+							  <option value="BRACHIOBASILIC FISTULA">BBF - BRACHIOBASILIC FISTULA</option>
+							  <option value="ARTERIOVENOUS GRAFT">GRAFT - ARTERIOVENOUS GRAFT</option>
 							</select>
 					    </div>
 
 						<div class="field">
-							<!-- <label> site:</label>
-		 -->					<select class="ui selection dropdown purplebg" id="access" name="access" required>
-							  <option value="">Acess Site</option>
-							  <option value="PERMANENT">PERMANENT</option>
-							  <option value="TEMPORARY">TEMPORARY</option>
+							<select class="ui selection dropdown purplebg" id="site" name="site">
+							  <option value=""></option>
+							  <option value="LEFT">LEFT</option>
+							  <option value="RIGHT">RIGHT</option>
+							  <option value="NA">N/A</option>
 							</select>
 					    </div>
 
 					    <div class="field">
-							<!-- <label> ACCESS:</label>
-		 -->					<select class="ui selection dropdown purplebg" id="access" name="access" required>
-							  <option value="">Acess Category</option>
+							<select class="ui selection dropdown purplebg" id="access" name="access">
+							  <option value=""></option>
 							  <option value="PERMANENT">PERMANENT</option>
 							  <option value="TEMPORARY">TEMPORARY</option>
+							  <option value="NA">N/A</option>
 							</select>
 					    </div>
 					</div>
@@ -523,7 +519,7 @@
 								<div class="ui small icon input">
 									<input type="text" placeholder="" id="0_uv" name="0_uv">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</th>
 						<th style="text-align: center;">&nbsp;</br>FLUIDS
@@ -532,7 +528,7 @@
 								<div class="ui small icon input">
 									<input type="text" placeholder="" id="0_f" name="0_f">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</th>
 					</tr>
@@ -600,7 +596,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="1_uv" id="1_uv" value="" placeholder="UF VOLUME">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
@@ -608,7 +604,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="1_f" id="1_f" value="" placeholder="FLUIDS">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 					</tr>
@@ -676,7 +672,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="2_uv" id="2_uv" value="" placeholder="UF VOLUME">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
@@ -684,7 +680,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="2_f" id="2_f" value="" placeholder="FLUIDS">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 					</tr>
@@ -753,7 +749,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="3_uv" id="3_uv" value="" placeholder="UF VOLUME">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
@@ -761,7 +757,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="3_f" id="3_f" value="" placeholder="FLUIDS">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 					</tr>
@@ -829,7 +825,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="4_uv" id="4_uv" value="" placeholder="UF VOLUME">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
@@ -837,7 +833,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="4_f" id="4_f" value="" placeholder="FLUIDS">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 					</tr>
@@ -905,7 +901,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="5_uv" id="5_uv" value="" placeholder="UF VOLUME">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
@@ -913,7 +909,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="5_f" id="5_f" value="" placeholder="FLUIDS">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 					</tr>

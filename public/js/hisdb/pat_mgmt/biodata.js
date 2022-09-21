@@ -216,7 +216,7 @@
     function save_patient(oper,idno,mrn="nothing"){
         var saveParam={
             action:'save_patient',
-            field:['Name','MRN','Newic','Oldic','ID_Type','idnumber','DOB','telh','telhp','telhp2','Email','AreaCode','Sex','Citizencode','RaceCode','TitleCode','Religion','MaritalCode','Remarks','RelateCode','CorpComp','Staffid','OccupCode','Email_official','Childno','Address1','Address2','Address3','OffAdd1','OffAdd2','OffAdd3','pAdd1','pAdd2','pAdd3','Postcode','OffPostcode','pPostCode','Active','Confidential','PatientCat','NewMrn','bloodgrp','Episno','first_visit_date','last_visit_date','bloodgrp','NewMrn','ptel','telo','Tel_O_Ext'],
+            field:['Name','MRN','Newic','Oldic','ID_Type','idnumber','DOB','telh','telhp','telhp2','Email','Sex','Citizencode','RaceCode','TitleCode','Religion','MaritalCode','Remarks','RelateCode','CorpComp','Staffid','OccupCode','Email_official','Childno','Address1','Address2','Address3','OffAdd1','OffAdd2','OffAdd3','pAdd1','pAdd2','pAdd3','Postcode','OffPostcode','pPostCode','Active','Confidential','PatientCat','NewMrn','bloodgrp','Episno','first_visit_date','last_visit_date','bloodgrp','NewMrn','ptel','telo','Tel_O_Ext'],
             oper:oper,
             table_name:'hisdb.pat_mast',
             table_id:'idno',
@@ -346,7 +346,7 @@
 
     desc_show = new loading_desc_bio([
         {code:'#hid_pat_citizen',desc:'#txt_pat_citizen',id:'citizencode'},
-        {code:'#hid_pat_area',desc:'#txt_pat_area',id:'areacode'},
+        // {code:'#hid_pat_area',desc:'#txt_pat_area',id:'areacode'},
         // {code:'#hid_pat_title',desc:'#txt_pat_title',id:'titlecode'},
         {code:'#hid_ID_Type',desc:'#txt_ID_Type',id:'idtype'},
         {code:'#hid_RaceCode',desc:'#txt_RaceCode',id:'race'},
@@ -360,7 +360,7 @@
         this.code_fields=obj;
         this.titlecode={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.citizencode={code:'code',desc:'description'};//data simpan dekat dalam ni
-        this.areacode={code:'code',desc:'description'};//data simpan dekat dalam ni
+        // this.areacode={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.idtype={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.race={code:'code',desc:'description'};//data simpan dekat dalam ni
         this.religioncode={code:'code',desc:'description'};//data simpan dekat dalam ni
@@ -369,7 +369,7 @@
         this.load_desc = function(){
             load_for_desc(this,'titlecode','pat_mast/get_entry?action=get_patient_title');
             load_for_desc(this,'citizencode','pat_mast/get_entry?action=get_patient_citizen');
-            load_for_desc(this,'areacode','pat_mast/get_entry?action=get_patient_areacode');
+            // load_for_desc(this,'areacode','pat_mast/get_entry?action=get_patient_areacode');
             load_for_desc(this,'idtype','pat_mast/get_entry?action=get_patient_idtype');
             load_for_desc(this,'race','pat_mast/get_entry?action=get_patient_race');
             load_for_desc(this,'religioncode','pat_mast/get_entry?action=get_patient_religioncode');
@@ -487,7 +487,7 @@
         $('#txt_pat_telhp').val(rowdata.telhp);
         $('#txt_pat_telhp2').val(rowdata.telhp2);
         $('#txt_pat_email').val(rowdata.Email);
-        $('#hid_pat_area').val(rowdata.AreaCode);
+        // $('#hid_pat_area').val(rowdata.AreaCode);
         $('#cmb_pat_sex').val(rowdata.Sex); // dlm modal Patient                    
         $('#hid_pat_citizen').val(rowdata.Citizencode);
         $('#cmb_pat_racecode').val(rowdata.RaceCode);
