@@ -52,7 +52,7 @@ $(document).ready(function () {
 		}).modal('show');
 
 		$.ajaxSetup({async: false,crossDomain:true});
-		$.get( "http://127.0.0.1/mycard/public/read_mykad", function( data ) {
+		$.get( "http://localhost/mycard/public/read_mykad", function( data ) {
 			
 		},'json')
 		  .done(function( data ) {
