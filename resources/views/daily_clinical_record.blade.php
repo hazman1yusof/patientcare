@@ -502,7 +502,7 @@
 								<div class="ui small icon input">
 									<input type="text" placeholder="" id="0_uv" name="0_uv">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</th>
 						<th style="text-align: center;">&nbsp;</br>FLUIDS
@@ -511,7 +511,7 @@
 								<div class="ui small icon input">
 									<input type="text" placeholder="" id="0_f" name="0_f">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</th>
 					</tr>
@@ -579,7 +579,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="1_uv" id="1_uv" value="" placeholder="UF VOLUME">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
@@ -587,7 +587,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="1_f" id="1_f" value="" placeholder="FLUIDS">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 					</tr>
@@ -655,7 +655,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="2_uv" id="2_uv" value="" placeholder="UF VOLUME">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
@@ -663,7 +663,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="2_f" id="2_f" value="" placeholder="FLUIDS">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 					</tr>
@@ -732,7 +732,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="3_uv" id="3_uv" value="" placeholder="UF VOLUME">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
@@ -740,7 +740,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="3_f" id="3_f" value="" placeholder="FLUIDS">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 					</tr>
@@ -808,7 +808,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="4_uv" id="4_uv" value="" placeholder="UF VOLUME">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
@@ -816,7 +816,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="4_f" id="4_f" value="" placeholder="FLUIDS">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 					</tr>
@@ -884,7 +884,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="5_uv" id="5_uv" value="" placeholder="UF VOLUME">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
@@ -892,7 +892,7 @@
 								<div class="ui small icon input">
 									<input type="text" name="5_f" id="5_f" value="" placeholder="FLUIDS">
 								</div>
-								<div class="ui basic label mylabel">mmHg</div>
+								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 					</tr>
