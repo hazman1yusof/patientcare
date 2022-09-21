@@ -378,17 +378,14 @@
 							<!-- <label> TYPE:</label> -->
 							<select class="ui selection dropdown purplebg" id="type" name="type" required>
 							  <option value="">Access Type</option>
-							  <option value="PERMANENT CATHETER">PC PERMANENT CATHETER</option>
-							  <option value="LEFT IJC">IJC INTRAJAGULAR CATHETER</option>
-							  <option value="RIGHT SVC">RIGHT CATHETER</option>
-							  <option value="LEFT SVC">LEFT SVC</option>
+							  <option value="PC">PC PERMANENT CATHETER</option>
+							  <option value="IJC">IJC INTRAJUGULAR CATHETER</option>
+							  <option value="FC">FC FEMORAL CATHETER</option>
+							  <option value="SVC">SVC SUBCLAVIAN CATHETER</option>
 							  <option value="AVF">AVF</option>
 							  <option value="BCF">BCF</option>
+							  <option value="BBF">BBF</option>
 							  <option value="GRAFT">GRAFT</option>
-							  <option value="RIGHT PERMANENT CATHETER">RIGHT PERMANENT CATHETER</option>
-							  <option value="LEFT PERMANENT CATHETER">LEFT PERMANENT CATHETER</option>
-							  <option value="RIGHT FEMORAL PERMANENT CATHETER">RIGHT FEMORAL PERMANENT CATHETER</option>
-							  <option value="LEFT FEMORAL PERMANENT CATHETER">LEFT FEMORAL PERMANENT CATHETER</option>
 							</select>
 					    </div>
 
