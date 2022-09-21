@@ -240,7 +240,7 @@
                                                         <div class="col-md-4">
                                                             <small for="txt_pat_area">AREA</small>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control form-mandatory" name="txt_pat_area" id="txt_pat_area" required>
+                                                                <input type="text" class="form-control form-mandatory" name="txt_pat_area" id="txt_pat_area">
                                                                 <input type="hidden" name="AreaCode" id="hid_pat_area" value="" />
                                                                 <span class="input-group-btn">
                                                                     <button type="button" class="btn btn-info" id="btn_pat_area" data-toggle="modal" data-target="#mdl_item_selector" onclick="Global.pop_item_select('pat_area');"><span class="fa fa-ellipsis-h"></span> </button>
