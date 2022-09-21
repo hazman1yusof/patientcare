@@ -785,11 +785,16 @@ class DialysisController extends Controller
                     ->whereNotNull('dry_weight')
                     ->whereNotNull('duration_hd')
                     ->where('mrn',$mrn)
-                    ->orderBy('idno','desc')
-                    ->first();
+                    ->orderBy('idno','desc');
 
-        $responce->dry_weight = $episode->dry_weight;
-        $responce->duration_hd = $episode->duration_hd;
+        if($episode->exists()){
+            $responce->dry_weight = $episode->first()->dry_weight;
+            $responce->duration_hd = $episode->first()->duration_hd;
+        }else{
+            $responce->dry_weight = '';
+            $responce->duration_hd = '';
+        }
+
         $responce->initiated_by = Auth::user()->username;
         $responce->prev_post_weight = 0;
         $responce->last_visit = '';
