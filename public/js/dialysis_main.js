@@ -31,8 +31,9 @@ $(document).ready(function () {
 			{ label: 'Sex', name: 'Sex', width: 5 ,classes: 'wrap' },
 			{ label: 'Last<br/>Arrival Date', name: 'arrival_date', width: 7. ,align: 'center', formatter:dateFormatter2, unformat:dateUNFormatter2},
 			{ label: 'dialysis date', name: 'arrival_time',hidden: true},
-			{ label: 'Arrival', name: 'arrival', width: 5. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
-			{ label: 'Complete', name: 'complete', width: 6. ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
+			{ label: 'Arrival', name: 'arrival', width: 5 ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
+			{ label: 'Complete', name: 'complete', width: 6 ,align: 'center', formatter:formatterstatus_tick, unformat:UNformatterstatus_tick},
+			{ label: 'Nursing', name: 'nurse', width: 5 ,align: 'center', formatter:formatterstatus_tick2, unformat:UNformatterstatus_tick},
 			{ label: 'Order', name: 'order', hidden: true},
 			{ label: 'RaceCode', name: 'RaceCode', hidden: true },
 			{ label: 'religion', name: 'religion', hidden: true },
@@ -95,6 +96,7 @@ $(document).ready(function () {
 	$("#jqGrid").jqGrid('navGrid', '#jqGridPager', {
 		view: false, edit: false, add: false, del: false, search: false,
 		beforeRefresh: function () {
+			curpage=null;
 			refreshGrid("#jqGrid", urlParam);
 		},
 	});
@@ -139,6 +141,12 @@ $(document).ready(function () {
 		timer_stop_tbl();
 		$('button#timer_play').removeClass('disabled');
 		$('button#timer_stop').addClass('disabled');
+	});
+
+	$('button#timer_refresh').click(function(){
+		$('button#timer_stop').click();
+		curpage=null;
+		refreshGrid("#jqGrid", urlParam);
 	});
 
 	var fetch_tbl;
@@ -189,6 +197,14 @@ function formatterstatus_tick(cellvalue, option, rowObject) {
 	}
 }
 
+function formatterstatus_tick2(cellvalue, option, rowObject) {
+	if (cellvalue != null && cellvalue != 0 ) {
+		return '<span class="fa fa-check" data-value="'+cellvalue+'"></span>';
+	}else{
+		return "";//if value is zero will capture as "" when unformat
+	}
+}
+
 function UNformatterstatus_tick(cellvalue, option, cell) {
 	if($('span.fa', cell).data('value') == undefined){
 		return 0;
@@ -199,7 +215,7 @@ function UNformatterstatus_tick(cellvalue, option, cell) {
 
 function stop_scroll_on(){
 	$('div.paneldiv').on('mouseenter',function(){
-		// directScrollTo('#'+$('div.mainpanel[aria-expanded=true]').parent('div.panel.panel-default').attr('id'),40);
+		console.log($('div.mainpanel[aria-expanded=true]').parent('div.panel.panel-default').attr('id'))
 		SmoothScrollTo('#'+$('div.mainpanel[aria-expanded=true]').parent('div.panel.panel-default').attr('id'), 300,undefined,40);
 		$('body').addClass('stop-scrolling');
 	});

@@ -24,6 +24,9 @@
 
 <div class="ui column">
     <div class="ui segments" style="position: relative;">
+        <div class="ui inverted dimmer" id="loader_doctornote">
+           <div class="ui large text loader">Loading</div>
+        </div>
         <div class="ui secondary segment bluecloudsegment">
             <div class="ui form" >
                 <div class="six wide column">
@@ -45,7 +48,9 @@
 
             <div class="three wide column" style="position: absolute;
                         left: 10px;
-                        top: 60px;">
+                        top: 60px;
+                        overflow-y: auto;
+                        max-height: 70vh;">
                 <div class="ui segment"> 
                     <div class="field">
                         <div class="ui radio checkbox checked pastcurr">
@@ -78,6 +83,7 @@
         <div class="ui segment">
             <div class="ui grid">
                 <form id="formDoctorNote" class="right floated ui form thirteen wide column">
+                    <input id="arrival_date" name="arrival_date" type="hidden">
                     <input id="mrn_doctorNote" name="mrn_doctorNote" type="hidden">
                     <input id="episno_doctorNote" name="episno_doctorNote" type="hidden">
                     <input id="recorddate" name="recorddate" type="hidden">

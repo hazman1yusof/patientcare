@@ -19,42 +19,35 @@ class SessionController extends Controller
      */
     public function index()
     {   
-        $url = redirect()->back()->getTargetUrl();
-
-        $id = substr($url, strrpos($url, '/') + 1);
-
-        // if($id == 'emergency'){
-        //     $user = User::where('username','farid')
-        //                 ->where('password','farid');
-
-
-        //     Auth::login($user->first(),false);
-
-        //     return back();
-        // }
-
-        $company = DB::table('sysdb.company')->get();
+        if(url()->current() == "https://patientcare.test/login"){
+            $company = DB::table('sysdb.company')
+                    ->get();
+        }else{
+            $company = DB::table('sysdb.company')
+                    ->where('compcode','13A')
+                    ->get();
+        }
 
         return view('login',compact('company'));
     }
 
     public function login(Request $request)
     {   
-        // $remember = (!empty($request->remember)) ? true:false;
         $remember = false;
-        // $user = User::where('username','=',$request->username);
-
-        // $compcode = DB::table('sysdb.company')
-        //             ->first();
-
-        // $request->session()->put('compcode', $compcode->compcode);
-
 
         $user = User::where('username',request('username'))
                     ->where('password',request('password'))
                     ->where('compcode',request('compcode'));
 
         if($user->exists()){
+
+            $department = DB::table('sysdb.department')
+                            ->where('compcode', $user->first()->compcode)
+                            ->where('deptcode', $user->first()->dept)
+                            ->first();
+
+            $request->session()->put('dept', $user->first()->dept);
+            $request->session()->put('dept_desc', $department->description);
             $request->session()->put('username', request('username'));
             $request->session()->put('compcode', $user->first()->compcode);
             
@@ -70,20 +63,20 @@ class SessionController extends Controller
                     return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'REHABILITATION'){
                     $this->setsession_($request);
-                    return redirect('/doctornote');
+                    return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'PHYSIOTERAPHY'){
                     $this->setsession_($request);
-                    return redirect('/doctornote');
+                    return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'DIETICIAN'){
-                    return redirect('/doctornote');
+                    return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'CLINICAL'){
-                    return redirect('/emergency');
+                    return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'ADMIN'){
                     return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'MR'){
-                    return redirect('/dashboard');
+                    return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'REGISTER'){
-                    return redirect('/mainlanding');
+                    return redirect('/dialysis');
                 }else{
                     return redirect('/dialysis');
                 }

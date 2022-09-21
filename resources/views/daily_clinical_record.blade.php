@@ -1,5 +1,8 @@
 
 <div class="ui segments" style="position: relative;">
+	<div class="ui inverted dimmer" id="loader_daily">
+	   <div class="ui large text loader">Loading</div>
+	</div>
 	<div class="ui secondary segment bluecloudsegment">
 		<div class="ui labeled small input">
 			<div class="ui blue label">Visit Date</div>
@@ -300,6 +303,16 @@
 
 			<div class="four fields">
 			    <div class="field">
+					<label> RESPIRATORY:</label>
+					<select class="ui selection dropdown purplebg" id="respiratory" name="respiratory" required>
+					  <option value="">Select Here</option>
+					  <option value="EUPNEA">EUPNEA</option>
+					  <option value="BRADYPNEA">BRADYPNEA</option>
+					  <option value="TACHYPNEA">TACHYPNEA</option>
+					  <option value="HYPERPNEA">HYPERPNEA</option>
+					</select>
+			    </div>
+			    <div class="field">
 		  			<label >EYE:</label>
 					<select class="ui selection dropdown purplebg" id="eye" name="eye" required>
 					  <option value="">Select Here</option>
@@ -326,7 +339,9 @@
 					  <option value="SOFT & NON-TENDER">SOFT & NON-TENDER</option>
 					</select>
 			    </div>
+			</div>
 
+			<div class="four fields">
 			    <div class="field">
 					<label> SKIN:</label>
 					<select class="ui selection dropdown purplebg" id="skin" name="skin" required>
@@ -337,9 +352,6 @@
 					  <option value="N/A">N/A</option>
 					</select>
 			    </div>
-			</div>
-
-			<div class="four fields">
 			    <div class="field">
 					<label> LOWER LIMB:</label>
 					<select class="ui selection dropdown purplebg" id="lower_limb" name="lower_limb" required>
@@ -351,54 +363,63 @@
 					  <option value="BLISTER">BLISTER</option>
 					</select>
 			    </div>
+			</div>
 
-			    <div class="field">
-					<label> ACCESS:</label>
-					<select class="ui selection dropdown purplebg" id="access" name="access" required>
-					  <option value="">Select Here</option>
-					  <option value="PERMANENT">PERMANENT</option>
-					  <option value="TEMPORARY">TEMPORARY</option>
-					</select>
-			    </div>
+			<div class="ui horizontal divider"><h5 style="color: grey;font-size: 12px;">Access</h5></div>
 
-			    <div class="field">
-					<label> TYPE:</label>
-					<select class="ui selection dropdown purplebg" id="type" name="type" required>
-					  <option value="">Select Here</option>
-					  <option value="RIGHT IJC">RIGHT IJC</option>
-					  <option value="LEFT IJC">LEFT IJC</option>
-					  <option value="RIGHT SVC">RIGHT SVC</option>
-					  <option value="LEFT SVC">LEFT SVC</option>
-					  <option value="AVF">AVF</option>
-					  <option value="BCF">BCF</option>
-					  <option value="GRAFT">GRAFT</option>
-					  <option value="RIGHT PERMANENT CATHETER">RIGHT PERMANENT CATHETER</option>
-					  <option value="LEFT PERMANENT CATHETER">LEFT PERMANENT CATHETER</option>
-					  <option value="RIGHT FEMORAL PERMANENT CATHETER">RIGHT FEMORAL PERMANENT CATHETER</option>
-					  <option value="LEFT FEMORAL PERMANENT CATHETER">LEFT FEMORAL PERMANENT CATHETER</option>
-					</select>
-			    </div>
+			<div class="two fields">
+				<div class="field">
+					<input type="text" name="access_placeholder" placeholder="Access" rdonly>
+				</div>
 
+				<div class="field">
+					<div class="three fields" style="padding-left:5px">
+						<div class="field">
+							<!-- <label> TYPE:</label> -->
+							<select class="ui selection dropdown purplebg" id="type" name="type" required>
+							  <option value="">Access Type</option>
+							  <option value="PERMANENT CATHETER">PC PERMANENT CATHETER</option>
+							  <option value="LEFT IJC">IJC INTRAJAGULAR CATHETER</option>
+							  <option value="RIGHT SVC">RIGHT CATHETER</option>
+							  <option value="LEFT SVC">LEFT SVC</option>
+							  <option value="AVF">AVF</option>
+							  <option value="BCF">BCF</option>
+							  <option value="GRAFT">GRAFT</option>
+							  <option value="RIGHT PERMANENT CATHETER">RIGHT PERMANENT CATHETER</option>
+							  <option value="LEFT PERMANENT CATHETER">LEFT PERMANENT CATHETER</option>
+							  <option value="RIGHT FEMORAL PERMANENT CATHETER">RIGHT FEMORAL PERMANENT CATHETER</option>
+							  <option value="LEFT FEMORAL PERMANENT CATHETER">LEFT FEMORAL PERMANENT CATHETER</option>
+							</select>
+					    </div>
+
+						<div class="field">
+							<!-- <label> site:</label>
+		 -->					<select class="ui selection dropdown purplebg" id="access" name="access" required>
+							  <option value="">Acess Site</option>
+							  <option value="PERMANENT">PERMANENT</option>
+							  <option value="TEMPORARY">TEMPORARY</option>
+							</select>
+					    </div>
+
+					    <div class="field">
+							<!-- <label> ACCESS:</label>
+		 -->					<select class="ui selection dropdown purplebg" id="access" name="access" required>
+							  <option value="">Acess Category</option>
+							  <option value="PERMANENT">PERMANENT</option>
+							  <option value="TEMPORARY">TEMPORARY</option>
+							</select>
+					    </div>
+					</div>
+				</div>
+			</div>
+
+			<div class="three fields">
 			    <div class="field">
 					<label> BRUIT & THRILL:</label>
 					<select class="ui selection dropdown purplebg" id="bruit" name="bruit" required>
 					  <option value="">Select Here</option>
 					  <option value="YES">YES</option>
 					  <option value="NO">NO</option>
-					</select>
-			    </div>
-			</div>
-
-			<div class="four fields">
-
-			    <div class="field">
-					<label> RESPIRATORY:</label>
-					<select class="ui selection dropdown purplebg" id="respiratory" name="respiratory" required>
-					  <option value="">Select Here</option>
-					  <option value="EUPNEA">EUPNEA</option>
-					  <option value="BRADYPNEA">BRADYPNEA</option>
-					  <option value="TACHYPNEA">TACHYPNEA</option>
-					  <option value="HYPERPNEA">HYPERPNEA</option>
 					</select>
 			    </div>
 

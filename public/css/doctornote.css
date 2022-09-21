@@ -1,4 +1,9 @@
 
+.stop-scrolling {
+    padding-right: 16px;
+    overflow: hidden;
+}
+
 .mylabel{
     padding-right: 6px !important;
     padding-left: 6px !important;

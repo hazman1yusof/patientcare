@@ -1846,11 +1846,14 @@ function if_none(str){
 
 function SmoothScrollTo(id_or_Name, timelength,callback,minustop=120){
   var timelength = timelength || 500;
-  $('html, body').animate({
-      scrollTop: $(id_or_Name).offset().top-minustop
-  }, timelength, function(){
-  	
-  });
+  if($(id_or_Name).offset() != undefined){
+	  $('html, body').animate({
+	      scrollTop: $(id_or_Name).offset().top-minustop
+	  }, timelength, function(){
+	  	
+	  });
+  }
+  
   if (callback !== undefined) {
     callback();
   }

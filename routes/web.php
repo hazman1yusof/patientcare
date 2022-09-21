@@ -151,5 +151,7 @@ Route::get('/get_preepis_data','PatmastController@get_preepis_data');
 Route::get('/mykadFP','MycardController@mykadFP');
 Route::post('/mykadfp_store','MycardController@mykadfp_store');
 
+Route::get('/preregister','PreregisterController@show');
+Route::post('/prereg','PreregisterController@prereg');
 
 Route::get('/test','testController@test');

@@ -1,6 +1,7 @@
 <div class="ui fixed top menu sidemenu" id="sidemenu_topmenu">
     <a class="item" id="showSidebar" style="padding: 20px 25px 15px 25px !important;"><i class="sidebar inverted icon"></i></a>
     <div class="right menu">
+        <div class="item" style="color:white;">{{ session('dept_desc') }}</div>
         <div class="ui dropdown item" style="color:white;">
           Hi, {{Auth::user()->name}} !<i class="dropdown icon"></i>
           <div class="menu">
@@ -37,7 +38,7 @@
         
         <a class="item @if(Request::is('dialysis') || Request::is('dialysis/*')) {{'active'}} @endif" href="{{ url('/dialysis')}}"><i style="float: left" class="big procedures icon"></i>Dialysis</a>
 
-        <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a>
+        <!-- <a class="item @if(Request::is('chat') || Request::is('chat/*')) {{'active'}} @endif" href="{{ url('/chat')}}"><i style="float: left" class="comments inverted big link icon"></i>Chat</a> -->
 
     @elseif (strtoupper(Auth::user()->groupid) == 'REHABILITATION')
         <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
@@ -86,6 +87,8 @@
         <a class="item {{(Request::is('doctornote') ? 'active' : '')}}" href="{{ url('/doctornote')}}"><i style="float: left" class="stethoscope inverted big icon link"></i>Case Note</a>
         
         <a class="item @if(Request::is('dialysis') || Request::is('dialysis/*')) {{'active'}} @endif" href="{{ url('/dialysis')}}"><i style="float: left" class="big procedures icon"></i>Dialysis</a>
+        
+        <a class="item @if(Request::is('user_maintenance') || Request::is('user_maintenance/*')) {{'active'}} @endif" href="{{ url('/user_maintenance')}}"><i style="float: left" class="big user icon"></i>User</a>
 
     @elseif (strtoupper(Auth::user()->groupid) == 'MR')
 

@@ -183,8 +183,8 @@
     $('#btn_register_episode').on('click',open_episode);
 
     function open_episode(){
-        $('#btn_register_patient').click();
-        let mrn = $('#btn_register_episode').data('mrn');
+        let rows = $("#grid-command-buttons").bootgrid("getCurrentRows");
+        let mrn = rows[bootgrid_last_rowid].MRN;
         $('button#cmd_history'+mrn).click();
     }
 
@@ -417,10 +417,10 @@
                 selobj[id].data = obj_stored.json.description
 
                 //remove storage after 7 days
-                let moment_stored = obj_stored.json.timestamp;
-                if(moment().diff(moment(moment_stored),'days') > 7){
-                    localStorage.removeItem(storage_name);
-                }
+                // let moment_stored = obj_stored.json.timestamp;
+                // if(moment().diff(moment(moment_stored),'days') > 7){
+                //     localStorage.removeItem(storage_name);
+                // }
 
             }
 

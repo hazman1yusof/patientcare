@@ -23,11 +23,11 @@
                         <input type="text" placeholder="Type Search here" name="Stext" style="min-width: 50%">
                         <div class="ui slider checkbox myslider showall" >
                           <input type="checkbox" class="hidden" id="arriv_cb">
-                          <label>Show all patient</label>
+                          <label style="color:black;">Show all patient</label>
                         </div>
                         <div class="ui slider checkbox myslider showcomplete" >
                           <input type="checkbox" class="hidden" id="comple_cb">
-                          <label>Show completed</label>
+                          <label style="color:black;">Show completed</label>
                         </div>
                     </div>
                 </form>
@@ -140,7 +140,7 @@
             
         </div>
 
-        <div id="tab_doctornote" class="panel-collapse collapse">
+        <div id="tab_doctornote" class="panel-collapse collapse mainpanel">
             <div class="panel-body paneldiv" id="tab_doctornote_sticky">
                 @include('doctornote_div')
             </div>
@@ -185,7 +185,7 @@
             
         </div>
 
-        <div id="tab_triage" class="panel-collapse collapse">
+        <div id="tab_triage" class="panel-collapse collapse mainpanel">
             <div class="panel-body paneldiv">
                 @include('nursing')
             </div>
@@ -227,7 +227,7 @@
         </div> 
         </div>
 
-        <div id="tab_userfile" class="panel-collapse collapse">
+        <div id="tab_userfile" class="panel-collapse collapse mainpanel">
             <div class="panel-body paneldiv">
                 @include('userfile_div')
             </div>
@@ -267,14 +267,8 @@
     <script type="text/ecmascript" src="{{ asset('assets/form-validator/jquery.form-validator.min.js') }}/"></script>
     <script type="text/javascript" src="{{ asset('js/userfile.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction.js') }}"></script>
-    <!-- <script type="text/javascript" src="{{ asset('js/transaction_diet.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/transaction_phys.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/phys_cardiograph.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('js/doctornote.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/nursing.js') }}"></script>
-    <!-- <script type="text/javascript" src="{{ asset('js/dieteticCareNotes.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/physioterapy.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/physioterapy_ncase.js') }}"></script> -->
     <script type="text/javascript" src="{{ asset('js/doctornote_main.js') }}"></script>
 @endsection
 

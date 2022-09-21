@@ -51,7 +51,9 @@ $(document).ready(function () {
 		    hideDuration : 200,}
 		}).modal('show');
 
-		$.get( "http://127.0.0.1/mycard/public/read_mykad", function( data ) {
+		$.ajaxSetup({async: false,crossDomain:true});
+		// $.get( "http://localhost/mycard/public/read_mykad", function( data ) {
+		$.get( "https://localhost:8080/", function( data ) {
 			
 		},'json')
 		  .done(function( data ) {

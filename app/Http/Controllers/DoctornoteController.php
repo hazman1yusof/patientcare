@@ -310,6 +310,8 @@ class DoctornoteController extends Controller
 
         try {
 
+            $arrival_date = Carbon::createFromFormat('d-m-Y', $request->arrival_date)->format('Y-m-d');
+
             DB::table('hisdb.episode')
                 ->where('mrn','=',$request->mrn_doctorNote)
                 ->where('episno','=',$request->episno_doctorNote)
@@ -329,11 +331,37 @@ class DoctornoteController extends Controller
             $recorddate->month($seldate->month);
             $recorddate->year($seldate->year);
 
-            DB::table('hisdb.pathealth')
+            $pathealth = DB::table('hisdb.pathealth')
+                ->where('compcode','=',session('compcode'))
+                ->where('mrn','=',$request->mrn_doctorNote)
+                ->where('episno','=',$request->episno_doctorNote)
+                ->where('arrival_date','=',$arrival_date);
+
+            if($pathealth->exists()){
+                $pathealth
+                    ->update([
+                        'compcode' => session('compcode'),
+                        'clinicnote' => $request->clinicnote,
+                        'followuptime' => $request->followuptime,
+                        'followupdate' => $request->followupdate,
+                        'plan_' => $request->plan_,
+                        'height' => $request->height,
+                        'weight' => $request->weight,
+                        'bp_sys1' => $request->bp_sys1,
+                        'bp_dias2' => $request->bp_dias2,
+                        'pulse' => $request->pulse,
+                        'temperature' => $request->temperature,
+                        'respiration' => $request->respiration,
+                        'lastuser'  => session('username'),
+                        'lastupdate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString()
+                    ]);
+            }else{
+                DB::table('hisdb.pathealth')
                     ->insert([
                         'compcode' => session('compcode'),
                         'mrn' => $request->mrn_doctorNote,
                         'episno' => $request->episno_doctorNote,
+                        'arrival_date' => $arrival_date,
                         'clinicnote' => $request->clinicnote,
                         'followuptime' => $request->followuptime,
                         'followupdate' => $request->followupdate,
@@ -351,6 +379,8 @@ class DoctornoteController extends Controller
                         'lastupdate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                         'recordtime' => Carbon::now("Asia/Kuala_Lumpur"),
                     ]);
+            }
+
 
             if(!empty($request->examination)){
 
@@ -461,6 +491,7 @@ class DoctornoteController extends Controller
         DB::beginTransaction();
 
         try {
+            $arrival_date = $request->arrival_date;
 
             DB::table('hisdb.episode')
                 ->where('mrn','=',$request->mrn_doctorNote)
@@ -475,13 +506,13 @@ class DoctornoteController extends Controller
                     'lastupdate'  => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                 ]);
 
-            DB::table('hisdb.pathealthadd')
-                ->insert([
-                    'compcode' => session('compcode'),
-                    'mrn' => $request->mrn_doctorNote,
-                    'episno' => $request->episno_doctorNote,
-                    'additionalnote' => $request->additionalnote,
-                ]);
+            // DB::table('hisdb.pathealthadd')
+            //     ->insert([
+            //         'compcode' => session('compcode'),
+            //         'mrn' => $request->mrn_doctorNote,
+            //         'episno' => $request->episno_doctorNote,
+            //         'additionalnote' => $request->additionalnote,
+            //     ]);
 
             $patexam = DB::table('hisdb.patexam')
                 ->where('compcode','=',session('compcode'))
@@ -492,7 +523,8 @@ class DoctornoteController extends Controller
                 ->where('compcode','=',session('compcode'))
                 ->where('mrn','=',$request->mrn_doctorNote)
                 ->where('episno','=',$request->episno_doctorNote)
-                ->where('recordtime','=',$request->recordtime);
+                ->where('arrival_date','=',$arrival_date);
+                // ->where('recordtime','=',$request->recordtime);
 
             $pathistory = DB::table('hisdb.pathistory')
                 ->where('compcode','=',session('compcode'))
@@ -532,11 +564,6 @@ class DoctornoteController extends Controller
                         'mrn' => $request->mrn_doctorNote,
                         'episno' => $request->episno_doctorNote,
                         'clinicnote' => $request->clinicnote,
-                        'pmh' => $request->pmh,
-                        'drugh' => $request->drugh,
-                        'allergyh' => $request->allergyh,
-                        'socialh' => $request->socialh,
-                        'fmh' => $request->fmh,
                         'followuptime' => $request->followuptime,
                         'followupdate' => $request->followupdate,
                         'plan_' => $request->plan_,
@@ -556,12 +583,8 @@ class DoctornoteController extends Controller
                         'compcode' => session('compcode'),
                         'mrn' => $request->mrn_doctorNote,
                         'episno' => $request->episno_doctorNote,
+                        'arrival_date' => $arrival_date,
                         'clinicnote' => $request->clinicnote,
-                        'pmh' => $request->pmh,
-                        'drugh' => $request->drugh,
-                        'allergyh' => $request->allergyh,
-                        'socialh' => $request->socialh,
-                        'fmh' => $request->fmh,
                         'followuptime' => $request->followuptime,
                         'followupdate' => $request->followupdate,
                         'plan_' => $request->plan_,
@@ -658,7 +681,7 @@ class DoctornoteController extends Controller
             ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno)
-            ->orderBy('adddate','desc');
+            ->orderBy('arrival_date','desc');
 
         if($dialysis_episode->exists()){
             $dialysis_episode = $dialysis_episode->get();
@@ -669,8 +692,8 @@ class DoctornoteController extends Controller
                     ->select('mrn','episno','recordtime','adddate','adduser')
                     ->where('compcode','=',session('compcode'))
                     ->where('mrn','=',$value->mrn)
-                    ->where('arrival_date','=',$value->arrival_date)
                     ->where('episno','=',$value->episno)
+                    ->where('arrival_date','=',$value->arrival_date)
                     ->orderBy('idno','desc');
 
                 if($pathealth->exists()){
@@ -678,7 +701,7 @@ class DoctornoteController extends Controller
                     $pathealth = $pathealth->get();
 
                     foreach ($pathealth as $key2 => $value2) {
-                        $date['date'] = Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y');
+                        $date['date'] = Carbon::createFromFormat('Y-m-d', $value->arrival_date)->format('d-m-Y');
                         $date['mrn'] = $value2->mrn;
                         $date['episno'] = $value2->episno;
                         $date['adduser'] = $value2->adduser;
@@ -690,13 +713,17 @@ class DoctornoteController extends Controller
                     }
 
                 }else{
+
+                    if(!Carbon::createFromFormat('Y-m-d', $value->arrival_date)->isToday()){
+                        continue;
+                    }
                     
-                    $date['date'] = Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y');
+                    $date['date'] = Carbon::createFromFormat('Y-m-d', $value->arrival_date)->format('d-m-Y');
                     $date['mrn'] = $value->mrn;
                     $date['episno'] = $value->episno;
-                    $date['adduser'] = $value->adduser;
-                    $date['adddate'] = $value->adddate;
-                    $date['recordtime'] = $value->reg_time;
+                    $date['adduser'] = session('username');
+                    $date['adddate'] = $value->arrival_date;
+                    $date['recordtime'] = $value->arrival_time;
                     $date['type'] = 'episode';
 
                     array_push($data,$date);
@@ -721,17 +748,18 @@ class DoctornoteController extends Controller
                     ->select('mrn','episno','arrival_time','arrival_date')
                     ->where('compcode','=',session('compcode'))
                     ->where('mrn','=',$request->mrn)
-                    ->orderBy('adddate','desc');
+                    ->orderBy('arrival_date','desc');
 
-        if($patepisode->exists()){
-            $patepisode = $patepisode->get();
+        if($dialysis_episode->exists()){
+            $dialysis_episode = $dialysis_episode->get();
 
-            foreach ($patepisode as $key => $value) {
+            foreach ($dialysis_episode as $key => $value) {
                 $pathealth = DB::table('hisdb.pathealth')
                     ->select('mrn','episno','recordtime','adddate','adduser')
                     ->where('compcode','=',session('compcode'))
                     ->where('mrn','=',$value->mrn)
                     ->where('episno','=',$value->episno)
+                    ->where('arrival_date','=',$value->arrival_date)
                     ->orderBy('idno','desc');
 
                 if($pathealth->exists()){
@@ -739,7 +767,7 @@ class DoctornoteController extends Controller
                     $pathealth = $pathealth->get();
 
                     foreach ($pathealth as $key2 => $value2) {
-                        $date['date'] = Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y');
+                        $date['date'] = Carbon::createFromFormat('Y-m-d', $value->arrival_date)->format('d-m-Y');
                         $date['mrn'] = $value2->mrn;
                         $date['episno'] = $value2->episno;
                         $date['adduser'] = $value2->adduser;
@@ -751,13 +779,17 @@ class DoctornoteController extends Controller
                     }
 
                 }else{
+
+                    if(!Carbon::createFromFormat('Y-m-d', $value->arrival_date)->isToday()){
+                        continue;
+                    }
                     
-                    $date['date'] = Carbon::createFromFormat('Y-m-d', $value->adddate)->format('d-m-Y');
+                    $date['date'] = Carbon::createFromFormat('Y-m-d', $value->arrival_date)->format('d-m-Y');
                     $date['mrn'] = $value->mrn;
                     $date['episno'] = $value->episno;
-                    $date['adduser'] = $value->adduser;
-                    $date['adddate'] = $value->adddate;
-                    $date['recordtime'] = $value->reg_time;
+                    $date['adduser'] = session('username');
+                    $date['adddate'] = $value->arrival_date;
+                    $date['recordtime'] = $value->arrival_time;
                     $date['type'] = 'episode';
 
                     array_push($data,$date);
@@ -777,6 +809,8 @@ class DoctornoteController extends Controller
 
         $responce = new stdClass();
 
+        $arrival_date = Carbon::createFromFormat('d-m-Y', $request->arrival_date)->format('Y-m-d');
+
         $episode_obj = DB::table('hisdb.episode')
             ->select('remarks','diagfinal','dry_weight','duration_hd','lastupdate as lastupdate_','lastuser as lastuser_')
             ->where('compcode','=',session('compcode'))
@@ -787,7 +821,8 @@ class DoctornoteController extends Controller
             ->where('compcode','=',session('compcode'))
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno)
-            ->where('recordtime','=',$request->recordtime);
+            ->where('arrival_date','=',$arrival_date);
+            // ->where('recordtime','=',$request->recordtime);
 
         $pathistory_obj = DB::table('hisdb.pathistory')
             ->where('compcode','=',session('compcode'))
@@ -803,16 +838,16 @@ class DoctornoteController extends Controller
             ->where('mrn','=',$request->mrn)
             ->where('episno','=',$request->episno);
 
-        $pathealthadd_obj = DB::table('hisdb.pathealthadd')
-            ->where('compcode','=',session('compcode'))
-            ->where('mrn','=',$request->mrn)
-            ->where('episno','=',$request->episno);
+        // $pathealthadd_obj = DB::table('hisdb.pathealthadd')
+        //     ->where('compcode','=',session('compcode'))
+        //     ->where('mrn','=',$request->mrn)
+        //     ->where('episno','=',$request->episno);
 
-        $nursassess_doc_obj = DB::table('nursing.nursassessment')
-            ->select('vs_pulse AS pulse','vs_temperature AS temperature','vs_respiration AS respiration')
-            ->where('compcode','=',session('compcode'))
-            ->where('mrn','=',$request->mrn)
-            ->where('episno','=',$request->episno);
+        // $nursassess_doc_obj = DB::table('nursing.nursassessment')
+        //     ->select('vs_pulse AS pulse','vs_temperature AS temperature','vs_respiration AS respiration')
+        //     ->where('compcode','=',session('compcode'))
+        //     ->where('mrn','=',$request->mrn)
+        //     ->where('episno','=',$request->episno);
 
         if($episode_obj->exists()){
             $episode_obj = $episode_obj->first();
@@ -839,17 +874,17 @@ class DoctornoteController extends Controller
             $responce->episdiag = $episdiag_obj;
         }
 
-        if($pathealthadd_obj->exists()){
-            $pathealthadd_obj = $pathealthadd_obj->first();
-            $responce->pathealthadd = $pathealthadd_obj;
-        }
+        // if($pathealthadd_obj->exists()){
+        //     $pathealthadd_obj = $pathealthadd_obj->first();
+        //     $responce->pathealthadd = $pathealthadd_obj;
+        // }
 
-        if($nursassess_doc_obj->exists()){
-            $nursassess_doc_obj = $nursassess_doc_obj->first();
-            $responce->nursassess_doc = $nursassess_doc_obj;
-        }
+        // if($nursassess_doc_obj->exists()){
+        //     $nursassess_doc_obj = $nursassess_doc_obj->first();
+        //     $responce->nursassess_doc = $nursassess_doc_obj;
+        // }  //akan conflict dgn pathealth
 
-        $responce->transaction = json_decode($this->get_transaction_table($request));
+        // $responce->transaction = json_decode($this->get_transaction_table($request));
 
         return json_encode($responce);
     }
@@ -908,7 +943,7 @@ class DoctornoteController extends Controller
 
             DB::table('hisdb.pathealthadd')
                 ->insert([  
-                    // 'compcode' => session('compcode'),
+                    'compcode' => session('compcode'),
                     'mrn' => $request->mrn,
                     'episno' => $request->episno,
                     'additionalnote' => $request->additionalnote,

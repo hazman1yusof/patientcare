@@ -408,7 +408,7 @@
                                         <div class="form-group">
                                             <div class="col-md-12">
                                                 <small for="nok_addr1_pat">Address</small>
-                                                <input id="nok_addr1_pat" name="nok_addr1_pat" type="text" class="form-control" data-validation="required" style="margin-bottom: 2px">
+                                                <input id="nok_addr1_pat" name="nok_addr1_pat" type="text" class="form-control" style="margin-bottom: 2px">
                                                 <input id="nok_addr2_pat" name="nok_addr2_pat" type="text" class="form-control" style="margin-bottom: 2px">
                                                 <input id="nok_addr3_pat" name="nok_addr3_pat" type="text" class="form-control">
                                             </div>
@@ -445,7 +445,7 @@
                                         <div class="form-group">
                                             <div class="col-md-6">
                                                 <small for="nok_telhp_pat">Tel (H/P)</small>
-                                                <input id="nok_telhp_pat" name="nok_telhp_pat" type="text" class="form-control" data-validation="required" rdonly>
+                                                <input id="nok_telhp_pat" name="nok_telhp_pat" type="text" class="form-control" rdonly>
                                             </div>
 
                                             <div class="col-md-offset-3 col-md-3">

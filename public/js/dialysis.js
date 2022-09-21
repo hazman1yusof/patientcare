@@ -75,6 +75,7 @@ $(document).ready(function () {
 
 	$('#save_dialysis').click(function(){
 		if($("form#daily_form").valid()) {
+			loader_daily(true);
 			let curoper = $('#cancel_dialysis').data('oper');
 
 			var param = {
@@ -91,6 +92,7 @@ $(document).ready(function () {
 			var daily_form = $("form#daily_form").serializeArray();
 
 			$.post( "./save_dialysis?"+$.param(param),$.param(daily_form), function( data ){
+				loader_daily(false);
 				$('#cancel_dialysis').data('oper','edit');
 				button_state_dialysis('edit');
 				$('#complete_dialysis').prop('disabled',true);
@@ -107,6 +109,7 @@ $(document).ready(function () {
 
 	$('#complete_dialysis').click(function(){
 		if($("form#daily_form_completed").valid()) {
+			loader_daily(true);
 			var param = {
 				_token: $("#_token").val(),
 				action: 'save_dialysis_completed',
@@ -121,6 +124,7 @@ $(document).ready(function () {
 			var daily_form_completed = $("form#daily_form_completed").serializeArray();
 
 			$.post( "./save_dialysis_completed?"+$.param(param),$.param(daily_form)+'&'+$.param(daily_form_completed), function( data ){
+				loader_daily(false);
 				$('#cancel_dialysis').data('oper','edit');
 				button_state_dialysis('edit');
 				$('#complete_dialysis').prop('disabled',true);
@@ -165,33 +169,33 @@ $(document).ready(function () {
 		SmoothScrollTo('#tab_monthly', 300,undefined,90);
 	});
 
-	$('#submit').click(function(){
+	// $('#submit').click(function(){
 
-		if($('form#daily_form').form('validate form')) {
-			var param = {
-				_token: $("#_token").val(),
-				action: 'save_dialysis',
-				oper: $(this).data('oper'),
-				mrn:$("#mrn").val(),
-				episno:$("#episno").val(),
-				seldate:$("#seldate").val()
-			}
+	// 	if($('form#daily_form').form('validate form')) {
+	// 		var param = {
+	// 			_token: $("#_token").val(),
+	// 			action: 'save_dialysis',
+	// 			oper: $(this).data('oper'),
+	// 			mrn:$("#mrn").val(),
+	// 			episno:$("#episno").val(),
+	// 			seldate:$("#seldate").val()
+	// 		}
 
-			var values = $("form#daily_form").serializeArray();
+	// 		var values = $("form#daily_form").serializeArray();
 
-			$.post( "./save_dialysis?"+$.param(param),$.param(values), function( data ){
-				if(data.success == 'success'){
-					$('#addnew_dia').prop('disabled',true);
-					$('#edit_dia').prop('disabled',false);
-					disableForm('form#daily_form');
-					$('#toTop').click();
-					toastr.success('Dialysis data saved!',{timeOut: 1000});
-					SmoothScrollTo('#tab_daily', 300,undefined,90);
-				}
-			},'json');
-		}
+	// 		$.post( "./save_dialysis?"+$.param(param),$.param(values), function( data ){
+	// 			if(data.success == 'success'){
+	// 				$('#addnew_dia').prop('disabled',true);
+	// 				$('#edit_dia').prop('disabled',false);
+	// 				disableForm('form#daily_form');
+	// 				$('#toTop').click();
+	// 				toastr.success('Dialysis data saved!',{timeOut: 1000});
+	// 				SmoothScrollTo('#tab_daily', 300,undefined,90);
+	// 			}
+	// 		},'json');
+	// 	}
 
-	});
+	// });
 
 	$('#rec_monthly_but').click(function(){
 		cleartabledata('monthly');
@@ -273,7 +277,7 @@ $(document).ready(function () {
 function populate_data(type,data){
 	if(type == 'monthly'){
 		data.forEach(function(e,i){
-			$('table#dia_monthly tr#visit_date_m').children('td').eq(i).text(e.start_date);
+			$('table#dia_monthly tr#visit_date_m').children('td').eq(i).text(e.visit_date);
 			$('table#dia_monthly tr#start_time_m').children('td').eq(i+1).text(e.start_time);
 			$('table#dia_monthly tr#dialyser_m').children('td').eq(i+1).text(e.dialyser);
 			$('table#dia_monthly tr#no_of_use_m').children('td').eq(i+1).text(e.no_of_use);
@@ -286,10 +290,11 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#prehd_tmp_m').children('td').eq(i+1).text( e.prehd_temperature+' / '+e.prehd_pulse+' / '+e.prehd_respiratory);
 			$('table#dia_monthly tr#prehd_bp_m').children('td').eq(i+1).text(e.prehd_systolic+' / '+e.prehd_diastolic);
 			$('table#dia_monthly tr#pulse_pre_m').children('td').eq(i+1).text(e.prehd_pulse);
-			$('table#dia_monthly tr#prehd_bfr_m').children('td').eq(i+1).text(e.prehd_bfr);
+			$('table#dia_monthly tr#prehd_bfr_m').children('td').eq(i+1).text(e['0_bfr']);
 			$('table#dia_monthly tr#prehd_dfr_m').children('td').eq(i+1).text(e.prehd_dfr);
-			$('table#dia_monthly tr#prehd_vp_m').children('td').eq(i+1).text(e.prehd_vp);
-			$('table#dia_monthly tr#rec_2_m').children('td').eq(i+1).text(e.rec_2);
+			$('table#dia_monthly tr#prehd_vp_m').children('td').eq(i+1).text(e['0_vp']);
+
+			$('table#dia_monthly tr#1_tc_m').children('td').eq(i+1).text(e['1_tc']);
 			$('table#dia_monthly tr#1_bp_m').children('td').eq(i+1).text(e['1_bp']);
 			$('table#dia_monthly tr#1_pulse_m').children('td').eq(i+1).text(e['1_pulse']);
 			$('table#dia_monthly tr#1_dh_m').children('td').eq(i+1).text(e['1_dh']);
@@ -298,6 +303,47 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#1_tmp_m').children('td').eq(i+1).text(e['1_tmp']);
 			$('table#dia_monthly tr#1_uv_m').children('td').eq(i+1).text(e['1_uv']);
 			$('table#dia_monthly tr#1_f_m').children('td').eq(i+1).text(e['1_f']);
+
+			$('table#dia_monthly tr#2_tc_m').children('td').eq(i+1).text(e['2_tc']);
+			$('table#dia_monthly tr#2_bp_m').children('td').eq(i+1).text(e['2_bp']);
+			$('table#dia_monthly tr#2_pulse_m').children('td').eq(i+1).text(e['2_pulse']);
+			$('table#dia_monthly tr#2_dh_m').children('td').eq(i+1).text(e['2_dh']);
+			$('table#dia_monthly tr#2_bfr_m').children('td').eq(i+1).text(e['2_bfr']);
+			$('table#dia_monthly tr#2_vp_m').children('td').eq(i+1).text(e['2_vp']);
+			$('table#dia_monthly tr#2_tmp_m').children('td').eq(i+1).text(e['2_tmp']);
+			$('table#dia_monthly tr#2_uv_m').children('td').eq(i+1).text(e['2_uv']);
+			$('table#dia_monthly tr#2_f_m').children('td').eq(i+1).text(e['2_f']);			
+
+			$('table#dia_monthly tr#3_tc_m').children('td').eq(i+1).text(e['3_tc']);
+			$('table#dia_monthly tr#3_bp_m').children('td').eq(i+1).text(e['3_bp']);
+			$('table#dia_monthly tr#3_pulse_m').children('td').eq(i+1).text(e['3_pulse']);
+			$('table#dia_monthly tr#3_dh_m').children('td').eq(i+1).text(e['3_dh']);
+			$('table#dia_monthly tr#3_bfr_m').children('td').eq(i+1).text(e['3_bfr']);
+			$('table#dia_monthly tr#3_vp_m').children('td').eq(i+1).text(e['3_vp']);
+			$('table#dia_monthly tr#3_tmp_m').children('td').eq(i+1).text(e['3_tmp']);
+			$('table#dia_monthly tr#3_uv_m').children('td').eq(i+1).text(e['3_uv']);
+			$('table#dia_monthly tr#3_f_m').children('td').eq(i+1).text(e['3_f']);			
+
+			$('table#dia_monthly tr#4_tc_m').children('td').eq(i+1).text(e['4_tc']);
+			$('table#dia_monthly tr#4_bp_m').children('td').eq(i+1).text(e['4_bp']);
+			$('table#dia_monthly tr#4_pulse_m').children('td').eq(i+1).text(e['4_pulse']);
+			$('table#dia_monthly tr#4_dh_m').children('td').eq(i+1).text(e['4_dh']);
+			$('table#dia_monthly tr#4_bfr_m').children('td').eq(i+1).text(e['4_bfr']);
+			$('table#dia_monthly tr#4_vp_m').children('td').eq(i+1).text(e['4_vp']);
+			$('table#dia_monthly tr#4_tmp_m').children('td').eq(i+1).text(e['4_tmp']);
+			$('table#dia_monthly tr#4_uv_m').children('td').eq(i+1).text(e['4_uv']);
+			$('table#dia_monthly tr#4_f_m').children('td').eq(i+1).text(e['4_f']);			
+
+			$('table#dia_monthly tr#5_tc_m').children('td').eq(i+1).text(e['5_tc']);
+			$('table#dia_monthly tr#5_bp_m').children('td').eq(i+1).text(e['5_bp']);
+			$('table#dia_monthly tr#5_pulse_m').children('td').eq(i+1).text(e['5_pulse']);
+			$('table#dia_monthly tr#5_dh_m').children('td').eq(i+1).text(e['5_dh']);
+			$('table#dia_monthly tr#5_bfr_m').children('td').eq(i+1).text(e['5_bfr']);
+			$('table#dia_monthly tr#5_vp_m').children('td').eq(i+1).text(e['5_vp']);
+			$('table#dia_monthly tr#5_tmp_m').children('td').eq(i+1).text(e['5_tmp']);
+			$('table#dia_monthly tr#5_uv_m').children('td').eq(i+1).text(e['5_uv']);
+			$('table#dia_monthly tr#5_f_m').children('td').eq(i+1).text(e['5_f']);
+
 			$('table#dia_monthly tr#posthd_bp_m').children('td').eq(i+1).text(e.posthd_bp);
 			$('table#dia_monthly tr#posthd_temperatue_m').children('td').eq(i+1).text(e.posthd_temperatue);
 			$('table#dia_monthly tr#posthd_pulse_m').children('td').eq(i+1).text(e.posthd_pulse);
@@ -312,7 +358,7 @@ function populate_data(type,data){
 
 	}else if(type == 'weekly'){
 		data.forEach(function(e,i){
-			$('table#dia_weekly tr#visit_date_w').children('td').eq(i).text(e.start_date);
+			$('table#dia_weekly tr#visit_date_w').children('td').eq(i).text(e.visit_date);
 			$('table#dia_weekly tr#start_time_w').children('td').eq(i+1).text(e.start_time);
 			$('table#dia_weekly tr#dialyser_w').children('td').eq(i+1).text(e.dialyser);
 			$('table#dia_weekly tr#no_of_use_w').children('td').eq(i+1).text(e.no_of_use);
@@ -325,10 +371,11 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#prehd_tmp_w').children('td').eq(i+1).text( e.prehd_temperature+' / '+e.prehd_pulse+' / '+e.prehd_respiratory);
 			$('table#dia_weekly tr#prehd_bp_w').children('td').eq(i+1).text(e.prehd_systolic+' / '+e.prehd_diastolic);
 			$('table#dia_weekly tr#pulse_pre_w').children('td').eq(i+1).text(e.prehd_pulse);
-			$('table#dia_weekly tr#prehd_bfr_w').children('td').eq(i+1).text(e.prehd_bfr);
+			$('table#dia_weekly tr#prehd_bfr_w').children('td').eq(i+1).text(e['0_bfr']);
 			$('table#dia_weekly tr#prehd_dfr_w').children('td').eq(i+1).text(e.prehd_dfr);
-			$('table#dia_weekly tr#prehd_vp_w').children('td').eq(i+1).text(e.prehd_vp);
-			$('table#dia_weekly tr#rec_2_w').children('td').eq(i+1).text(e.rec_2);
+			$('table#dia_weekly tr#prehd_vp_w').children('td').eq(i+1).text(e['0_vp']);
+
+			$('table#dia_weekly tr#1_tc_w').children('td').eq(i+1).text(e['1_tc']);
 			$('table#dia_weekly tr#1_bp_w').children('td').eq(i+1).text(e['1_bp']);
 			$('table#dia_weekly tr#1_pulse_w').children('td').eq(i+1).text(e['1_pulse']);
 			$('table#dia_weekly tr#1_dh_w').children('td').eq(i+1).text(e['1_dh']);
@@ -337,7 +384,48 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#1_tmp_w').children('td').eq(i+1).text(e['1_tmp']);
 			$('table#dia_weekly tr#1_uv_w').children('td').eq(i+1).text(e['1_uv']);
 			$('table#dia_weekly tr#1_f_w').children('td').eq(i+1).text(e['1_f']);
-			$('table#dia_weekly tr#posthd_bp_w').children('td').eq(i+1).text(e.posthd_bp);
+
+			$('table#dia_weekly tr#2_tc_w').children('td').eq(i+1).text(e['2_tc']);
+			$('table#dia_weekly tr#2_bp_w').children('td').eq(i+1).text(e['2_bp']);
+			$('table#dia_weekly tr#2_pulse_w').children('td').eq(i+1).text(e['2_pulse']);
+			$('table#dia_weekly tr#2_dh_w').children('td').eq(i+1).text(e['2_dh']);
+			$('table#dia_weekly tr#2_bfr_w').children('td').eq(i+1).text(e['2_bfr']);
+			$('table#dia_weekly tr#2_vp_w').children('td').eq(i+1).text(e['2_vp']);
+			$('table#dia_weekly tr#2_tmp_w').children('td').eq(i+1).text(e['2_tmp']);
+			$('table#dia_weekly tr#2_uv_w').children('td').eq(i+1).text(e['2_uv']);
+			$('table#dia_weekly tr#2_f_w').children('td').eq(i+1).text(e['2_f']);
+
+			$('table#dia_weekly tr#3_tc_w').children('td').eq(i+1).text(e['3_tc']);
+			$('table#dia_weekly tr#3_bp_w').children('td').eq(i+1).text(e['3_bp']);
+			$('table#dia_weekly tr#3_pulse_w').children('td').eq(i+1).text(e['3_pulse']);
+			$('table#dia_weekly tr#3_dh_w').children('td').eq(i+1).text(e['3_dh']);
+			$('table#dia_weekly tr#3_bfr_w').children('td').eq(i+1).text(e['3_bfr']);
+			$('table#dia_weekly tr#3_vp_w').children('td').eq(i+1).text(e['3_vp']);
+			$('table#dia_weekly tr#3_tmp_w').children('td').eq(i+1).text(e['3_tmp']);
+			$('table#dia_weekly tr#3_uv_w').children('td').eq(i+1).text(e['3_uv']);
+			$('table#dia_weekly tr#3_f_w').children('td').eq(i+1).text(e['3_f']);
+
+			$('table#dia_weekly tr#4_tc_w').children('td').eq(i+1).text(e['4_tc']);
+			$('table#dia_weekly tr#4bp_w').children('td').eq(i+1).text(e['4bp']);
+			$('table#dia_weekly tr#4pulse_w').children('td').eq(i+1).text(e['4pulse']);
+			$('table#dia_weekly tr#4dh_w').children('td').eq(i+1).text(e['4dh']);
+			$('table#dia_weekly tr#4bfr_w').children('td').eq(i+1).text(e['4bfr']);
+			$('table#dia_weekly tr#4vp_w').children('td').eq(i+1).text(e['4vp']);
+			$('table#dia_weekly tr#4tmp_w').children('td').eq(i+1).text(e['4tmp']);
+			$('table#dia_weekly tr#4uv_w').children('td').eq(i+1).text(e['4uv']);
+			$('table#dia_weekly tr#4f_w').children('td').eq(i+1).text(e['4f']);
+
+			$('table#dia_weekly tr#5_tc_w').children('td').eq(i+1).text(e['5_tc']);
+			$('table#dia_weekly tr#5_bp_w').children('td').eq(i+1).text(e['5_bp']);
+			$('table#dia_weekly tr#5_pulse_w').children('td').eq(i+1).text(e['5_pulse']);
+			$('table#dia_weekly tr#5_dh_w').children('td').eq(i+1).text(e['5_dh']);
+			$('table#dia_weekly tr#5_bfr_w').children('td').eq(i+1).text(e['5_bfr']);
+			$('table#dia_weekly tr#5_vp_w').children('td').eq(i+1).text(e['5_vp']);
+			$('table#dia_weekly tr#5_tmp_w').children('td').eq(i+1).text(e['5_tmp']);
+			$('table#dia_weekly tr#5_uv_w').children('td').eq(i+1).text(e['5_uv']);
+			$('table#dia_weekly tr#5_f_w').children('td').eq(i+1).text(e['5_f']);
+
+			$('table#dia_weekly tr#posthd_bp_w').children('td').eq(i+1).text(e.posthd_systolic +' / '+ e.posthd_diastolic);
 			$('table#dia_weekly tr#posthd_temperatue_w').children('td').eq(i+1).text(e.posthd_temperatue);
 			$('table#dia_weekly tr#posthd_pulse_w').children('td').eq(i+1).text(e.posthd_pulse);
 			$('table#dia_weekly tr#posthd_respiratory_w').children('td').eq(i+1).text(e.posthd_respiratory);
@@ -485,12 +573,16 @@ function add_edit_mode(mode){
 			$('#no_of_use').removeAttr('required').parent().addClass('disabled').removeClass('error');
 		}
 	});
+	if(mode == 'edit'){
+		$('#dialyser').change();
+	}
 
 	//part pre weight 
 	$('#pre_weight').on('blur',function(){
 		let prev_post_weight = $('#prev_post_weight').val();
 		let pre_weight = $('#pre_weight').val();
 		let dry_weight = $('#dry_weight').val();
+		let post_weight = $('#post_weight').val();
 
 		if(pre_weight.trim() != '' && prev_post_weight.trim() != ''){
 			let idwg = parseFloat(prev_post_weight) - parseFloat(pre_weight);
@@ -501,7 +593,42 @@ function add_edit_mode(mode){
 			let target_weight = parseFloat(pre_weight) - parseFloat(dry_weight);
 			$('#target_weight').val(target_weight.toFixed(2));
 		}
+
+		if(pre_weight.trim() != '' && post_weight.trim() != ''){
+			let weight_loss = parseFloat(pre_weight) - parseFloat(post_weight);
+			$('#weight_loss').val(weight_loss.toFixed(2));
+		}
 	});
+
+	$('#post_weight').on('blur',function(){
+		let pre_weight = $('#pre_weight').val();
+		let post_weight = $('#post_weight').val();
+
+		if(pre_weight.trim() != '' && post_weight.trim() != ''){
+			let weight_loss = parseFloat(pre_weight) - parseFloat(post_weight);
+			$('#weight_loss').val(weight_loss.toFixed(2));
+		}
+
+	});
+
+	// type
+	$('#bruit').parent().addClass('disabled');
+	$('#type').on('change',function(){
+		switch($(this).val().trim()){
+			case 'AVF':
+			case 'BCF':
+			case 'GRAFT':
+				$('#bruit').attr('required','').parent().removeClass('disabled');
+				break;
+			default:
+				$('#bruit').removeAttr('required').parent().addClass('disabled');
+				break;
+
+		}
+	});
+	if(mode == 'edit'){
+		$('#type').change();
+	}
 
 	//part heparin
 	$('#heparin_bolus,#heparin_maintainance,#1_dh,#2_dh,#3_dh,#4_dh,#5_dh').prop('disabled',true);
@@ -546,8 +673,8 @@ function add_edit_mode(mode){
 }
 
 function off_edit_mode(){
-	$('#dialyser,#heparin_type').off('change');
-	$('#pre_weight,#time_complete,#0_tc').off('blur');
+	$('#dialyser,#heparin_type,#type').off('change');
+	$('#pre_weight,#time_complete,#post_weight,#0_tc').off('blur');
 }
 
 function autoinsert_rowdata_dialysis(form,rowData){
@@ -625,6 +752,7 @@ function dropdown_dialysisb4(datab4){
 }
 
 function get_dialysis_daily(idno){
+	loader_daily(true);
 	var param={
         idno:idno,
 		action:'get_dia_daily'
@@ -633,10 +761,12 @@ function get_dialysis_daily(idno){
     $.get( "./get_data_dialysis?"+$.param(param), function( data ) {
 
     },'json').done(function(data) {
+		loader_daily(false);
 		autoinsert_rowdata_dialysis('form#daily_form',data.data);
 		autoinsert_rowdata_dialysis('form#daily_form_completed',data.data);
 		$('#visit_date').val(data.data.visit_date);
     }).fail(function(data){
+		loader_daily(false);
         alert('error in get data');
     });
 }
@@ -683,4 +813,12 @@ function verifyuser_permission(){
     }).fail(function(data){
         alert('error verify');
     });
+}
+
+function loader_daily(load){
+	if(load){
+		$('#loader_daily').addClass('active');
+	}else{
+		$('#loader_daily').removeClass('active');
+	}
 }

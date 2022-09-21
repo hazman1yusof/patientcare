@@ -26,7 +26,7 @@
                         <input id="txt_epis_type" name="txt_epis_type" placeholder="" type="text" class="form-control input-sm" readonly>
                     </div>
 
-                    <div class="col-sm-3">
+                    <div class="col-sm-3" style="display: none;">
                         <small for="txt_epis_type">Case</small>
                         <select id="cmb_epis_case_maturity" name="cmb_epis_case_maturity" class="form-control input-sm form-mandatory" required>
                             <option value="">- Select -</option>
@@ -35,7 +35,7 @@
                         </select>
                     </div>
 
-                    <div class="col-sm-3">
+                    <div class="col-sm-3" style="display: none;">
                         <small for="txt_epis_type">Pregnancy</small>
                         <select id="cmb_epis_pregnancy" name="cmb_epis_pregnancy" class="form-control input-sm form-mandatory" required>  
                             <option value="">- Select -</option>
@@ -44,24 +44,35 @@
                         </select>
                     </div>
 
-                    <div class="col-sm-2">
+                    <div class="col-sm-8">
+                        <div class="col-sm-8">
+                            <br>
+                           NAME:  <b><big id="txt_epis_name"></big></b>
+                        </div>
+                        <div class="col-sm-4">
+                            <br>
+                           MRN:  <b><big id="txt_epis_mrn"></big></b>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1">
                         <small for="txt_epis_date">DATE: </small>
                         <input class="form-control" name="txt_epis_date" id="txt_epis_date" placeholder="" type="text" readonly>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-sm-1">
                         <small for="txt_epis_time">TIME: </small>
                         <input class="form-control" name="txt_epis_time" id="txt_epis_time" placeholder="" type="text" readonly>
                     </div>
                 </div>
 
-                <div class="form-group ">
+                <!-- <div class="form-group ">
                     <div class="col-md-offset-4 col-md-3">
                        NAME:  <b><big id="txt_epis_name"></big></b>
                     </div>
                     <div class="col-md-3">
                        MRN:  <b><big id="txt_epis_mrn"></big></b>
                     </div>
-                </div>
+                </div> -->
             </form></div>
             <div class="modal-body">
                 <div class="row">

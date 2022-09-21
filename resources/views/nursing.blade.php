@@ -1,4 +1,7 @@
 <div class="ui segments" style="position: relative;">
+    <div class="ui inverted dimmer" id="loader_nursing">
+       <div class="ui large text loader">Loading</div>
+    </div>
     <div class="ui secondary segment bluecloudsegment">
         NURSING
         <div class="ui small blue icon buttons" id="btn_grp_edit_ti" style="position: absolute;
@@ -11,12 +14,48 @@
           <button class="ui button" id="save_ti"><span class="fa fa-save fa-lg"></span> Save</button>
           <button class="ui button" id="cancel_ti"><span class="fa fa-ban fa-lg"></span> Cancel</button>
         </div>
+
+        <div class="three wide column" style="position: absolute;
+            left: 10px;
+            top: 60px;
+            overflow-y: auto;
+            max-height: 70vh;">
+            <div class="ui segment"> 
+                <div class="field">
+                    <div class="ui radio checkbox checked pastcurr_nurse">
+                        <input type="radio" name="toggle_type_nurse" checked="" tabindex="0" class="hidden" id="current_nurse" value="current" checked>
+                        <label for="current_nurse">Current Month</label>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui radio checkbox pastcurr_nurse">
+                        <input type="radio" name="toggle_type_nurse" tabindex="0" class="hidden" id="past_nurse" value="past" >
+                        <label for="past_nurse">Past History</label>
+                    </div>
+                </div>
+            </div>
+            <table id="nursing_date_tbl" class="ui celled table" style="min-width: 200px; max-height: 60vh;">
+                <thead>
+                    <tr>
+                        <th class="scope">mrn</th>
+                        <th class="scope">episno</th>
+                        <th class="scope">Date</th>
+                        <th class="scope">adduser</th>
+                        <th class="scope">adddate</th>
+                        <th class="scope">recordtime</th>
+                        <th class="scope">type</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
     </div>
 
     <div class="ui segment">
-        <form id="formTriageInfo" class="ui form">
+      <div class="ui grid">
+        <form id="formTriageInfo" class="right floated ui form thirteen wide column">
             <input id="mrn_ti" name="mrn_ti" type="hidden">
             <input id="episno_ti" name="episno_ti" type="hidden">
+            <input id="arrival_date_ti" name="arrival_date_ti" type="hidden">
 
             <div class="ui grid">
 
@@ -130,7 +169,7 @@
                                             <div class="field eight wide column" style="margin:0px; padding: 3px 14px 0px 14px;">
                                                 <label>Height</label>
                                                 <div class="ui right labeled input">
-                                                  <input type="text" onKeyPress="if(this.value.length==6) return false;" id="height" name="height">
+                                                  <input type="text" onKeyPress="if(this.value.length==6) return false;" id="height" name="vs_height">
                                                   <div class="ui basic label mylabel">CM</div>
                                                 </div>
                                             </div>
@@ -138,7 +177,7 @@
                                             <div class="field eight wide column" style="margin:0px; padding: 3px 14px 0px 14px;">
                                                 <label>Weight</label>
                                                 <div class="ui right labeled input">
-                                                  <input type="text" onKeyPress="if(this.value.length==6) return false;" id="weight" name="weight">
+                                                  <input type="text" onKeyPress="if(this.value.length==6) return false;" id="weight" name="vs_weight">
                                                   <div class="ui basic label mylabel">KG</div>
                                                 </div>
                                             </div>
@@ -267,5 +306,6 @@
             </div>
 
         </form>
+      </div>
     </div>
 </div>
