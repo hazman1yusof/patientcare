@@ -52,7 +52,8 @@ $(document).ready(function () {
 		}).modal('show');
 
 		$.ajaxSetup({async: false,crossDomain:true});
-		$.get( "http://localhost/mycard/public/read_mykad", function( data ) {
+		// $.get( "http://localhost/mycard/public/read_mykad", function( data ) {
+		$.get( "http://localhost", function( data ) {
 			
 		},'json')
 		  .done(function( data ) {
