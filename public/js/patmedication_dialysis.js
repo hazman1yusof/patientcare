@@ -7,7 +7,9 @@ $(document).ready(function () {
 
 var patmedication_trx_tbl = $('#patmedication_trx_tbl').DataTable({
 	"ordering": false,
-	"ajax": "",
+	"ajax": {
+		async: false
+	},
 	"sDom": "",
 	"paging":false,
     "columns": [
@@ -55,7 +57,9 @@ $('#patmedication_trx_tbl tbody').on('click', 'tr', function () {
 
 var patmedication_tbl = $('#patmedication_tbl').DataTable({
 	"ordering": true,
-	"ajax": "",
+	"ajax":{
+		async: false
+	},
 	"sDom": "",
 	"paging":false,
     "columns": [

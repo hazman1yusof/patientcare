@@ -529,6 +529,7 @@ function check_pt_mode(){
         dialysis_episode_idno:$('#dialysis_episode_idno').val()
     };
 
+	$.ajaxSetup({async: false});
     $.get( "./check_pt_mode?"+$.param(param), function( data ) {
 
     },'json').done(function(data) {
