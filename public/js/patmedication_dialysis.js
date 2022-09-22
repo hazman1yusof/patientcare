@@ -7,9 +7,7 @@ $(document).ready(function () {
 
 var patmedication_trx_tbl = $('#patmedication_trx_tbl').DataTable({
 	"ordering": false,
-	"ajax": {
-		async: false
-	},
+	"ajax": "",
 	"sDom": "",
 	"paging":false,
     "columns": [
@@ -57,9 +55,7 @@ $('#patmedication_trx_tbl tbody').on('click', 'tr', function () {
 
 var patmedication_tbl = $('#patmedication_tbl').DataTable({
 	"ordering": true,
-	"ajax":{
-		async: false
-	},
+	"ajax": "",
 	"sDom": "",
 	"paging":false,
     "columns": [
@@ -174,6 +170,7 @@ function load_patmedication_trx(mrn,episno,date){
 	}
 
 	$('#patmedication_tbl').data('addmode',false);
+	patmedication_trx_tbl.ajax.async = false;
 	patmedication_trx_tbl.ajax.url( "./dialysis/table?"+$.param(patmedicationParam) ).load();
 } 
 
@@ -185,6 +182,7 @@ function load_patmedication(mrn,episno,date){
 		date:date
 	}
 
+	patmedication_tbl.ajax.async = false;
 	patmedication_tbl.ajax.url( "./dialysis/table?"+$.param(patmedicationParam) ).load();
 } 
 
