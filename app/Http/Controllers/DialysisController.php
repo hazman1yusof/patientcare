@@ -1083,7 +1083,7 @@ class DialysisController extends Controller
                             ->where('trx.recstatus','=',1)
                             ->where('trx.chgtype' ,'=', 'EP01')
                             ->whereNull('trx.patmedication')
-                            ->whereDate('trx.trxdate',Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d'))
+                            ->whereDate('trx.trxdate', $request->date)
                             ->orderBy('trx.id','desc');
 
         $responce = new stdClass();
@@ -1126,7 +1126,7 @@ class DialysisController extends Controller
                             
                             ->where('ptm.mrn' ,'=', $request->mrn)
                             ->where('ptm.episno' ,'=', $request->episno)
-                            ->whereDate('ptm.entereddate',Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d'))
+                            ->whereDate('ptm.entereddate', $request->date)
                             ->where('ptm.compcode','=',session('compcode'))
                             ->orderBy('ptm.idno','desc');
 
