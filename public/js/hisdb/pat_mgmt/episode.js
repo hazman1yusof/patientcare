@@ -390,11 +390,14 @@
                     _token: _token
                   }
 
+        $('#btn_save_episode').text('Please wait..').attr('disabled',true);
         $.post( "pat_mast/save_episode", obj , function( data ) {
             
         }).fail(function(data) {
-
+            alert('there is an error');
+            $('#btn_save_episode').text('Save changes').attr('disabled',false);
         }).success(function(data){
+            $('#btn_save_episode').text('Save changes').attr('disabled',false);
             $('#editEpisode').modal('hide');
             $("#load_from_addupd").data('info','true');
             $("#load_from_addupd").data('oper','edit');

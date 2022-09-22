@@ -195,6 +195,8 @@
             }else{
                 save_patient($(this).data('oper'),$(this).data('idno'));
             }
+        }else{
+            alert('Please enter all required data');
         }
     }
 
@@ -214,7 +216,7 @@
     $('#btn_reg_proceed').on('click',default_click_proceed);
 
     function save_patient(oper,idno,mrn="nothing"){
-        $('#btn_register_patient').prop('disabled',true);
+        $('#btn_register_patient').text('Please wait..').prop('disabled',true);
         var saveParam={
             action:'save_patient',
             field:['Name','MRN','Newic','Oldic','ID_Type','idnumber','DOB','telh','telhp','telhp2','Email','Sex','Citizencode','RaceCode','TitleCode','Religion','MaritalCode','Remarks','RelateCode','CorpComp','Staffid','OccupCode','Email_official','Childno','Address1','Address2','Address3','OffAdd1','OffAdd2','OffAdd3','pAdd1','pAdd2','pAdd3','Postcode','OffPostcode','pPostCode','Active','Confidential','PatientCat','NewMrn','bloodgrp','Episno','first_visit_date','last_visit_date','bloodgrp','NewMrn','ptel','telo','Tel_O_Ext'],
@@ -243,10 +245,10 @@
         $.post( "./pat_mast/save_patient?"+$.param(saveParam), $("#frm_patient_info").serialize()+'&'+$.param(postobj)+'&'+$.param(image) , function( data ) {
             
         },'json').fail(function(data) {
-            $('#btn_register_patient').prop('disabled',true);
+            $('#btn_register_patient').text('Save changes').prop('disabled',false);
             alert('there is an error');
         }).success(function(data){
-            $('#btn_register_patient').prop('disabled',true);
+            $('#btn_register_patient').text('Save changes').prop('disabled',false);
             $("#load_from_addupd").data('info','true');
             $("#load_from_addupd").data('oper',oper);
             $("#lastMrn").val(data.lastMrn);
