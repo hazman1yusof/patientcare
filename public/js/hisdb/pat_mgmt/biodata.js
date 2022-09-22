@@ -245,10 +245,9 @@
         $.post( "./pat_mast/save_patient?"+$.param(saveParam), $("#frm_patient_info").serialize()+'&'+$.param(postobj)+'&'+$.param(image) , function( data ) {
             
         },'json').fail(function(data) {
-            $('#btn_register_patient').text('Save changes').prop('disabled',false);
             alert('there is an error');
-        }).success(function(data){
             $('#btn_register_patient').text('Save changes').prop('disabled',false);
+        }).success(function(data){
             $("#load_from_addupd").data('info','true');
             $("#load_from_addupd").data('oper',oper);
             $("#lastMrn").val(data.lastMrn);
@@ -261,6 +260,7 @@
             $('#mdl_patient_info').modal('hide');
             $('#mdl_existing_record').modal('hide');
             $("#grid-command-buttons").bootgrid('reload');
+            $('#btn_register_patient').text('Save changes').prop('disabled',false);
             // if(oper == 'edit'){
 
             //     $("#grid-command-buttons tr").removeClass( "justbc" );

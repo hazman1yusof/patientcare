@@ -397,11 +397,11 @@
             alert('there is an error');
             $('#btn_save_episode').text('Save changes').attr('disabled',false);
         }).success(function(data){
-            $('#btn_save_episode').text('Save changes').attr('disabled',false);
             $('#editEpisode').modal('hide');
             $("#load_from_addupd").data('info','true');
             $("#load_from_addupd").data('oper','edit');
             $("#grid-command-buttons").bootgrid('reload');
+            $('#btn_save_episode').text('Save changes').attr('disabled',false);
         });
     }
 
