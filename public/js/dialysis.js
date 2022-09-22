@@ -810,6 +810,7 @@ function get_dialysis_daily(idno){
 		autoinsert_rowdata_dialysis('form#daily_form',data.data);
 		autoinsert_rowdata_dialysis('form#daily_form_completed',data.data);
 		$('#visit_date').val(data.data.visit_date);
+		load_patmedication(data.data.mrn,data.data.episno,data.data.visit_date);
     }).fail(function(data){
 		loader_daily(false);
         alert('error in get data');
