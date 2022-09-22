@@ -401,7 +401,7 @@ class DialysisController extends Controller
                 }
 
                 //check utk epo3
-                $check_mcr = $this->check_mcr($request,$chgmast->chggroup);
+                $check_mcr = $this->check_mcr($request,$chgmast->chgtype);
                 if($check_mcr->auto == true){
 
                     $chgmast = DB::table('hisdb.chgmast')
@@ -744,7 +744,7 @@ class DialysisController extends Controller
 
         $mcrstat = $dialysis_episode->mcrstat;
 
-        if(1<=$mcrstat && $mcrstat<5 && $chggroup=='HD'){
+        if(1<=$mcrstat && $mcrstat<5 && $chggroup=='PKG'){
 
             $dialysis_pkgdtl = DB::table('hisdb.dialysis_pkgdtl')
                             ->where('pkgcode','micerra120');
