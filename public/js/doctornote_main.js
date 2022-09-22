@@ -48,8 +48,6 @@ $(document).ready(function () {
 		rowNum: 50,
 		loadonce:false,
 		scroll: true,
-		sortname: 'idno',
-		sortorder: "desc",
 		onSelectRow:function(rowid, selected){
 			closealltab();
 			empty_userfile();
