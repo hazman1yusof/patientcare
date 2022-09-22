@@ -292,5 +292,6 @@ function get_nok_table_fornewpt(){
 }
 
 function empty_nok_jq(){
+	$("#jqGrid_nok_pat").jqGrid("clearGridData");
 	refreshGrid("#jqGrid_nok_pat", 'urlParam_nok_pat','kosongkan');
 }
