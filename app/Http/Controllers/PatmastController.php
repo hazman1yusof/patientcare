@@ -862,7 +862,7 @@ class PatmastController extends defaultController
                             'compcode' => session('compcode'),
                             'mrn'    =>  $mrn,
                             'episno'  =>  1,
-                            'name'  =>  $value['name'],
+                            'name'  =>  strtoupper($value['name']),
                             'relationshipcode' =>  $value['relationshipcode'], 
                             'address1'    =>  $value['address1'],
                             'address2'    =>  $value['address2'],
@@ -2212,7 +2212,7 @@ class PatmastController extends defaultController
                         'compcode' => session('compcode'),
                         'mrn'    =>  $request->mrn,
                         'episno'  =>  $request->episno,
-                        'name'  =>  $request->name,
+                        'name'  =>  strtoupper($request->name),
                         'relationshipcode' =>  $request->relationshipcode, 
                         'address1'    =>  $request->address1,
                         'address2'    =>  $request->address2,
@@ -2231,7 +2231,7 @@ class PatmastController extends defaultController
                 if($nok_ec_obj->exists()){
                     $nok_ec_obj
                         ->update([
-                            'name'  =>  $request->name,
+                            'name'  =>  strtoupper($request->name),
                             'relationshipcode' =>  $request->relationshipcode, 
                             'address1'    =>  $request->address1,
                             'address2'    =>  $request->address2,
