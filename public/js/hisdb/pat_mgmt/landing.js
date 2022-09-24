@@ -315,7 +315,9 @@ $(document).ready(function() {
 
     $('#btn_mykad').click(function(){
         $("#patientBox").data('scantype','mykad');
-        $("#mykadFPiframe").get(0).contentWindow.setscantype('mykad');
+        $("#mykadFPiframe").attr('src','http://localhost/mycard/public/mykad');
+        http://localhost/mycard/public/mykad
+        // $("#mykadFPiframe").get(0).contentWindow.setscantype('mykad');
         $('#mdl_biometric').modal('show');
     });
 
@@ -405,11 +407,11 @@ $(document).ready(function() {
     //     });
     // });
 
-    $('#btn_biometric').click(function(){
-        $("#patientBox").data('scantype','biometric');
-        $("#mykadFPiframe").get(0).contentWindow.setscantype('biometric');
-        $('#mdl_biometric').modal('show');
-    });
+    // $('#btn_biometric').click(function(){
+    //     $("#patientBox").data('scantype','biometric');
+    //     $("#mykadFPiframe").get(0).contentWindow.setscantype('biometric');
+    //     $('#mdl_biometric').modal('show');
+    // });
 
     // $('#btn_mykad_proceed').click(function(){
     //     emptyFormdata([],"form#frm_mykad_info");

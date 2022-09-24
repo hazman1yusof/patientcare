@@ -123,6 +123,32 @@ class DialysisController extends Controller
                     ->get();
         }
 
+        foreach ($post as $key => $value) {
+            $table_patmedication = DB::table('hisdb.patmedication as ptm') //ambil dari patmast balik
+                            ->select('ptm.idno',
+                                'ptm.chgcode as chg_code',
+                                'chgmast.description as chg_desc',
+                                'ptm.enteredby',
+                                'ptm.verifiedby',
+                                'ptm.qty as quantity',
+                                'ptm.idno as status')
+
+                            ->leftJoin('hisdb.chgmast', function($join) use ($request){
+                                $join = $join->on('chgmast.chgcode', '=', 'ptm.chgcode')
+                                                ->where('chgmast.compcode','=',session('compcode'));
+                            })
+                            
+                            ->where('ptm.mrn' ,'=', $value->mrn)
+                            // ->where('ptm.episno' ,'=', $request->episno)
+                            ->whereDate('ptm.entereddate', $value->visit_date)
+                            ->where('ptm.compcode','=',session('compcode'));
+
+            if($table_patmedication->exists()){
+                $value->table_patmedication =  $table_patmedication->get();
+            }
+
+        }
+
         $responce = new stdClass();
         $responce->data = $post;
         return json_encode($responce);
@@ -141,6 +167,32 @@ class DialysisController extends Controller
                     ->whereBetween('visit_date', [$datefrom, $dateto])
                     ->take(3)
                     ->get();
+        }
+
+        foreach ($post as $key => $value) {
+            $table_patmedication = DB::table('hisdb.patmedication as ptm') //ambil dari patmast balik
+                            ->select('ptm.idno',
+                                'ptm.chgcode as chg_code',
+                                'chgmast.description as chg_desc',
+                                'ptm.enteredby',
+                                'ptm.verifiedby',
+                                'ptm.qty as quantity',
+                                'ptm.idno as status')
+
+                            ->leftJoin('hisdb.chgmast', function($join) use ($request){
+                                $join = $join->on('chgmast.chgcode', '=', 'ptm.chgcode')
+                                                ->where('chgmast.compcode','=',session('compcode'));
+                            })
+                            
+                            ->where('ptm.mrn' ,'=', $value->mrn)
+                            // ->where('ptm.episno' ,'=', $request->episno)
+                            ->whereDate('ptm.entereddate', $value->visit_date)
+                            ->where('ptm.compcode','=',session('compcode'));
+
+            if($table_patmedication->exists()){
+                $value->table_patmedication =  $table_patmedication->get();
+            }
+
         }
 
         $responce = new stdClass();

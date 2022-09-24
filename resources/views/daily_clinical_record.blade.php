@@ -1092,6 +1092,13 @@
 
 			    <div class="field">
 					<div class="clinic_code">
+						<label> URR % :</label>
+						<input type="text" name="urr" id="urr" value="" class="purplebg" required>
+					</div>
+			    </div>
+
+			    <div class="field">
+					<div class="clinic_code">
 						<label> TERMINATE BY:</label>
 						<input type="text" name="terminate_by" id="terminate_by" value="" class="purplebg" rdonly>
 					</div>
