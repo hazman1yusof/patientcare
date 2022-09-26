@@ -95,6 +95,10 @@ class DialysisController extends Controller
     public function get_data_dialysis(Request $request){
 
         switch ($request->action) {
+            case 'get_dia_yearly':
+                return $this->get_dia_yearly($request);
+                break;
+
             case 'get_dia_monthly':
                 return $this->get_dia_monthly($request);
                 break;
@@ -108,6 +112,49 @@ class DialysisController extends Controller
                 break;
         }
         
+    }
+
+    public function get_dia_yearly(Request $request){
+        $post = [];
+        if(!empty($request->year) && !empty($request->month)){
+
+            $post = DB::table('hisdb.dialysis')
+                    ->where('mrn','=',$request->mrn)
+                    // ->where('episno','=',$request->episno)
+                    ->whereYear('visit_date', '=', $request->year)
+                    ->whereMonth('visit_date', '=', $request->month)
+                    ->get();
+        }
+
+        foreach ($post as $key => $value) {
+            $table_patmedication = DB::table('hisdb.patmedication as ptm') //ambil dari patmast balik
+                            ->select('ptm.idno',
+                                'ptm.chgcode as chg_code',
+                                'chgmast.description as chg_desc',
+                                'ptm.enteredby',
+                                'ptm.verifiedby',
+                                'ptm.qty as quantity',
+                                'ptm.idno as status')
+
+                            ->leftJoin('hisdb.chgmast', function($join) use ($request){
+                                $join = $join->on('chgmast.chgcode', '=', 'ptm.chgcode')
+                                                ->where('chgmast.compcode','=',session('compcode'));
+                            })
+                            
+                            ->where('ptm.mrn' ,'=', $value->mrn)
+                            // ->where('ptm.episno' ,'=', $request->episno)
+                            ->whereDate('ptm.entereddate', $value->visit_date)
+                            ->where('ptm.compcode','=',session('compcode'));
+
+            if($table_patmedication->exists()){
+                $value->table_patmedication =  $table_patmedication->get();
+            }
+
+        }
+
+        $responce = new stdClass();
+        $responce->data = $post;
+        return json_encode($responce);
     }
 
     public function get_dia_monthly(Request $request){

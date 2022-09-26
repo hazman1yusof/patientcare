@@ -6,15 +6,8 @@ $(document).ready(function () {
 
 	var urlParam = {
 		action: 'patmast_current_patient',
-		url: './pat_mast/post_entry',
-		curpat: 'true',
-		showall:false,
-		showcomplete:false,
+		url: './enquiry/table'
 	}
-
-	$("input[name='Stext']").click(function(){
-		$('button#timer_stop').click();
-	})
 
 	$("#jqGrid").jqGrid({
 		datatype: "local",
@@ -42,50 +35,25 @@ $(document).ready(function () {
 			{ label: 'AreaCode', name: 'AreaCode', hidden: true },
 		],
 		autowidth: true,
-		viewrecords: false,
+		viewrecords: true,
 		width: 900,
 		height: 300,
-		rowNum: 50,
+		rowNum: 100,
+		pager: "#jqGridPager",
 		loadonce:false,
-		scroll: true,
 		onSelectRow:function(rowid, selected){
+			var selrow = selrowData('#jqGrid');
+			$("#mrn").val(selrow.MRN);
+			$("#episno").val(selrow.Episno);
 			closealltab();
-			button_state_dialysis('disableAll');
-			$('button#timer_stop').click();
-
-			if(selrowData('#jqGrid').arrival != 0){
-				$('#dialysis_episode_idno').val(selrowData('#jqGrid').arrival);
-				hide_tran_button(false);
-			}else{
-				$('#dialysis_episode_idno').val(0);
-				hide_tran_button(true);
-			}
-			
-			populatedialysis(selrowData('#jqGrid'));
-			urlParam_trans.mrn = selrowData('#jqGrid').MRN;
-			urlParam_trans.episno = selrowData('#jqGrid').Episno;
-			addmore_onadd = false;
-			curpage_tran = null;
-
 		},
 		ondblClickRow: function (rowid, iRow, iCol, e) {
 		},
 		onSortCol: function(index, iCol, sortorder) {
-		    curpage = null;
 		},
 		gridComplete: function () {
-			urlParam_trans.mrn = "";
-			urlParam_trans.episno =  "";
-			empty_dialysis();
-			empty_transaction();
-			$('#no_of_pat').text($('#jqGrid').jqGrid('getGridParam', 'reccount'));
 		},
 		beforeProcessing: function(data, status, xhr){
-			if(curpage == data.current){
-				return false;
-			}else{
-				curpage = data.current;
-			}
 		}
 	});
 	jqgrid_label_align('#jqGrid');
@@ -101,67 +69,10 @@ $(document).ready(function () {
 
 	searchClick_scroll("#jqGrid","#SearchForm",urlParam);
 
-	$('.ui.checkbox.myslider.showall').checkbox({
-		onChecked: function() {
-			urlParam.showall = true;
-			curpage = null;
-			refreshGrid("#jqGrid", urlParam);
-	    },
-	    onUnchecked: function() {
-			urlParam.showall = false;
-			curpage = null;
-			refreshGrid("#jqGrid", urlParam);
-	    },
-	});
-
-	$('.ui.checkbox.myslider.showcomplete').checkbox({
-		onChecked: function() {
-			urlParam.showcomplete = true;
-			curpage = null;
-			refreshGrid("#jqGrid", urlParam);
-	    },
-	    onUnchecked: function() {
-			urlParam.showcomplete = false;
-			curpage = null;
-			refreshGrid("#jqGrid", urlParam);
-	    },
-	});
-
 	stop_scroll_on();
-
-	$('button#timer_play').click(function(){
-		timer_start_tbl();
-		$('button#timer_play').addClass('disabled');
-		$('button#timer_stop').removeClass('disabled');
-	});
-
-	$('button#timer_stop').click(function(){
-		timer_stop_tbl();
-		$('button#timer_play').removeClass('disabled');
-		$('button#timer_stop').addClass('disabled');
-	});
-
-	$('button#timer_refresh').click(function(){
-		refreshGrid("#jqGrid", urlParam);
-	});
-
-	var fetch_tbl;
-	timer_start_tbl();
-	function timer_start_tbl(){
-		fetch_tbl = setInterval(function(){
-			$('.jqgridsegment').addClass('loading');
-			curpage=null;
-			refreshGrid("#jqGrid", urlParam);
-		}, 5000);
-	}
-
-	function timer_stop_tbl(){
-	  	clearInterval(fetch_tbl);
-	}
 
 });
 
-var curpage=null; // to prevent duplicate entry curpage kena falsekan blk setiap kali nak refresh dari awal 
 function closealltab(except){
 	var tab_arr = ["#tab_trans","#tab_daily","#tab_weekly","#tab_monthly"];
 	tab_arr.forEach(function(e,i){
@@ -174,13 +85,11 @@ function closealltab(except){
 function searchClick_scroll(grid,form,urlParam){
 	$(form+' [name=Stext]').on( "keyup", function() {
 		delay(function(){
-			curpage = null;
 			search(grid,$(form+' [name=Stext]').val(),$(form+' [name=Scol] option:selected').val(),urlParam);
 		}, 500 );
 	});
 
 	$(form+' [name=Scol]').on( "change", function() {
-		curpage = null;
 		search(grid,$(form+' [name=Stext]').val(),$(form+' [name=Scol] option:selected').val(),urlParam);
 	});
 }

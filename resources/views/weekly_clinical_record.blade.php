@@ -1,4 +1,4 @@
-   <div class="ui mini form" style="width: 70% !important;margin: auto;">
+<div class="ui mini form" style="width: 70% !important;margin: auto;">
   <div class="four fields">
     <div class="field">
       <label>Week From:</label>
