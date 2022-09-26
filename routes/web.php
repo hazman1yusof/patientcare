@@ -151,7 +151,7 @@ Route::get('/get_preepis_data','PatmastController@get_preepis_data');
 Route::get('/mykadFP','MycardController@mykadFP');
 Route::post('/mykadfp_store','MycardController@mykadfp_store');
 Route::get('/get_mykad_local','MycardController@get_mykad_local');
-Route::post('/save_mykad_local','MycardController@save_mykad_local');
+Route::get('/save_mykad_local','MycardController@save_mykad_local');
 
 Route::get('/preregister','PreregisterController@show');
 Route::post('/prereg','PreregisterController@prereg');
