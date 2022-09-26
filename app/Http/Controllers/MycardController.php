@@ -74,4 +74,8 @@ class MycardController extends Controller
         echo json_encode($responce);
     }
 
+    public function save_mykad_local(Request $request){
+        dd('save_mykad_local');
+    }
+
 }
