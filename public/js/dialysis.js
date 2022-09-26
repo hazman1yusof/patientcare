@@ -353,7 +353,18 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#time_complete_m').children('td').eq(i+1).text(e.time_complete);
 			$('table#dia_monthly tr#hd_adequancy_m').children('td').eq(i+1).text(e.hd_adequancy);
 			$('table#dia_monthly tr#ktv_m').children('td').eq(i+1).text(e.ktv);
-			$('table#dia_monthly tr#medication_m').children('td').eq(i+1).text(e.medication);
+			$('table#dia_monthly tr#urr_m').children('td').eq(i+1).text(e.urr);
+			// $('table#dia_monthly tr#medication_m').children('td').eq(i+1).text(e.medication);
+			if(e.table_patmedication != undefined || e.table_patmedication != null){
+				let patmed = `<ol>`;
+				e.table_patmedication.forEach(function(e,i){
+					patmed = patmed +  `<li>`+e.chg_desc+` - `+e.enteredby+`</li>`;
+				});
+				patmed = patmed + `</ol>`
+				$('table#dia_monthly tr#medication_m').children('td').eq(i+1).html(patmed);
+			}else{
+				$('table#dia_monthly tr#medication_m').children('td').eq(i+1).html('');
+			}
 		});
 
 	}else if(type == 'weekly'){
@@ -434,7 +445,17 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#time_complete_w').children('td').eq(i+1).text(e.time_complete);
 			$('table#dia_weekly tr#hd_adequancy_w').children('td').eq(i+1).text(e.hd_adequancy);
 			$('table#dia_weekly tr#ktv_w').children('td').eq(i+1).text(e.ktv);
-			$('table#dia_weekly tr#medication_w').children('td').eq(i+1).text(e.medication);
+			$('table#dia_weekly tr#urr_w').children('td').eq(i+1).text(e.urr);
+			if(e.table_patmedication != undefined || e.table_patmedication != null){
+				let patmed = `<ol>`;
+				e.table_patmedication.forEach(function(e,i){
+					patmed = patmed +  `<li>`+e.chg_desc+` - `+e.enteredby+`</li>`;
+				});
+				patmed = patmed + `</ol>`
+				$('table#dia_weekly tr#medication_w').children('td').eq(i+1).html(patmed);
+			}else{
+				$('table#dia_weekly tr#medication_w').children('td').eq(i+1).html('');
+			}
 		});
 	}
 }

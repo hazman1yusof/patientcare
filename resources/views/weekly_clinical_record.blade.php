@@ -1,4 +1,4 @@
-<div class="ui mini form" style="width: 70% !important;margin: auto;">
+   <div class="ui mini form" style="width: 70% !important;margin: auto;">
   <div class="four fields">
     <div class="field">
       <label>Week From:</label>
@@ -452,8 +452,8 @@
 	</tr>
 	<tr id="medication_w">
 		<td width="100" align="left">&nbsp;MEDICATION</td>
-		<td width="80" align="center">&nbsp;</td>
-		<td width="80" align="center">&nbsp;</td>
-		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="left">&nbsp;</td>
+		<td width="80" align="left">&nbsp;</td>
+		<td width="80" align="left">&nbsp;</td>
 	</tr>
 </tbody></table>
