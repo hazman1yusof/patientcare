@@ -45,4 +45,33 @@ class MycardController extends Controller
         file_put_contents($path_img, $img);
     }
 
+    public function get_mykad_local(Request $request){
+        $responce = new stdClass();
+        $pre_pat_mast = DB::table('hisdb.pre_pat_mast')
+                        ->where('CompCode',session('compcode'))
+                        ->where('rng',$request->rng);
+
+        if($pre_pat_mast->exists()){
+            $responce->exists = true;
+
+            $pat_mast = DB::table('hisdb.pat_mast')
+                        ->where('CompCode',session('compcode'))
+                        ->where('Newic',$pre_pat_mast->first()->Newic);
+
+            if($pat_mast->exists()){
+                $responce->pm_exists = true;
+                $responce->data = $pat_mast->first();
+            }else{
+                $responce->pm_exists = false;
+                $responce->data = $pre_pat_mast->first();
+            }
+
+        }else{
+            $responce->exists = false;
+        }
+
+        $pre_pat_mast->delete();
+        echo json_encode($responce);
+    }
+
 }

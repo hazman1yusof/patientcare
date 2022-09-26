@@ -757,14 +757,13 @@
 
 
 
-
 <div id="mdl_biometric" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mymdl_biometric" aria-hidden="true" style="display: none;">
     <div class="modal-dialog" style="width: 100%; height: 100%; margin: auto;">
             
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="" data-dismiss="modal" aria-label="Close" style="float: right;
+                <button onclick="mykadclosemodal()" id="mykadclosemodal" type="button" class="" data-dismiss="modal" aria-label="Close" style="float: right;
                         color: white;
                         background: #d34242;
                         border-radius: 5px;

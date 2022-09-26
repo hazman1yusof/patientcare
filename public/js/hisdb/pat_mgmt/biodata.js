@@ -236,11 +236,11 @@
                     {_token:_token,func_after_pat:$('#func_after_pat').val(),idno:idno};
                     //kalu ada mrn, maksudnya dia dari merging duplicate
 
-        // var image = ($("img#photobase64").attr('src').startsWith('data'))?
-        //             {PatientImage:$("img#photobase64").attr('src')}:
-        //             {PatientImage:null}
+        var image = ($("img#photobase64").attr('src').startsWith('data'))?
+                    {PatientImage:$("img#photobase64").attr('src')}:
+                    {PatientImage:null}
 
-        var image = {PatientImage:null};
+        // var image = {PatientImage:null};
 
         $.post( "./pat_mast/save_patient?"+$.param(saveParam), $("#frm_patient_info").serialize()+'&'+$.param(postobj)+'&'+$.param(image) , function( data ) {
             

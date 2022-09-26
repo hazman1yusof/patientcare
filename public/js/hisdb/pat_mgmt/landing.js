@@ -290,12 +290,7 @@ $(document).ready(function() {
     // }
 
     $( "#patientBox").click(function() { // register new patient
-        let gotpat = $("#patientBox").data('gotpat');
         let oper_mykad = $("#btn_register_patient").data("oper_mykad");
-
-        if(gotpat == true){
-            $("#patientBox").data('gotpat',false);
-        }
 
         if(oper_mykad == 'edit'){
             $("#toggle_tabNok_emr,#toggle_tabNok_pat").parent().show();
@@ -314,9 +309,10 @@ $(document).ready(function() {
     /////////////////mykad///////////////
 
     $('#btn_mykad').click(function(){
+        var rng = $('#user_dept').val()+'_'+randomString(32,'#aA');
         $("#patientBox").data('scantype','mykad');
-        $("#mykadFPiframe").attr('src','http://localhost/mycard/public/mykad');
-        http://localhost/mycard/public/mykad
+        $("#rng").val(rng);
+        $("#mykadFPiframe").attr('src','http://localhost/mycard/public/mykad?rng='+rng);
         // $("#mykadFPiframe").get(0).contentWindow.setscantype('mykad');
         $('#mdl_biometric').modal('show');
     });
@@ -777,4 +773,88 @@ function getIframeWindow(iframe_object) {
   }
 
   return undefined;
+}
+
+function mykadclosemodal(){
+    var param={
+        action: 'get_mykad_local',
+        rng: $('#rng').val()
+    };
+
+    $.get( "./get_mykad_local?"+$.param(param), function( data ) {
+
+    },'json').done(function(data) {
+        if(data.exists==true){
+            if(data.pm_exists==true){
+                var form = '#frm_patient_info';
+                $("#btn_register_patient").data("oper_mykad","edit");
+                $("#btn_register_patient").data("oper","edit");
+                $("#btn_register_patient").data('idno',data.data.idno);
+                $("#pat_mrn").val(data.data.MRN);
+                $("#txt_pat_idno").val(data.data.idno);
+                
+                $("img#photobase64").attr('src',data.data.PatientImage);
+                $.each(data.data, function( index, value ) {
+                    var input=$(form+" [name='"+index+"']");
+                    
+                    if(input.val() != '' || input.val() != undefined){
+                        if(input.is("[type=radio]")){
+                            $(form+" [name='"+index+"'][value='"+value+"']").prop('checked', true);
+                        }else{
+                            input.val(value);
+                        }
+                    }
+                });
+                desc_show.write_desc();
+                $('#txt_pat_newic').blur();
+
+                delay(function(){
+                    $("#patientBox").click();
+                }, 300 );
+
+            }else{
+                var form = '#frm_patient_info';
+                $("#btn_register_patient").data("oper_mykad","add");
+                $("#btn_register_patient").data("oper","add");
+                
+                $("img#photobase64").attr('src',data.data.PatientImage);
+                $.each(data.data, function( index, value ) {
+                    var input=$(form+" [name='"+index+"']");
+                    
+                    if(input.val() != '' || input.val() != undefined){
+                        if(input.is("[type=radio]")){
+                            $(form+" [name='"+index+"'][value='"+value+"']").prop('checked', true);
+                        }else{
+                            input.val(value);
+                        }
+                    }
+                });
+                desc_show.write_desc();
+                $('#txt_pat_newic').blur();
+
+                delay(function(){
+                    $("#patientBox").click();
+                }, 300 );
+
+            }
+        }else{
+
+        }
+
+    }).fail(function(data){
+
+    });
+
+    
+}
+
+function randomString(length, chars) {
+    var mask = '';
+    if (chars.indexOf('a') > -1) mask += 'abcdefghijklmnopqrstuvwxyz';
+    if (chars.indexOf('A') > -1) mask += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (chars.indexOf('#') > -1) mask += '0123456789';
+    if (chars.indexOf('!') > -1) mask += '~`!@#$%^&*()_+-={}[]:";\'<>?,./|\\';
+    var result = '';
+    for (var i = length; i > 0; --i) result += mask[Math.round(Math.random() * (mask.length - 1))];
+    return result;
 }
