@@ -417,14 +417,14 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#3_f_w').children('td').eq(i+1).text(e['3_f']);
 
 			$('table#dia_weekly tr#4_tc_w').children('td').eq(i+1).text(e['4_tc']);
-			$('table#dia_weekly tr#4_bp_w').children('td').eq(i+1).text(e['4bp']);
-			$('table#dia_weekly tr#4_pulse_w').children('td').eq(i+1).text(e['4pulse']);
-			$('table#dia_weekly tr#4_dh_w').children('td').eq(i+1).text(e['4dh']);
-			$('table#dia_weekly tr#4_bfr_w').children('td').eq(i+1).text(e['4bfr']);
-			$('table#dia_weekly tr#4_vp_w').children('td').eq(i+1).text(e['4vp']);
-			$('table#dia_weekly tr#4_tmp_w').children('td').eq(i+1).text(e['4tmp']);
-			$('table#dia_weekly tr#4_uv_w').children('td').eq(i+1).text(e['4uv']);
-			$('table#dia_weekly tr#4_f_w').children('td').eq(i+1).text(e['4f']);
+			$('table#dia_weekly tr#4_bp_w').children('td').eq(i+1).text(e['4_bp']);
+			$('table#dia_weekly tr#4_pulse_w').children('td').eq(i+1).text(e['4_pulse']);
+			$('table#dia_weekly tr#4_dh_w').children('td').eq(i+1).text(e['4_dh']);
+			$('table#dia_weekly tr#4_bfr_w').children('td').eq(i+1).text(e['4_bfr']);
+			$('table#dia_weekly tr#4_vp_w').children('td').eq(i+1).text(e['4_vp']);
+			$('table#dia_weekly tr#4_tmp_w').children('td').eq(i+1).text(e['4_tmp']);
+			$('table#dia_weekly tr#4_uv_w').children('td').eq(i+1).text(e['4_uv']);
+			$('table#dia_weekly tr#4_f_w').children('td').eq(i+1).text(e['4_f']);
 
 			$('table#dia_weekly tr#5_tc_w').children('td').eq(i+1).text(e['5_tc']);
 			$('table#dia_weekly tr#5_bp_w').children('td').eq(i+1).text(e['5_bp']);
