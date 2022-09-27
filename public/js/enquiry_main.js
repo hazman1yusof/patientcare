@@ -38,7 +38,7 @@ $(document).ready(function () {
 		viewrecords: true,
 		width: 900,
 		height: 300,
-		rowNum: 100,
+		rowNum: 50,
 		pager: "#jqGridPager",
 		loadonce:false,
 		onSelectRow:function(rowid, selected){
