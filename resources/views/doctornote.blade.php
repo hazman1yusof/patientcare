@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'Case Note')
+
 @section('style')
 @endsection
 

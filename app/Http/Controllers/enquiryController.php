@@ -74,11 +74,18 @@ class enquiryController extends defaultController
 
             $paginate_patm = $table_patm->paginate($request->rows);
 
+            // $responce = new stdClass();
+            // $responce->current = $paginate_patm->currentPage();
+            // $responce->lastPage = $paginate_patm->lastPage();
+            // $responce->total = $paginate_patm->total();
+            // $responce->rowCount = $paginate_patm->total();
+            // $responce->rows = $paginate_patm->items();
+            // $responce->query = $this->getQueries($table_patm);
+
             $responce = new stdClass();
-            $responce->current = $paginate_patm->currentPage();
-            $responce->lastPage = $paginate_patm->lastPage();
-            $responce->total = $paginate_patm->total();
-            $responce->rowCount = $paginate_patm->total();
+            $responce->page = $paginate_patm->currentPage();
+            $responce->total = $paginate_patm->lastPage();
+            $responce->records = $paginate_patm->total();
             $responce->rows = $paginate_patm->items();
             $responce->query = $this->getQueries($table_patm);
             

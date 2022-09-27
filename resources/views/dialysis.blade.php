@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title', 'Dialysis')
+
 @section('style')
 
 @endsection

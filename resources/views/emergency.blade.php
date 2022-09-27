@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('title', 'Document Upload')
 
 @section('style')
     

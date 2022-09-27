@@ -42,9 +42,7 @@ $(document).ready(function () {
 		pager: "#jqGridPager",
 		loadonce:false,
 		onSelectRow:function(rowid, selected){
-			var selrow = selrowData('#jqGrid');
-			$("#mrn").val(selrow.MRN);
-			$("#episno").val(selrow.Episno);
+			populatenquiry(selrowData('#jqGrid'));
 			closealltab();
 		},
 		ondblClickRow: function (rowid, iRow, iCol, e) {
@@ -72,6 +70,12 @@ $(document).ready(function () {
 	stop_scroll_on();
 
 });
+
+function populatenquiry(data){
+	$('span.metal').text(data.Name+' - MRN:'+data.MRN);
+	$('#mrn').val(data.MRN);
+	$('#episno').val(data.Episno);
+}
 
 function closealltab(except){
 	var tab_arr = ["#tab_trans","#tab_daily","#tab_weekly","#tab_monthly"];
