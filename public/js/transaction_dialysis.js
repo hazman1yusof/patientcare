@@ -25,18 +25,24 @@ $(document).ready(function () {
 			{ label: 'id', name: 'id', hidden: true,key:true },
 			{ label: 'chg_code', name: 'chg_code', hidden: true },
 			{ label: 'isudept', name: 'isudept', hidden: true },
+			{ label: 'Item', name: 'chg_desc', width: 40, editable:true, classes: 'wrap',
+				editrules:{required: true, custom:true, custom_func:cust_rules},
+				edittype:'custom',	editoptions:
+				    {  custom_element:chgcodeCustomEdit,
+				       custom_value:galGridCustomValue 	
+				    },},
 			{ label: 'Date', name: 'trxdate', width: 30 , editable:true,
 				formatter: "date", formatoptions: {srcformat: 'Y-m-d', newformat:'d-m-Y'},
 				editoptions: {
                     dataInit: function (element) {
                         $(element).datepicker({
                             id: 'trxdate_datePicker',
-                            dateFormat: 'dd-mm-yy',
+                            dateFormat: 'yy-mm-dd',
                             showOn: 'focus',
                             changeMonth: true,
 		  					changeYear: true,
 							onSelect : function(){
-								$(this).focus();
+								// $(this).focus();
 							}
                         });
                     }
@@ -44,12 +50,6 @@ $(document).ready(function () {
 			},
 			{ label: 'Time', name: 'trxtime', width: 30 , editable:true,edittype:'custom',editoptions:
 				    {  custom_element:trxtimeCustomEdit,
-				       custom_value:galGridCustomValue 	
-				    },},
-			{ label: 'Item', name: 'chg_desc', width: 40, editable:true, classes: 'wrap',
-				editrules:{required: true, custom:true, custom_func:cust_rules},
-				edittype:'custom',	editoptions:
-				    {  custom_element:chgcodeCustomEdit,
 				       custom_value:galGridCustomValue 	
 				    },},
 			{ label: 'Qty', name: 'quantity', width: 20 , align: 'right', editable:true, classes: 'input',
@@ -128,7 +128,6 @@ $(document).ready(function () {
         oneditfunc: function (rowid) {
         	calc_jq_height_onchange("jqGrid_trans");
         	addmore_onadd = true;
-        	$("#jqGrid_trans input[name='chgcode']").focus();
         	$("#jqGrid_trans input[name='trxdate']").val(moment().format("YYYY-MM-DD"));
         	$("#jqGrid_trans input[name='trxtime']").val(moment().format("HH:MM"));
 
@@ -493,7 +492,7 @@ function get_url(type){
     let act = null;
     switch (type){
         case "chgcode":
-            act = "get_chgcode";
+            act = "get_chgcode&mrn="+$("#mrn").val()+"&episno="+$("#episno").val()+"&arrivalno="+$('#dialysis_episode_idno').val();
             break;
         case "freqcode":
             act = "get_freqcode";
@@ -560,6 +559,9 @@ function deleting(){
 	var param = {
 		_token: $("#_token").val(),
 		id: selrow_trans.id,
+		mrn: $("#mrn").val(),
+		episno: $("#episno").val(),
+		dialysis_episode_idno: $('#dialysis_episode_idno').val(),
 		oper: 'del'
 	}
 

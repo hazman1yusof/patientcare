@@ -1,4 +1,4 @@
-<!-- Large modal -->
+micerr<!-- Large modal -->
 <div id="editEpisode" class="modal fade" data-backdrop="false" data-keyboard="false" role="dialog" aria-labelledby="editEpisode" aria-hidden="true" style="display: none; z-index: 110">
     <div class="modal-dialog modal-lg">
         <input type="hidden" name="rowid" id="epis_rowid">
@@ -302,8 +302,8 @@
                                             <small for="dialysis_pkgcode">Dialysis Type</small>
                                             <select name="dialysis_pkgcode" id="dialysis_pkgcode" data-validation="required" class="form-control">
                                               <option value="EPO">EPO</option>
-                                              <option value="micerra120">MICEERA120</option>
-                                              <option value="manual">MANUAL</option>
+                                              <option value="MICERRA">MICERRA</option>
+                                              <option value="MANUAL">MANUAL</option>
                                             </select>
                                         </div>
                                     </div>

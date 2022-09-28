@@ -382,24 +382,7 @@ class DialysisController extends Controller
         try {
 
             if($request->oper == 'edit'){
-                // $table->where('mrn','=',$request->mrn)
-                //         ->where('episno','=',$request->episno)
-                //         ->where('id','=',$request->id);
 
-                // $array_edit = [
-                //     'chgcode' => $request->chg_desc,
-                //     'chggroup' =>  $chgmast->chggroup,
-                //     'quantity' => $request->quantity,
-                //     'instruction' => $request->ins_desc,
-                //     'doscode' => $request->dos_desc,
-                //     'frequency' => $request->fre_desc,
-                //     'drugindicator' => $request->dru_desc,
-                //     'remarks' => $request->remarks,
-                //     'lastuser' => Auth::user()->username,
-                //     'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
-                // ];
-
-                // $table->update($array_edit);
             }else if($request->oper == 'add'){
 
                 $table = DB::table('hisdb.chargetrx');
@@ -426,9 +409,9 @@ class DialysisController extends Controller
                                 ->where('trxdate','=', $request->trxdate)
                                 ->where('chgtype','=','PKG');
 
-                    if($chgtrx->exists()){
-                        throw new \Exception('Patient already have dialysis for date: '.Carbon::parse($request->arrival_date)->format('d-m-Y'), 500);
-                    }
+                    // if($chgtrx->exists()){
+                    //     throw new \Exception('Patient already have dialysis for date: '.Carbon::parse($request->arrival_date)->format('d-m-Y'), 500);
+                    // }
                 }else if($chgmast->chggroup == 'EP'){
 
                     $chgtrx = DB::table('hisdb.chargetrx')
@@ -539,6 +522,79 @@ class DialysisController extends Controller
                             'lastuser' => Auth::user()->username,
                             'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
                         ]);
+
+                $chargetrx = DB::table('hisdb.chargetrx')
+                                ->where('id','=',$request->id)
+                                ->first();
+
+                //check del hd
+                $dialysis_pkgdtl = DB::table('hisdb.dialysis_pkgdtl')
+                            ->where('pkgcode','EPO')
+                            ->where('chgcode',$chargetrx->chgcode);
+
+                if($dialysis_pkgdtl->exists()){
+                    $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                        ->where('idno',$request->dialysis_episode_idno)
+                        ->first(); 
+
+                    if($dialysis_episode->hdstat>0){
+                        $hdstillgot = DB::table('hisdb.chargetrx')
+                                        ->where('mrn','=',$request->mrn)
+                                        ->where('episno','=',$request->episno)
+                                        ->where('chgcode',$chargetrx->chgcode)
+                                        ->where('recstatus',1);
+
+                        if(!$hdstillgot->exists()){
+                            DB::table('hisdb.chargetrx')
+                                ->where('mrn','=',$request->mrn)
+                                ->where('episno','=',$request->episno)
+                                ->where('chgcode','=',$dialysis_pkgdtl->first()->epocode)
+                                ->where('recstatus',1)
+                                ->update([
+                                    'recstatus' => 0,
+                                    'lastuser' => Auth::user()->username,
+                                    'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
+                                ]);
+
+                            DB::table('hisdb.dialysis_episode')
+                                ->where('idno',$request->dialysis_episode_idno)
+                                ->update(['hdstat' => 0]);
+                        }
+
+                    }
+                }
+
+                //check del mcr
+                $dialysis_pkgdtl = DB::table('hisdb.dialysis_pkgdtl')
+                            ->where('pkgcode','MICERRA')
+                            ->where('chgcode',$chargetrx->chgcode);
+
+                if($dialysis_pkgdtl->exists()){
+                    $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                        ->where('idno',$request->dialysis_episode_idno)
+                        ->first();
+
+                    if($dialysis_episode->mcrstat>0){
+                        $oldmcr = intval($dialysis_episode->mcrstat);
+                        $newmcr = intval($oldmcr)-1;
+
+                        if($newmcr<0){
+                            $newmcr = 0;
+                        }
+
+                        if($newmcr == 0){
+                            $del_array=['mcrstat' => $newmcr,'mcrtype' => ''];
+                        }else{
+                            $del_array=['mcrstat' => $newmcr];
+                        }
+
+                        DB::table('hisdb.dialysis_episode')
+                            ->where('idno',$request->dialysis_episode_idno)
+                            ->update($del_array);
+
+                    }
+
+                }
             }
         
             $responce = new stdClass();
@@ -834,7 +890,7 @@ class DialysisController extends Controller
     }
 
 
-    public function check_mcr(Request $request,$chggroup){
+    public function check_mcr(Request $request,$chgtype){
         $responce = new stdClass();
 
         $dialysis_episode = DB::table('hisdb.dialysis_episode')
@@ -842,31 +898,36 @@ class DialysisController extends Controller
                                 ->first();
 
         $mcrstat = $dialysis_episode->mcrstat;
+        $mcrtype = $dialysis_episode->mcrtype;
 
-        if(1<=$mcrstat && $mcrstat<5 && $chggroup=='PKG'){
+        if($mcrstat>0 && $chgtype=='PKG'){
 
             $dialysis_pkgdtl = DB::table('hisdb.dialysis_pkgdtl')
-                            ->where('pkgcode','micerra120');
-            //                 ->where('chgcode',$request->chg_desc);
+                            ->where('pkgcode','MICERRA')
+                            ->where('chgcode',$mcrtype);
 
-            // if($dialysis_pkgdtl->exists()){
-            DB::table('hisdb.dialysis_episode')
-                ->where('idno',$request->dialysis_episode_idno)
-                ->update([
-                    'mcrstat' => $mcrstat + 1
-                ]);
+            if($dialysis_pkgdtl->exists()){
 
-            $responce->auto = true;
-            $responce->chgcode = $dialysis_pkgdtl->first()->epocode;
+                if($mcrstat<=intval($dialysis_pkgdtl->first()->volume2)){
+                    DB::table('hisdb.dialysis_episode')
+                        ->where('idno',$request->dialysis_episode_idno)
+                        ->update([
+                            'mcrstat' => $mcrstat + 1
+                        ]);
 
-            return $responce;
-            // }
+                    $responce->auto = true;
+                    $responce->chgcode = $dialysis_pkgdtl->first()->epocode;
+
+                    return $responce;
+                }
+                
+            }
             
-        }else if($mcrstat == 0 && $chggroup=='EP'){
+        }else if($mcrstat == 0 && $chgtype=='EP01'){
 
             //check ada dlm case
             $dialysis_pkgdtl = DB::table('hisdb.dialysis_pkgdtl')
-                            ->where('pkgcode','micerra120')
+                            ->where('pkgcode','MICERRA')
                             ->where('chgcode',$request->chg_desc);
 
             if($dialysis_pkgdtl->exists()){
@@ -874,7 +935,8 @@ class DialysisController extends Controller
                 DB::table('hisdb.dialysis_episode')
                     ->where('idno',$request->dialysis_episode_idno)
                     ->update([
-                        'mcrstat' => 1
+                        'mcrstat' => 1,
+                        'mcrtype' => $request->chg_desc
                     ]);
 
                 $responce->auto = false;
@@ -949,6 +1011,24 @@ class DialysisController extends Controller
                     ->where('username',$request->username)
                     ->where('password',$request->password)
                     ->where('username','!=',session('username'));
+
+        if($verify->exists()){
+            $responce->success = 'success';
+        }else{
+            $responce->success = 'fail';
+        }
+
+        echo json_encode($responce); 
+    }
+
+    public function verifyuser_admin(Request $request){
+        $responce = new stdClass();
+
+        $verify = DB::table('sysdb.users')
+                    ->where('compcode',session('compcode'))
+                    ->where('username',$request->username)
+                    ->where('password',$request->password)
+                    ->where('groupid','==','ADMIN');
 
         if($verify->exists()){
             $responce->success = 'success';
@@ -1034,6 +1114,16 @@ class DialysisController extends Controller
     }
 
     public function get_chgcode(Request $request){
+        $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                ->where('idno',$request->arrivalno);
+
+        if(!$dialysis_episode->exists()){
+            throw new \Exception('Error: arrivalno doesnt exist', 500); 
+        }
+
+        $dialysis_episode = $dialysis_episode->first();
+
+
         $data = DB::table('hisdb.chgmast as cm')
                     ->select('cm.chgcode as code','cm.description as description','cm.doseqty','cm.dosecode','d.dosedesc as dosecode_','cm.freqcode','f.freqdesc as freqcode_','cm.instruction','i.description as instruction_')
                     ->leftJoin('hisdb.dose as d', function($join) use ($request){
@@ -1055,6 +1145,12 @@ class DialysisController extends Controller
                     ->whereIn('cm.chggroup',['HD','EP'])
                     ->where('cm.compcode','=',session('compcode'))
                     ->where('cm.active','=',1);
+
+        if($dialysis_episode->packagecode == 'EPO'){
+            $data = $data->where('cm.micerra','!=',1);
+        }else if($dialysis_episode->mcrstat>0){
+            $data = $data->where('cm.micerra','!=',1);
+        }
 
         // if(Session::has('chggroup')){
         //     $data = $data->where('chggroup','=',session('chggroup'));
