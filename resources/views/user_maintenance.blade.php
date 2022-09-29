@@ -74,10 +74,10 @@
 				  <input id="programmenu" name="programmenu" type="text" maxlength="30" class="form-control input-sm">
 				  </div>
 
-				  <label class="col-md-2 control-label" for="deptcode">Department</label>  
+				  <label class="col-md-2 control-label" for="dept">Department</label>  
 					<div class="col-md-4">
 					  <div class='input-group'>
-						<input id="deptcode" name="deptcode" type="text" class="form-control input-sm" data-validation="required" >
+						<input id="dept" name="dept" type="text" class="form-control input-sm" data-validation="required" >
 						<a class='input-group-addon btn btn-primary'><span class='fa fa-ellipsis-h'></span></a>
 					  </div>
 					  <span class="help-block"></span>

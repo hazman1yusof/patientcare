@@ -68,19 +68,19 @@ $(document).ready(function () {
 			}
 			if(oper!='view'){
 				dialog_txndept.on();
-				dialog_deptcode.on();
+				dialog_dept.on();
 			}
 			if(oper!='add'){
 				setColor();
 				dialog_txndept.check(errorField);
-				// dialog_deptcode.check(errorField);
+				// dialog_dept.check(errorField);
 			}
 		},
 		close: function( event, ui ) {
 			emptyFormdata(errorField,'#formdata');
 
 			dialog_txndept.off();
-			dialog_deptcode.off();
+			dialog_dept.off();
 
 			if(oper=='view'){
 				$(this).dialog("option", "buttons",butt1);
@@ -111,7 +111,7 @@ $(document).ready(function () {
             {label:'Username',name:'username',width:90,canSearch:true, checked:true},
             {label:'Name',name:'name',width:300,canSearch:true},
             {label:'Group',name:'groupid',width:90,canSearch:true}, 
-            {label:'Department',name:'deptcode',width:100}, 
+            {label:'Department',name:'dept',width:100}, 
             {label:'Cashier',name:'cashier', width:90, formatter:formatter, unformat:unformat, formatter:formatterstatus_tick2, unformat:unformatstatus_tick2, classes: 'center_td' },   
             {label:'Billing',name:'billing', width:90, formatter:formatter, unformat:unformat, formatter:formatterstatus_tick2, unformat:unformatstatus_tick2, classes: 'center_td' },   
             {label:'Nurse',name:'nurse', width:90, formatter:formatter, unformat:unformat, formatter:formatterstatus_tick2, unformat:unformatstatus_tick2, classes: 'center_td' },   
@@ -281,10 +281,10 @@ $(document).ready(function () {
 	);
 	dialog_txndept.makedialog();
 
-	var dialog_deptcode = new ordialog(
-		'deptcode','sysdb.department','#deptcode',errorField,
+	var dialog_dept = new ordialog(
+		'dept','sysdb.department','#dept',errorField,
 		{	colModel:[
-				{label:'Department ID',name:'deptcode',width:200,classes:'pointer',canSearch:true,checked:true,or_search:true},
+				{label:'Department ID',name:'dept',width:200,classes:'pointer',canSearch:true,checked:true,or_search:true},
 				{label:'Description',name:'description',width:400,classes:'pointer',canSearch:true,or_search:true},
 			],
 			urlParam: {
@@ -305,12 +305,12 @@ $(document).ready(function () {
 		},{
 			title:"Select Transaction Department",
 			open: function(){
-				dialog_deptcode.urlParam.filterCol=['compcode','recstatus'],
-				dialog_deptcode.urlParam.filterVal=['session.compcode','ACTIVE']
+				dialog_dept.urlParam.filterCol=['compcode','recstatus'],
+				dialog_dept.urlParam.filterVal=['session.compcode','ACTIVE']
 			}
 		},'urlParam', 'radio', 'tab'
 	);
-	dialog_deptcode.makedialog();
+	dialog_dept.makedialog();
 
 
 	// function savecolor(){

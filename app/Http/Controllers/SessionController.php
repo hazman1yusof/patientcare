@@ -43,10 +43,10 @@ class SessionController extends Controller
 
             $department = DB::table('sysdb.department')
                             ->where('compcode', $user->first()->compcode)
-                            ->where('deptcode', $user->first()->deptcode)
+                            ->where('deptcode', $user->first()->dept)
                             ->first();
 
-            $request->session()->put('dept', $user->first()->deptcode);
+            $request->session()->put('dept', $user->first()->dept);
             $request->session()->put('dept_desc', $department->description);
             $request->session()->put('username', request('username'));
             $request->session()->put('compcode', $user->first()->compcode);

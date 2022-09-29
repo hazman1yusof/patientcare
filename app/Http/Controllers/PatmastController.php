@@ -28,7 +28,7 @@ class PatmastController extends defaultController
     public function show(Request $request)
     {       
         $user = DB::table('sysdb.users')->where('username','=',session('username'))->first();
-        $dept = DB::table('sysdb.department')->where('deptcode','=',$user->deptcode)->first();
+        $dept = DB::table('sysdb.department')->where('deptcode','=',$user->dept)->first();
         return view('hisdb.pat_mgmt.landing',
             [
                 'userdeptcode' => $dept->deptcode,
