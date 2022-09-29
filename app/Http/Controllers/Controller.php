@@ -29,4 +29,12 @@ class Controller extends BaseController
         return $occ_idx;
     }
 
+    public function get_maiwp_center_dept(){
+        $centers = DB::table('sysdb.department')
+                        ->select('deptcode','description')
+                        ->where('compcode','=',session('compcode'))
+                        ->get();
+        return $centers;
+    }
+
 }

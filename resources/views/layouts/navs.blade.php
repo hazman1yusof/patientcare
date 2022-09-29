@@ -1,7 +1,16 @@
 <div class="ui fixed top menu sidemenu" id="sidemenu_topmenu">
     <a class="item" id="showSidebar" style="padding: 20px 25px 15px 25px !important;"><i class="sidebar inverted icon"></i></a>
     <div class="right menu">
-        <div class="item" style="color:white;">{{ session('dept_desc') }}</div>
+        <!-- <div class="item" style="color:white;">{{ session('dept_desc') }}</div> -->
+        <div class="ui pointing dropdown link item" style="color:white;">
+            <span class="text">{{ session('dept_desc') }}</span>
+            <i class="dropdown icon"></i>
+            <div class="menu">
+                @foreach ($centers as $center)
+                    <a class="item" href="{{ url('dialysis/')}}?changedept={{$center->deptcode}}" >{{$center->description}}</a>
+                @endforeach
+            </div>
+          </div>
         <div class="ui dropdown item" style="color:white;">
           Hi, {{Auth::user()->name}} !<i class="dropdown icon"></i>
           <div class="menu">
