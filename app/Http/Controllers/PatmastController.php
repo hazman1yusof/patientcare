@@ -21,8 +21,22 @@ class PatmastController extends defaultController
     }
 
     public function mainlanding(Request $request)
-    {       
-        return view('hisdb.mainlanding');
+    {     
+        $centers = $this->get_maiwp_center_dept();  
+
+        if(!empty($request->changedept)){
+
+            $department = DB::table('sysdb.department')
+                            ->where('compcode', session('compcode'))
+                            ->where('deptcode', $request->changedept);
+
+            if($department->exists()){
+                $request->session()->put('dept', $department->first()->deptcode);
+                $request->session()->put('dept_desc', $department->first()->description);
+            }
+        }
+
+        return view('hisdb.mainlanding',compact('centers'));
     }
 
     public function show(Request $request)

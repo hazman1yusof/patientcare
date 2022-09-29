@@ -15,7 +15,22 @@ class enquiryController extends defaultController
     }
 
     public function show(Request $request){   
-        return view('enquiry');
+
+        $centers = $this->get_maiwp_center_dept();
+
+        if(!empty($request->changedept)){
+
+            $department = DB::table('sysdb.department')
+                            ->where('compcode', session('compcode'))
+                            ->where('deptcode', $request->changedept);
+
+            if($department->exists()){
+                $request->session()->put('dept', $department->first()->deptcode);
+                $request->session()->put('dept_desc', $department->first()->description);
+            }
+        }
+
+        return view('enquiry',compact('centers'));
     }
 
     public function table(Request $request){   

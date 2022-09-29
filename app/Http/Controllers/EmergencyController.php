@@ -29,16 +29,30 @@ class EmergencyController extends Controller
 
         // $events = $this->getEvent($emergency);
 
-        if(!empty($request->username)){
-            $user = DB::table('sysdb.users')
-                    ->where('username','=',$request->username);
-            if($user->exists()){
-                $user = User::where('username',$request->username);
-                Auth::login($user->first());
+        // if(!empty($request->username)){
+        //     $user = DB::table('sysdb.users')
+        //             ->where('username','=',$request->username);
+        //     if($user->exists()){
+        //         $user = User::where('username',$request->username);
+        //         Auth::login($user->first());
+        //     }
+        // }
+
+        $centers = $this->get_maiwp_center_dept();
+
+        if(!empty($request->changedept)){
+
+            $department = DB::table('sysdb.department')
+                            ->where('compcode', session('compcode'))
+                            ->where('deptcode', $request->changedept);
+
+            if($department->exists()){
+                $request->session()->put('dept', $department->first()->deptcode);
+                $request->session()->put('dept_desc', $department->first()->description);
             }
         }
 
-        return view('emergency');
+        return view('emergency',compact('centers'));
     }
 
     public function getEvent($obj){

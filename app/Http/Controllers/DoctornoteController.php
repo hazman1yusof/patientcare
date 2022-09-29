@@ -81,26 +81,22 @@ class DoctornoteController extends Controller
     }
 
     public function index(Request $request){ 
-        // dd(Auth::user());
 
-        // $navbar = $this->navbar();
+        $centers = $this->get_maiwp_center_dept();
 
-        // $emergency = DB::table('hisdb.episode')
-        //                 ->whereMonth('reg_date', '=', now()->month)
-        //                 ->whereYear('reg_date', '=', now()->year)
-        //                 ->get();
+        if(!empty($request->changedept)){
 
-        // $events = $this->getEvent($emergency);
+            $department = DB::table('sysdb.department')
+                            ->where('compcode', session('compcode'))
+                            ->where('deptcode', $request->changedept);
 
-        // if(!empty($request->username)){
-        //     $user = DB::table('users')
-        //             ->where('username','=',$request->username);
-        //     if($user->exists()){
-        //         $user = User::where('username',$request->username);
-        //         Auth::login($user->first());
-        //     }
-        // }
-        return view('doctornote');
+            if($department->exists()){
+                $request->session()->put('dept', $department->first()->deptcode);
+                $request->session()->put('dept_desc', $department->first()->description);
+            }
+        }
+        
+        return view('doctornote',compact('centers'));
     }
 
     public function get_table_doctornote($request){
