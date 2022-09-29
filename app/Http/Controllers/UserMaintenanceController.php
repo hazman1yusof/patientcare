@@ -43,7 +43,7 @@ class UserMaintenanceController extends defaultController
         /////////searching/////////
         if(!empty($request->searchCol)){
             foreach ($request->searchCol as $key => $value) {
-                $table = $table->orWhere($request->searchCol[$key],'like',$request->searchVal[$key]);
+                $table = $table->where($request->searchCol[$key],'like',$request->searchVal[$key]);
             }
          }
 
@@ -104,6 +104,7 @@ class UserMaintenanceController extends defaultController
                 'groupid' => $request->groupid,
                 // 'deptcode' => $request->deptcode,
                 'dept' => $request->dept,
+                'viewallcenter' => $request->viewallcenter,
                 'cashier' => $request->cashier,
                 'billing' => $request->billing,
                 'nurse' => $request->nurse,
@@ -143,6 +144,7 @@ class UserMaintenanceController extends defaultController
                 'groupid' => $request->groupid,
                 // 'deptcode' => $request->deptcode,
                 'dept' => $request->dept,
+                'viewallcenter' => $request->viewallcenter,
                 'cashier' => $request->cashier,
                 'billing' => $request->billing,
                 'nurse' => $request->nurse,

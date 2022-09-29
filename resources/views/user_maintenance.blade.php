@@ -123,6 +123,12 @@
 				  		<option value='1'>Yes</option>
 				  		<option value='0' selected>No</option>
 				  	</select>
+
+				  <label class="control-label col-md-2">View All Center</label>
+				  	<select class="form-control col-md-4" id='viewallcenter' name='viewallcenter'>
+				  		<option value='1'>Yes</option>
+				  		<option value='0' selected>No</option>
+				  	</select>
 				</div>
                 
 			</form>
