@@ -1276,30 +1276,30 @@ class PatmastController extends defaultController
                   //adddate
                   //adduser
                   // computerid
-            $docalloc_obj=DB::table('hisdb.docalloc')
-                ->where('compcode','=',session('compcode'))
-                ->where('Mrn','=',$epis_mrn)
-                ->where('Episno','=',$epis_no);
+            // $docalloc_obj=DB::table('hisdb.docalloc')
+            //     ->where('compcode','=',session('compcode'))
+            //     ->where('Mrn','=',$epis_mrn)
+            //     ->where('Episno','=',$epis_no);
 
-            if(!$docalloc_obj->exists()){
-                //kalu xde docalloc buat baru
-                DB::table('hisdb.docalloc')
-                    ->insert([
-                        'mrn' => $epis_mrn,
-                        'compcode' => session('compcode'),
-                        'episno' => $epis_no,
-                        'AllocNo' => 1,
-                        'AStatus' => "ADMITTING",
-                        'Adddate' => Carbon::now("Asia/Kuala_Lumpur"),
-                        'AddUser' => session('username'),
-                        'Epistycode' => $epis_type,
-                        'DoctorCode' => $admdoctor,
-                        'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                        'LastUser' => session('username'),
-                        'ASDate' => Carbon::now("Asia/Kuala_Lumpur"),
-                        'ASTime' => Carbon::now("Asia/Kuala_Lumpur")->toDateTimeString()
-                    ]);
-            }
+            // if(!$docalloc_obj->exists()){
+            //     //kalu xde docalloc buat baru
+            //     DB::table('hisdb.docalloc')
+            //         ->insert([
+            //             'mrn' => $epis_mrn,
+            //             'compcode' => session('compcode'),
+            //             'episno' => $epis_no,
+            //             'AllocNo' => 1,
+            //             'AStatus' => "ADMITTING",
+            //             'Adddate' => Carbon::now("Asia/Kuala_Lumpur"),
+            //             'AddUser' => session('username'),
+            //             'Epistycode' => $epis_type,
+            //             'DoctorCode' => $admdoctor,
+            //             'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+            //             'LastUser' => session('username'),
+            //             'ASDate' => Carbon::now("Asia/Kuala_Lumpur"),
+            //             'ASTime' => Carbon::now("Asia/Kuala_Lumpur")->toDateTimeString()
+            //         ]);
+            // }
 
             //CREATE BEDALLOC KALAU IP @ DP SHJ
                 // from page
@@ -1308,41 +1308,41 @@ class PatmastController extends defaultController
                     //mrn = episode.mrn
                     //episno = episode.episno
                     //name = patmast.name
-            if($epis_type == "IP" || $epis_type == "DP"){
+            // if($epis_type == "IP" || $epis_type == "DP"){
 
-                $bed_obj = DB::table('hisdb.bed')
-                        ->where('compcode','=',session('compcode'))
-                        ->where('bednum','=',$epis_bednum);
+            //     $bed_obj = DB::table('hisdb.bed')
+            //             ->where('compcode','=',session('compcode'))
+            //             ->where('bednum','=',$epis_bednum);
 
-                if($bed_obj->exists()){
-                    $bed_first = $bed_obj->first();
-                    DB::table('hisdb.bedalloc')
-                        ->insert([  
-                            'mrn' => $epis_mrn,
-                            'episno' => $epis_no,
-                            'name' => $patmast_data->Name,
-                            'astatus' => "Occupied",
-                            'ward' =>  $bed_first->ward,
-                            'room' =>  $bed_first->room,
-                            'bednum' =>  $bed_first->bednum,
-                            'asdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                            'astime' => Carbon::now("Asia/Kuala_Lumpur"),
-                            'compcode' => session('compcode'),
-                            'adduser' => strtoupper(session('username')),
-                            'adddate' => Carbon::now("Asia/Kuala_Lumpur")
-                        ]);
+            //     if($bed_obj->exists()){
+            //         $bed_first = $bed_obj->first();
+            //         DB::table('hisdb.bedalloc')
+            //             ->insert([  
+            //                 'mrn' => $epis_mrn,
+            //                 'episno' => $epis_no,
+            //                 'name' => $patmast_data->Name,
+            //                 'astatus' => "Occupied",
+            //                 'ward' =>  $bed_first->ward,
+            //                 'room' =>  $bed_first->room,
+            //                 'bednum' =>  $bed_first->bednum,
+            //                 'asdate' => Carbon::now("Asia/Kuala_Lumpur"),
+            //                 'astime' => Carbon::now("Asia/Kuala_Lumpur"),
+            //                 'compcode' => session('compcode'),
+            //                 'adduser' => strtoupper(session('username')),
+            //                 'adddate' => Carbon::now("Asia/Kuala_Lumpur")
+            //             ]);
 
-                    $bed_obj->update([
-                        'occup' => "OCCUPIED",
-                        'mrn' => $epis_mrn,
-                        'episno' => $epis_no,
-                        'name' => $patmast_data->Name,
-                        'admdoctor' => $admdoctor
-                    ]);
+            //         $bed_obj->update([
+            //             'occup' => "OCCUPIED",
+            //             'mrn' => $epis_mrn,
+            //             'episno' => $epis_no,
+            //             'name' => $patmast_data->Name,
+            //             'admdoctor' => $admdoctor
+            //         ]);
 
-                }
+            //     }
 
-            }
+            // }
 
 
             //QUEUE FOR ALL
@@ -1361,7 +1361,7 @@ class PatmastController extends defaultController
                 ->where('source','=','QUE')
                 ->where('trantype','=',$epistycode_q);
 
-                //kalu xjumpe buat baru
+            //kalu xjumpe buat baru
             if(!$queue_obj->exists()){
                 DB::table('sysdb.sysparam')
                     ->insert([
@@ -1380,7 +1380,7 @@ class PatmastController extends defaultController
 
             $queue_data = $queue_obj->first();
 
-                //ni start kosong balik bila hari baru
+            //ni start kosong balik bila hari baru
             if($queue_data->pvalue2 != Carbon::now("Asia/Kuala_Lumpur")->toDateString()){
                 $queue_obj
                     ->update([
