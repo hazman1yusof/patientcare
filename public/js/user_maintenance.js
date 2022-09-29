@@ -284,7 +284,7 @@ $(document).ready(function () {
 	var dialog_dept = new ordialog(
 		'dept','sysdb.department','#dept',errorField,
 		{	colModel:[
-				{label:'Department ID',name:'dept',width:200,classes:'pointer',canSearch:true,checked:true,or_search:true},
+				{label:'Department ID',name:'deptcode',width:200,classes:'pointer',canSearch:true,checked:true,or_search:true},
 				{label:'Description',name:'description',width:400,classes:'pointer',canSearch:true,or_search:true},
 			],
 			urlParam: {
