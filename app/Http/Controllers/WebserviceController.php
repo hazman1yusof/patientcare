@@ -679,10 +679,98 @@ class WebserviceController extends Controller
             dd($e);
             // return response('Error'.$e, 500);
         }
+    }
+
+    public function auto_episode(){
+
+        $today = Carbon::now(); //returns current day
+
+        if($today->day != 1){return 0;}
+        
+        $episode = DB::table('hisdb.episode')
+                        ->where('compcode','13A')
+                        ->where('episactive','1');
+
+        if($episode->exists()){
+            $episode = $episode->get();
+
+            foreach ($episode as $key => $value) {
+                $newepisno = intval($value->episno) + 1;
+
+                DB::table("hisdb.episode")
+                    ->insert([
+                        "compcode" => '13A',
+                        "mrn" => $value->mrn,
+                        "episno" => $newepisno,
+                        "epistycode" => $value->epistycode,
+                        "reg_date" => Carbon::now("Asia/Kuala_Lumpur"),
+                        "reg_time" => Carbon::now("Asia/Kuala_Lumpur"),
+                        "regdept" => $value->regdept,
+                        "admsrccode" => $value->regdept,
+                        "case_code" => $value->regdept,
+                        "admdoctor" => $value->regdept,
+                        "attndoctor" => $value->regdept,
+                        "pay_type" => $value->pay_type,
+                        "pyrmode" => $value->pyrmode,
+                        "billtype" => $value->billtype,
+                        "payer" => $value->payer,
+                        "followupNP" => 1,
+                        "adddate" => Carbon::now("Asia/Kuala_Lumpur"),
+                        "adduser" => 'system',
+                        "episactive" => 1,
+                        "allocpayer" => 1,
+                        'episstatus' => 'CURRENT',
+                    ]);
+
+                DB::table('hisdb.epispayer')
+                    ->insert([
+                        'CompCode' => '13A',
+                        'MRN' => $value->mrn,
+                        'Episno' => $newepisno,
+                        'EpisTyCode' => 'OP',
+                        'LineNo' => '1',
+                        'BillType' => 'OP',
+                        'PayerCode' => $value->payer,
+                        'Pay_Type' => $value->pay_type,
+                        'AddDate' => Carbon::now("Asia/Kuala_Lumpur"),
+                        'AddUser' => 'system',
+                        'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                        'LastUser' => 'system'
+                    ]);
+
+                DB::table('hisdb.pat_mast')
+                    ->where('mrn',$value->mrn)
+                    ->where('compcode','13A')
+                    ->update([
+                        'episno' => $newepisno,
+                        'patstatus' => 1,
+                        'last_visit_date' => Carbon::now("Asia/Kuala_Lumpur"),
+                        'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                        'LastUser' => 'system'
+                    ]);
+
+                DB::table('hisdb.queue')
+                    ->where('MRN',$value->mrn)
+                    ->where('CompCode','13A')
+                    ->update([
+                        'Episno' => $newepisno,
+                        'LastTime' => Carbon::now("Asia/Kuala_Lumpur")->toTimeString(),
+                        'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),=
+                        'Reg_Date' => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
+                        'Reg_Time' => Carbon::now("Asia/Kuala_Lumpur")->toDateTimeString(),
+                    ]);
+
+                DB::table('hisdb.episode')
+                    ->where('compcode','13A')
+                    ->where('episno',$value->episno)
+                    ->update([
+                        "episactive" => '0',
+                    ]);
+
+            }
+        }
 
         
-
-
     }
     
 }
