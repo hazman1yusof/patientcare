@@ -283,6 +283,9 @@
                                             <button type="button" class="btn btn-default" id="edit_dialysis">
                                                 <span class="fa fa-edit fa-lg"></span> Edit Arrival
                                             </button>
+                                            <button type="button" class="btn btn-default" id="del_dialysis" style="background: #cd4040;color: white;text-shadow: 0 1px 0 #cd4040;">
+                                                <span class="fa fa-plus-square-o fa-lg"></span> Delete Arrival
+                                            </button>
                                             <button type="button" class="btn btn-default" data-oper='add' id="save_dialysis">
                                                 <span class="fa fa-save fa-lg"></span> Save
                                             </button>

@@ -424,9 +424,9 @@ class DialysisController extends Controller
                                 ->where('trxdate','=', $request->trxdate)
                                 ->where('chgtype','=','PKG');
 
-                    // if($chgtrx->exists()){
-                    //     throw new \Exception('Patient already have dialysis for date: '.Carbon::parse($request->arrival_date)->format('d-m-Y'), 500);
-                    // }
+                    if($chgtrx->exists()){
+                        throw new \Exception('Patient already have dialysis for date: '.Carbon::parse($request->arrival_date)->format('d-m-Y'), 500);
+                    }
                 }else if($chgmast->chggroup == 'EP'){
 
                     $chgtrx = DB::table('hisdb.chargetrx')
@@ -782,6 +782,36 @@ class DialysisController extends Controller
                         ->update([
                             'packagecode' => $request->packagecode
                         ]);
+                }
+            }else if($request->oper == 'del'){
+                $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                        ->where('idno',$request->idno);
+
+                if($dialysis_episode->exists()){
+                    $date = Carbon::parse($request->arrival_date);
+
+                    $isToday = $date->isToday();
+                    if($isToday){
+                        $chargetrx = DB::table('hisdb.chargetrx')
+                                        ->where('mrn',$request->mrn)
+                                        ->where('episno',$request->episno)
+                                        ->whereDate('trxdate',$date)
+                                        ->where('recstatus',1);
+
+                        if(!$chargetrx->exists()){
+                            DB::table('hisdb.dialysis_episode')
+                                ->where('idno',$request->idno)
+                                ->delete();
+                        }else{
+                            throw new \Exception('Error: patient already has order entry, cant delete the record', 500); 
+                        }
+                        
+                    }else{
+                        throw new \Exception('Error: Cant delete record that has arrival date not today', 500); 
+                    }
+
+
+                    
                 }
             }
 

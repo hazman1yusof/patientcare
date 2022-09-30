@@ -43,6 +43,13 @@ $(document).ready(function () {
 		rowNum: 100,
 		pager: "#jqGridPager_dialysis",
 		onSelectRow:function(rowid, selected){
+			console.log();
+			if(moment(selrowData("#jqGrid_dialysis").de_arrival_date).isSame(moment(), 'day') == true){
+				$('#del_dialysis').show();
+			}else{
+				$('#del_dialysis').hide();
+			}
+
 			populate_dialysis(selrowData("#jqGrid_dialysis"));
 		},
 		loadComplete: function(){
@@ -107,6 +114,34 @@ $(document).ready(function () {
 		
 	});
 
+	$("#del_dialysis").click(function(){
+		if (confirm("Are you sure, you want to delete this record?") == true) {
+
+		    var postobj={
+		        oper:'del',
+		    	_token : $('#csrf_token').val(),
+		    	mrn : $("#mrn_episode").val(),
+		    	episno : $("#txt_epis_no").val(),
+		    	packagecode : $("#dialysis_pkgcode").val(),
+		    	arrival_date : $("#dialysis_date").val(),
+				arrival_time : $("#dialysis_time").val(),
+		    	idno: $('#dialysis_idno').val()
+		    };
+
+		    $.post( "./save_epis_dialysis", $.param(postobj) , function( data ) {
+		        
+		    },'json').fail(function(data) {
+		        alert(data.responseText);
+				refreshGrid("#jqGrid_dialysis", urlParam_dialysis);
+		    }).success(function(data){
+				refreshGrid("#jqGrid_dialysis", urlParam_dialysis);
+		    });
+		} else {
+			
+		}
+		
+	});
+
 	$("#save_dialysis").click(function(){
 		disableForm('#form_dialysis');
 		if( $('#form_dialysis').isValid({requiredFields: ''}) ) {
@@ -157,21 +192,21 @@ $(document).ready(function () {
 	function button_state_dialysis(state){
 		switch(state){
 			case 'empty':
-				$('#add_dialysis,#edit_dialysis,#save_dialysis,#cancel_dialysis').attr('disabled',true);
+				$('#add_dialysis,#edit_dialysis,#save_dialysis,#cancel_dialysis,#del_dialysis').attr('disabled',true);
 				break;
 			case 'add_edit':
-				$("#add_dialysis,#edit_dialysis").attr('disabled',false);
+				$("#add_dialysis,#edit_dialysis,#del_dialysis").attr('disabled',false);
 				$('#save_dialysis,#cancel_dialysis').attr('disabled',true);
 				break;
 			case 'add':
 				$("#add_dialysis").attr('disabled',false);
-				$('#edit_dialysis,#save_dialysis,#cancel_dialysis').attr('disabled',true);
+				$('#edit_dialysis,#save_dialysis,#cancel_dialysis,#del_dialysis').attr('disabled',true);
 				break;
 			case 'wait':
 				// dialog_tri_col.on();
 				// examination.on().enable();
 				$("#save_dialysis,#cancel_dialysis").attr('disabled',false);
-				$('#add_dialysis,#edit_dialysis').attr('disabled',true);
+				$('#add_dialysis,#edit_dialysis,#del_dialysis').attr('disabled',true);
 				break;
 		}
 	}

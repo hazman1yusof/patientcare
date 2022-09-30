@@ -103,6 +103,7 @@ $(document).ready(function () {
 		},
 		loadComplete: function () {
 			$("#jqGrid_trans").setSelection($("#jqGrid_trans").getDataIDs()[0]);
+			calc_jq_height_onchange("jqGrid_trans");
 			if(addmore_onadd == true){
 				$('#jqGrid_trans_iladd').click();
 			}
