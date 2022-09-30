@@ -1,4 +1,4 @@
-micerr<!-- Large modal -->
+<!-- Large modal -->
 <div id="editEpisode" class="modal fade" data-backdrop="false" data-keyboard="false" role="dialog" aria-labelledby="editEpisode" aria-hidden="true" style="display: none; z-index: 110">
     <div class="modal-dialog modal-lg">
         <input type="hidden" name="rowid" id="epis_rowid">

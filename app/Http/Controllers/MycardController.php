@@ -45,32 +45,65 @@ class MycardController extends Controller
     }
 
     public function get_mykad_local(Request $request){
-        $responce = new stdClass();
-        $pre_pat_mast = DB::table('hisdb.pre_pat_mast')
+        DB::beginTransaction();
+
+        try {
+
+            $responce = new stdClass();
+            $pre_pat_mast = DB::table('hisdb.pre_pat_mast')
+                            ->where('CompCode',session('compcode'))
+                            ->where('rng',$request->rng);
+
+            if($pre_pat_mast->exists()){
+                $responce->exists = true;
+
+                $pat_mast = DB::table('hisdb.pat_mast')
+                            ->where('CompCode',session('compcode'))
+                            ->where('Newic',$pre_pat_mast->first()->Newic);
+
+                if($pat_mast->exists()){
+                    $responce->pm_exists = true;
+
+                    $pre_pat_mast_f = $pre_pat_mast->first();
+
+                    DB::table('hisdb.pat_mast')
                         ->where('CompCode',session('compcode'))
-                        ->where('rng',$request->rng);
+                        ->where('Newic',$pre_pat_mast_f->Newic)
+                        ->update([
+                            'DOB' => $pre_pat_mast_f->DOB,
+                            'Name' => $pre_pat_mast_f->Name,
+                            'Religion' => $pre_pat_mast_f->Religion,
+                            'Sex' => $pre_pat_mast_f->Sex,
+                            'RaceCode' => $pre_pat_mast_f->RaceCode,
+                            'Address1' => $pre_pat_mast_f->Address1,
+                            'Address2' => $pre_pat_mast_f->Address2,
+                            'Address3' => $pre_pat_mast_f->Address3,
+                            'Postcode' => $pre_pat_mast_f->Postcode,
+                            'Citizencode' => $pre_pat_mast_f->Citizencode,
+                            'ID_Type' => 'O',
+                            'PatientImage' => $pre_pat_mast_f->PatientImage
+                        ]);
 
-        if($pre_pat_mast->exists()){
-            $responce->exists = true;
 
-            $pat_mast = DB::table('hisdb.pat_mast')
-                        ->where('CompCode',session('compcode'))
-                        ->where('Newic',$pre_pat_mast->first()->Newic);
+                    $responce->data = $pat_mast->first();
+                }else{
+                    $responce->pm_exists = false;
+                    $responce->data = $pre_pat_mast->first();
+                }
 
-            if($pat_mast->exists()){
-                $responce->pm_exists = true;
-                $responce->data = $pat_mast->first();
             }else{
-                $responce->pm_exists = false;
-                $responce->data = $pre_pat_mast->first();
+                $responce->exists = false;
             }
 
-        }else{
-            $responce->exists = false;
-        }
+            $pre_pat_mast->delete();
+            echo json_encode($responce);
 
-        $pre_pat_mast->delete();
-        echo json_encode($responce);
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            return response('Error'.$e, 500);
+        }
     }
 
     public function save_mykad_local(Request $request){

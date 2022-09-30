@@ -505,6 +505,7 @@ class WebserviceController extends Controller
             foreach ($array as $key => $value) {
                 $mrn = $value[0];
                 $debtorcode = trim($value[1]);
+                $newic = trim($value[2]);
                 switch ($debtorcode) {
                     case 'BAITULMAL':
                             $epis_fin = 'BM';
@@ -553,10 +554,10 @@ class WebserviceController extends Controller
                         "regdept" => 'JP',
                         "admsrccode" => 'APPT',
                         "case_code" => 'HDS',
-                        "admdoctor" => 'KONG',
-                        "attndoctor" => 'JOHAN',
+                        "admdoctor" => 'NIRMALA',
+                        "attndoctor" => 'AZMAN',
                         "pay_type" => $epis_fin,
-                        "pyrmode" => 'GUARANTEE LETTER',
+                        "pyrmode" => 'PANEL',
                         "billtype" => 'OP',
                         "payer" => $debtorcode,
                         "followupNP" => 1,
@@ -612,8 +613,8 @@ class WebserviceController extends Controller
 
                 DB::table('hisdb.queue')
                     ->insert([
-                        'AdmDoctor' => 'KONG',
-                        'AttnDoctor' => 'JOHAN',
+                        'AdmDoctor' => 'NIRMALA',
+                        'AttnDoctor' => 'AZMAN',
                         'BedType' => '',
                         'Case_Code' => "MED",
                         'CompCode' => '13A',
@@ -631,7 +632,7 @@ class WebserviceController extends Controller
                         'Deptcode' => 'ALL',
                         // 'DOB' => $this->null_date($patmast_data->DOB),
                         // 'NAME' => $patmast_data->Name,
-                        // 'Newic' => $patmast_data->Newic,
+                        'Newic' => $newic,
                         // 'Oldic' => $patmast_data->Oldic,
                         // 'Sex' => $patmast_data->Sex,
                         // 'Religion' => $patmast_data->Religion,
@@ -642,8 +643,8 @@ class WebserviceController extends Controller
 
                 DB::table('hisdb.queue')
                     ->insert([
-                        'AdmDoctor' => 'KONG',
-                        'AttnDoctor' => 'JOHAN',
+                        'AdmDoctor' => 'NIRMALA',
+                        'AttnDoctor' => 'AZMAN',
                         'BedType' => '',
                         'Case_Code' => "MED",
                         'CompCode' => '13A',
@@ -661,7 +662,7 @@ class WebserviceController extends Controller
                         'Deptcode' => 'SPEC',
                         // 'DOB' => $this->null_date($patmast_data->DOB),
                         // 'NAME' => $patmast_data->Name,
-                        // 'Newic' => $patmast_data->Newic,
+                        'Newic' => $newic,
                         // 'Oldic' => $patmast_data->Oldic,
                         // 'Sex' => $patmast_data->Sex,
                         // 'Religion' => $patmast_data->Religion,
