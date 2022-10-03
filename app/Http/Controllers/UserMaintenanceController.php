@@ -217,7 +217,21 @@ class UserMaintenanceController extends defaultController
 
     public function chg_password($id){
         $user = DB::table('sysdb.users')->where('id','=',$id)->first();
-        return view('users.editpassword',compact('user'));
+
+        $centers = $this->get_maiwp_center_dept();
+
+        if(!empty($request->changedept)){
+
+            $department = DB::table('sysdb.department')
+                            ->where('compcode', session('compcode'))
+                            ->where('deptcode', $request->changedept);
+
+            if($department->exists()){
+                $request->session()->put('dept', $department->first()->deptcode);
+                $request->session()->put('dept_desc', $department->first()->description);
+            }
+        }
+        return view('users.editpassword',compact('user','centers'));
     }
 
     public function chg_password_save($id,Request $request){

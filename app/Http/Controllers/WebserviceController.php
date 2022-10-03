@@ -673,7 +673,7 @@ class WebserviceController extends Controller
 
             }
 
-            DB::commit();
+            // DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             dd($e);

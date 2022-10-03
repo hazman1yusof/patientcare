@@ -61,7 +61,7 @@
 					<div class="clinic_code">
 						<label><div class="label_hd">PREV POST WEIGHT:</div></label>
 						<div class="ui right labeled input">
-							<input type="text" name="prev_post_weight" id="prev_post_weight" class="" value="" rdonly required>
+							<input type="text" name="prev_post_weight" id="prev_post_weight" class="" value="" rdonly>
 							<div class="ui basic label mylabel">KG</div>
 						</div>
 					</div>
@@ -152,7 +152,7 @@
 					<div class="clinic_code">
 						<label><div class="label_hd">DURATION OF HD:</div></label>
 						<div class="ui right labeled input">
-							<input type="text" name="duration_of_hd" id="duration_of_hd" class="" value="" rdonly required>
+							<input type="text" name="duration_of_hd" id="duration_of_hd" class="" value="" rdonly>
 							<div class="ui basic label mylabel">HRS</div>
 						</div>
 					</div>
@@ -192,7 +192,7 @@
 					<div class="clinic_code">
 						<label><div class="label_hd">DRY WEIGHT:</div></label>
 						<div class="ui right labeled input">
-							<input type="text" name="dry_weight" id="dry_weight" class="" value="" rdonly required>
+							<input type="text" name="dry_weight" id="dry_weight" class="" value="" rdonly>
 							<div class="ui basic label mylabel">KG</div>
 						</div>
 					</div>
@@ -201,7 +201,7 @@
 					<div class="clinic_code">
 						<label><div class="label_hd">TARGET WEIGHT:</div></label>
 						<div class="ui right labeled input">
-							<input type="text" name="target_weight" id="target_weight" class="" value="" rdonly required>
+							<input type="text" name="target_weight" id="target_weight" class="" value="" rdonly>
 							<div class="ui basic label mylabel">KG</div>
 						</div>
 					</div>
@@ -243,14 +243,14 @@
 				<div class="field">
 					<div class="clinic_code">
 						<label> INITIATED BY:</label>
-						<input type="text" name="initiated_by" id="initiated_by" class="" value="" rdonly required>
+						<input type="text" name="initiated_by" id="initiated_by" class="" value="" rdonly >
 					</div>
 				</div>
 				<div class="field">
 					<div class="clinic_code">
 						<label> VERIFIED BY:</label>
 						<div class="ui action input">
-						  <input type="text" name="verified_by" id="verified_by" rdonly required>
+						  <input type="text" name="verified_by" id="verified_by" rdonly >
 						  <button class="ui button" type="button" id="verified_btn">Verifiy</button>
 						</div>
 					</div>
@@ -1072,7 +1072,7 @@
 			    <div class="field">
 					<div class="clinic_code">
 						<label> DELIVERED DURATION:</label>
-						<input type="text" name="delivered_duration" id="delivered_duration" value="" class="purplebg" rdonly required>
+						<input type="text" name="delivered_duration" id="delivered_duration" value="" class="purplebg" rdonly >
 						<span id="delivered_duration_errortext" class="error"></span>
 					</div>
 			    </div>

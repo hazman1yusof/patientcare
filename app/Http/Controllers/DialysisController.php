@@ -422,6 +422,7 @@ class DialysisController extends Controller
                                 ->where('episno','=',$request->episno)
                                 ->where('compcode','=',session('compcode'))
                                 ->where('trxdate','=', $request->trxdate)
+                                ->where('recstatus','=',1)
                                 ->where('chgtype','=','PKG');
 
                     if($chgtrx->exists()){

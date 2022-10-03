@@ -107,6 +107,37 @@ class MycardController extends Controller
     }
 
     public function save_mykad_local(Request $request){
+
+        $religion_db = DB::table('hisdb.religion')
+                            ->where('compcode',$request->CompCode)
+                            ->where('Code',$request->Religion);
+        if(!$religion_db->exists()){
+            DB::table('hisdb.religion')
+                ->insert([
+                    'compcode' => $request->CompCode, 
+                    'Code' => $request->Religion, 
+                    'Description' => $request->Religion, 
+                    'adduser' => 'SYSTEM',
+                    'adddate' => Carbon::now("Asia/Kuala_Lumpur")
+                ]);
+        }
+
+
+        $race_db = DB::table('hisdb.racecode')
+                            ->where('compcode',$request->CompCode)
+                            ->where('Code',$request->RaceCode);
+        if(!$race_db->exists()){
+            DB::table('hisdb.racecode')
+                ->insert([
+                    'compcode' => $request->CompCode, 
+                    'Code' => $request->RaceCode, 
+                    'Description' => $request->RaceCode, 
+                    'adduser' => 'SYSTEM',
+                    'adddate' => Carbon::now("Asia/Kuala_Lumpur")
+                ]);
+        }
+
+
         DB::table('hisdb.pre_pat_mast')
                 ->insert([
                     'CompCode' => $request->CompCode,

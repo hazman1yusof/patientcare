@@ -810,6 +810,10 @@ function mykadclosemodal(){
 
                 delay(function(){
                     $("#patientBox").click();
+                    $('.search-field').val(data.data.MRN);
+                    $('#btn_register_episode').data('mrn',data.data.MRN);
+                    $('#Scol').val('MRN');
+                    $("#grid-command-buttons").bootgrid('reload');
                 }, 300 );
 
             }else{
