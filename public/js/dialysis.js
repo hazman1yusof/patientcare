@@ -6,14 +6,31 @@ $(document).ready(function () {
 
 	$("form#daily_form").validate({
 		ignore: [], //check jgk hidden
+		rules:{
+			general_assesment:{
+    			required: true,
+    			minlength: 3
+			}
+		},
+		messages: {
+		    general_assesment: {
+      			required: "",
+		      	minlength: jQuery.validator.format("At least {0} characters required!")
+		    }
+		  },
 	  	invalidHandler: function(event, validator) {
 	  		validator.errorList.forEach(function(e,i){
 	  			if($(e.element).is("select")){
 	  				$(e.element).parent().addClass('error');
 	  			}
 	  		});
+	  		$(validator.errorList[0].element).focus();
 	  	},
-	  	errorPlacement: function(error, element) { }
+	  	errorPlacement: function(error, element) {
+	  		if (element.attr("name") == "general_assesment" ) {
+		      error.insertAfter(element);
+		    }
+	  	}
 	});
 
 	$("form#daily_form_completed").validate({
@@ -51,6 +68,9 @@ $(document).ready(function () {
 		rdonly('form#daily_form_completed');
 		add_edit_mode('edit');
 		$('#complete_dialysis').prop('disabled',false);
+		if(patmedication_trx_tbl.rows().count() > 0){
+			$('#complete_dialysis').prop('disabled',true);
+		}
 	});
 
 	$('#cancel_dialysis').click(function(){
@@ -124,13 +144,18 @@ $(document).ready(function () {
 			var daily_form_completed = $("form#daily_form_completed").serializeArray();
 
 			$.post( "./save_dialysis_completed?"+$.param(param),$.param(daily_form)+'&'+$.param(daily_form_completed), function( data ){
-				loader_daily(false);
+				
+			},'json').fail(function(data) {
+	            alert(data.responseText);
+	            loader_daily(false);
+	        }).done(function(data){
+	            loader_daily(false);
 				$('#cancel_dialysis').data('oper','edit');
 				button_state_dialysis('edit');
 				$('#complete_dialysis').prop('disabled',true);
 				disableForm('form#daily_form');
 				disableForm('form#daily_form_completed');
-			},'json');
+	        });
 		}
 	});
 

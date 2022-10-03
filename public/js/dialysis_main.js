@@ -53,7 +53,7 @@ $(document).ready(function () {
 			button_state_dialysis('disableAll');
 			$('button#timer_stop').click();
 
-			if(selrowData('#jqGrid').arrival != 0){
+			if(selrowData('#jqGrid').arrival != 0 && selrowData('#jqGrid').complete == 0){
 				$('#dialysis_episode_idno').val(selrowData('#jqGrid').arrival);
 				hide_tran_button(false);
 			}else{

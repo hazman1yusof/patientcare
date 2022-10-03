@@ -345,6 +345,26 @@ class DialysisController extends Controller
 
         $table = DB::table('hisdb.dialysis');
         try {
+
+            $chgtrx = DB::table('hisdb.chargetrx as trx')
+                                ->join('hisdb.chgmast', function($join) use ($request){
+                                    $join = $join->on('chgmast.chgcode', '=', 'trx.chgcode')
+                                                    ->where('chgmast.compcode','=',session('compcode'))
+                                                    ->whereNotNull('chgmast.dosecode');
+                                })
+                                ->where('trx.mrn','=',$request->mrn_post)
+                                ->where('trx.episno','=',$request->episno_post)
+                                ->where('trx.compcode','=',session('compcode'))
+                                ->whereDate('trx.trxdate', $request->visit_date_post)
+                                ->where('trx.recstatus','=',1)
+                                ->where('trx.chgtype' ,'=', 'EP01')
+                                ->whereNull('trx.patmedication');
+
+            if($chgtrx->exists()){
+                throw new \Exception('Please Verify all patmedication first before complete', 500);
+            }
+
+
             if(empty($request->idno_post)){
                 throw new \Exception('Error edit because of no idno', 500);
             }
@@ -386,7 +406,7 @@ class DialysisController extends Controller
         } catch (\Exception $e) {
             DB::rollback();
 
-            return response('Error'.$e, 500);
+            return response($e->getMessage(), 500);
         }
         
     }
@@ -1101,6 +1121,7 @@ class DialysisController extends Controller
                                 'trx.doscode as dos_code',
                                 'trx.frequency as fre_code',
                                 'trx.drugindicator as dru_code',
+                                'trx.patmedication as patmedication',
 
                                 'chgmast.description as chg_desc',
                                 'instruction.description as ins_desc',
@@ -1404,7 +1425,8 @@ class DialysisController extends Controller
                     'dose'=>$chargetrx->doscode,
                     'freq'=>$chargetrx->frequency,
                     'instruction'=>$chargetrx->instruction,
-                    'chgcode'=>$chargetrx->chgcode
+                    'chgcode'=>$chargetrx->chgcode,
+                    'auditno'=>$request->chgtrx_idno
                 ];
         
                 $table->insert($array_insert);
@@ -1415,6 +1437,22 @@ class DialysisController extends Controller
                             'patmedication' => '1'
                         ]);
 
+            }else if($request->oper == 'del'){
+
+                // if(!empty($request->auditno)){
+                //     DB::table('hisdb.chargetrx')
+                //         ->where('id',$request->auditno)
+                //         ->update([
+                //             'patmedication' => null
+                //         ]);
+
+                //     $table = DB::table('hisdb.patmedication');
+
+                //     DB::table('hisdb.patmedication')
+                //         ->where('chgcode',$request->chgtrx_idno)
+                //         ->delete();
+                // }
+                
             }
 
             $responce = new stdClass();

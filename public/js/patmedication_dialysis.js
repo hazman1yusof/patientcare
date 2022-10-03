@@ -28,7 +28,14 @@ var patmedication_trx_tbl = $('#patmedication_trx_tbl').DataTable({
         { targets: [0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11], visible: false},
     ],
     "drawCallback": function( settings ) {
-
+    // 	if($('#toggle_daily').attr('aria-expanded')=='false' && !$('#save_dialysis').is("[disabled]")){
+    // 		alert('checking');
+    // 		if(patmedication_trx_tbl.rows().count() > 0){
+				// $('#complete_dialysis').prop('disabled',true);
+    // 		}else{
+				// $('#complete_dialysis').prop('disabled',false);
+    // 		}
+    // 	}
     }
 });
 
@@ -171,7 +178,13 @@ function load_patmedication_trx(mrn,episno,date){
 
 	$('#patmedication_tbl').data('addmode',false);
 	patmedication_trx_tbl.ajax.async = false;
-	patmedication_trx_tbl.ajax.url( "./dialysis/table?"+$.param(patmedicationParam) ).load();
+	patmedication_trx_tbl.ajax.url( "./dialysis/table?"+$.param(patmedicationParam) ).load(function(data){
+		if(patmedication_trx_tbl.rows().count() > 0 && !$('#save_dialysis').is("[disabled]")){
+			$('#complete_dialysis').prop('disabled',true);
+		}else if(!$('#save_dialysis').is("[disabled]")){
+			$('#complete_dialysis').prop('disabled',false);
+		}
+	});
 } 
 
 function load_patmedication(mrn,episno,date){

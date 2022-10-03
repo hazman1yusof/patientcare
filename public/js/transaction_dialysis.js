@@ -77,6 +77,7 @@ $(document).ready(function () {
 				    {  custom_element:instructionCustomEdit,
 				       custom_value:galGridCustomValue 	
 				    },},
+			{ label: 'patmedication', name: 'patmedication', hidden: true },
 		],
 		autowidth: false,
 		width: 900,
@@ -91,7 +92,7 @@ $(document).ready(function () {
 		onSelectRow:function(rowid, selected){
         	$('#jqGrid_trans_ildelete').addClass('ui-disabled');
 			calc_jq_height_onchange("jqGrid_trans");
-			if(!$('#jqGrid_trans_iladd').hasClass('ui-disabled')){
+			if(!$('#jqGrid_trans_iladd').hasClass('ui-disabled') && selrowData('#jqGrid_trans').patmedication != '1'){
 				var trxdate = selrowData('#jqGrid_trans').trxdate;
 				if(moment().isSame(moment(trxdate, "DD-MM-YYYY"), 'day')){
         			$('#jqGrid_trans_ildelete').removeClass('ui-disabled');
@@ -241,7 +242,7 @@ $(document).ready(function () {
 				let selrow_trans = selrowData('#jqGrid_trans');
 				$.confirm({
 				    title: 'Confirm',
-				    content: 'Are you sure you want to delete this item? <span class="error">'+selrow_trans.dos_desc+'</error>',
+				    content: 'Are you sure you want to delete this item? <span class="error">'+selrow_trans.chg_desc+'</error>',
 				    buttons: {
 				        confirm:{
 				        	btnClass: 'btn-blue',

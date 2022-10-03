@@ -19,10 +19,10 @@
 					right: 40px;
 					top: 9px;
 					z-index: 2;">
-		  <button class="ui button" id="new_dialysis"><span class="fa fa-plus-square-o"></span> New</button>
-		  <button class="ui button" id="edit_dialysis"><span class="fa fa-edit"></span> Edit</button>
-		  <button class="ui button" id="save_dialysis"><span class="fa fa-save"></span> Save</button>
-		  <button class="ui button" id="cancel_dialysis"><span class="fa fa-ban"></span> Cancel</button>
+		  <button class="ui button" id="new_dialysis" disabled><span class="fa fa-plus-square-o"></span> New</button>
+		  <button class="ui button" id="edit_dialysis" disabled><span class="fa fa-edit"></span> Edit</button>
+		  <button class="ui button" id="save_dialysis" disabled><span class="fa fa-save"></span> Save</button>
+		  <button class="ui button" id="cancel_dialysis" disabled><span class="fa fa-ban"></span> Cancel</button>
 		</div>
 	</div>
 
@@ -250,7 +250,7 @@
 					<div class="clinic_code">
 						<label> VERIFIED BY:</label>
 						<div class="ui action input">
-						  <input type="text" name="verified_by" id="verified_by" rdonly >
+						  <input type="text" name="verified_by" id="verified_by" rdonly required>
 						  <button class="ui button" type="button" id="verified_btn">Verifiy</button>
 						</div>
 					</div>
