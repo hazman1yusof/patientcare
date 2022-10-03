@@ -110,6 +110,8 @@ class PatmastController extends defaultController
 
                                     if($showcomplete == 'false'){
                                         $join = $join->where('dialysis_episode.complete','=',0);
+                                    }else{
+                                        $join = $join->where('dialysis_episode.complete','=',1);
                                     }
                                 });
                             }else{
