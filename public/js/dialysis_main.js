@@ -53,12 +53,26 @@ $(document).ready(function () {
 			button_state_dialysis('disableAll');
 			$('button#timer_stop').click();
 
-			if(selrowData('#jqGrid').arrival != 0 && selrowData('#jqGrid').complete == 0){
-				$('#dialysis_episode_idno').val(selrowData('#jqGrid').arrival);
-				hide_tran_button(false);
+			if($('#viewallcenter').val() != 1){
+				if(selrowData('#jqGrid').arrival != 0){
+					$('#dialysis_episode_idno').val(selrowData('#jqGrid').arrival);
+					if(selrowData('#jqGrid').complete == 0){
+						hide_tran_button(false);
+					}else{
+						hide_tran_button(true);
+					}
+				}else{
+					$('#dialysis_episode_idno').val(0);
+					hide_tran_button(false);
+				}
 			}else{
-				$('#dialysis_episode_idno').val(0);
-				hide_tran_button(true);
+				if(selrowData('#jqGrid').arrival != 0){
+					$('#dialysis_episode_idno').val(selrowData('#jqGrid').arrival);
+					hide_tran_button(false);
+				}else{
+					$('#dialysis_episode_idno').val(0);
+					hide_tran_button(false);
+				}
 			}
 			
 			populatedialysis(selrowData('#jqGrid'));

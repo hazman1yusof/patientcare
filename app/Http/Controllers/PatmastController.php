@@ -572,11 +572,17 @@ class PatmastController extends defaultController
                     if($request->pat_type == 'IP'){
                         $data = DB::table('debtor.debtormast AS dm')
                                 ->select('dm.debtortype','dm.debtorcode','dm.name','dm.billtype as billtype','bm.description as billtype_desc')
-                                ->leftJoin('hisdb.billtymst AS bm', 'bm.billtype', '=', 'dm.billtype');
+                                    ->leftJoin('hisdb.billtymst AS bm', function($join) use ($request){
+                                        $join = $join->on('bm.billtype', '=', 'dm.billtype')
+                                                        ->where('bm.compcode','=',session('compcode'));
+                                    });
                     }else{
                         $data = DB::table('debtor.debtormast AS dm')
                                 ->select('dm.debtortype','dm.debtorcode','dm.name','dm.billtypeop as billtype','bm.description as billtype_desc')
-                                ->leftJoin('hisdb.billtymst AS bm', 'bm.billtype', '=', 'dm.billtypeop');
+                                ->leftJoin('hisdb.billtymst AS bm', function($join) use ($request){
+                                    $join = $join->on('bm.billtype', '=', 'dm.billtypeop')
+                                                    ->where('bm.compcode','=',session('compcode'));
+                                });
                     }
 
                     $data = $data->where('dm.compcode','=',session('compcode'))
@@ -588,14 +594,20 @@ class PatmastController extends defaultController
                     if($request->pat_type == 'IP'){
                         $data = DB::table('debtor.debtormast AS dm')
                                 ->select('dm.debtortype','dm.debtorcode','dm.name','dm.billtype as billtype','bm.description as billtype_desc')
-                                ->leftJoin('hisdb.billtymst AS bm', 'bm.billtype', '=', 'dm.billtype');
+                                ->leftJoin('hisdb.billtymst AS bm', function($join) use ($request){
+                                    $join = $join->on('bm.billtype', '=', 'dm.billtype')
+                                                    ->where('bm.compcode','=',session('compcode'));
+                                });
                     }else{
                         $data = DB::table('debtor.debtormast AS dm')
                                 ->select('dm.debtortype','dm.debtorcode','dm.name','dm.billtypeop as billtype','bm.description as billtype_desc')
-                                ->leftJoin('hisdb.billtymst AS bm', 'bm.billtype', '=', 'dm.billtypeop');
+                                ->leftJoin('hisdb.billtymst AS bm', function($join) use ($request){
+                                    $join = $join->on('bm.billtype', '=', 'dm.billtypeop')
+                                                    ->where('bm.compcode','=',session('compcode'));
+                                });
                     }
 
-                    $data = $data->where('dm.compcode','=',session('compcode'))  
+                    $data = $data->where('dm.compcode','=',session('compcode')) 
                                     ->whereNotIn('dm.debtortype', ['PR', 'PT'])
                                     ->get();
 

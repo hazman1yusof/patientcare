@@ -35,6 +35,14 @@ $(document).ready(function () {
 
 	$("form#daily_form_completed").validate({
 		ignore: [], //check jgk hidden
+	  	invalidHandler: function(event, validator) {
+	  		validator.errorList.forEach(function(e,i){
+	  			if($(e.element).is("select")){
+	  				$(e.element).parent().addClass('error');
+	  			}
+	  		});
+	  		$(validator.errorList[0].element).focus();
+	  	},
 	  	errorPlacement: function(error, element) { }
 	});
 
@@ -45,6 +53,13 @@ $(document).ready(function () {
 
 
     $('form#daily_form .ui.dropdown').dropdown({
+    	onChange: function(value, text, $selectedItem) {
+    		// console.log($selectedItem.parent());
+	    	$selectedItem.parent().parent().removeClass('error')
+	    }
+	});
+
+	$('form#daily_form_completed .ui.dropdown').dropdown({
     	onChange: function(value, text, $selectedItem) {
     		// console.log($selectedItem.parent());
 	    	$selectedItem.parent().parent().removeClass('error')

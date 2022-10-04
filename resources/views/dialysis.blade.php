@@ -10,7 +10,7 @@
 
     <div class="ui grid">
         <div class="column" style="margin:0px;">
-            <div class="ui teal segment" style="padding-bottom: 45px;">
+            <div class="ui teal segment main_table_panel" style="padding-bottom: 45px;">
                 <h2 class="h2">Current Patient List</h2>
                 <form class="ui form" id="SearchForm" autocomplete="off" style="margin-bottom: 10px;">
                     <div class="inline field">
@@ -60,6 +60,7 @@
     <input id="user_dept" name="user_dept" value="{{ Auth::user()->dept }}" type="hidden">
     <input id="sel_date" name="sel_date" value="{{ \Carbon\Carbon::now()->toDateString() }}" type="hidden">
     <input id="_token" name="_token" value="{{ csrf_token() }}" type="hidden">
+    <input type="hidden" name="viewallcenter" id="viewallcenter" value="{{strtoupper(Auth::user()->viewallcenter)}}">
 
 
     <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="tab_trans_panel">

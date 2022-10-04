@@ -1,3 +1,23 @@
+body{
+    background-color: #f3fff0 !important;
+}
+
+.main_table_panel{
+    background-color: #fff6fc !important;
+}
+
+.main_table_panel .table-striped > tbody > tr:nth-of-type(odd){
+    background-color: #ffffff !important;
+}
+
+.main_table_panel .table-striped > tbody > tr:nth-of-type(even){
+    background-color: #fffaff !important;
+}
+
+.main_table_panel tr.ui-jqgrid-labels{
+    background-color: #ffeaf8 !important;
+}
+
 .mylabel{
     padding-right: 6px !important;
     padding-left: 6px !important;

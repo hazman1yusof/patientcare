@@ -435,6 +435,22 @@ class DialysisController extends Controller
                             
                 $isudept = $episode->regdept;
 
+                if(empty($request->dialysis_episode_idno)){
+                    $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                            ->where('dialysis_episode.mrn',$request->mrn)
+                                            ->where('dialysis_episode.episno',$request->episno)
+                                            ->where('dialysis_episode.compcode','=',session('compcode'))
+                                            ->whereDate('dialysis_episode.arrival_date',$request->trxdate);
+
+                    if(!$dialysis_episode->exists()){
+                        throw new \Exception('Patient doesnt arrive for dialysis at date: '.Carbon::parse($request->trxdate)->format('d-m-Y'), 500);
+                    }
+
+                    $last_arrival_idno = $dialysis_episode->first()->idno;
+                }else{
+                    $last_arrival_idno = $request->dialysis_episode_idno;
+                }
+
                 if($chgmast->chgtype == 'PKG'){
                     //check duplicate dialysis
                     $chgtrx = DB::table('hisdb.chargetrx')
@@ -489,7 +505,7 @@ class DialysisController extends Controller
                 $table->insert($array_insert);
 
                 //check utk hd1 hd2
-                $check_hd = $this->check_hd($request);
+                $check_hd = $this->check_hd($request,$last_arrival_idno);
                 if($check_hd->auto == true){
 
                     $chgmast = DB::table('hisdb.chgmast')
@@ -519,7 +535,7 @@ class DialysisController extends Controller
                 }
 
                 //check utk epo3
-                $check_mcr = $this->check_mcr($request,$chgmast->chgtype);
+                $check_mcr = $this->check_mcr($request,$chgmast->chgtype,$last_arrival_idno);
                 if($check_mcr->auto == true){
 
                     $chgmast = DB::table('hisdb.chgmast')
@@ -548,7 +564,7 @@ class DialysisController extends Controller
                     $table->insert($array_insert);
                 }
 
-                $this->updateorder($request);
+                $this->updateorder($request,$last_arrival_idno);
 
             }else if($request->oper == 'del'){
                 DB::table('hisdb.chargetrx')
@@ -905,26 +921,26 @@ class DialysisController extends Controller
         echo json_encode($responce); 
     }
 
-    public function updateorder(Request $request){
+    public function updateorder(Request $request,$last_arrival_idno){
         //update dialysis_episode charges
         $dialysis_episode = DB::table('hisdb.dialysis_episode')
-                                ->where('idno',$request->dialysis_episode_idno)
+                                ->where('idno',$last_arrival_idno)
                                 ->where('order',0);
 
         if($dialysis_episode->exists()){
             DB::table('hisdb.dialysis_episode')
-                ->where('idno',$request->dialysis_episode_idno)
+                ->where('idno',$last_arrival_idno)
                 ->update([
                     'order' => 1
                 ]);
         }
     }
 
-    public function check_hd(Request $request){
+    public function check_hd(Request $request,$last_arrival_idno){
         $responce = new stdClass();      
 
         $dialysis_episode = DB::table('hisdb.dialysis_episode')
-                            ->where('idno',$request->dialysis_episode_idno)
+                            ->where('idno',$last_arrival_idno)
                             ->first();  
 
         //check ada dlm case
@@ -937,7 +953,7 @@ class DialysisController extends Controller
             if($dialysis_episode->hdstat == 0){
 
                 DB::table('hisdb.dialysis_episode')
-                    ->where('idno',$request->dialysis_episode_idno)
+                    ->where('idno',$last_arrival_idno)
                     ->update([
                         'hdstat' => 1
                     ]);
@@ -956,11 +972,11 @@ class DialysisController extends Controller
     }
 
 
-    public function check_mcr(Request $request,$chgtype){
+    public function check_mcr(Request $request,$chgtype,$last_arrival_idno){
         $responce = new stdClass();
 
         $dialysis_episode = DB::table('hisdb.dialysis_episode')
-                                ->where('idno',$request->dialysis_episode_idno)
+                                ->where('idno',$last_arrival_idno)
                                 ->first();
 
         $mcrstat = $dialysis_episode->mcrstat;
@@ -976,7 +992,7 @@ class DialysisController extends Controller
 
                 if($mcrstat<=intval($dialysis_pkgdtl->first()->volume2)){
                     DB::table('hisdb.dialysis_episode')
-                        ->where('idno',$request->dialysis_episode_idno)
+                        ->where('idno',$last_arrival_idno)
                         ->update([
                             'mcrstat' => $mcrstat + 1
                         ]);
@@ -999,7 +1015,7 @@ class DialysisController extends Controller
             if($dialysis_pkgdtl->exists()){
 
                 DB::table('hisdb.dialysis_episode')
-                    ->where('idno',$request->dialysis_episode_idno)
+                    ->where('idno',$last_arrival_idno)
                     ->update([
                         'mcrstat' => 1,
                         'mcrtype' => $request->chg_desc
@@ -1183,6 +1199,17 @@ class DialysisController extends Controller
     public function get_chgcode(Request $request){
         $dialysis_episode = DB::table('hisdb.dialysis_episode')
                                 ->where('idno',$request->arrivalno);
+
+        if(empty($request->arrivalno)){
+            $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                    ->where('dialysis_episode.mrn',$request->mrn)
+                                    ->where('dialysis_episode.episno',$request->episno)
+                                    ->where('dialysis_episode.compcode','=',session('compcode'))
+                                    ->orderBy('dialysis_episode.idno', 'DESC');
+        }else{
+            $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                ->where('idno',$request->arrivalno);
+        }
 
         if(!$dialysis_episode->exists()){
             throw new \Exception('Error: arrivalno doesnt exist', 500); 
