@@ -18,6 +18,10 @@ body{
     background-color: #ffeaf8 !important;
 }
 
+div#toggle_trans,div#toggle_daily,div#toggle_weekly,div#toggle_monthly{
+    background-image: linear-gradient(to bottom,#f5f5f5 0,#fff6fc 100%) !important;
+}
+
 .mylabel{
     padding-right: 6px !important;
     padding-left: 6px !important;
