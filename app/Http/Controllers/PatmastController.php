@@ -1197,7 +1197,7 @@ class PatmastController extends defaultController
 
                 $debtormast_obj = DB::table('debtor.debtormast')
                     ->where('compcode','=',session('compcode'))
-                    ->where('debtorcode','=',$epis_mrn);
+                    ->where('debtorcode','=',$epis_payer);
 
 
                 if(!$debtormast_obj->exists()){
@@ -1597,6 +1597,10 @@ class PatmastController extends defaultController
         $epis_fee = $request->epis_fee;
         $epis_bednum = $request->epis_bed;
 
+        if($epis_fin == "PT"){
+           $epis_payer = str_pad($epis_mrn, 7, "0", STR_PAD_LEFT);
+        }
+
         $epis_typeepis;
         if ($epis_maturity == "1"){
             if($epis_preg == "Pregnant"){
@@ -1684,20 +1688,20 @@ class PatmastController extends defaultController
 
                 $debtormast_obj = DB::table('debtor.debtormast')
                     ->where('compcode','=',session('compcode'))
-                    ->where('debtorcode','=',$epis_mrn);
+                    ->where('debtorcode','=',$epis_payer);
 
 
                 if(!$debtormast_obj->exists()){
-                    //kalu xjumpa debtormast, buat baru
+
                     DB::table('debtor.debtormast')
                         ->insert([
                             'CompCode' => session('compcode'),
-                            'DebtorCode' => $epis_mrn,
+                            'DebtorCode' => $epis_payer,
                             'Name' => $patmast_data->Name,
                             'Address1' => $patmast_data->Address1,
                             'Address2' => $patmast_data->Address2,
                             'Address3' => $patmast_data->Address3,
-                            'DebtorType' => "PR",
+                            'DebtorType' => "PT",
                             'DepCCode'  => $debtortype_data->depccode,
                             'DepGlAcc' => $debtortype_data->depglacc,
                             'BillType' => "IP",
@@ -1706,7 +1710,9 @@ class PatmastController extends defaultController
                             'ActDebGlAcc' => $debtortype_data->actdebglacc,
                             'upduser' => session('username'),
                             'upddate' => Carbon::now("Asia/Kuala_Lumpur"),
-                            'RecStatus' => "A"
+                            'coverageip' => 999999999.99,
+                            'coverageop' => 999999999.99,
+                            'RecStatus' => "ACTIVE"
                         ]);
                 }else{
 

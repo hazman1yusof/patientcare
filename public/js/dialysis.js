@@ -623,6 +623,38 @@ function check_pt_mode(){
 
 function add_edit_mode(mode){
 
+	$('form#daily_form div.prehddiv input[type=text],form#daily_form div.prehddiv input[type=date],form#daily_form div.prehddiv textarea').change(function(){
+		console.log('prehd');
+	});
+
+	$('table#preHDListMeasure tr.0_tr input[type=text],table#preHDListMeasure tr.0_tr input[type=date],table#preHDListMeasure tr.0_tr textarea').change(function(){
+		console.log('1_tr');
+	});
+
+	$('table#preHDListMeasure tr.1_tr input[type=text],table#preHDListMeasure tr.1_tr input[type=date],table#preHDListMeasure tr.1_tr textarea').change(function(){
+		console.log('1_tr');
+	});
+
+	$('table#preHDListMeasure tr.2_tr input[type=text],table#preHDListMeasure tr.2_tr input[type=date],table#preHDListMeasure tr.2_tr textarea').change(function(){
+		console.log('2_tr');
+	});
+
+	$('table#preHDListMeasure tr.3_tr input[type=text],table#preHDListMeasure tr.3_tr input[type=date],table#preHDListMeasure tr.3_tr textarea').change(function(){
+		console.log('3_tr');
+	});
+
+	$('table#preHDListMeasure tr.4_tr input[type=text],table#preHDListMeasure tr.4_tr input[type=date],table#preHDListMeasure tr.4_tr textarea').change(function(){
+		console.log('4_tr');
+	});
+
+	$('table#preHDListMeasure tr.5_tr input[type=text],table#preHDListMeasure tr.5_tr input[type=date],table#preHDListMeasure tr.5_tr textarea').change(function(){
+		console.log('5_tr');
+	});
+
+	$('form#daily_form_completed input[type=text],form#daily_form_completed input[type=date]').change(function(){
+		console.log('posthd');
+	});
+
 	//part dialyser
 	$('#no_of_use').parent().addClass('disabled');
 	$('#dialyser').on('change',function(){

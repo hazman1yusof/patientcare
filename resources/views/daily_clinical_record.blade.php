@@ -50,7 +50,14 @@
 		<form id="daily_form" class="ui mini form" autocomplete="off">
 			<input type="hidden" name="idno" id="idno">
 			<input type="hidden" name="arrivalno" id="arrivalno">
-			<div class="four fields">
+			<input type="hidden" name="user_prehd" id="user_prehd">
+			<input type="hidden" name="user_posthd" id="user_posthd">
+			<input type="hidden" name="user_1" id="user_1">
+			<input type="hidden" name="user_2" id="user_2">
+			<input type="hidden" name="user_3" id="user_3">
+			<input type="hidden" name="user_4" id="user_4">
+			<input type="hidden" name="user_5" id="user_5">
+			<div class="four fields prehddiv">
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">START TIME:</div></label>
@@ -91,7 +98,7 @@
 				</div>
 			</div>
 			
-			<div class="four fields">
+			<div class="four fields prehddiv">
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">LAST VISIT:</div></label>
@@ -147,7 +154,7 @@
 				</div>
 			</div>
 
-			<div class="four fields">
+			<div class="four fields prehddiv">
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">DURATION OF HD:</div></label>
@@ -187,7 +194,7 @@
 				<div class="field"></div>
 			</div>
 
-			<div class="four fields">
+			<div class="four fields prehddiv">
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">DRY WEIGHT:</div></label>
@@ -227,7 +234,7 @@
 				</div>
 			</div>
 
-			<div class="four fields">
+			<div class="four fields prehddiv">
 			    <div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">TARGET UF:</div></label>
@@ -263,7 +270,7 @@
 
 			<h4 class="ui dividing header">PRE HD ASSESSMENT</h4>
 
-			<div class="two fields">
+			<div class="two fields prehddiv">
 			  	<div class="field">
 			  		<div class="clinic_code">
 			  			<label style="">BLOOD PRESSURE (mmHg):</label>
@@ -301,7 +308,7 @@
 				</div>
 			</div>
 
-			<div class="four fields">
+			<div class="four fields prehddiv">
 			    <div class="field">
 					<label> RESPIRATORY:</label>
 					<select class="ui selection dropdown purplebg" id="respiratory" name="respiratory" required>
@@ -341,7 +348,7 @@
 			    </div>
 			</div>
 
-			<div class="four fields">
+			<div class="four fields prehddiv">
 			    <div class="field">
 					<label> SKIN:</label>
 					<select class="ui selection dropdown purplebg" id="skin" name="skin" required>
@@ -367,7 +374,7 @@
 
 			<div class="ui horizontal divider"><h5 style="color: grey;font-size: 12px;">Access</h5></div>
 
-			<div class="two fields">
+			<div class="two fields prehddiv">
 				<div class="field">
 					<input class="purplebg" type="text" name="access_placeholder" placeholder="Access" rdonly id="access_placeholder">
 				</div>
@@ -409,7 +416,7 @@
 				</div>
 			</div>
 
-			<div class="three fields">
+			<div class="three fields prehddiv">
 			    <div class="field">
 					<label> BRUIT & THRILL:</label>
 					<select class="ui selection dropdown purplebg" id="bruit" name="bruit" required>
@@ -438,7 +445,7 @@
 			    </div>
 			</div>
 		    
-			<div class="field">
+			<div class="field prehddiv">
 				<div class="clinic_code">
 		       		<label style="">General Assesment:</label>
 					<textarea name="general_assesment" id="general_assesment" rows="3" cols="100" class="purplebg" required></textarea>
@@ -451,7 +458,7 @@
 
 			<table class="table ui form" id="preHDListMeasure">
 				<thead>
-					<tr>
+					<tr class="0_tr">
 						<th style="text-align: left;">
 							Commencing</br>Hour:
 							</br>
@@ -536,7 +543,7 @@
 
 
 				<tbody>
-					<tr style="background-color:#f3ffff;">
+					<tr style="background-color:#f3ffff;" class="1_tr">
 						<td class="labeltd">1st Hour:
 							</br>
 							<div class="ui small icon input">
@@ -608,11 +615,11 @@
 							</div>
 						</td>
 					</tr>
-					<tr style="background-color:#f3ffff;">
+					<tr style="background-color:#f3ffff;" class="1_tr">
 						<td class="labeltd">Remarks:</td>
 						<td colspan="8"><textarea name="1_remarks" id="1_remarks" rows="3" cols="100" style="background-color: #dcf7f7;"></textarea></td>
 					</tr>
-					<tr style="background-color:#e4ffe4;">
+					<tr style="background-color:#e4ffe4;" class="2_tr">
 						<td class="labeltd">2nd Hour:
 							</br>
 							<div class="ui small icon input">
@@ -684,11 +691,11 @@
 							</div>
 						</td>
 					</tr>
-					<tr style="background-color:#e4ffe4;">
+					<tr style="background-color:#e4ffe4;" class="2_tr">
 						<td class="labeltd">Remarks:</td>
 						<td colspan="8"><textarea name="2_remarks" id="2_remarks" rows="3" cols="100" style="background-color: #d9f1d9;"></textarea></td>
 					</tr>
-					<tr style="background-color:#ffdcdc;">
+					<tr style="background-color:#ffdcdc;" class="3_tr">
 						<td class="labeltd">3rd Hour:
 							</br>
 							<div class="ui small icon input">
@@ -761,11 +768,11 @@
 							</div>
 						</td>
 					</tr>
-					<tr style="background-color:#ffdcdc;">
+					<tr style="background-color:#ffdcdc;" class="3_tr">
 						<td class="labeltd">Remarks:</td>
 						<td colspan="8"><textarea name="3_remarks" id="3_remarks" rows="3" cols="100" style="background-color: #ebcaca;"></textarea></td>
 					</tr>
-					<tr style="background-color:#ffffc9;">
+					<tr style="background-color:#ffffc9;" class="4_tr">
 						<td class="labeltd">4th Hour:
 							</br>
 							<div class="ui small icon input">
@@ -837,11 +844,11 @@
 							</div>
 						</td>
 					</tr>
-					<tr style="background-color:#ffffc9;">
+					<tr style="background-color:#ffffc9;" class="4_tr">
 						<td class="labeltd">Remarks:</td>
 						<td colspan="8"><textarea name="4_remarks" id="4_remarks" rows="3" cols="100" style="background-color: #efefbe;"></textarea></td>
 					</tr>
-					<tr style="background-color:#fff5e8;">
+					<tr style="background-color:#fff5e8;" class="5_tr">
 						<td class="labeltd">5th Hour:
 							</br>
 							<div class="ui small icon input">
@@ -913,16 +920,16 @@
 							</div>
 						</td>
 					</tr>
-					<tr style="background-color:#fff5e8;">
+					<tr style="background-color:#fff5e8;" class="5_tr">
 						<td class="labeltd">Remarks:</td>
 						<td colspan="8"><textarea name="5_remarks" id="5_remarks" rows="3" cols="100" style="background-color: #f1e7da;"></textarea></td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td colspan="9">
 							<label>POST HD ASSESSMENT</label>
 							<textarea name="post_hd_assesment" id="post_hd_assesment" rows="3" cols="100" ></textarea>
 						</td>
-					</tr>
+					</tr> -->
 				</tbody>
 			</table>
 
@@ -979,6 +986,13 @@
 
 		<form id="daily_form_completed" class="ui mini form" autocomplete="off">
 			<h4 class="ui dividing header">POST HD ASSESSMENT</h4>
+
+			<div class="field prehddiv">
+				<div class="clinic_code">
+					<label>POST HD ASSESSMENT</label>
+					<textarea name="post_hd_assesment" id="post_hd_assesment" rows="3" cols="100" class="purplebg" required></textarea>
+				</div>
+			</div>
 
 			<div class="five fields">
 			  	<div class="six wide field">
