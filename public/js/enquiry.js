@@ -27,6 +27,15 @@ $(document).ready(function () {
 		SmoothScrollTo('#tab_yearly', 300,undefined,90);
 	});
 
+	// $("#tab_userlog").on("show.bs.collapse", function(){
+	// 	closealltab("#tab_userlog");
+	// });
+
+	// $("#tab_userlog").on("shown.bs.collapse", function(){
+	// 	closealltab("#tab_userlog");
+	// 	SmoothScrollTo('#tab_userlog', 300,undefined,90);
+	// });
+
 	$('#year_calendar').calendar({type: 'year'});
 
 	$('#yearly_sel_month div.step').click(function(){

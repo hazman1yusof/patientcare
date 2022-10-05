@@ -92,6 +92,25 @@
         </div>
     </div>
 
+    <!-- <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="tab_userlog_panel">
+        <div class="panel-heading clearfix collapsed mainpanel" id="toggle_userlog" data-toggle="collapse" data-target="#tab_userlog">
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div>
+            <h5><strong>User Activity Log</strong>&nbsp;&nbsp;
+                <span class="metal"></span>
+            </h5>
+        </div> 
+        </div>
+
+        <div id="tab_userlog" class="panel-collapse collapse">
+            <div class="panel-body paneldiv" style="position: relative;">
+                @include('user_activity_log')
+            </div>
+        </div>
+    </div> -->
+
 @endsection
 
 @section('css')

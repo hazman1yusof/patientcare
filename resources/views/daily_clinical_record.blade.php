@@ -456,14 +456,14 @@
 							Commencing</br>Hour:
 							</br>
 							<div class="ui small icon input">
-							  <input type="time" placeholder="" id="0_tc" name="0_tc">
+							  <input type="time" placeholder="" id="0_tc" name="0_tc" class="smallinputpad">
 							</div>
 						</th>
 						<th style="text-align: center;">&nbsp;</br>BP
 							</br>
 							<div class="ui right labeled input">
 								<div class="ui small icon input">
-									<input type="text" placeholder="" id="0_bp" name="0_bp">
+									<input type="text" placeholder="" id="0_bp" name="0_bp" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
@@ -472,7 +472,7 @@
 							</br>
 							<div class="ui right labeled input">
 								<div class="ui small icon input">
-									<input type="text" placeholder="" id="0_pulse" name="0_pulse">
+									<input type="text" placeholder="" id="0_pulse" name="0_pulse" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">bpm</div>
 							</div>
@@ -481,7 +481,7 @@
 							</br>
 							<div class="ui right labeled input">
 								<div class="ui small icon input">
-									<input type="text" placeholder="" id="0_bfr" name="0_bfr">
+									<input type="text" placeholder="" id="0_bfr" name="0_bfr" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mls/minute</div>
 							</div>
@@ -490,7 +490,7 @@
 							</br>
 							<div class="ui right labeled input">
 								<div class="ui small icon input">
-									<input type="text" placeholder="" id="0_vp" name="0_vp">
+									<input type="text" placeholder="" id="0_vp" name="0_vp" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
@@ -499,7 +499,7 @@
 							</br>
 							<div class="ui right labeled input">
 								<div class="ui small icon input">
-									<input type="text" placeholder="" id="0_tmp" name="0_tmp">
+									<input type="text" placeholder="" id="0_tmp" name="0_tmp" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
@@ -508,7 +508,7 @@
 							</br>
 							<div class="ui right labeled input">
 								<div class="ui small icon input">
-									<input type="text" placeholder="" id="0_dh" name="0_dh">
+									<input type="text" placeholder="" id="0_dh" name="0_dh" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">iu</div>
 							</div>
@@ -517,7 +517,7 @@
 							</br>
 							<div class="ui right labeled input">
 								<div class="ui small icon input">
-									<input type="text" placeholder="" id="0_uv" name="0_uv">
+									<input type="text" placeholder="" id="0_uv" name="0_uv" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">ml</div>
 							</div>
@@ -526,7 +526,7 @@
 							</br>
 							<div class="ui right labeled input">
 								<div class="ui small icon input">
-									<input type="text" placeholder="" id="0_f" name="0_f">
+									<input type="text" placeholder="" id="0_f" name="0_f" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">ml</div>
 							</div>
@@ -540,69 +540,69 @@
 						<td class="labeltd">1st Hour:
 							</br>
 							<div class="ui small icon input">
-							  <input type="time" placeholder="" id="1_tc" name="1_tc">
+							  <input type="time" placeholder="" id="1_tc" name="1_tc" class="smallinputpad">
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="1_bp" id="1_bp" value="" placeholder="BP">
+								<div class="ui small input">
+									<input type="text" name="1_bp" id="1_bp" value="" placeholder="BP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="1_pulse" id="1_pulse" value="" placeholder="PULSE">
+								<div class="ui small input">
+									<input type="text" name="1_pulse" id="1_pulse" value="" placeholder="PULSE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">bpm</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="1_bfr" id="1_bfr" value="" placeholder="BLOOD FLOW RATE">
+								<div class="ui small input">
+									<input type="text" name="1_bfr" id="1_bfr" value="" placeholder="BLOOD FLOW RATE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mls/minute</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="1_vp" id="1_vp" value="" placeholder="VENOUS PRESSURE">
+								<div class="ui small input">
+									<input type="text" name="1_vp" id="1_vp" value="" placeholder="VENOUS PRESSURE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="1_tmp" id="1_tmp" value="" placeholder="TMP">
+								<div class="ui small input">
+									<input type="text" name="1_tmp" id="1_tmp" value="" placeholder="TMP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="1_dh" id="1_dh" value="" placeholder="DELIVERED HEPARIN">
+								<div class="ui small input">
+									<input type="text" name="1_dh" id="1_dh" value="" placeholder="DELIVERED HEPARIN" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">iu</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="1_uv" id="1_uv" value="" placeholder="UF VOLUME">
+								<div class="ui small input">
+									<input type="text" name="1_uv" id="1_uv" value="" placeholder="UF VOLUME" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="1_f" id="1_f" value="" placeholder="FLUIDS">
+								<div class="ui small input">
+									<input type="text" name="1_f" id="1_f" value="" placeholder="FLUIDS" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">ml</div>
 							</div>
@@ -616,69 +616,69 @@
 						<td class="labeltd">2nd Hour:
 							</br>
 							<div class="ui small icon input">
-							  <input type="time" placeholder="" id="2_tc" name="2_tc">
+							  <input type="time" placeholder="" id="2_tc" name="2_tc" class="smallinputpad">
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="2_bp" id="2_bp" value="" placeholder="BP">
+								<div class="ui small input">
+									<input type="text" name="2_bp" id="2_bp" value="" placeholder="BP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="2_pulse" id="2_pulse" value="" placeholder="PULSE">
+								<div class="ui small input">
+									<input type="text" name="2_pulse" id="2_pulse" value="" placeholder="PULSE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">bpm</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="2_bfr" id="2_bfr" value="" placeholder="BLOOD FLOW RATE">
+								<div class="ui small input">
+									<input type="text" name="2_bfr" id="2_bfr" value="" placeholder="BLOOD FLOW RATE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mls/minute</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="2_vp" id="2_vp" value="" placeholder="VENOUS PRESSURE">
+								<div class="ui small input">
+									<input type="text" name="2_vp" id="2_vp" value="" placeholder="VENOUS PRESSURE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="2_tmp" id="2_tmp" value="" placeholder="TMP">
+								<div class="ui small input">
+									<input type="text" name="2_tmp" id="2_tmp" value="" placeholder="TMP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="2_dh" id="2_dh" value="" placeholder="DELIVERED HEPARIN">
+								<div class="ui small input">
+									<input type="text" name="2_dh" id="2_dh" value="" placeholder="DELIVERED HEPARIN" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">iu</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="2_uv" id="2_uv" value="" placeholder="UF VOLUME">
+								<div class="ui small input">
+									<input type="text" name="2_uv" id="2_uv" value="" placeholder="UF VOLUME" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="2_f" id="2_f" value="" placeholder="FLUIDS">
+								<div class="ui small input">
+									<input type="text" name="2_f" id="2_f" value="" placeholder="FLUIDS" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">ml</div>
 							</div>
@@ -692,70 +692,70 @@
 						<td class="labeltd">3rd Hour:
 							</br>
 							<div class="ui small icon input">
-							  <input type="time" placeholder="" id="3_tc" name="3_tc">
+							  <input type="time" placeholder="" id="3_tc" name="3_tc" class="smallinputpad">
 							</div>
 
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="3_bp" id="3_bp" value="" placeholder="BP">
+								<div class="ui small input">
+									<input type="text" name="3_bp" id="3_bp" value="" placeholder="BP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="3_pulse" id="3_pulse" value="" placeholder="PULSE">
+								<div class="ui small input">
+									<input type="text" name="3_pulse" id="3_pulse" value="" placeholder="PULSE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">bpm</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="3_bfr" id="3_bfr" value="" placeholder="BLOOD FLOW RATE">
+								<div class="ui small input">
+									<input type="text" name="3_bfr" id="3_bfr" value="" placeholder="BLOOD FLOW RATE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mls/minute</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="3_vp" id="3_vp" value="" placeholder="VENOUS PRESSURE">
+								<div class="ui small input">
+									<input type="text" name="3_vp" id="3_vp" value="" placeholder="VENOUS PRESSURE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="3_tmp" id="3_tmp" value="" placeholder="TMP">
+								<div class="ui small input">
+									<input type="text" name="3_tmp" id="3_tmp" value="" placeholder="TMP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="3_dh" id="3_dh" value="" placeholder="DELIVERED HEPARIN">
+								<div class="ui small input">
+									<input type="text" name="3_dh" id="3_dh" value="" placeholder="DELIVERED HEPARIN" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">iu</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="3_uv" id="3_uv" value="" placeholder="UF VOLUME">
+								<div class="ui small input">
+									<input type="text" name="3_uv" id="3_uv" value="" placeholder="UF VOLUME" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="3_f" id="3_f" value="" placeholder="FLUIDS">
+								<div class="ui small input">
+									<input type="text" name="3_f" id="3_f" value="" placeholder="FLUIDS" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">ml</div>
 							</div>
@@ -769,69 +769,69 @@
 						<td class="labeltd">4th Hour:
 							</br>
 							<div class="ui small icon input">
-							  <input type="time" placeholder="" id="4_tc" name="4_tc">
+							  <input type="time" placeholder="" id="4_tc" name="4_tc" class="smallinputpad">
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="4_bp" id="4_bp" value="" placeholder="BP">
+								<div class="ui small input">
+									<input type="text" name="4_bp" id="4_bp" value="" placeholder="BP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="4_pulse" id="4_pulse" value="" placeholder="PULSE">
+								<div class="ui small input">
+									<input type="text" name="4_pulse" id="4_pulse" value="" placeholder="PULSE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">bpm</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="4_bfr" id="4_bfr" value="" placeholder="BLOOD FLOW RATE">
+								<div class="ui small input">
+									<input type="text" name="4_bfr" id="4_bfr" value="" placeholder="BLOOD FLOW RATE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mls/minute</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="4_vp" id="4_vp" value="" placeholder="VENOUS PRESSURE">
+								<div class="ui small input">
+									<input type="text" name="4_vp" id="4_vp" value="" placeholder="VENOUS PRESSURE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="4_tmp" id="4_tmp" value="" placeholder="TMP">
+								<div class="ui small input">
+									<input type="text" name="4_tmp" id="4_tmp" value="" placeholder="TMP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="4_dh" id="4_dh" value="" placeholder="DELIVERED HEPARIN">
+								<div class="ui small input">
+									<input type="text" name="4_dh" id="4_dh" value="" placeholder="DELIVERED HEPARIN" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">iu</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="4_uv" id="4_uv" value="" placeholder="UF VOLUME">
+								<div class="ui small input">
+									<input type="text" name="4_uv" id="4_uv" value="" placeholder="UF VOLUME" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="4_f" id="4_f" value="" placeholder="FLUIDS">
+								<div class="ui small input">
+									<input type="text" name="4_f" id="4_f" value="" placeholder="FLUIDS" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">ml</div>
 							</div>
@@ -845,69 +845,69 @@
 						<td class="labeltd">5th Hour:
 							</br>
 							<div class="ui small icon input">
-							  <input type="time" placeholder="" id="5_tc" name="5_tc">
+							  <input type="time" placeholder="" id="5_tc" name="5_tc" class="smallinputpad">
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="5_bp" id="5_bp" value="" placeholder="BP">
+								<div class="ui small input">
+									<input type="text" name="5_bp" id="5_bp" value="" placeholder="BP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="5_pulse" id="5_pulse" value="" placeholder="PULSE">
+								<div class="ui small input">
+									<input type="text" name="5_pulse" id="5_pulse" value="" placeholder="PULSE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">bpm</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="5_bfr" id="5_bfr" value="" placeholder="BLOOD FLOW RATE">
+								<div class="ui small input">
+									<input type="text" name="5_bfr" id="5_bfr" value="" placeholder="BLOOD FLOW RATE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mls/minute</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="5_vp" id="5_vp" value="" placeholder="VENOUS PRESSURE">
+								<div class="ui small input">
+									<input type="text" name="5_vp" id="5_vp" value="" placeholder="VENOUS PRESSURE" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="5_tmp" id="5_tmp" value="" placeholder="TMP">
+								<div class="ui small input">
+									<input type="text" name="5_tmp" id="5_tmp" value="" placeholder="TMP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="5_dh" id="5_dh" value="" placeholder="DELIVERED HEPARIN">
+								<div class="ui small input">
+									<input type="text" name="5_dh" id="5_dh" value="" placeholder="DELIVERED HEPARIN" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">iu</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="5_uv" id="5_uv" value="" placeholder="UF VOLUME">
+								<div class="ui small input">
+									<input type="text" name="5_uv" id="5_uv" value="" placeholder="UF VOLUME" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">ml</div>
 							</div>
 						</td>
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
-								<div class="ui small icon input">
-									<input type="text" name="5_f" id="5_f" value="" placeholder="FLUIDS">
+								<div class="ui small input">
+									<input type="text" name="5_f" id="5_f" value="" placeholder="FLUIDS" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">ml</div>
 							</div>
