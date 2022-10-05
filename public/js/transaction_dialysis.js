@@ -97,6 +97,10 @@ $(document).ready(function () {
 				if(moment().isSame(moment(trxdate, "DD-MM-YYYY"), 'day')){
         			$('#jqGrid_trans_ildelete').removeClass('ui-disabled');
 				}
+
+				if($('#viewallcenter').val() == 1){
+        			$('#jqGrid_trans_ildelete').removeClass('ui-disabled');
+				}
 			}
 		},
 		ondblClickRow: function (rowid, iRow, iCol, e) {
