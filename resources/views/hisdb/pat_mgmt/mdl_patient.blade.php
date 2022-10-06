@@ -518,7 +518,7 @@
                             </div> -->
 
                             <!-- pat rec -->
-                            <!-- <div class="panel panel-default" style="position: relative;">
+                            <div class="panel panel-default" style="position: relative;">
                                 <div class="panel-heading clearfix collapsed" id="toggle_tabPatrec" data-toggle="collapse" data-target="#tabPatrec">
                                     <i class="fa fa-angle-double-up" style="font-size:24px;margin: 0 0 0 12px"></i>
                                     <i class="fa fa-angle-double-down" style="font-size:24px;margin: 0 0 0 12px"></i >
@@ -540,7 +540,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <small for="cmb_pat_Confidential">Confidential</small>
-                                            <select id="cmb_pat_Confidential" name="Confidential" class="form-control form-mandatory" required>
+                                            <select id="cmb_pat_Confidential" name="Confidential" class="form-control">
                                                 <option value="1">Yes</option>
                                                 <option value="0" selected="selected">No</option>
                                             </select>
@@ -557,7 +557,7 @@
 
                                 </div>
                                 </div>
-                            </div> -->
+                            </div>
                             
                             <!-- <div role="tabpanel" class="tab-pane fade" id="tab12">
                                 <div class="form-group">
