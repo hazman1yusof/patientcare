@@ -25,6 +25,7 @@ $(document).ready(function () {
 	  			}
 	  		});
 	  		$(validator.errorList[0].element).focus();
+	  		alert('Please fill all mandatory field before patient completion');
 	  	},
 	  	errorPlacement: function(error, element) {
 	  		if (element.attr("name") == "general_assesment" ) {
@@ -42,6 +43,7 @@ $(document).ready(function () {
 	  			}
 	  		});
 	  		$(validator.errorList[0].element).focus();
+	  		alert('Please fill all mandatory field before patient completion');
 	  	},
 	  	errorPlacement: function(error, element) { }
 	});
@@ -109,7 +111,7 @@ $(document).ready(function () {
 	});
 
 	$('#save_dialysis').click(function(){
-		if($("form#daily_form").valid()) {
+		if(check_valid_prehd()) {
 			loader_daily(true);
 			let curoper = $('#cancel_dialysis').data('oper');
 
@@ -137,13 +139,18 @@ $(document).ready(function () {
 				if(curoper == 'add'){
 					$('#idno').val(data.idno);
 					$('#arrivalno').val(data.arrivalno);
+					urlParam_AddNotesDialysis.mrn=$("#mrn").val();
+					urlParam_AddNotesDialysis.episno=$("#episno").val();
+					urlParam_AddNotesDialysis.arrivalno=$('#arrivalno').val();
+
+					refreshGrid("#jqGridAddNotesDialysis", urlParam_AddNotesDialysis);
 				}
 			},'json');
 		}
 	});
 
 	$('#complete_dialysis').click(function(){
-		if($("form#daily_form_completed").valid()) {
+		if($("form#daily_form").valid() && $("form#daily_form_completed").valid()){
 			loader_daily(true);
 			var param = {
 				_token: $("#_token").val(),
@@ -189,6 +196,14 @@ $(document).ready(function () {
 
 	$("#tab_daily").on("shown.bs.collapse", function(){
 		SmoothScrollTo('#tab_daily', 300,undefined,90);
+		$("#jqGridAddNotesDialysis").jqGrid('setGridWidth', Math.floor($("#jqGridAddNotesDialysis_c")[0].offsetWidth-$("#jqGridAddNotesDialysis_c")[0].offsetLeft-25));
+		urlParam_AddNotesDialysis.mrn=$("#mrn").val();
+		urlParam_AddNotesDialysis.episno=$("#episno").val();
+		urlParam_AddNotesDialysis.arrivalno=$('#arrivalno').val();
+
+		hide_jqGridAddNotesDialysis_button(true);
+		refreshGrid("#jqGridAddNotesDialysis", urlParam_AddNotesDialysis);
+		calc_jq_height_onchange("jqGridAddNotesDialysis");
 	});
 
 	$("#tab_weekly").on("show.bs.collapse", function(){
@@ -311,8 +326,118 @@ $(document).ready(function () {
   		// }
   	});
 
+  	$("#jqGridAddNotesDialysis").jqGrid({
+		datatype: "local",
+		editurl: "./dialysis/form",
+		colModel: [
+			{ label: 'id', name: 'idno', width:10, hidden: true, key:true},
+			{ label: 'compcode', name: 'compcode', hidden: true },
+			{ label: 'mrn', name: 'mrn', hidden: true },
+			{ label: 'episno', name: 'episno', hidden: true },
+			{ label: 'arrivalno', name: 'arrivalno', hidden: true },
+			{ label: 'Note', name: 'additionalnote', classes: 'wrap', width: 120, editable: true, edittype: "textarea", editoptions: {style: "width: -webkit-fill-available;" ,rows: 2}},
+			{ label: 'Entered by', name: 'adduser', width: 50, hidden:false},
+			{ label: 'Date', name: 'adddate', width: 50, hidden:false},
+		],
+		autowidth: true,
+		multiSort: true,
+		sortname: 'idno',
+		sortorder: 'desc',
+		viewrecords: true,
+		loadonce: false,
+		scroll: true,
+		width: 900,
+		height: 20,
+		rowNum: 30,
+		pager: "#jqGridPagerAddNotesDialysis",
+		onSelectRow:function(rowid, selected){
+			calc_jq_height_onchange("jqGridAddNotesDialysis");
+		},
+		loadComplete: function(){
+			$('#jqGrid2').jqGrid ('setSelection', "1");
+			if($('#arrivalno').val().trim() == ''){
+				hide_jqGridAddNotesDialysis_button(true);
+			}else{
+				hide_jqGridAddNotesDialysis_button(false)
+			}
+			
+			calc_jq_height_onchange("jqGridAddNotesDialysis");
+		},
+	});
+
+	hide_jqGridAddNotesDialysis_button(true);
+	function hide_jqGridAddNotesDialysis_button(hide=true){
+		if(hide){
+			$('#jqGridAddNotesDialysis_iladd,#jqGridAddNotesDialysis_iledit,#jqGridAddNotesDialysis_ilsave,#jqGridAddNotesDialysis_ilcancel,#jqGridPagerRefresh_addnotesDialysis').hide();
+		}else{
+			$('#jqGridAddNotesDialysis_iladd,#jqGridAddNotesDialysis_iledit,#jqGridAddNotesDialysis_ilsave,#jqGridAddNotesDialysis_ilcancel,#jqGridPagerRefresh_addnotesDialysis').show();
+		}
+	}
+
+	//////////////////////////////////////////myEditOptions_add////////////////////////////////////////////////
+	var myEditOptions_add_AddNotesDialysis = {
+		keys: true,
+		extraparam:{
+			"_token": $("#csrf_token").val()
+		},
+		oneditfunc: function (rowid) {
+			$("#jqGridPagerRefresh_addnotesDialysis").hide();
+		},
+		aftersavefunc: function (rowid, response, options) {
+			refreshGrid('#jqGridAddNotesDialysis',urlParam_AddNotesDialysis,'scroll');
+			$("#jqGridPagerRefresh_addnotesDialysis").show();
+		},
+		errorfunc: function(rowid,response){
+			refreshGrid('#jqGridAddNotesDialysis',urlParam_AddNotesDialysis,'scroll');
+		},
+		beforeSaveRow: function (options, rowid) {
+			let data = $('#jqGridAddNotesDialysis').jqGrid ('getRowData', rowid);
+
+			let editurl = "./dialysis/form?"+
+				$.param({
+					action:'additionalnote',
+					mrn:$("#mrn").val(),
+					episno:$("#episno").val(),
+					arrivalno:$('#arrivalno').val(),
+					action: 'additionalnote_save',
+					_token: $("#_token").val()
+				});
+			$("#jqGridAddNotesDialysis").jqGrid('setGridParam', { editurl: editurl });
+		},
+		afterrestorefunc : function( response ) {
+			$("#jqGridPagerDelete_addnotesDialysis,#jqGridPagerRefresh_addnotesDialysis").show();
+		},
+		errorTextFormat: function (data) {
+			alert(data);
+		}
+	};
+
+	//////////////////////////////////////////jqGridPagerAddNotesDialysis////////////////////////////////////////////////
+	$("#jqGridAddNotesDialysis").inlineNav('#jqGridPagerAddNotesDialysis', {
+		add: true,
+		edit: false,
+		cancel: true,
+		//to prevent the row being edited/added from being automatically cancelled once the user clicks another row
+		restoreAfterSelect: false,
+		addParams: {
+			addRowParams: myEditOptions_add_AddNotesDialysis
+		},
+	})
+	.jqGrid('navButtonAdd', "#jqGridPagerAddNotesDialysis", {
+		id: "jqGridPagerRefresh_addnotesDialysis",
+		caption: "", cursor: "pointer", position: "last",
+		buttonicon: "glyphicon glyphicon-refresh",
+		title: "Refresh Table",
+		onClickButton: function () {
+			refreshGrid("#jqGridAddNotesDialysis", urlParam_AddNotesDialysis);
+		},
+	});
 
 });
+var urlParam_AddNotesDialysis = {
+	action: 'get_table_addnotes',
+	url: './dialysis/table'
+}
 
 function populate_data(type,data){
 	if(type == 'monthly'){
@@ -606,11 +731,13 @@ function check_pt_mode(){
 			last_dialysis_data = data.data;
 			last_mode = 'edit';
         }else if(data.mode == 'add'){
+			$('div.ui.tiny.userlabel').hide();
 			button_state_dialysis('add');
 			last_other_data = data.other_data;
 			populate_other_data(data.other_data);
 			last_mode = 'add';
         }else if(data.mode == 'disableAll'){
+			$('div.ui.tiny.userlabel').hide();
 			button_state_dialysis('disableAll');
 			last_other_data = data.other_data;
 			populate_other_data(data.other_data);
@@ -624,35 +751,67 @@ function check_pt_mode(){
 function add_edit_mode(mode){
 
 	$('form#daily_form div.prehddiv input[type=text],form#daily_form div.prehddiv input[type=date],form#daily_form div.prehddiv textarea').change(function(){
-		console.log('prehd');
+		var user_prehd = $('#user_prehd').val().trim();
+		if(user_prehd == ''){
+			 $('#user_prehd').val($('#user_name').val());
+			 $('#span_user_prehd').text($('#user_name').val()).parent().show();
+		}
 	});
 
 	$('table#preHDListMeasure tr.0_tr input[type=text],table#preHDListMeasure tr.0_tr input[type=date],table#preHDListMeasure tr.0_tr textarea').change(function(){
-		console.log('1_tr');
+		var user_0 = $('#user_0').val().trim();
+		if(user_0 == ''){
+			 $('#user_0').val($('#user_name').val());
+			 $('#span_user_0').text($('#user_name').val()).parent().show();
+		}
 	});
 
 	$('table#preHDListMeasure tr.1_tr input[type=text],table#preHDListMeasure tr.1_tr input[type=date],table#preHDListMeasure tr.1_tr textarea').change(function(){
-		console.log('1_tr');
+		var user_1 = $('#user_1').val().trim();
+		if(user_1 == ''){
+			 $('#user_1').val($('#user_name').val());
+			 $('#span_user_1').text($('#user_name').val()).parent().show();
+		}
 	});
 
 	$('table#preHDListMeasure tr.2_tr input[type=text],table#preHDListMeasure tr.2_tr input[type=date],table#preHDListMeasure tr.2_tr textarea').change(function(){
-		console.log('2_tr');
+		var user_2 = $('#user_2').val().trim();
+		if(user_2 == ''){
+			 $('#user_2').val($('#user_name').val());
+			 $('#span_user_2').text($('#user_name').val()).parent().show();
+		}
 	});
 
 	$('table#preHDListMeasure tr.3_tr input[type=text],table#preHDListMeasure tr.3_tr input[type=date],table#preHDListMeasure tr.3_tr textarea').change(function(){
-		console.log('3_tr');
+		var user_3 = $('#user_3').val().trim();
+		if(user_3 == ''){
+			 $('#user_3').val($('#user_name').val());
+			 $('#span_user_3').text($('#user_name').val()).parent().show();
+		}
 	});
 
 	$('table#preHDListMeasure tr.4_tr input[type=text],table#preHDListMeasure tr.4_tr input[type=date],table#preHDListMeasure tr.4_tr textarea').change(function(){
-		console.log('4_tr');
+		var user_4 = $('#user_4').val().trim();
+		if(user_4 == ''){
+			 $('#user_4').val($('#user_name').val());
+			 $('#span_user_4').text($('#user_name').val()).parent().show();
+		}
 	});
 
 	$('table#preHDListMeasure tr.5_tr input[type=text],table#preHDListMeasure tr.5_tr input[type=date],table#preHDListMeasure tr.5_tr textarea').change(function(){
-		console.log('5_tr');
+		var user_5 = $('#user_5').val().trim();
+		if(user_5 == ''){
+			 $('#user_5').val($('#user_name').val());
+			 $('#span_user_5').text($('#user_name').val()).parent().show();
+		}
 	});
 
 	$('form#daily_form_completed input[type=text],form#daily_form_completed input[type=date]').change(function(){
-		console.log('posthd');
+		var user_posthd = $('#user_posthd').val().trim();
+		if(user_posthd == ''){
+			 $('#user_posthd').val($('#user_name').val());
+			 $('#span_user_posthd').text($('#user_name').val()).parent().show();
+		}
 	});
 
 	//part dialyser
@@ -808,6 +967,8 @@ function add_edit_mode(mode){
 	if($('#terminate_by').val().trim() == ''){
 		$('#terminate_by').val($('#user_name').val());
 	}
+
+	canonlyeditself();
 }
 
 function off_edit_mode(){
@@ -816,6 +977,7 @@ function off_edit_mode(){
 }
 
 function autoinsert_rowdata_dialysis(form,rowData){
+	$('div.ui.tiny.userlabel').hide();
 	$.each(rowData, function( index, value ) {
 		var input=$(form+" [name='"+index+"']");
 		if(input.is("[type=radio]")){
@@ -835,6 +997,9 @@ function autoinsert_rowdata_dialysis(form,rowData){
 			}
 		}else{
 			input.val(value);
+		}
+		if(value!=null && value!=undefined && value!=''){
+			span_user_label_init(index,value);
 		}
 	});
 }
@@ -959,5 +1124,108 @@ function loader_daily(load){
 		$('#loader_daily').addClass('active');
 	}else{
 		$('#loader_daily').removeClass('active');
+	}
+}
+
+function check_valid_prehd(){
+	var proceed1,proceed2,proceed3;
+	if($('#start_time').val().trim() == ''){
+		errorinp('#start_time',true);
+		$('#start_time').focus();
+		proceed1=false;
+	}else{
+		errorinp('#start_time',false);
+		proceed1=true;
+	}
+	if($('#machine_no').val().trim() == ''){
+		errorinp('#machine_no',true);
+		$('#machine_no').focus();
+		proceed2=false;
+	}else{
+		errorinp('#machine_no',false);
+		proceed2=true;
+	}
+	if($('#prime_by').val().trim() == ''){
+		errorinp('#prime_by',true);
+		$('#prime_by').focus();
+		proceed3=false;
+	}else{
+		errorinp('#prime_by',false);
+		proceed3=true;
+	}
+
+	if(proceed1 && proceed2 && proceed3){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function errorinp(inp,err){
+	if(err){
+		$(inp).addClass('error');
+	}else{
+		$(inp).removeClass('error');
+	}
+}
+
+function span_user_label_init(index,value){
+	if(value=='')return false;
+	switch(index){
+		case 'user_prehd' :
+				$('#span_user_prehd').text(value).parent().show();
+				break
+		case 'user_posthd' : 
+				$('#span_user_posthd').text(value).parent().show();
+				break
+		case 'user_0' : 
+				$('#span_user_0').text(value).parent().show();
+				break
+		case 'user_1' : 
+				$('#span_user_1').text(value).parent().show();
+				break
+		case 'user_2' : 
+				$('#span_user_2').text(value).parent().show();
+				break
+		case 'user_3' : 
+				$('#span_user_3').text(value).parent().show();
+				break
+		case 'user_4' : 
+				$('#span_user_4').text(value).parent().show();
+				break
+		case 'user_5' : 
+				$('#span_user_5').text(value).parent().show();
+				break
+		default:
+			return false;
+			break
+	}
+}
+
+function canonlyeditself(){
+	var user_name = $('#user_name').val().trim();
+	if($('#user_prehd').val().trim() != '' && $('#user_prehd').val().trim() != user_name){
+		disableForm('form#daily_form div.prehddiv');
+	}
+	if($('#user_posthd').val().trim() != '' && $('#user_posthd').val().trim() != user_name){
+		disableForm('form#daily_form_completed');
+	}
+	if($('#user_0').val().trim() != '' && $('#user_0').val().trim() != user_name){
+		disableForm('table#preHDListMeasure tr.0_tr');
+	}
+	if($('#user_1').val().trim() != '' && $('#user_1').val().trim() != user_name){
+		disableForm('table#preHDListMeasure tr.1_tr');
+	}
+	if($('#user_2').val().trim() != '' && $('#user_2').val().trim() != user_name){
+		disableForm('table#preHDListMeasure tr.2_tr');
+	}
+	if($('#user_3').val().trim() != '' && $('#user_3').val().trim() != user_name){
+		disableForm('table#preHDListMeasure tr.3_tr');
+	}
+	if($('#user_4').val().trim() != '' && $('#user_4').val().trim() != user_name){
+		disableForm('table#preHDListMeasure tr.4_tr');
+	}
+	if($('#user_5').val().trim() != '' && $('#user_5').val().trim() != user_name){
+		disableForm('table#preHDListMeasure tr.5_tr');
 	}
 }

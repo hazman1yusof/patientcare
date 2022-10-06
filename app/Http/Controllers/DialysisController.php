@@ -57,6 +57,8 @@ class DialysisController extends Controller
                 return $this->get_table_patmedication_trx($request);
             case 'get_table_patmedication':
                 return $this->get_table_patmedication($request);
+            case 'get_table_addnotes':
+                return $this->get_table_addnotes($request);
 
             default:
                 return 'error happen..';
@@ -68,6 +70,11 @@ class DialysisController extends Controller
         switch($request->action){
             case 'patmedication_save':
                 return $this->patmedication_save($request);
+                break;
+
+            case 'additionalnote_save':
+                return $this->additionalnote_save($request);
+                break;
 
             default:
                 return 'error happen..';
@@ -1493,6 +1500,61 @@ class DialysisController extends Controller
             return response($e->getMessage(), 500);
         }
         
+    }
+
+    public function additionalnote_save(Request $request){
+
+        DB::beginTransaction();
+
+        try {
+            if(empty($request->additionalnote)){
+                throw new \Exception('Note cant be empty', 500);
+            }
+            if(empty($request->arrivalno)){
+                throw new \Exception('Save patient first before making notes', 500);
+            }
+
+            DB::table('hisdb.dialysis_note')
+                    ->insert([
+                        'compcode' => session('compcode'),
+                        'mrn' => $request->mrn,
+                        'episno' => $request->episno,
+                        'arrivalno' => $request->arrivalno,
+                        'additionalnote' => $request->additionalnote,
+                        'adduser' => session('username'),
+                        'adddate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response($e->getMessage(), 500);
+        }
+        
+    }
+
+    public function get_table_addnotes(Request $request){
+
+        $table = DB::table('hisdb.dialysis_note')
+                        ->where('mrn',$request->mrn)
+                        ->where('episno',$request->episno)
+                        ->where('arrivalno',$request->arrivalno);
+
+        $table = $table->orderBy($request->sidx, $request->sord);
+
+        //////////paginate/////////
+        $paginate = $table->paginate($request->rows);
+
+        $responce = new stdClass();
+        $responce->page = $paginate->currentPage();
+        $responce->total = $paginate->lastPage();
+        $responce->records = $paginate->total();
+        $responce->rows = $paginate->items();
+        $responce->sql = $table->toSql();
+        $responce->sql_bind = $table->getBindings();
+
+        return json_encode($responce);
     }
 
     public function mydump2($builder){

@@ -51,13 +51,13 @@
 			<input type="hidden" name="idno" id="idno">
 			<input type="hidden" name="arrivalno" id="arrivalno">
 			<input type="hidden" name="user_prehd" id="user_prehd">
-			<input type="hidden" name="user_posthd" id="user_posthd">
+			<input type="hidden" name="user_0" id="user_0">
 			<input type="hidden" name="user_1" id="user_1">
 			<input type="hidden" name="user_2" id="user_2">
 			<input type="hidden" name="user_3" id="user_3">
 			<input type="hidden" name="user_4" id="user_4">
 			<input type="hidden" name="user_5" id="user_5">
-			<div class="four fields prehddiv">
+			<div class="four fields prehddiv" id="valid_prehd">
 				<div class="field">
 					<div class="clinic_code">
 						<label><div class="label_hd">START TIME:</div></label>
@@ -268,7 +268,11 @@
 		    
 		    <hr>
 
-			<h4 class="ui dividing header">PRE HD ASSESSMENT</h4>
+			<h4 class="ui dividing header">PRE HD ASSESSMENT
+				<div class="ui tiny userlabel circular primary label" style="display:none;">
+				  <i class="user icon"></i>Pre-HD: <span id="span_user_prehd"></span>
+				</div>
+			</h4>
 
 			<div class="two fields prehddiv">
 			  	<div class="field">
@@ -454,7 +458,26 @@
 
 			<hr>
 
-			<h4 class="ui dividing header">HOURLY CHART</h4>
+			<h4 class="ui dividing header">HOURLY CHART
+				<div class="ui tiny userlabel circular grey label" style="display:none;">
+				  <i class="user icon"></i>Commencing: <span id="span_user_0"></span>
+				</div>
+				<div class="ui tiny userlabel circular teal label" style="display:none;">
+				  <i class="user icon"></i>1st Hour: <span id="span_user_1"></span>
+				</div>
+				<div class="ui tiny userlabel circular green label" style="display:none;">
+				  <i class="user icon"></i>2nd Hour: <span id="span_user_2"></span>
+				</div>
+				<div class="ui tiny userlabel circular red label" style="display:none;">
+				  <i class="user icon"></i>3rd Hour: <span id="span_user_3"></span>
+				</div>
+				<div class="ui tiny userlabel circular yellow label" style="display:none;">
+				  <i class="user icon"></i>4th Hour: <span id="span_user_4"></span>
+				</div>
+				<div class="ui tiny userlabel circular pink label" style="display:none;">
+				  <i class="user icon"></i>5th Hour: <span id="span_user_5"></span>
+				</div>
+			</h4>
 
 			<table class="table ui form" id="preHDListMeasure">
 				<thead>
@@ -937,6 +960,14 @@
 
 		</form>
 
+		<div class="ui segments">
+            <div class="ui secondary segment">ADDITIONAL NOTES</div>
+            <div class="ui segment" id="jqGridAddNotesDialysis_c">
+                <table id="jqGridAddNotesDialysis" class="table table-striped"></table>
+                <div id="jqGridPagerAddNotesDialysis"></div>
+            </div>
+        </div>
+
 		<form id="daily_form_patmedication" class="ui mini form" autocomplete="off" style="margin-bottom:30px">
 			<h4 class="ui dividing header">DRUG ADMINISTRATION</h4>
 			<div class="ui grid">
@@ -985,9 +1016,15 @@
 		</form>
 
 		<form id="daily_form_completed" class="ui mini form" autocomplete="off">
-			<h4 class="ui dividing header">POST HD ASSESSMENT</h4>
 
-			<div class="field prehddiv">
+			<input type="hidden" name="user_posthd" id="user_posthd">
+			<h4 class="ui dividing header">POST HD ASSESSMENT
+				<div class="ui tiny userlabel circular purple label" style="display:none;">
+				  <i class="user icon"></i>Post-HD: <span id="span_user_posthd"></span>
+				</div>
+			</h4>
+
+			<div class="field">
 				<div class="clinic_code">
 					<label>POST HD ASSESSMENT</label>
 					<textarea name="post_hd_assesment" id="post_hd_assesment" rows="3" cols="100" class="purplebg" required></textarea>

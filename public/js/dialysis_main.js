@@ -42,7 +42,7 @@ $(document).ready(function () {
 			{ label: 'AreaCode', name: 'AreaCode', hidden: true },
 		],
 		autowidth: true,
-		viewrecords: false,
+		viewrecords: true,
 		width: 900,
 		height: 300,
 		rowNum: 50,

@@ -113,8 +113,8 @@ function refreshGrid(grid,urlParam,oper){
 }
 
 function disableForm(formName, except){
-
 	$(formName+' div.ui.dropdown').addClass("disabled");
+
 	$(formName+' textarea').prop("disabled",true);
 	$(formName+' input').prop("disabled",true);
 	$(formName+' input[type=radio]').prop("disabled",true);
@@ -154,6 +154,8 @@ function enableForm(formName, except){
 }
 
 function readonlyForm(formName, except){
+	$(formName+' div.ui.dropdown').addClass("disabled");
+
 	$(formName+' textarea').prop("readonly",true);
 	$(formName+' input').prop("readonly",true);
 	$(formName+' input[type=radio]').prop("readonly",true);
@@ -172,6 +174,8 @@ function readonlyForm(formName, except){
 }
 
 function unreadonlyForm(formName, except){
+	$(formName+' div.ui.dropdown').removeClass("disabled");
+	
 	$(formName+' textarea').prop("readonly",false);
 	$(formName+' input').prop("readonly",false);
 	$(formName+' input[type=radio]').prop("readonly",false);
