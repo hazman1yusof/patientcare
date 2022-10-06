@@ -14,6 +14,7 @@ $(document).ready(function () {
 	$("#tab_trans").on("shown.bs.collapse", function(){
 		SmoothScrollTo('#tab_trans', 300,function(){
 			$("#jqGrid_trans").jqGrid ('setGridWidth', Math.floor($("#jqGrid_trans_c")[0].offsetWidth-$("#jqGrid_trans_c")[0].offsetLeft-14));
+			calc_jq_height_onchange("jqGrid_trans");
 		},90);
 	});
 
@@ -106,9 +107,11 @@ $(document).ready(function () {
 		ondblClickRow: function (rowid, iRow, iCol, e) {
 
 		},
+		gridComplete:function(){
+			calc_jq_height_onchange("jqGrid_trans");
+		},
 		loadComplete: function () {
 			$("#jqGrid_trans").setSelection($("#jqGrid_trans").getDataIDs()[0]);
-			calc_jq_height_onchange("jqGrid_trans");
 			if(addmore_onadd == true){
 				$('#jqGrid_trans_iladd').click();
 			}
