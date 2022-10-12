@@ -1497,6 +1497,62 @@ class DialysisController extends Controller
                 //         ->delete();
                 // }
                 
+            }else if($request->oper == 'ownmed'){
+
+                $chgmast = DB::table('hisdb.chgmast')
+                        ->where('chgcode','EP030001');
+
+                if(!$chgmast->exists()){
+                    throw new \Exception('chgmast EP030001 xde', 500);
+                }
+                $chgmast = $chgmast->first();
+                
+                $table = DB::table('hisdb.chargeown');
+                $array_insert = [
+                    'compcode' => session('compcode'),
+                    'mrn' => $request->mrn,
+                    'episno' => $request->episno,
+                    'trxtype' => 'OE',
+                    'trxdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    'chgcode' => $chgmast->chgcode,
+                    'chggroup' =>  $chgmast->chggroup,
+                    'chgtype' =>  $chgmast->chgtype,
+                    'instruction' => $chgmast->instruction,
+                    'doscode' => $chgmast->dosecode,
+                    'frequency' => $chgmast->freqcode,
+                    'billflag' => '0',
+                    'quantity' => $request->quantity,
+                    'isudept' => session('dept'),
+                    'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
+                    'lastuser' => session('username'),
+                    'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    'recstatus' => 1
+                ];
+
+                $idno_chargeown = $table->insertGetId($array_insert);
+
+                $table = DB::table('hisdb.patmedication');
+                $array_insert = [
+                    'compcode'=>session('compcode'),
+                    'mrn'=>$request->mrn,
+                    'episno'=>$request->episno,
+                    'entereddate'=>Carbon::now("Asia/Kuala_Lumpur"),
+                    'enteredtime'=>Carbon::now("Asia/Kuala_Lumpur"),
+                    'enteredby'=>session('username'),
+                    'adduser'=>session('username'),
+                    'adddate'=>Carbon::now("Asia/Kuala_Lumpur"),
+                    'qty'=>$request->quantity,
+                    'verifiedby'=>$request->verifiedby,
+                    'dose'=>$chgmast->dosecode,
+                    'freq'=>$chgmast->freqcode,
+                    'instruction'=>$chgmast->instruction,
+                    'chgcode'=>$chgmast->chgcode,
+                    'auditno'=>$idno_chargeown,
+                    'remarks'=>'ownmed'
+                ];
+        
+                $table->insert($array_insert);
+                
             }
 
             $responce = new stdClass();

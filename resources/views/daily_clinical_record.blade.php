@@ -978,7 +978,7 @@
 		                        <th class="scope">idn</th>
 		                        <th class="scope">mrn</th>
 		                        <th class="scope">episno</th>
-		                        <th class="scope">Drug List</th>
+		                        <th class="scope">Drug List <i id="own_med_add" class="right floated link plus icon blue" data-content="Add user's own medicine" data-variation="small"></i></th>
 		                        <th class="scope">chg_code</th>
 		                        <th class="scope">quantity</th>
 		                        <th class="scope">ins_code</th>

@@ -1,6 +1,46 @@
 
 $(document).ready(function () {
+	$('i#own_med_add').popup();
 
+	$('#own_med_add').click(function(){
+		if($('#patmedication_tbl').data('addmode') == false && !$('#save_dialysis').is("[disabled]") ){
+			$.confirm({
+			    title: 'Confirm',
+			    content: "Are you sure you want to <span class='error'>add user's own medicine?</error>",
+			    buttons: {
+			        confirm:{
+			        	btnClass: 'btn-blue',
+			        	action: function () {
+
+							$('#patmedication_trx_tbl_idno').val('ownmed');
+				        	$('#patmedication_trx_tbl tbody tr').removeClass('blue');
+							$('#patmedication_tbl').data('addmode',true);
+						    patmedication_tbl.row.add({
+						        idno : 99999999999,
+								chg_code : 'EP030001',
+								chg_desc : "EPO2000 (PATIENT'S MEDICINE)",
+								dos_desc : '2000IU',
+								fre_desc : 'PER DIALYSIS',
+								quantity : 'edit',
+								enteredby : '',
+								verifiedby : '',
+								status : ''
+						    }).draw(true);
+
+				        }
+
+			        },
+			        cancel: {
+			        	action: function () {
+							
+				        },
+			        }
+			    }
+
+			});
+		    
+	    }
+	});
 	
 
 });
@@ -46,6 +86,7 @@ $('#patmedication_trx_tbl tbody').on('click', 'tr', function () {
 	    $(this).addClass('blue');
 		$('#patmedication_trx_tbl_idno').val(data.id);
 		$('#patmedication_tbl').data('addmode',true);
+		$('#patmedication_tbl').data('ownmed',true);
 	    patmedication_tbl.row.add({
 	        idno : 99999999999,
 			chg_code : data.chg_code,
@@ -81,6 +122,14 @@ var patmedication_tbl = $('#patmedication_tbl').DataTable({
     	// {targets: [8], className: 'text-center' },
     	{targets: [1,2,3,4,5,6,7,8], orderable: false },
         {targets: [0,1], visible: false},
+        {targets: 5,
+        	createdCell: function (td, cellData, rowData, row, col) {
+				if (cellData == 'edit' ) {
+					$(td).html('');
+					$(td).append(`<input type="number" min="1" name="patmedication_quantity" id="patmedication_quantity" value="1" class="purplebg" style="width:40px;max-width:150px;">`);
+				}
+   			}
+   		},
         {targets: 6,
         	createdCell: function (td, cellData, rowData, row, col) {
 				if (cellData == '' ) {
@@ -122,7 +171,10 @@ var patmedication_tbl = $('#patmedication_tbl').DataTable({
 
 					$('#patmedication_tbl').off('click','button#patmedication_save');
 					$('#patmedication_tbl').on('click','button#patmedication_save', function(){
-						if($('#patmedication_enteredby').val().trim() == '' || $('#patmedication_verifiedby').val().trim() == ''){
+
+						if($('#patmedication_trx_tbl_idno').val() == 'ownmed' && $('#patmedication_quantity').val().trim() == ''){
+							alert('Entered quantity value');
+						}else if($('#patmedication_enteredby').val().trim() == '' || $('#patmedication_verifiedby').val().trim() == ''){
 							alert('Entered all field before click save');
 						}else{
     						$('#patmedication_trx_tbl tbody tr').removeClass('blue');
@@ -140,6 +192,11 @@ var patmedication_tbl = $('#patmedication_tbl').DataTable({
 								_token: $("#_token").val(),
 								chgtrx_idno: $('#patmedication_trx_tbl_idno').val(),
 								verifiedby: $('#patmedication_verifiedby').val().trim()
+							}
+
+							if($('#patmedication_trx_tbl_idno').val() == 'ownmed'){
+								obj.quantity = $('#patmedication_quantity').val();
+								param.oper = 'ownmed';
 							}
 
 							$.post( "./dialysis/form?"+$.param(param),obj, function( data ){
