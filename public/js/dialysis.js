@@ -838,7 +838,7 @@ function add_edit_mode(mode){
 		let post_weight = $('#post_weight').val();
 
 		if(pre_weight.trim() != '' && prev_post_weight.trim() != ''){
-			let idwg = parseFloat(prev_post_weight) - parseFloat(pre_weight);
+			let idwg = parseFloat(pre_weight) - parseFloat(prev_post_weight);
 			$('#idwg').val(idwg.toFixed(2));
 		}
 
@@ -1099,12 +1099,12 @@ function verifyuser(){
 
 function verifyuser_permission(){
 	var param={
-		action:'verifyuser',
+		action:'verifyuser_admin_dialysis',
 		username:$('#username_verify').val(),
 		password:$('#password_verify').val(),
     };
 
-    $.get( "./verifyuser_dialysis?"+$.param(param), function( data ) {
+    $.get( "./verifyuser_admin_dialysis?"+$.param(param), function( data ) {
 
     },'json').done(function(data) {
     	if(data.success == 'fail'){

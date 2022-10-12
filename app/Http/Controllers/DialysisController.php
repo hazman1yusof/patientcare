@@ -1110,14 +1110,14 @@ class DialysisController extends Controller
         echo json_encode($responce); 
     }
 
-    public function verifyuser_admin(Request $request){
+    public function verifyuser_admin_dialysis(Request $request){
         $responce = new stdClass();
 
         $verify = DB::table('sysdb.users')
                     ->where('compcode',session('compcode'))
                     ->where('username',$request->username)
                     ->where('password',$request->password)
-                    ->where('groupid','==','ADMIN');
+                    ->where('groupid','ADMIN');
 
         if($verify->exists()){
             $responce->success = 'success';

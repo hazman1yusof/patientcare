@@ -46,6 +46,7 @@ Route::get('/get_data_dialysis', "DialysisController@get_data_dialysis");
 Route::post('/dialysis_transaction_save', "DialysisController@dialysis_transaction_save");
 Route::get('/check_pt_mode', "DialysisController@check_pt_mode");
 Route::get('/verifyuser_dialysis', "DialysisController@verifyuser_dialysis");
+Route::get('/verifyuser_admin_dialysis', "DialysisController@verifyuser_admin_dialysis");
 
 Route::get('/prescription', "PrescriptionController@index");
 Route::get('/prescription/{id}', "PrescriptionController@detail");
