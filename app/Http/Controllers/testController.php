@@ -21,65 +21,109 @@ class testController extends Controller
     public function test(Request $request){
 
         $array = [
-            ['1','BAITULMAL ','550704-10-5617'],
-            ['3','DBKL','550507-01-5225'],
-            ['6','BAITULMAL ','811002-14-6249'],
-            ['8','BAITULMAL ','551206-10-5723'],
-            ['10','BAITULMAL','670507-10-6166'],
-            ['11','BAITULMAL ','600923-71-5127'],
-            ['16','JPA','640209-71-5353'],
-            ['19','BAITULMAL','531030-05-5276'],
-            ['20','BAITULMAL ','880820-11-5224'],
-            ['21','BAITULMAL ','B 9566-51-4'],
-            ['22','BAITULMAL ','640923-71-5166'],
-            ['27','BAITULMAL ','941001-14-6517'],
-            ['29','BAITULMAL ','491002-02-5973'],
-            ['31','BAITULMAL ','720519-08-5393'],
-            ['32','BAITULMAL ','661205-04-5543'],
-            ['33','BAITULMAL ','660108-71-5088'],
-            ['36','BAITULMAL ','820425-14-5381'],
-            ['39','BAITULMAL ','560505-10-5955'],
-            ['40','DBKL','560226-10-5848'],
-            ['41','BAITULMAL ','571102-10-6148'],
-            ['42','BAITULMAL ','381229-01-5174'],
-            ['43','BAITULMAL ','530112-04-5309'],
-            ['45','JPA','570831-10-6207'],
-            ['50','BAITULMAL ','520821-04-5249'],
-            ['52','BAITULMAL','931018-03-6593'],
-            ['55','PERKESO','750926-10-5571'],
-            ['56','BAITULMAL','780713-14-5331'],
-            ['58','BAITULMAL ','690310-10-7059'],
-            ['59','BAITULMAL ','470525-05-5263'],
-            ['60','DBKL ','550710-04-5171'],
-            ['64','BAITULMAL ','920511-11-5435'],
-            ['65','BAITULMAL ','010108-14-1577'],
-            ['68','BAITULMAL ','770509-05-5719'],
-            ['70','PERKESO','621220-10-7718'],
-            ['71','BAITULMAL ','601016-03-5632'],
-            ['74','DBKL ','530427-05-5376'],
-            ['76','BAITULMAL ','711006-04-5172'],
-            ['77','BAITULMAL ','701102-10-6415'],
-            ['80','BAITULMAL ','400321-08-5758'],
-            ['82','BAITULMAL ','550907-05-5402'],
-            ['87','BAITULMAL ','670110-10-6766'],
-            ['88','BAITULMAL ','630930-71-5122'],
-            ['90','BAITULMAL ','671016-10-5841'],
-            ['91','PERKESO','550928-05-5049'],
-            ['93','BAITULMAL ','700126-01-6014'],
-            ['94','BAITULMAL ','501107-03-5322'],
-            ['95','JPA','591217-10-5629'],
-            ['96','BAITULMAL ','861010-56-5588'],
-            ['98','BAITULMAL ','660614-08-6472'],
-            ['100','BAITULMAL ','540628-04-5130'],
-            ['101','BAITULMAL ','500611-06-5147'],
-            ['102','BAITULMAL ','AU2316-20-'],
-            ['103','BAITULMAL ','540609-02-5556'],
-            ['106','BAITULMAL','511129-66-5068'],
-            ['107','BAITULMAL','661022-01-5990'],
-            ['111','BAITULMAL','760224-03-5360'],
-            ['112','BAITULMAL ','550701-07-5491'],
-            ['114','BAITULMAL ','721205-10-5122'],
-            ['115','BAITULMAL ','770424-01-5304']
+            ['670729095079','JHEV'],
+            ['950516106375','MAIS'],
+            ['771114055591','RAMPAI'],
+            ['530925086669','BAITULMAL'],
+            ['950406125604','BAITULMAL'],
+            ['511217105677','BAITULMAL'],
+            ['760806145818','BAITULMAL'],
+            ['590130105672','JPA'],
+            ['870813145661','BAITULMAL'],
+            ['770701016517','KPM'],
+            ['750830086089','BAITULMAL'],
+            ['560906086409','BAITULMAL'],
+            ['550615075495','BAITULMAL'],
+            ['860323295035','BAITULMAL'],
+            ['920609035847','BAITULMAL'],
+            ['680705715228','BAITULMAL'],
+            ['770806715031','BAITULMAL'],
+            ['670509105554','BAITULMAL'],
+            ['550124115368','MAIS'],
+            ['620519715758','BAITULMAL'],
+            ['580310086502','BAITULMAL'],
+            ['580704085318','BAITULMAL'],
+            ['690402085053','BAITULMAL'],
+            ['850715145248','BAITULMAL'],
+            ['550225035471','UTM'],
+            ['680808105094','BAITULMAL'],
+            ['550612055181','MAIS'],
+            ['521024085947','JHEV'],
+            ['740517025408','PERKESO'],
+            ['700727135836','BAITULMAL'],
+            ['850404086594','BAITULMAL'],
+            ['760320105867','PERKESO'],
+            ['780821615046','BAITULMAL'],
+            ['580905715427','MAIS'],
+            ['771113145448','BAITULMAL'],
+            ['800414145548','BAITULMAL'],
+            ['420515085711','JPA'],
+            ['520701105809','JHEV'],
+            ['570514105155','PERKESO'],
+            ['581020025351','JPA'],
+            ['830309145017','MAIS'],
+            ['760814035651','MAIS'],
+            ['430909055151','JPA'],
+            ['850913086795','BAITULMAL'],
+            ['540315035337','BAITULMAL'],
+            ['660219085277','BAITULMAL'],
+            ['660101066927','BAITULMAL'],
+            ['470129085153','BAITULMAL'],
+            ['640930715017','BAITULMAL'],
+            ['900718095197','BAITULMAL'],
+            ['860121145645','PERKESO'],
+            ['910626105705','BAITULMAL'],
+            ['880922565453','BAITULMAL'],
+            ['920412045048','BAITULMAL'],
+            ['910124146400','BAITULMAL'],
+            ['470330055394','JHEV'],
+            ['560326105562','BAITULMAL'],
+            ['830609145414','PERKESO'],
+            ['561213105026','JPA'],
+            ['660612086532','BAITULMAL'],
+            ['480302105488','JPA'],
+            ['640904065612','BAITULMAL'],
+            ['581123085074','JPA'],
+            ['850520015312','BAITULMAL'],
+            ['860401436156','BAITULMAL'],
+            ['640821107055','BAITULMAL'],
+            ['620406086084','BAITULMAL'],
+            ['560510016252','JPA'],
+            ['571001055054','BAITULMAL'],
+            ['580331025784','BAITULMAL'],
+            ['641010107670','PERKESO'],
+            ['760810086654','BAITULMAL'],
+            ['590622065064','PERKESO'],
+            ['510618715068','BAITULMAL'],
+            ['671016105841','BAITULMAL'],
+            ['610509015597','JPA'],
+            ['670903106264','BAITULMAL'],
+            ['620128106400','BAITULMAL'],
+            ['620730045348','BAITULMAL'],
+            ['640809105022','PERKESO'],
+            ['521001105757','MAIS'],
+            ['520925105074','JHEV'],
+            ['720927145156','BAITULMAL'],
+            ['641207106102','MAIS'],
+            ['690824025325','BAITULMAL'],
+            ['M 5065820','BAITULMAL'],
+            ['810913145592','BAITULMAL'],
+            ['550124085568','BAITULMAL'],
+            ['700612105864','BAITULMAL'],
+            ['990415145058','BAITULMAL'],
+            ['610408075320','DBKL'],
+            ['691110106304','JPA'],
+            ['710617106101','BAITULMAL'],
+            ['720818095049','PERKESO'],
+            ['521027055241','JHEV'],
+            ['750304086396','PERKESO'],
+            ['501109085761','JHEV'],
+            ['660605715150','BAITULMAL'],
+            ['570323045604','JPA'],
+            ['600217106236','BAITULMAL'],
+            ['391219105300','UKM'],
+            ['580501036066','BAITULMAL'],
+            ['811024086603','PERKESO']
         ];
 
         DB::beginTransaction();
@@ -87,10 +131,9 @@ class testController extends Controller
         try {
 
             foreach ($array as $key => $value) {
-                $mrn = $value[0];
                 $debtorcode = trim($value[1]);
-                $newic = trim($value[2]);
-                echo $mrn.' - '.$newic;
+                $newic = trim($value[0]);
+                echo $newic;
                 switch ($debtorcode) {
                     case 'BAITULMAL':
                             $epis_fin = 'BM';
@@ -104,14 +147,30 @@ class testController extends Controller
                     case 'DBKL':
                             $epis_fin = 'JK';
                         break;
+                    case 'UKM':
+                            $epis_fin = 'JK';
+                        break;
+                    case 'JHEV':
+                            $epis_fin = 'JK';
+                        break;
+                    case 'MAIS':
+                            $epis_fin = 'MA';
+                        break;
+                    case 'RAMPAI':
+                            $epis_fin = 'JK';
+                        break;
+                    case 'KPM':
+                            $epis_fin = 'JK';
+                        break;
                     default:
-                            $epis_fin = 'CO';
+                            $epis_fin = 'JK';
                         break;
                 }
 
                 $pat_mast = DB::table('hisdb.pat_mast')
-                                ->where('mrn',$mrn)
-                                ->where('compcode','13A');
+                                ->where('Newic',$newic)
+                                ->where('compcode','13A')
+                                ->orderBy('idno','DESC');
 
                 if($pat_mast->exists()){
                     $pat_mast_data = $pat_mast->first();
@@ -119,6 +178,16 @@ class testController extends Controller
 
                 $newepisno = intval($pat_mast_data->Episno) + 1;
                 $name = $pat_mast_data->Name;
+                $mrn = $pat_mast_data->MRN;
+
+                $episode = DB::table('hisdb.episode')
+                                ->where('compcode','13A')
+                                ->where('mrn',$mrn)
+                                ->where('episno',$newepisno);
+
+                if($episode->exists()){
+                    continue;
+                }
 
                 $pat_mast
                     ->update([
@@ -137,10 +206,10 @@ class testController extends Controller
                         "epistycode" => 'OP',
                         "reg_date" => '2022-10-01',
                         "reg_time" => Carbon::now("Asia/Kuala_Lumpur"),
-                        "regdept" => 'JP',
+                        "regdept" => 'BM',
                         "admsrccode" => 'APPT',
                         "case_code" => 'HDS',
-                        "admdoctor" => 'NIRMALA',
+                        "admdoctor" => 'HALIM',
                         "attndoctor" => 'AZMAN',
                         "pay_type" => $epis_fin,
                         "pyrmode" => 'PANEL',
@@ -199,7 +268,7 @@ class testController extends Controller
 
                 DB::table('hisdb.queue')
                     ->insert([
-                        'AdmDoctor' => 'NIRMALA',
+                        'AdmDoctor' => 'HALIM',
                         'AttnDoctor' => 'AZMAN',
                         'BedType' => '',
                         'Case_Code' => "MED",
@@ -229,7 +298,7 @@ class testController extends Controller
 
                 DB::table('hisdb.queue')
                     ->insert([
-                        'AdmDoctor' => 'NIRMALA',
+                        'AdmDoctor' => 'HALIM',
                         'AttnDoctor' => 'AZMAN',
                         'BedType' => '',
                         'Case_Code' => "MED",
@@ -264,6 +333,30 @@ class testController extends Controller
             DB::rollback();
             dd($e);
             // return response('Error'.$e, 500);
+        }
+
+    }
+
+    public function test2(Request $request){
+
+        $dialysis = DB::table('hisdb.dialysis')
+                        ->whereNull('compcode')
+                        ->whereNull('visit_date')
+                        ->whereNotNull('visit_date_2')
+                        ->get();
+
+        foreach ($dialysis as $key => $value) {
+            if(empty($value->visit_date_2)){
+                continue;
+            }
+            $newvisit = explode('/',$value->visit_date_2);
+            $visit_date = $newvisit[2].'-'.$newvisit[1].'-'.$newvisit[0];
+            
+            DB::table('hisdb.dialysis')
+                    ->where('idno',$value->idno)
+                    ->update([
+                        'visit_date' => $visit_date
+                    ]);
         }
 
     }
