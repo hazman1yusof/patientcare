@@ -107,6 +107,9 @@ $(document).ready(function () {
 		ondblClickRow: function (rowid, iRow, iCol, e) {
 
 		},
+		onSortCol: function(index,iCol,sortorder){
+			curpage_tran = null;
+		},
 		gridComplete:function(){
 			calc_jq_height_onchange("jqGrid_trans");
 		},

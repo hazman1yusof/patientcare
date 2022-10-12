@@ -1181,13 +1181,23 @@ class DialysisController extends Controller
                             ->leftJoin('hisdb.drugindicator', function($join) use ($request){
                                 $join = $join->on('drugindicator.drugindcode', '=', 'trx.drugindicator')
                                                 ->where('drugindicator.compcode','=',session('compcode'));
-                            })
+                            });
+
+        if(!empty($request->sidx)){
+            if($request->sidx == 'id'){
+                $table_chgtrx = $table_chgtrx->orderBy('trx.id','desc');
+            }else{
+                $table_chgtrx = $table_chgtrx->orderBy($request->sidx, $request->sord);
+            }
+        }else{
+            $table_chgtrx = $table_chgtrx->orderBy('trx.id','desc');
+        }
                             // ->leftJoin('hisdb.chgmast','chgmast.chgcode','=','trx.chgcode')
                             // ->leftJoin('hisdb.instruction','instruction.inscode','=','trx.instruction')
                             // ->leftJoin('hisdb.freq','freq.freqcode','=','trx.frequency')
                             // ->leftJoin('hisdb.dose','dose.dosecode','=','trx.doscode')
                             // ->leftJoin('hisdb.drugindicator','drugindicator.drugindcode','=','trx.drugindicator')
-                            ->orderBy('trx.id','desc');
+                            //->orderBy('trx.id','desc');
 
         //////////paginate/////////
         $paginate = $table_chgtrx->paginate($request->rows);
