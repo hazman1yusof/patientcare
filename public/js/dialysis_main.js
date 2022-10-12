@@ -156,6 +156,7 @@ $(document).ready(function () {
 	});
 
 	$('button#timer_refresh').click(function(){
+		curpage=null;
 		refreshGrid("#jqGrid", urlParam);
 	});
 
