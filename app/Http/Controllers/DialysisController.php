@@ -306,6 +306,8 @@ class DialysisController extends Controller
                     if(!in_array($key, $except_post)){
                         if(strlen(trim($value)) > 0){
                             $array_insert[$key] = $value;
+                        }else{
+                            $array_update[$key] = null;
                         }
                     }
                 }
@@ -327,14 +329,20 @@ class DialysisController extends Controller
 
                 foreach ($_POST as $key => $value) {
                     if(!in_array($key, $except_post)){
-                        if(!empty($value)){
+                        if(strlen(trim($value)) > 0){
                             $array_update[$key] = $value;
+                        }else{
+                            $array_update[$key] = null;
                         }
                     }
                 }
         
                 $table->update($array_update);
+
+                $idno = $request->idno_post;
             }
+
+            $this->check_hourly_chart($request,$idno);
 
             $responce->success = 'success';
             echo json_encode($responce);
@@ -346,6 +354,112 @@ class DialysisController extends Controller
             return response('Error'.$e, 500);
         }
         
+    }
+
+    public function check_hourly_chart(Request $request,$idno){
+        $dialysis = DB::table('hisdb.dialysis')
+                        ->where('idno','=',$request->idno)
+                        ->first();
+
+        $dialysis = (array)$dialysis;
+
+        //check user_0
+        if(
+            empty($dialysis['0_tc']) &&
+            empty($dialysis['0_bp']) &&
+            empty($dialysis['0_pulse']) &&
+            empty($dialysis['0_dh']) &&
+            empty($dialysis['0_bfr']) &&
+            empty($dialysis['0_vp']) &&
+            empty($dialysis['0_tmp']) &&
+            empty($dialysis['0_uv']) &&
+            empty($dialysis['0_f'])
+        ){
+             $dialysis = DB::table('hisdb.dialysis')
+                        ->where('idno','=',$request->idno)
+                        ->update(['user_0' => null]);
+        }
+        //check user_1
+        if(
+            empty($dialysis['1_tc']) &&
+            empty($dialysis['1_bp']) &&
+            empty($dialysis['1_pulse']) &&
+            empty($dialysis['1_dh']) &&
+            empty($dialysis['1_bfr']) &&
+            empty($dialysis['1_vp']) &&
+            empty($dialysis['1_tmp']) &&
+            empty($dialysis['1_uv']) &&
+            empty($dialysis['1_f'])
+        ){
+             $dialysis = DB::table('hisdb.dialysis')
+                        ->where('idno','=',$request->idno)
+                        ->update(['user_1' => null]);
+        }
+        //check user_2
+        if(
+            empty($dialysis['2_tc']) &&
+            empty($dialysis['2_bp']) &&
+            empty($dialysis['2_pulse']) &&
+            empty($dialysis['2_dh']) &&
+            empty($dialysis['2_bfr']) &&
+            empty($dialysis['2_vp']) &&
+            empty($dialysis['2_tmp']) &&
+            empty($dialysis['2_uv']) &&
+            empty($dialysis['2_f'])
+        ){
+             $dialysis = DB::table('hisdb.dialysis')
+                        ->where('idno','=',$request->idno)
+                        ->update(['user_2' => null]);
+        }
+        //check user_3
+        if(
+            empty($dialysis['3_tc']) &&
+            empty($dialysis['3_bp']) &&
+            empty($dialysis['3_pulse']) &&
+            empty($dialysis['3_dh']) &&
+            empty($dialysis['3_bfr']) &&
+            empty($dialysis['3_vp']) &&
+            empty($dialysis['3_tmp']) &&
+            empty($dialysis['3_uv']) &&
+            empty($dialysis['3_f'])
+        ){
+             $dialysis = DB::table('hisdb.dialysis')
+                        ->where('idno','=',$request->idno)
+                        ->update(['user_3' => null]);
+        }
+        //check user_4
+        if(
+            empty($dialysis['4_tc']) &&
+            empty($dialysis['4_bp']) &&
+            empty($dialysis['4_pulse']) &&
+            empty($dialysis['4_dh']) &&
+            empty($dialysis['4_bfr']) &&
+            empty($dialysis['4_vp']) &&
+            empty($dialysis['4_tmp']) &&
+            empty($dialysis['4_uv']) &&
+            empty($dialysis['4_f'])
+        ){
+             $dialysis = DB::table('hisdb.dialysis')
+                        ->where('idno','=',$request->idno)
+                        ->update(['user_4' => null]);
+        }
+        //check user_5
+        if(
+            empty($dialysis['5_tc']) &&
+            empty($dialysis['5_bp']) &&
+            empty($dialysis['5_pulse']) &&
+            empty($dialysis['5_dh']) &&
+            empty($dialysis['5_bfr']) &&
+            empty($dialysis['5_vp']) &&
+            empty($dialysis['5_tmp']) &&
+            empty($dialysis['5_uv']) &&
+            empty($dialysis['5_f'])
+        ){
+             $dialysis = DB::table('hisdb.dialysis')
+                        ->where('idno','=',$request->idno)
+                        ->update(['user_5' => null]);
+        }
+
     }
 
     public function save_dialysis_completed(Request $request){
