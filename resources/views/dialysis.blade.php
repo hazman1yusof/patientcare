@@ -17,7 +17,7 @@
                         <select class="ui dropdown" name="Scol">
                           <option value="Name">Patient Name</option>
                           <option value="MRN">MRN</option>
-                          <option value="I/C">IC Number</option>
+                          <option value="Newic">IC Number</option>
                         </select>
                         <input type="text" placeholder="Type Search here" name="Stext" style="min-width: 50%">
                         <div class="ui slider checkbox myslider showall" >
