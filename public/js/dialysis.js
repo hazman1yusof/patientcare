@@ -211,7 +211,7 @@ $(document).ready(function () {
 	});
 
 	$("#tab_weekly").on("shown.bs.collapse", function(){
-		closealltab("#tab_weekly");
+		// closealltab("#tab_weekly");
 		SmoothScrollTo('#tab_weekly', 300,undefined,90);
 	});
 
@@ -220,7 +220,7 @@ $(document).ready(function () {
 	});
 
 	$("#tab_monthly").on("shown.bs.collapse", function(){
-		closealltab("#tab_monthly");
+		// closealltab("#tab_monthly");
 		SmoothScrollTo('#tab_monthly', 300,undefined,90);
 	});
 
@@ -639,9 +639,11 @@ function populate_other_data(data=last_other_data){
 
 function cleartabledata(type){
 	if(type == 'monthly'){
-		$('table#dia_monthly td[align=center]').html('&nbsp;');
+		$('table#dia_monthly td[align=center],table#dia_monthly td.med_td').html('&nbsp;');
 	}else if(type == 'weekly'){
-		$('table#dia_weekly td[align=center]').html('&nbsp;');
+		$('table#dia_weekly td[align=center],table#dia_weekly td.med_td').html('&nbsp;');
+	}else if(type == 'all'){
+		$('table#dia_monthly td[align=center],table#dia_monthly td.med_td,table#dia_weekly td[align=center],table#dia_weekly td.med_td').html('&nbsp;');
 	}
 }
 

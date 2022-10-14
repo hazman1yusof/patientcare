@@ -1215,20 +1215,20 @@
 </tr>
 <tr id="medication_m">
     <td width="100" align="left" class="txtaln">&nbsp;MEDICATION</td>
-    <td width="80" align="left">&nbsp;</td>
-    <td width="80" align="left">&nbsp;</td>
-    <td width="80" align="left">&nbsp;</td>
-    <td width="80" align="left">&nbsp;</td>
-    <td width="80" align="left">&nbsp;</td>
-    <td width="80" align="left">&nbsp;</td>
-    <td width="80" align="left">&nbsp;</td>
-    <td width="80" align="left">&nbsp;</td>
-    <td width="80" align="left">&nbsp;</td>
-    <td width="80" align="left">&nbsp;</td>
-    <td width="80" align="left">&nbsp;</td>
-    <td width="80" align="left">&nbsp;</td>
-    <td width="80" align="left">&nbsp;</td>
-    <td width="80" align="left">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
+    <td width="80" align="left" class="med_td">&nbsp;</td>
 </tr>
 
 

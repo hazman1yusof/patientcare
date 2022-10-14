@@ -50,6 +50,7 @@ $(document).ready(function () {
 		scroll: true,
 		onSelectRow:function(rowid, selected){
 			closealltab();
+			cleartabledata('all');
 			button_state_dialysis('disableAll');
 			$('button#timer_stop').click();
 

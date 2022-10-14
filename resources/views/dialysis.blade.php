@@ -163,7 +163,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;500&family=Open+Sans:wght@300;700&family=Syncopate&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/dialysis.css') }}?v=1">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/dialysis.css') }}?v=2">
 @endsection
 
 @section('js')
@@ -178,8 +178,8 @@
     <script type="text/ecmascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="{{ asset('js/dialysis_main.js') }}?v=2"></script>
-    <script type="text/javascript" src="{{ asset('js/dialysis.js') }}?v=2"></script>
+	<script type="text/javascript" src="{{ asset('js/dialysis_main.js') }}?v=3"></script>
+    <script type="text/javascript" src="{{ asset('js/dialysis.js') }}?v=3"></script>
     <script type="text/javascript" src="{{ asset('js/patmedication_dialysis.js') }}?v=2"></script>
     <script type="text/javascript" src="{{ asset('js/transaction_dialysis.js') }}?v=2"></script>
 @endsection

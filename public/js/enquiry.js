@@ -389,10 +389,12 @@ function populate_data(type,data){
 
 function cleartabledata(type){
 	if(type == 'monthly'){
-		$('table#dia_monthly td[align=center]').html('&nbsp;');
+		$('table#dia_monthly td[align=center],table#dia_monthly td.med_td').html('&nbsp;');
 	}else if(type == 'weekly'){
-		$('table#dia_weekly td[align=center]').html('&nbsp;');
+		$('table#dia_weekly td[align=center],table#dia_weekly td.med_td').html('&nbsp;');
 	}else if(type == 'yearly'){
-		$('table#dia_yearly td[align=center]').html('&nbsp;');
+		$('table#dia_yearly td[align=center],table#dia_yearly td.med_td').html('&nbsp;');
+	}else if(type == 'all'){
+		$('table#dia_weekly td[align=center],table#dia_weekly td.med_td,table#dia_monthly td[align=center],table#dia_monthly td.med_td,table#dia_yearly td[align=center],table#dia_yearly td.med_td').html('&nbsp;');
 	}
 }

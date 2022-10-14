@@ -44,6 +44,7 @@ $(document).ready(function () {
 		onSelectRow:function(rowid, selected){
 			populatenquiry(selrowData('#jqGrid'));
 			closealltab();
+			cleartabledata('all');
 		},
 		ondblClickRow: function (rowid, iRow, iCol, e) {
 		},

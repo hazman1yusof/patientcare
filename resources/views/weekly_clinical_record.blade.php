@@ -452,8 +452,8 @@
 	</tr>
 	<tr id="medication_w">
 		<td width="100" align="left">&nbsp;MEDICATION</td>
-		<td width="80" align="left">&nbsp;</td>
-		<td width="80" align="left">&nbsp;</td>
-		<td width="80" align="left">&nbsp;</td>
+		<td width="80" align="left" class="med_td">&nbsp;</td>
+		<td width="80" align="left" class="med_td">&nbsp;</td>
+		<td width="80" align="left" class="med_td">&nbsp;</td>
 	</tr>
 </tbody></table>
