@@ -129,7 +129,12 @@ $(document).ready(function () {
 			var daily_form = $("form#daily_form").serializeArray();
 
 			$.post( "./save_dialysis?"+$.param(param),$.param(daily_form), function( data ){
-				loader_daily(false);
+				
+			},'json').fail(function(data) {
+	            alert(data.responseText);
+	            loader_daily(false);
+	        }).done(function(data){
+	            loader_daily(false);
 				$('#cancel_dialysis').data('oper','edit');
 				button_state_dialysis('edit');
 				$('#complete_dialysis').prop('disabled',true);
@@ -145,7 +150,7 @@ $(document).ready(function () {
 
 					refreshGrid("#jqGridAddNotesDialysis", urlParam_AddNotesDialysis);
 				}
-			},'json');
+	        });
 		}
 	});
 

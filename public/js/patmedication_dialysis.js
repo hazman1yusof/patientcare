@@ -17,16 +17,18 @@ $(document).ready(function () {
 							$('#patmedication_tbl').data('addmode',true);
 						    patmedication_tbl.row.add({
 						        idno : 99999999999,
-								chg_code : 'EP030001',
-								chg_desc : "EPO2000 (PATIENT'S MEDICINE)",
-								dos_desc : '2000IU',
-								fre_desc : 'PER DIALYSIS',
+								chg_code : 'edit',
+								chg_desc : 'edit',
+								dos_desc : 'edit',
+								fre_desc : 'edit',
 								quantity : 'edit',
 								enteredby : '',
 								verifiedby : '',
-								status : ''
+								status : '',
+								ownmed : '0'
 						    }).draw(true);
 
+							pop_item_select_patmedication();
 				        }
 
 			        },
@@ -96,7 +98,8 @@ $('#patmedication_trx_tbl tbody').on('click', 'tr', function () {
 			quantity : data.quantity,
 			enteredby : '',
 			verifiedby : '',
-			status : ''
+			status : '',
+			ownmed : '0'
 	    }).draw(true);
     }
 });
@@ -105,24 +108,48 @@ var patmedication_tbl = $('#patmedication_tbl').DataTable({
 	"ordering": true,
 	"ajax": "",
 	"sDom": "",
-	"paging":false,
+	"paging":false,"autoWidth": false,
     "columns": [
         {'data': 'idno'},
-        {'data': 'chg_code','width': '30%'},
-        {'data': 'chg_desc'},
-        {'data': 'dos_desc'},
-        {'data': 'fre_desc'},
-        {'data': 'quantity'},
-        {'data': 'enteredby','width': '20%'},
-        {'data': 'verifiedby','width': '20%'},
-        {'data': 'status'}
+        {'data': 'chg_code'},
+        {'data': 'ownmed'},
+        {'data': 'chg_desc','width': '20%'},
+        {'data': 'dos_desc','width': '8%'},
+        {'data': 'fre_desc','width': '8%'},
+        {'data': 'quantity','width': '6%'},
+        {'data': 'enteredby','width': '12%'},
+        {'data': 'verifiedby','width': '13%'},
+        {'data': 'status','width': '15%'}
     ],
     order: [[0, 'desc']],
     columnDefs: [
     	// {targets: [8], className: 'text-center' },
-    	{targets: [1,2,3,4,5,6,7,8], orderable: false },
-        {targets: [0,1], visible: false},
-        {targets: 5,
+    	{targets: [1,2,3,4,5,6,7,8,9], orderable: false },
+        {targets: [0,1,2], visible: false},
+        {targets: 3,
+        	createdCell: function (td, cellData, rowData, row, col) {
+				if (cellData == 'edit' ) {
+					$(td).html('');
+					$(td).append(`<input type="hidden" name="patmedication_chgcode" id="patmedication_chgcode">
+									<span id="patmedication_chg_desc" ></span>`);
+				}
+   			}
+   		},{targets: 4,
+        	createdCell: function (td, cellData, rowData, row, col) {
+				if (cellData == 'edit' ) {
+					$(td).html('');
+					$(td).append(`<span id="patmedication_dos_desc" ></span>`);
+				}
+   			}
+   		},{targets: 5,
+        	createdCell: function (td, cellData, rowData, row, col) {
+				if (cellData == 'edit' ) {
+					$(td).html('');
+					$(td).append(`<span id="patmedication_fre_desc" ></span>`);
+				}
+   			}
+   		},
+        {targets: 6,
         	createdCell: function (td, cellData, rowData, row, col) {
 				if (cellData == 'edit' ) {
 					$(td).html('');
@@ -130,18 +157,18 @@ var patmedication_tbl = $('#patmedication_tbl').DataTable({
 				}
    			}
    		},
-        {targets: 6,
-        	createdCell: function (td, cellData, rowData, row, col) {
-				if (cellData == '' ) {
-					$(td).append(`<input type="text" name="patmedication_enteredby" id="patmedication_enteredby" value="`+$('#user_name').val()+`" class="purplebg" style="max-width:150px;width:-webkit-fill-available;" readonly>`);
-				}
-   			}
-   		},
         {targets: 7,
         	createdCell: function (td, cellData, rowData, row, col) {
 				if (cellData == '' ) {
+					$(td).append(`<input type="text" name="patmedication_enteredby" id="patmedication_enteredby" value="`+$('#user_name').val()+`" class="purplebg" style="max-width:90px;width:-webkit-fill-available;" readonly>`);
+				}
+   			}
+   		},
+        {targets: 8,
+        	createdCell: function (td, cellData, rowData, row, col) {
+				if (cellData == '' ) {
 					$(td).append(`<div class="ui action input tiny" style="width: -webkit-fill-available;">
-						  <input type="text" class='small' name="patmedication_verifiedby" id="patmedication_verifiedby" style="max-width:80px;width: -webkit-fill-available;" class="purplebg" readonly>
+						  <input type="text" class='small' name="patmedication_verifiedby" id="patmedication_verifiedby" style="max-width:70px;width:-webkit-fill-available;" class="purplebg" readonly>
 						  <button class="ui button tiny" type="button" id="verified_btn_patmedication">Verifiy</button>
 						</div>`
 					);
@@ -162,7 +189,7 @@ var patmedication_tbl = $('#patmedication_tbl').DataTable({
 				}
    			}
    		},
-        {targets: 8,
+        {targets: 9,
         	createdCell: function (td, cellData, rowData, row, col) {
 				if(cellData == '') {
 					$(td).append(`<button class="ui tiny primary button" id="patmedication_save" type="button" >Save</button>
@@ -197,6 +224,7 @@ var patmedication_tbl = $('#patmedication_tbl').DataTable({
 							if($('#patmedication_trx_tbl_idno').val() == 'ownmed'){
 								obj.quantity = $('#patmedication_quantity').val();
 								param.oper = 'ownmed';
+								obj.chgcode = $('#patmedication_chgcode').val();
 							}
 
 							$.post( "./dialysis/form?"+$.param(param),obj, function( data ){
@@ -215,7 +243,11 @@ var patmedication_tbl = $('#patmedication_tbl').DataTable({
 						load_patmedication_trx($("#mrn").val(),$("#episno").val(),$("#visit_date").val());
 					});
 				}else{
-					$(td).html(`<i class="check icon green"></i>`);
+					if(rowData.ownmed == '1' && $('#user_groupid').val().trim().toUpperCase() == 'ADMIN'){
+						$(td).html(`<i class="check icon green"></i><a class="circular mini red ui button right floated" onclick="delete_ownmed('`+rowData.idno+`')">Delete</a>`);
+					}else{
+						$(td).html(`<i class="check icon green"></i>`);
+					}
 				}
    			}
    		},
@@ -224,6 +256,47 @@ var patmedication_tbl = $('#patmedication_tbl').DataTable({
 
     }
 });
+
+function delete_ownmed(idno){
+	if($('#patmedication_tbl').data('addmode') == false && !$('#save_dialysis').is("[disabled]") ){
+		$.confirm({
+		    title: 'Confirm',
+		    content: "Are you sure you want to delete this item?",
+		    buttons: {
+		        confirm:{
+		        	btnClass: 'btn-blue',
+		        	action: function () {
+
+						var param = {
+							action: 'delete_ownmed',
+							_token: $("#_token").val(),
+							mrn: $("#mrn").val(),
+							episno: $("#episno").val(),
+							dialysis_episode_idno: $('#dialysis_episode_idno').val(),
+							idno: idno
+						}
+
+						$.post( "./dialysis/form",param, function( data ){
+						},'json').fail(function(data) {
+				            alert(data.responseText);
+				        }).done(function(data){
+							load_patmedication($("#mrn").val(),$("#episno").val(),$("#visit_date").val());
+				        });
+
+			        }
+
+		        },
+		        cancel: {
+		        	action: function () {
+						
+			        },
+		        }
+		    }
+
+		});
+	}
+		
+}
 
 function load_patmedication_trx(mrn,episno,date){
 	patmedicationParam={
@@ -275,5 +348,103 @@ function verifyuser_medication(){
     	}
     }).fail(function(data){
         alert('error verify');
+    });
+}
+
+
+function pop_item_select_patmedication(){ 
+    var selecter = null;
+    var title="Item selector";
+        
+    var act = "get_ownmed";
+
+	$('#mdl_item_selector').modal({
+		'closable':false,
+		onHidden : function(){
+	        $('#tbl_item_select').html('');
+	        selecter.destroy();
+	    },
+	}).modal('show');
+	$('body,#mdl_item_selector').addClass('scrolling');
+    
+    selecter = $('#tbl_item_select').DataTable( {
+            "ajax": "./dialysis/table?action=" + act,
+            "ordering": false,
+            "lengthChange": false,
+            "info": true,
+            "pagingType" : "numbers",
+            "columns": [
+                        {'data': 'code'}, 
+                        {'data': 'description'},
+                        {'data': 'doseqty'},
+                        {'data': 'dosecode'},
+                        {'data': 'dosecode_'},
+                        {'data': 'freqcode'},
+                        {'data': 'freqcode_'},
+                        {'data': 'instruction'},
+                        {'data': 'instruction_'},
+                       ],
+
+            "columnDefs": [ {
+	            	"width": "20%",
+	                "targets": 0,
+	                "data": "code",
+	                "render": function ( data, type, row, meta ) {
+	                    return data;
+	                }
+	              },{
+	                "targets": 2,visible: false,searchable: false,
+	              },{
+	                "targets": 3,visible: false,searchable: false,
+	              },{
+	                "targets": 4,visible: false,searchable: false,
+	              },{
+	                "targets": 5,visible: false,searchable: false,
+	              },{
+	                "targets": 6,visible: false,searchable: false,
+	              },{
+	                "targets": 7,visible: false,searchable: false,
+	              },{
+	                "targets": 8,visible: false,searchable: false,
+	              }
+
+            ],
+
+            "initComplete": function(oSettings, json) {
+		        delay(function(){
+                	$('div.dataTables_filter input', selecter.table().container()).get(0).focus();
+	        	}, 10 );
+            },
+    });
+
+
+    
+    // dbl click will return the description in text box and code into hidden input, dialog will be closed automatically
+    $('#tbl_item_select tbody').on('click', 'tr', function () {
+        item = selecter.row( this ).data();
+        console.log(item);
+		
+		$('input#patmedication_chgcode').val(item["code"]);
+		$('span#patmedication_chg_desc').text(item["description"]);
+		$('span#patmedication_dos_desc').text(item["dosecode"]);
+		$('span#patmedication_fre_desc').text(item["freqcode"]);
+		$('input#patmedication_quantity').val(item["doseqty"]);
+
+
+        // $('input[name='+type+'][optid='+rowid+']').val(item["code"]);
+        // $('input[name='+type+'][optid='+rowid+']').parent().next().html(item["description"]);
+        // if(type == "chgcode"){
+	       //  $('input[name=quantity][optid='+rowid+']').val(item["doseqty"]);
+
+	       //  $('input[name=dosecode][optid='+rowid+']').val(item["dosecode"]);
+	       //  $('input[name=dosecode][optid='+rowid+']').parent().next().html(item["dosecode_"]);
+
+	       //  $('input[name=freqcode][optid='+rowid+']').val(item["freqcode"]);
+	       //  $('input[name=freqcode][optid='+rowid+']').parent().next().html(item["freqcode_"]);
+
+	       //  $('input[name=inscode][optid='+rowid+']').val(item["instruction"]);
+	       //  $('input[name=inscode][optid='+rowid+']').parent().next().html(item["instruction_"]);
+        // }
+        $('#mdl_item_selector').modal('hide');
     });
 }

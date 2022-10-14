@@ -12,6 +12,7 @@ $(document).ready(function () {
 	});
 
 	$("#tab_trans").on("shown.bs.collapse", function(){
+		$('#medicationtype').dropdown('set selected', selrowData('#jqGrid').packagecode);
 		SmoothScrollTo('#tab_trans', 300,function(){
 			$("#jqGrid_trans").jqGrid ('setGridWidth', Math.floor($("#jqGrid_trans_c")[0].offsetWidth-$("#jqGrid_trans_c")[0].offsetLeft-14));
 			calc_jq_height_onchange("jqGrid_trans");
@@ -337,6 +338,31 @@ $(document).ready(function () {
 	}
 	var errorField = [];
 
+	$('#medicationtype_button').on('click',function(){
+
+		if($('#dialysis_episode_idno').val().trim() != ''){
+	        loader_transaction(true);
+			var param = {
+				action: 'medicationtype_change',
+				_token: $("#_token").val(),
+				mrn: $("#mrn").val(),
+				episno: $("#episno").val(),
+				dialysis_episode_idno: $('#dialysis_episode_idno').val(),
+				packagecode: $('#medicationtype').val()
+			}
+
+			$.post( "./dialysis/form",param, function( data ){
+			},'json').fail(function(data) {
+	            alert(data.responseText);
+	            loader_transaction(false);
+	        }).done(function(data){
+	            loader_transaction(false);
+	        });
+		}
+
+		
+	});
+
 });
 
 var addmore_onadd = false;
@@ -582,4 +608,12 @@ function deleting(){
 		addmore_onadd = false;
 		refreshGrid("#jqGrid_trans", urlParam_trans);
 	},'json');
+}
+
+function loader_transaction(load){
+	if(load){
+		$('#loader_transaction').addClass('active');
+	}else{
+		$('#loader_transaction').removeClass('active');
+	}
 }

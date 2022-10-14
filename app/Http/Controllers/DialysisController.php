@@ -59,6 +59,8 @@ class DialysisController extends Controller
                 return $this->get_table_patmedication($request);
             case 'get_table_addnotes':
                 return $this->get_table_addnotes($request);
+            case 'get_ownmed':
+                return $this->get_ownmed($request);
 
             default:
                 return 'error happen..';
@@ -74,6 +76,14 @@ class DialysisController extends Controller
 
             case 'additionalnote_save':
                 return $this->additionalnote_save($request);
+                break;
+
+            case 'medicationtype_change':
+                return $this->medicationtype_change($request);
+                break;
+
+            case 'delete_ownmed':
+                return $this->delete_ownmed($request);
                 break;
 
             default:
@@ -1425,6 +1435,37 @@ class DialysisController extends Controller
         
     }
 
+    public function get_ownmed(Request $request){
+        $data = DB::table('hisdb.chgmast as cm')
+                ->select('cm.chgcode as code','cm.description as description','cm.doseqty','cm.dosecode','d.dosedesc as dosecode_','cm.freqcode','f.freqdesc as freqcode_','cm.instruction','i.description as instruction_')
+                ->leftJoin('hisdb.dose as d', function($join) use ($request){
+                    $join = $join->on('d.dosecode', '=', 'cm.dosecode')
+                                    ->where('d.compcode','=',session('compcode'));
+                })
+                ->leftJoin('hisdb.freq as f', function($join) use ($request){
+                    $join = $join->on('f.freqcode', '=', 'cm.freqcode')
+                                    ->where('f.compcode','=',session('compcode'));
+                })
+                ->leftJoin('hisdb.instruction as i', function($join) use ($request){
+                    $join = $join->on('i.inscode', '=', 'cm.instruction')
+                                    ->where('i.compcode','=',session('compcode'));
+                })
+                ->where('cm.chggroup','UM')
+                ->where('cm.compcode','=',session('compcode'))
+                ->where('cm.active','=',1);
+
+        if(!empty($request->search)){
+            $data = $data->where('description','LIKE','%'.$request->search.'%')->first();
+        }else{
+            $data = $data->get();
+        }
+        
+        $responce = new stdClass();
+        $responce->data = $data;
+        return json_encode($responce);
+        
+    }
+
     public function get_drugindcode(Request $request){
         $data = DB::table('hisdb.drugindicator')
                 ->select('drugindcode as code','description as description',DB::raw('null as doseqty'),DB::raw('null as dosecode'),DB::raw('null as dosecode_'),DB::raw('null as freqcode'),DB::raw('null as freqcode_'),DB::raw('null as instruction'),DB::raw('null as instruction_'));
@@ -1555,7 +1596,8 @@ class DialysisController extends Controller
                                 'dose.dosedesc as dos_desc',
                                 'freq.freqdesc as fre_desc',
                                 'ptm.qty as quantity',
-                                'ptm.idno as status')
+                                'ptm.idno as status',
+                                'ptm.ownmed')
 
                             ->leftJoin('hisdb.chgmast', function($join) use ($request){
                                 $join = $join->on('chgmast.chgcode', '=', 'ptm.chgcode')
@@ -1643,11 +1685,17 @@ class DialysisController extends Controller
                 
             }else if($request->oper == 'ownmed'){
 
+                if(empty($request->chgcode)){
+                    throw new \Exception('chgcode cant be empty', 500);
+                }
+
                 $chgmast = DB::table('hisdb.chgmast')
-                        ->where('chgcode','EP030001');
+                        ->where('compcode',session('compcode'))
+                        ->where('active','1')
+                        ->where('chgcode',$request->chgcode);
 
                 if(!$chgmast->exists()){
-                    throw new \Exception('chgmast EP030001 xde', 500);
+                    throw new \Exception('chgmast xde', 500);
                 }
                 $chgmast = $chgmast->first();
                 
@@ -1657,7 +1705,7 @@ class DialysisController extends Controller
                     'mrn' => $request->mrn,
                     'episno' => $request->episno,
                     'trxtype' => 'OE',
-                    'trxdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                    'trxdate' => $request->date,
                     'chgcode' => $chgmast->chgcode,
                     'chggroup' =>  $chgmast->chggroup,
                     'chgtype' =>  $chgmast->chgtype,
@@ -1680,7 +1728,7 @@ class DialysisController extends Controller
                     'compcode'=>session('compcode'),
                     'mrn'=>$request->mrn,
                     'episno'=>$request->episno,
-                    'entereddate'=>Carbon::now("Asia/Kuala_Lumpur"),
+                    'entereddate'=> $request->date,
                     'enteredtime'=>Carbon::now("Asia/Kuala_Lumpur"),
                     'enteredby'=>session('username'),
                     'adduser'=>session('username'),
@@ -1692,7 +1740,8 @@ class DialysisController extends Controller
                     'instruction'=>$chgmast->instruction,
                     'chgcode'=>$chgmast->chgcode,
                     'auditno'=>$idno_chargeown,
-                    'remarks'=>'ownmed'
+                    'remarks'=>'ownmed',
+                    'ownmed'=>'1'
                 ];
         
                 $table->insert($array_insert);
@@ -1734,6 +1783,72 @@ class DialysisController extends Controller
                         'adduser' => session('username'),
                         'adddate' => Carbon::now("Asia/Kuala_Lumpur"),
                     ]);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response($e->getMessage(), 500);
+        }
+        
+    }
+
+    public function medicationtype_change(Request $request){
+
+        DB::beginTransaction();
+
+        try {
+            if(empty($request->dialysis_episode_idno)){
+                throw new \Exception('Patient doesnt have episode idno', 500);
+            }
+
+            $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                    ->where('idno',$request->dialysis_episode_idno);
+
+            if(!$dialysis_episode->exists()){
+                throw new \Exception('Patient doesnt have dialysis episode', 500);
+            }
+            
+            $dialysis_episode
+                    ->update([
+                        'packagecode' => $request->packagecode
+                    ]);
+
+            $responce = new stdClass();
+            $responce->success = 'success';
+            echo json_encode($responce);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            return response($e->getMessage(), 500);
+        }
+        
+    }
+
+    public function delete_ownmed(Request $request){
+
+        DB::beginTransaction();
+
+        try {
+            if(empty($request->idno)){
+                throw new \Exception('no idno', 500);
+            }
+
+            $patmedication = DB::table('hisdb.patmedication')
+                                    ->where('idno',$request->idno);
+
+            if(!$patmedication->exists()){
+                throw new \Exception('no patmedication', 500);
+            }
+            
+            $patmedication
+                    ->delete();
+
+            $responce = new stdClass();
+            $responce->success = 'success';
+            echo json_encode($responce);
 
             DB::commit();
         } catch (\Exception $e) {

@@ -40,6 +40,7 @@ $(document).ready(function () {
 			{ label: 'OccupCode', name: 'OccupCode', hidden: true },
 			{ label: 'Citizencode', name: 'Citizencode', hidden: true },
 			{ label: 'AreaCode', name: 'AreaCode', hidden: true },
+			{ label: 'packagecode', name: 'packagecode', hidden: true },
 		],
 		autowidth: true,
 		viewrecords: true,

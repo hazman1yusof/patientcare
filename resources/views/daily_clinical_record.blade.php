@@ -1000,13 +1000,14 @@
 		                    <tr>
 		                        <th class="scope">idno</th>
 		                        <th class="scope">chgcode</th>
-		                        <th class="scope">Drug Name</th>
-		                        <th class="scope">Dosage</th>
-		                        <th class="scope">Frequancy</th>
-		                        <th class="scope">Quantity</th>
-		                        <th class="scope">Initiated By</th>
-		                        <th class="scope">Verified By</th>
-		                        <th class="scope">Status</th>
+		                        <th class="scope">ownmed</th>
+		                        <th class="scope" width="30%">Drug Name</th>
+		                        <th class="scope" width="5%">Dosage</th>
+		                        <th class="scope" width="5%">Frequancy</th>
+		                        <th class="scope" width="5%">Quantity</th>
+		                        <th class="scope" width="10%">Initiated By</th>
+		                        <th class="scope" width="10%">Verified By</th>
+		                        <th class="scope" width="15%">Status</th>
 		                    </tr>
 		                </thead>
 		            </table>

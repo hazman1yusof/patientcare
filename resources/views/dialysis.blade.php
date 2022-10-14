@@ -58,6 +58,7 @@
 
     <input id="user_name" name="user_name" value="{{ Auth::user()->username }}" type="hidden">
     <input id="user_dept" name="user_dept" value="{{ Auth::user()->dept }}" type="hidden">
+    <input id="user_groupid" name="user_groupid" value="{{ Auth::user()->groupid }}" type="hidden">
     <input id="sel_date" name="sel_date" value="{{ \Carbon\Carbon::now()->toDateString() }}" type="hidden">
     <input id="_token" name="_token" value="{{ csrf_token() }}" type="hidden">
     <input type="hidden" name="viewallcenter" id="viewallcenter" value="{{strtoupper(Auth::user()->viewallcenter)}}">
@@ -178,10 +179,10 @@
     <script type="text/ecmascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-	<script type="text/javascript" src="{{ asset('js/dialysis_main.js') }}?v=3"></script>
-    <script type="text/javascript" src="{{ asset('js/dialysis.js') }}?v=3"></script>
-    <script type="text/javascript" src="{{ asset('js/patmedication_dialysis.js') }}?v=2"></script>
-    <script type="text/javascript" src="{{ asset('js/transaction_dialysis.js') }}?v=2"></script>
+	<script type="text/javascript" src="{{ asset('js/dialysis_main.js') }}?v=4"></script>
+    <script type="text/javascript" src="{{ asset('js/dialysis.js') }}?v=4"></script>
+    <script type="text/javascript" src="{{ asset('js/patmedication_dialysis.js') }}?v=3"></script>
+    <script type="text/javascript" src="{{ asset('js/transaction_dialysis.js') }}?v=3"></script>
 @endsection
 
 
