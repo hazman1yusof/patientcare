@@ -563,11 +563,24 @@ class DialysisController extends Controller
                                             ->where('dialysis_episode.compcode','=',session('compcode'))
                                             ->whereDate('dialysis_episode.arrival_date',$request->trxdate);
 
-                    if(!$dialysis_episode->exists()){
-                        throw new \Exception('Patient doesnt arrive for dialysis at date: '.Carbon::parse($request->trxdate)->format('d-m-Y'), 500);
+                    if($dialysis_episode->exists()){
+                        // throw new \Exception('Patient doesnt arrive for dialysis at date: '.Carbon::parse($request->trxdate)->format('d-m-Y'), 500);
+                        $last_arrival_idno = $dialysis_episode->first()->idno;
+                    }else{
+                        $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                            ->where('dialysis_episode.mrn',$request->mrn)
+                                            ->where('dialysis_episode.episno',$request->episno)
+                                            ->where('dialysis_episode.compcode','=',session('compcode'))
+                                            ->orderBy('dialysis_episode.idno','DESC');
+
+                        if($dialysis_episode->exists()){
+                            $last_arrival_idno = $dialysis_episode->first()->idno;
+                        }else{
+                            throw new \Exception('Patient doesnt arrive yet', 500);
+                        }
+
                     }
 
-                    $last_arrival_idno = $dialysis_episode->first()->idno;
                 }else{
                     $last_arrival_idno = $request->dialysis_episode_idno;
                 }
@@ -748,22 +761,33 @@ class DialysisController extends Controller
                         ->first();
 
                     if($dialysis_episode->mcrstat>0){
-                        $oldmcr = intval($dialysis_episode->mcrstat);
-                        $newmcr = intval($oldmcr)-1;
+                        // $oldmcr = intval($dialysis_episode->mcrstat);
+                        // $newmcr = intval($oldmcr)-1;
 
-                        if($newmcr<0){
-                            $newmcr = 0;
-                        }
+                        // if($newmcr<0){
+                        //     $newmcr = 0;
+                        // }
 
-                        if($newmcr == 0){
-                            $del_array=['mcrstat' => $newmcr,'mcrtype' => ''];
-                        }else{
-                            $del_array=['mcrstat' => $newmcr];
-                        }
-
+                        // if($newmcr == 0){
+                        //     $del_array=['mcrstat' => $newmcr,'mcrtype' => ''];
+                        // }else{
+                        //     $del_array=['mcrstat' => $newmcr];
+                        // }
+                        $del_array=['mcrstat' => 0,'mcrtype' => ''];
                         DB::table('hisdb.dialysis_episode')
                             ->where('idno',$request->dialysis_episode_idno)
                             ->update($del_array);
+
+                        DB::table('hisdb.chargetrx')
+                            ->where('mrn','=',$request->mrn)
+                            ->where('episno','=',$request->episno)
+                            ->where('chgcode','=','EP010005')
+                            ->delete();
+                            // ->update([
+                            //     'recstatus' => 0,
+                            //     'lastuser' => Auth::user()->username,
+                            //     'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
+                            // ]);
 
                     }
 

@@ -31,6 +31,7 @@ class PreregisterController extends defaultController
         try {
 
         	$pat_mast = DB::table('hisdb.pat_mast')
+        				->where('Active','1')
 	    				->where('Newic','=', $request->ic);
 
 	    	if($pat_mast->exists()){
