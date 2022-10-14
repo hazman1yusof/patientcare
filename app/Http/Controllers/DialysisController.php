@@ -701,6 +701,12 @@ class DialysisController extends Controller
                 $this->updateorder($request,$last_arrival_idno);
 
             }else if($request->oper == 'del'){
+
+                //cannot delete auto
+                if($request->chg_desc == 'EP010005'){
+                    throw new \Exception('Cannot delete non-stock micerra, delete stock micerra instead', 500);  
+                }
+
                 DB::table('hisdb.chargetrx')
                         ->where('id','=',$request->id)
                         ->update([
