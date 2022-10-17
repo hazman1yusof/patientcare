@@ -463,6 +463,7 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#prehd_bfr_m').children('td').eq(i+1).text(e['0_bfr']);
 			$('table#dia_monthly tr#prehd_dfr_m').children('td').eq(i+1).text(e.prehd_dfr);
 			$('table#dia_monthly tr#prehd_vp_m').children('td').eq(i+1).text(e['0_vp']);
+			$('table#dia_monthly tr#user_prehd_m').children('td').eq(i+1).text(e['user_prehd']);
 
 			$('table#dia_monthly tr#1_tc_m').children('td').eq(i+1).text(e['1_tc']);
 			$('table#dia_monthly tr#1_bp_m').children('td').eq(i+1).text(e['1_bp']);
@@ -473,6 +474,7 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#1_tmp_m').children('td').eq(i+1).text(e['1_tmp']);
 			$('table#dia_monthly tr#1_uv_m').children('td').eq(i+1).text(e['1_uv']);
 			$('table#dia_monthly tr#1_f_m').children('td').eq(i+1).text(e['1_f']);
+			$('table#dia_monthly tr#user_1_m').children('td').eq(i+1).text(e['user_1']);
 
 			$('table#dia_monthly tr#2_tc_m').children('td').eq(i+1).text(e['2_tc']);
 			$('table#dia_monthly tr#2_bp_m').children('td').eq(i+1).text(e['2_bp']);
@@ -482,7 +484,8 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#2_vp_m').children('td').eq(i+1).text(e['2_vp']);
 			$('table#dia_monthly tr#2_tmp_m').children('td').eq(i+1).text(e['2_tmp']);
 			$('table#dia_monthly tr#2_uv_m').children('td').eq(i+1).text(e['2_uv']);
-			$('table#dia_monthly tr#2_f_m').children('td').eq(i+1).text(e['2_f']);			
+			$('table#dia_monthly tr#2_f_m').children('td').eq(i+1).text(e['2_f']);	
+			$('table#dia_monthly tr#user_2_m').children('td').eq(i+1).text(e['user_2']);		
 
 			$('table#dia_monthly tr#3_tc_m').children('td').eq(i+1).text(e['3_tc']);
 			$('table#dia_monthly tr#3_bp_m').children('td').eq(i+1).text(e['3_bp']);
@@ -492,7 +495,8 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#3_vp_m').children('td').eq(i+1).text(e['3_vp']);
 			$('table#dia_monthly tr#3_tmp_m').children('td').eq(i+1).text(e['3_tmp']);
 			$('table#dia_monthly tr#3_uv_m').children('td').eq(i+1).text(e['3_uv']);
-			$('table#dia_monthly tr#3_f_m').children('td').eq(i+1).text(e['3_f']);			
+			$('table#dia_monthly tr#3_f_m').children('td').eq(i+1).text(e['3_f']);		
+			$('table#dia_monthly tr#user_3_m').children('td').eq(i+1).text(e['user_3']);	
 
 			$('table#dia_monthly tr#4_tc_m').children('td').eq(i+1).text(e['4_tc']);
 			$('table#dia_monthly tr#4_bp_m').children('td').eq(i+1).text(e['4_bp']);
@@ -502,7 +506,8 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#4_vp_m').children('td').eq(i+1).text(e['4_vp']);
 			$('table#dia_monthly tr#4_tmp_m').children('td').eq(i+1).text(e['4_tmp']);
 			$('table#dia_monthly tr#4_uv_m').children('td').eq(i+1).text(e['4_uv']);
-			$('table#dia_monthly tr#4_f_m').children('td').eq(i+1).text(e['4_f']);			
+			$('table#dia_monthly tr#4_f_m').children('td').eq(i+1).text(e['4_f']);		
+			$('table#dia_monthly tr#user_4_m').children('td').eq(i+1).text(e['user_4']);	
 
 			$('table#dia_monthly tr#5_tc_m').children('td').eq(i+1).text(e['5_tc']);
 			$('table#dia_monthly tr#5_bp_m').children('td').eq(i+1).text(e['5_bp']);
@@ -513,6 +518,7 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#5_tmp_m').children('td').eq(i+1).text(e['5_tmp']);
 			$('table#dia_monthly tr#5_uv_m').children('td').eq(i+1).text(e['5_uv']);
 			$('table#dia_monthly tr#5_f_m').children('td').eq(i+1).text(e['5_f']);
+			$('table#dia_monthly tr#user_5_m').children('td').eq(i+1).text(e['user_5']);
 
 			$('table#dia_monthly tr#posthd_bp_m').children('td').eq(i+1).text(e.posthd_bp);
 			$('table#dia_monthly tr#posthd_temperatue_m').children('td').eq(i+1).text(e.posthd_temperatue);
@@ -524,6 +530,7 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#hd_adequancy_m').children('td').eq(i+1).text(e.hd_adequancy);
 			$('table#dia_monthly tr#ktv_m').children('td').eq(i+1).text(e.ktv);
 			$('table#dia_monthly tr#urr_m').children('td').eq(i+1).text(e.urr);
+			$('table#dia_monthly tr#user_posthd_m').children('td').eq(i+1).text(e['user_posthd']);
 			// $('table#dia_monthly tr#medication_m').children('td').eq(i+1).text(e.medication);
 			if(e.table_patmedication != undefined || e.table_patmedication != null){
 				let patmed = `<ol>`;
@@ -555,6 +562,7 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#prehd_bfr_w').children('td').eq(i+1).text(e['0_bfr']);
 			$('table#dia_weekly tr#prehd_dfr_w').children('td').eq(i+1).text(e.prehd_dfr);
 			$('table#dia_weekly tr#prehd_vp_w').children('td').eq(i+1).text(e['0_vp']);
+			$('table#dia_weekly tr#user_prehd_w').children('td').eq(i+1).text(e['user_prehd']);
 
 			$('table#dia_weekly tr#1_tc_w').children('td').eq(i+1).text(e['1_tc']);
 			$('table#dia_weekly tr#1_bp_w').children('td').eq(i+1).text(e['1_bp']);
@@ -565,6 +573,7 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#1_tmp_w').children('td').eq(i+1).text(e['1_tmp']);
 			$('table#dia_weekly tr#1_uv_w').children('td').eq(i+1).text(e['1_uv']);
 			$('table#dia_weekly tr#1_f_w').children('td').eq(i+1).text(e['1_f']);
+			$('table#dia_weekly tr#user_1_w').children('td').eq(i+1).text(e['user_1']);
 
 			$('table#dia_weekly tr#2_tc_w').children('td').eq(i+1).text(e['2_tc']);
 			$('table#dia_weekly tr#2_bp_w').children('td').eq(i+1).text(e['2_bp']);
@@ -575,6 +584,7 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#2_tmp_w').children('td').eq(i+1).text(e['2_tmp']);
 			$('table#dia_weekly tr#2_uv_w').children('td').eq(i+1).text(e['2_uv']);
 			$('table#dia_weekly tr#2_f_w').children('td').eq(i+1).text(e['2_f']);
+			$('table#dia_weekly tr#user_2_w').children('td').eq(i+1).text(e['user_2']);
 
 			$('table#dia_weekly tr#3_tc_w').children('td').eq(i+1).text(e['3_tc']);
 			$('table#dia_weekly tr#3_bp_w').children('td').eq(i+1).text(e['3_bp']);
@@ -585,6 +595,7 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#3_tmp_w').children('td').eq(i+1).text(e['3_tmp']);
 			$('table#dia_weekly tr#3_uv_w').children('td').eq(i+1).text(e['3_uv']);
 			$('table#dia_weekly tr#3_f_w').children('td').eq(i+1).text(e['3_f']);
+			$('table#dia_weekly tr#user_3_w').children('td').eq(i+1).text(e['user_3']);
 
 			$('table#dia_weekly tr#4_tc_w').children('td').eq(i+1).text(e['4_tc']);
 			$('table#dia_weekly tr#4_bp_w').children('td').eq(i+1).text(e['4_bp']);
@@ -595,6 +606,7 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#4_tmp_w').children('td').eq(i+1).text(e['4_tmp']);
 			$('table#dia_weekly tr#4_uv_w').children('td').eq(i+1).text(e['4_uv']);
 			$('table#dia_weekly tr#4_f_w').children('td').eq(i+1).text(e['4_f']);
+			$('table#dia_weekly tr#user_4_w').children('td').eq(i+1).text(e['user_4']);
 
 			$('table#dia_weekly tr#5_tc_w').children('td').eq(i+1).text(e['5_tc']);
 			$('table#dia_weekly tr#5_bp_w').children('td').eq(i+1).text(e['5_bp']);
@@ -605,6 +617,7 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#5_tmp_w').children('td').eq(i+1).text(e['5_tmp']);
 			$('table#dia_weekly tr#5_uv_w').children('td').eq(i+1).text(e['5_uv']);
 			$('table#dia_weekly tr#5_f_w').children('td').eq(i+1).text(e['5_f']);
+			$('table#dia_weekly tr#user_5_w').children('td').eq(i+1).text(e['user_5']);
 
 			$('table#dia_weekly tr#posthd_bp_w').children('td').eq(i+1).text(e.posthd_systolic +' / '+ e.posthd_diastolic);
 			$('table#dia_weekly tr#posthd_temperatue_w').children('td').eq(i+1).text(e.posthd_temperatue);
@@ -616,6 +629,7 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#hd_adequancy_w').children('td').eq(i+1).text(e.hd_adequancy);
 			$('table#dia_weekly tr#ktv_w').children('td').eq(i+1).text(e.ktv);
 			$('table#dia_weekly tr#urr_w').children('td').eq(i+1).text(e.urr);
+			$('table#dia_weekly tr#user_posthd_w').children('td').eq(i+1).text(e['user_posthd']);
 			if(e.table_patmedication != undefined || e.table_patmedication != null){
 				let patmed = `<ol>`;
 				e.table_patmedication.forEach(function(e,i){

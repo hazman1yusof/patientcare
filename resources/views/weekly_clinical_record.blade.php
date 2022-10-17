@@ -117,6 +117,12 @@
 		<td width="80" align="center">&nbsp;</td>
 		<td width="80" align="center">&nbsp;</td>
 	</tr>
+	<tr id="user_prehd_w">
+		<td width="100" align="left">&nbsp;ADDED BY</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
+	</tr>
 
 	<tr id="1_tc_w" class="color_1sthour_b">
 		<td width="200" align="left" ><b>1<sup>st</sup> Hour</b></td>
@@ -168,6 +174,12 @@
 	</tr>
 	<tr id="1_f_w" class="color_1sthour">
 		<td width="100" align="left">&nbsp;FLUIDS</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
+	</tr>
+	<tr id="user_1_w" class="color_1sthour">
+		<td width="100" align="left">&nbsp;ADDED BY</td>
 		<td width="80" align="center">&nbsp;</td>
 		<td width="80" align="center">&nbsp;</td>
 		<td width="80" align="center">&nbsp;</td>
@@ -227,6 +239,12 @@
 		<td width="80" align="center">&nbsp;</td>
 		<td width="80" align="center">&nbsp;</td>
 	</tr>
+	<tr id="user_2_w" class="color_2ndthour">
+		<td width="100" align="left">&nbsp;ADDED BY</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
+	</tr>
 
 	<tr id="3_tc_w" class="color_3rdhour_b">
 		<td width="200" align="left" ><b>3<sup>rd</sup> Hour</b></td>
@@ -278,6 +296,12 @@
 	</tr>
 	<tr id="3_f_w" class="color_3rdhour">
 		<td width="100" align="left">&nbsp;FLUIDS</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
+	</tr>
+	<tr id="user_3_w" class="color_3rdhour">
+		<td width="100" align="left">&nbsp;ADDED BY</td>
 		<td width="80" align="center">&nbsp;</td>
 		<td width="80" align="center">&nbsp;</td>
 		<td width="80" align="center">&nbsp;</td>
@@ -337,6 +361,12 @@
 		<td width="80" align="center">&nbsp;</td>
 		<td width="80" align="center">&nbsp;</td>
 	</tr>
+	<tr id="user_4_w" class="color_4thhour">
+		<td width="100" align="left">&nbsp;ADDED BY</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
+	</tr>
 
 	<tr id="5_tc_w" class="color_5thhour_b">
 		<td width="200" align="left" ><b>5<sup>th</sup> Hour</b></td>
@@ -388,6 +418,12 @@
 	</tr>
 	<tr id="5_f_w" class="color_5thhour">
 		<td width="100" align="left">&nbsp;FLUIDS</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
+	</tr>
+	<tr id="user_5_w" class="color_5thhour">
+		<td width="100" align="left">&nbsp;ADDED BY</td>
 		<td width="80" align="center">&nbsp;</td>
 		<td width="80" align="center">&nbsp;</td>
 		<td width="80" align="center">&nbsp;</td>
@@ -455,5 +491,11 @@
 		<td width="80" align="left" class="med_td">&nbsp;</td>
 		<td width="80" align="left" class="med_td">&nbsp;</td>
 		<td width="80" align="left" class="med_td">&nbsp;</td>
+	</tr>
+	<tr id="user_posthd_w">
+		<td width="100" align="left">&nbsp;ADDED BY</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
+		<td width="80" align="center">&nbsp;</td>
 	</tr>
 </tbody></table>

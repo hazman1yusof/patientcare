@@ -180,7 +180,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="{{ asset('js/dialysis_main.js') }}?v=4"></script>
-    <script type="text/javascript" src="{{ asset('js/dialysis.js') }}?v=4"></script>
+    <script type="text/javascript" src="{{ asset('js/dialysis.js') }}?v=5"></script>
     <script type="text/javascript" src="{{ asset('js/patmedication_dialysis.js') }}?v=3"></script>
     <script type="text/javascript" src="{{ asset('js/transaction_dialysis.js') }}?v=3"></script>
 @endsection
