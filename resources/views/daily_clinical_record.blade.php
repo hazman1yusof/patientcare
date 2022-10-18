@@ -329,6 +329,8 @@
 					  <option value="">Select Here</option>
 					  <option value="PERIOBITAL EDEMA">PERIOBITAL EDEMA</option>
 					  <option value="REDNESS">REDNESS</option>
+					  <option value="CATARACT">CATARACT</option>
+					  <option value="BLIND">BLIND</option>
 					  <option value="N/A">N/A</option>
 					</select>
 			  	</div>
