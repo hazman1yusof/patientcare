@@ -480,7 +480,6 @@ function autoinsert_rowdata_doctorNote(form,rowData){
 				input.val(newval);
 			}
 		}else{
-			console.log(value);
 			input.val(value);
 		}
 	});
