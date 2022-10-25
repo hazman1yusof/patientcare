@@ -22,25 +22,45 @@ class PreregisterController extends defaultController
 
     public function prereg(Request $request){
 
-    	$validatedData = $request->validate([
-	        'ic' => 'required|max:20|min:10',
-	    ]);
+    	if($request->select == 'ic'){
+	    	$validatedData = $request->validate([
+		        'ic' => 'required|max:20|min:10',
+		    ]);
+    	}else{
+	    	$validatedData = $request->validate([
+		        'idnumber' => 'required|max:20|min:5',
+		    ]);
+    	}
 
 	    DB::beginTransaction();
         
         try {
 
-        	$pat_mast = DB::table('hisdb.pat_mast')
-        				->where('Active','1')
-	    				->where('Newic','=', $request->ic);
+        	if($request->select == 'ic'){
+	        	$pat_mast = DB::table('hisdb.pat_mast')
+	        				->where('Active','1')
+		    				->where('Newic','=', $request->ic);
 
-	    	if($pat_mast->exists()){
-		    	$pat_mast_obj = $pat_mast->first();
-		    	
-		    }else{
-		    	// pleae register at counter alert
-		    	return redirect()->back()->withErrors('No I/C in Database, please register at the counter first');
-		    }
+		    	if($pat_mast->exists()){
+			    	$pat_mast_obj = $pat_mast->first();
+			    	
+			    }else{
+			    	// pleae register at counter alert
+			    	return redirect()->back()->withErrors('No I/C in Database, please register at the counter first');
+			    }
+        	}else{
+	        	$pat_mast = DB::table('hisdb.pat_mast')
+	        				->where('Active','1')
+		    				->where('idnumber','=', $request->idnumber);
+
+		    	if($pat_mast->exists()){
+			    	$pat_mast_obj = $pat_mast->first();
+			    	
+			    }else{
+			    	// pleae register at counter alert
+			    	return redirect()->back()->withErrors('No passport / idnumber in Database, please register at the counter first');
+			    }
+        	}
 
 		    $mrn = $pat_mast_obj->MRN;
 		    $episno = $pat_mast_obj->Episno;

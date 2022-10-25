@@ -66,11 +66,11 @@
                             <div class="inline fields">
                                 <div class="field">
                                     <label>Time</label>
-                                    <input id="admwardtime" name="admwardtime" type="time">
+                                    <input id="admwardtime" name="admwardtime" type="time" required>
                                 </div>
                                 <div class="field">
                                     <label>Date</label>
-                                    <input id="reg_date" name="reg_date" type="date" rdonly>
+                                    <input id="reg_date" name="reg_date" type="date" rdonly required>
                                 </div>
                             </div>
 

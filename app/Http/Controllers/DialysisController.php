@@ -566,34 +566,34 @@ class DialysisController extends Controller
                             
                 $isudept = $episode->regdept;
 
-                if(empty($request->dialysis_episode_idno)){
+                // if(empty($request->dialysis_episode_idno)){
+                $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                        ->where('dialysis_episode.mrn',$request->mrn)
+                                        ->where('dialysis_episode.episno',$request->episno)
+                                        ->where('dialysis_episode.compcode','=',session('compcode'))
+                                        ->whereDate('dialysis_episode.arrival_date',$request->trxdate);
+
+                if($dialysis_episode->exists()){
+                    // throw new \Exception('Patient doesnt arrive for dialysis at date: '.Carbon::parse($request->trxdate)->format('d-m-Y'), 500);
+                    $last_arrival_idno = $dialysis_episode->first()->idno;
+                }else{
                     $dialysis_episode = DB::table('hisdb.dialysis_episode')
-                                            ->where('dialysis_episode.mrn',$request->mrn)
-                                            ->where('dialysis_episode.episno',$request->episno)
-                                            ->where('dialysis_episode.compcode','=',session('compcode'))
-                                            ->whereDate('dialysis_episode.arrival_date',$request->trxdate);
+                                        ->where('dialysis_episode.mrn',$request->mrn)
+                                        ->where('dialysis_episode.episno',$request->episno)
+                                        ->where('dialysis_episode.compcode','=',session('compcode'))
+                                        ->orderBy('dialysis_episode.idno','DESC');
 
                     if($dialysis_episode->exists()){
-                        // throw new \Exception('Patient doesnt arrive for dialysis at date: '.Carbon::parse($request->trxdate)->format('d-m-Y'), 500);
                         $last_arrival_idno = $dialysis_episode->first()->idno;
                     }else{
-                        $dialysis_episode = DB::table('hisdb.dialysis_episode')
-                                            ->where('dialysis_episode.mrn',$request->mrn)
-                                            ->where('dialysis_episode.episno',$request->episno)
-                                            ->where('dialysis_episode.compcode','=',session('compcode'))
-                                            ->orderBy('dialysis_episode.idno','DESC');
-
-                        if($dialysis_episode->exists()){
-                            $last_arrival_idno = $dialysis_episode->first()->idno;
-                        }else{
-                            throw new \Exception('Patient doesnt arrive yet', 500);
-                        }
-
+                        throw new \Exception('Patient doesnt arrive yet', 500);
                     }
 
-                }else{
-                    $last_arrival_idno = $request->dialysis_episode_idno;
                 }
+
+                // }else{
+                //     $last_arrival_idno = $request->dialysis_episode_idno;
+                // }
 
                 if($chgmast->chgtype == 'PKG'){
                     //check duplicate dialysis
