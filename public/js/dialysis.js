@@ -438,6 +438,13 @@ $(document).ready(function () {
 		},
 	});
 
+	$('#print_rec_m').click(function(){
+		$('table#dia_monthly').printThis();
+	});
+
+	$('#print_rec_w').click(function(){
+		$('table#dia_weekly').printThis();
+	});
 });
 var urlParam_AddNotesDialysis = {
 	action: 'get_table_addnotes',

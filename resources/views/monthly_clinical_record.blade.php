@@ -1,4 +1,7 @@
 <div class="ui mini form" style="width: 70% !important;margin: auto;">
+  <button class="ui basic small button right floated" style="margin-top:12px;" id="print_rec_m">
+    <i class="print icon"></i> Print
+  </button>
   <div class="three fields">
     <div class="field">
       <label>Select Month</label>
