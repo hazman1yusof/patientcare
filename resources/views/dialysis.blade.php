@@ -164,7 +164,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;500&family=Open+Sans:wght@300;700&family=Syncopate&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/dialysis.css') }}?v=2">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/dialysis.css') }}?v=3">
 @endsection
 
 @section('js')
