@@ -22,6 +22,12 @@ div#toggle_trans,div#toggle_daily,div#toggle_weekly,div#toggle_monthly{
     background-image: linear-gradient(to bottom,#f5f5f5 0,#fff6fc 100%) !important;
 }*/
 
+form#daily_form input:disabled, form#daily_form_completed input:disabled, form#daily_form .ui.disabled.dropdown, form#daily_form_completed .ui.disabled.dropdown{
+    opacity: 1 !important;
+    cursor: not-allowed !important;
+}
+
+
 div.diaform input.smallinputpad{
     padding-right:2px !important;
 }
