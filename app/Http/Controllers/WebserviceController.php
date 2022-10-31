@@ -685,7 +685,7 @@ class WebserviceController extends Controller
 
         $today = Carbon::now(); //returns current day
 
-        if($today->day != 1){return 0;}
+        // if($today->day != 1){return 0;}
         
         $episode = DB::table('hisdb.episode')
                         ->where('compcode','13A')
@@ -755,7 +755,7 @@ class WebserviceController extends Controller
                     ->update([
                         'Episno' => $newepisno,
                         'LastTime' => Carbon::now("Asia/Kuala_Lumpur")->toTimeString(),
-                        'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),=
+                        'Lastupdate' => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                         'Reg_Date' => Carbon::now("Asia/Kuala_Lumpur")->toDateString(),
                         'Reg_Time' => Carbon::now("Asia/Kuala_Lumpur")->toDateTimeString(),
                     ]);
