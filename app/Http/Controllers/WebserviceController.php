@@ -762,6 +762,7 @@ class WebserviceController extends Controller
 
                 DB::table('hisdb.episode')
                     ->where('compcode','13A')
+                    ->where('MRN',$value->mrn)
                     ->where('episno',$value->episno)
                     ->update([
                         "episactive" => '0',
