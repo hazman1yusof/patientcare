@@ -717,6 +717,35 @@ class DialysisController extends Controller
                     throw new \Exception('Cannot delete non-stock micerra, delete stock micerra instead', 500);  
                 }
 
+                if(empty($request->dialysis_episode_idno)){
+                    $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                            ->where('dialysis_episode.mrn',$request->mrn)
+                                            ->where('dialysis_episode.episno',$request->episno)
+                                            ->where('dialysis_episode.compcode','=',session('compcode'))
+                                            ->whereDate('dialysis_episode.arrival_date',$request->trxdate);
+
+                    if($dialysis_episode->exists()){
+                        // throw new \Exception('Patient doesnt arrive for dialysis at date: '.Carbon::parse($request->trxdate)->format('d-m-Y'), 500);
+                        $last_arrival_idno = $dialysis_episode->first()->idno;
+                    }else{
+                        $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                            ->where('dialysis_episode.mrn',$request->mrn)
+                                            ->where('dialysis_episode.episno',$request->episno)
+                                            ->where('dialysis_episode.compcode','=',session('compcode'))
+                                            ->orderBy('dialysis_episode.idno','DESC');
+
+                        if($dialysis_episode->exists()){
+                            $last_arrival_idno = $dialysis_episode->first()->idno;
+                        }else{
+                            throw new \Exception('Patient doesnt arrive yet', 500);
+                        }
+
+                    }
+
+                }else{
+                    $last_arrival_idno = $request->dialysis_episode_idno;
+                }
+
                 DB::table('hisdb.chargetrx')
                         ->where('id','=',$request->id)
                         ->update([
@@ -736,7 +765,7 @@ class DialysisController extends Controller
 
                 if($dialysis_pkgdtl->exists()){
                     $dialysis_episode = DB::table('hisdb.dialysis_episode')
-                        ->where('idno',$request->dialysis_episode_idno)
+                        ->where('idno',$last_arrival_idno)
                         ->first(); 
 
                     if($dialysis_episode->hdstat>0){
@@ -759,7 +788,7 @@ class DialysisController extends Controller
                                 ]);
 
                             DB::table('hisdb.dialysis_episode')
-                                ->where('idno',$request->dialysis_episode_idno)
+                                ->where('idno',$last_arrival_idno)
                                 ->update(['hdstat' => 0]);
                         }
 
@@ -773,7 +802,7 @@ class DialysisController extends Controller
 
                 if($dialysis_pkgdtl->exists()){
                     $dialysis_episode = DB::table('hisdb.dialysis_episode')
-                        ->where('idno',$request->dialysis_episode_idno)
+                        ->where('idno',$last_arrival_idno)
                         ->first();
 
                     if($dialysis_episode->mcrstat>0){
@@ -791,7 +820,7 @@ class DialysisController extends Controller
                         // }
                         $del_array=['mcrstat' => 0,'mcrtype' => ''];
                         DB::table('hisdb.dialysis_episode')
-                            ->where('idno',$request->dialysis_episode_idno)
+                            ->where('idno',$last_arrival_idno)
                             ->update($del_array);
 
                         DB::table('hisdb.chargetrx')
