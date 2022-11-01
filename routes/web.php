@@ -163,4 +163,5 @@ Route::post('/prereg','PreregisterController@prereg');
 // Route::get('/test3','testController@test3');
 
 Route::get('/enquiry','enquiryController@show');
+Route::get('/enquiry_order','enquiryController@show_order');
 Route::get('/enquiry/table','enquiryController@table');

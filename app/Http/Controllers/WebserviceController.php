@@ -706,10 +706,10 @@ class WebserviceController extends Controller
                         "reg_date" => Carbon::now("Asia/Kuala_Lumpur"),
                         "reg_time" => Carbon::now("Asia/Kuala_Lumpur"),
                         "regdept" => $value->regdept,
-                        "admsrccode" => $value->regdept,
-                        "case_code" => $value->regdept,
-                        "admdoctor" => $value->regdept,
-                        "attndoctor" => $value->regdept,
+                        "admsrccode" => $value->admsrccode, //
+                        "case_code" => $value->case_code, //
+                        "admdoctor" => $value->admdoctor, //
+                        "attndoctor" => $value->attndoctor, //
                         "pay_type" => $value->pay_type,
                         "pyrmode" => $value->pyrmode,
                         "billtype" => $value->billtype,
@@ -772,6 +772,44 @@ class WebserviceController extends Controller
         }
 
         
+    }
+
+    public function betulkan_episode(){
+        $episode = DB::table('hisdb.episode')
+                        ->where('compcode','13A')
+                        ->where('episactive','1')
+                        ->where('adduser','system');
+
+        if($episode->exists()){
+            $episode = $episode->get();
+
+            foreach ($episode as $key => $value) {
+                $lastepisno = intval($value->episno) - 1;
+
+
+                $lastepisode = DB::table('hisdb.episode')
+                                ->where('compcode','13A')
+                                ->where('MRN',$value->mrn)
+                                ->where('episno',$lastepisno);
+
+                if($lastepisode->exists()){
+                    $lastepisode = $lastepisode->first();
+                    DB::table('hisdb.episode')
+                        ->where('compcode','13A')
+                        ->where('MRN',$value->mrn)
+                        ->where('episno',$value->episno)
+                        ->update([
+                            "admsrccode" => $lastepisode->admsrccode, //
+                            "case_code" => $lastepisode->case_code, //
+                            "admdoctor" => $lastepisode->admdoctor, //
+                            "attndoctor" => $lastepisode->attndoctor, //
+                        ]);
+                }       
+
+            }
+
+
+        }
     }
     
 }
