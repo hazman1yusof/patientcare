@@ -97,6 +97,7 @@ class PatmastController extends defaultController
                             })
                             ->join('hisdb.pat_mast', function($join) use ($request){
                                 $join = $join->on('pat_mast.MRN', '=', 'episode.mrn')
+                                            ->where('pat_mast.Active','=','1')
                                             ->where('pat_mast.PatStatus','=','1')
                                             ->where('pat_mast.compcode','=',session('compcode'));
                             });
