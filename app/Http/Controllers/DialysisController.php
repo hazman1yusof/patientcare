@@ -210,7 +210,8 @@ class DialysisController extends Controller
                                 'ptm.enteredby',
                                 'ptm.verifiedby',
                                 'ptm.qty as quantity',
-                                'ptm.idno as status')
+                                'ptm.idno as status',
+                                'ptm.dose as dose')
 
                             ->leftJoin('hisdb.chgmast', function($join) use ($request){
                                 $join = $join->on('chgmast.chgcode', '=', 'ptm.chgcode')
@@ -256,7 +257,8 @@ class DialysisController extends Controller
                                 'ptm.enteredby',
                                 'ptm.verifiedby',
                                 'ptm.qty as quantity',
-                                'ptm.idno as status')
+                                'ptm.idno as status',
+                                'ptm.dose as dose')
 
                             ->leftJoin('hisdb.chgmast', function($join) use ($request){
                                 $join = $join->on('chgmast.chgcode', '=', 'ptm.chgcode')
@@ -1911,6 +1913,41 @@ class DialysisController extends Controller
         return json_encode($responce);
     }
 
+    public function bloodtesttable(Request $request){
+        switch($request->action){
+            
+            //transaction stuff
+            case 'get_pagination_br':
+                return $this->get_pagination_br($request);
+            case 'get_data_br':
+                return $this->get_data_br($request);
+
+            default:
+                return 'error happen..';
+        }
+    }
+
+    public function get_pagination_br(Request $request){
+        $blood_data = DB::table('hisdb.blood_data');
+
+
+        $paginate = $blood_data->paginate($request->rows);
+
+        $responce = new stdClass();
+        $responce->page = $paginate->currentPage();
+        $responce->total = $paginate->lastPage();
+        $responce->records = $paginate->total();
+        $responce->rows = $paginate->items();
+        $responce->query = $this->getQueries($blood_data);
+
+        return json_encode($responce);
+    }
+
+    public function get_data_br($builder){
+        
+    }
+
+
     public function mydump2($builder){
         $addSlashes = str_replace('?', "'?'", $builder->toSql());
         dump(vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings()));
@@ -1919,6 +1956,11 @@ class DialysisController extends Controller
     public function mydd($builder){
         $addSlashes = str_replace('?', "'?'", $builder->toSql());
         dd(vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings()));
+    }
+
+    public function getQueries($builder){
+        $addSlashes = str_replace('?', "'?'", $builder->toSql());
+        return vsprintf(str_replace('?', '%s', $addSlashes), $builder->getBindings());
     }
 
 
