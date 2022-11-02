@@ -257,11 +257,16 @@ $(document).ready(function () {
 
 	// });
 
+	$('#month_year_calendar').calendar({
+    	initialDate: new Date(),
+   		type: 'month'
+ 	});
+
 	$('#rec_monthly_but').click(function(){
 		cleartabledata('monthly');
 		var param = {
 			action: 'get_dia_monthly',
-			date:$("#selectmonth").val(),
+			date: moment($('#month_year_calendar').calendar('get date')).format('YYYY-MM'),
 			mrn:$("#mrn").val(),
 			episno:$("#episno").val()
 		}
@@ -468,7 +473,7 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#prehd_bp_m').children('td').eq(i+1).text(e.prehd_systolic+' / '+e.prehd_diastolic);
 			$('table#dia_monthly tr#pulse_pre_m').children('td').eq(i+1).text(e.prehd_pulse);
 			$('table#dia_monthly tr#prehd_bfr_m').children('td').eq(i+1).text(e['0_bfr']);
-			$('table#dia_monthly tr#prehd_dfr_m').children('td').eq(i+1).text(e.prehd_dfr);
+			$('table#dia_monthly tr#prehd_dfr_m').children('td').eq(i+1).text(e.dialysate_flow);
 			$('table#dia_monthly tr#prehd_vp_m').children('td').eq(i+1).text(e['0_vp']);
 			$('table#dia_monthly tr#user_prehd_m').children('td').eq(i+1).text(e['user_prehd']);
 
@@ -542,7 +547,7 @@ function populate_data(type,data){
 			if(e.table_patmedication != undefined || e.table_patmedication != null){
 				let patmed = `<ol>`;
 				e.table_patmedication.forEach(function(e,i){
-					patmed = patmed +  `<li>`+e.chg_desc+` - `+e.enteredby+`</li>`;
+					patmed = patmed +  `<li>`+e.chg_desc+`</br>`+e.dose+`</br>qty:`+parseInt(e.quantity)+`</br>`+e.enteredby+`</li>`;
 				});
 				patmed = patmed + `</ol>`
 				$('table#dia_monthly tr#medication_m').children('td').eq(i+1).html(patmed);
@@ -567,7 +572,7 @@ function populate_data(type,data){
 			$('table#dia_weekly tr#prehd_bp_w').children('td').eq(i+1).text(e.prehd_systolic+' / '+e.prehd_diastolic);
 			$('table#dia_weekly tr#pulse_pre_w').children('td').eq(i+1).text(e.prehd_pulse);
 			$('table#dia_weekly tr#prehd_bfr_w').children('td').eq(i+1).text(e['0_bfr']);
-			$('table#dia_weekly tr#prehd_dfr_w').children('td').eq(i+1).text(e.prehd_dfr);
+			$('table#dia_weekly tr#prehd_dfr_w').children('td').eq(i+1).text(e.dialysate_flow);
 			$('table#dia_weekly tr#prehd_vp_w').children('td').eq(i+1).text(e['0_vp']);
 			$('table#dia_weekly tr#user_prehd_w').children('td').eq(i+1).text(e['user_prehd']);
 
@@ -640,7 +645,7 @@ function populate_data(type,data){
 			if(e.table_patmedication != undefined || e.table_patmedication != null){
 				let patmed = `<ol>`;
 				e.table_patmedication.forEach(function(e,i){
-					patmed = patmed +  `<li>`+e.chg_desc+` - `+e.enteredby+`</li>`;
+					patmed = patmed +  `<li>`+e.chg_desc+` - `+e.dose+` - qty:`+parseInt(e.quantity)+`<br> - `+e.enteredby+`</li>`;
 				});
 				patmed = patmed + `</ol>`
 				$('table#dia_weekly tr#medication_w').children('td').eq(i+1).html(patmed);

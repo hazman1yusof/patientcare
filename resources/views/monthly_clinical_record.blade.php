@@ -1,14 +1,34 @@
 <div class="ui mini form" style="width: 70% !important;margin: auto;">
-  <button class="ui basic small button right floated" style="margin-top:12px;" id="print_rec_m">
+  <button class="ui basic small button right floated"  id="print_rec_m">
     <i class="print icon"></i> Print
   </button>
-  <div class="three fields">
-    <div class="field">
-      <label>Select Month</label>
-      <input type="month" id="selectmonth" >&nbsp;&nbsp;
+  <div class="two fields" style="margin-top:12px;">
+    <div class="inline field">
+        <label>Select Month</label>
+        <div class="ui calendar" id="month_year_calendar">
+          <div class="ui input left icon">
+            <i class="calendar icon"></i>
+            <input type="text" placeholder="Date" id="month_year">
+          </div>
+        </div>
+
       <button type="button" class="ui mini blue submit button" id="rec_monthly_but">Go</button>
     </div>
   </div>
+
+  <!-- <div class="three fields">
+    <div class="field">
+      <label>Select Month</label>
+      <input type="month" id="selectmonth" >&nbsp;&nbsp;
+      <div class="ui calendar" id="month_year_calendar">
+          <div class="ui input left icon">
+            <i class="calendar icon"></i>
+            <input type="text" placeholder="Date" id="trxdate">
+          </div>
+        </div>
+      <button type="button" class="ui mini blue submit button" id="rec_monthly_but">Go</button>
+    </div>
+  </div> -->
 </div>
     
 <table class="table table-bordered diatbl" id="dia_monthly">
