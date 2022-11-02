@@ -158,7 +158,7 @@ Route::post('/save_mykad_local','MycardController@save_mykad_local');
 Route::get('/preregister','PreregisterController@show');
 Route::post('/prereg','PreregisterController@prereg');
 
-// Route::get('/test','testController@test');
+// Route::get('/test','testController@betulkan_episode');
 // Route::get('/test2','testController@test2');
 // Route::get('/test3','testController@test3');
 
