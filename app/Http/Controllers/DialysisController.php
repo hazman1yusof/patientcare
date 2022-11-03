@@ -1928,7 +1928,13 @@ class DialysisController extends Controller
     }
 
     public function get_pagination_br(Request $request){
-        $blood_data = DB::table('hisdb.blood_data');
+
+        $carbon = new Carbon($request->month);
+
+        $blood_data = DB::table('hisdb.blood_data')
+                            ->where('icno',$request->newic)
+                            ->whereYear('sampledate', '=', $carbon->year)
+                            ->whereMonth('sampledate', '=', $carbon->month);
 
 
         $paginate = $blood_data->paginate($request->rows);

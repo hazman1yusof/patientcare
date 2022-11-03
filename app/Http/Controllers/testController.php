@@ -272,23 +272,20 @@ class testController extends Controller
 
     public function test2(Request $request){
 
-        $dialysis = DB::table('hisdb.dialysis')
-                        ->whereNull('compcode')
-                        ->whereNull('visit_date')
-                        ->whereNotNull('visit_date_2')
+        $dialysis = DB::table('hisdb.blood_data')
                         ->get();
 
         foreach ($dialysis as $key => $value) {
-            if(empty($value->visit_date_2)){
+            if(empty($value->sampledate)){
                 continue;
             }
-            $newvisit = explode('/',$value->visit_date_2);
-            $visit_date = $newvisit[2].'-'.$newvisit[1].'-'.$newvisit[0];
+            $date_arr = explode('/',$value->sampledate);
+            $datedump = $date_arr[2].'-'.$date_arr[1].'-'.$date_arr[0];
             
-            DB::table('hisdb.dialysis')
+            DB::table('hisdb.blood_data')
                     ->where('idno',$value->idno)
                     ->update([
-                        'visit_date' => $visit_date
+                        'datedump' => $datedump
                     ]);
         }
 

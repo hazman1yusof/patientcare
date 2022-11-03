@@ -18,30 +18,17 @@ $(document).ready(function () {
  		get_pagination_br();
  	});
 
-	function clear_bloodres(type){
-		$('table#bloodres td[align=center],table#bloodres td.med_td').html('&nbsp;');
-	}
-
 	$('#print_rec_br').click(function(){
 		$('table#bloodres').printThis();
 	});
-
-	function get_pagination_br(){
-		var param={
-	        mrn:$('#mrn').val(),
-	        episno:$('#episno').val(),
-			action:'get_pagination_br',
-			rows:10
-	    };
-
-	    $.get( "./bloodtest/table?"+$.param(param), function( data ) {
-
-	    },'json').done(function(data) {
-	    	make_pagintaion_br(data);
-	    }).fail(function(data){
-	    });
-	}
 });
+
+function paging_br_init(){
+	$('div#paging_br a.item').off();
+	$('div#paging_br a.item').on("click", function(){
+ 		get_pagination_br($(this).data('page'));
+	});
+}
 
 function make_pagintaion_br(data){
 		
@@ -51,9 +38,9 @@ function make_pagintaion_br(data){
 	$('div#paging_br').html('');
 	for (var i = 0; i < data.total; i++) {
 		if(i == parseInt(curpage-1)){
-			$('div#paging_br').append(`<a class="active item">`+parseInt(i+1)+`</a>`);
+			$('div#paging_br').append(`<a class="active item" data-page="`+parseInt(i+1)+`">`+parseInt(i+1)+`</a>`);
 		}else{
-			$('div#paging_br').append(`<a class="item">`+parseInt(i+1)+`</a>`);
+			$('div#paging_br').append(`<a class="item" data-page="`+parseInt(i+1)+`">`+parseInt(i+1)+`</a>`);
 		}
 	}
 
@@ -67,4 +54,30 @@ function make_pagintaion_br(data){
 			}
 		});
 	});
+
+	paging_br_init();
+}
+
+function get_pagination_br(page=1){
+	clear_bloodres();
+	var param={
+        mrn:$('#mrn').val(),
+        episno:$('#episno').val(),
+		action:'get_pagination_br',
+		rows:10,
+		newic:selrowData($('#jqGrid')).Newic,
+		month:moment($('#month_year_br').calendar('get date')).format('YYYY-MM'),
+		page:page
+    };
+
+    $.get( "./bloodtest/table?"+$.param(param), function( data ) {
+
+    },'json').done(function(data) {
+    	make_pagintaion_br(data);
+    }).fail(function(data){
+    });
+}
+
+function clear_bloodres(){
+	$('table#bloodres td[align=center],table#bloodres td.med_td').html('&nbsp;');
 }
