@@ -275,11 +275,14 @@
                                 <div class="col-xs-6" id="form_dialysis">
                                     <div class="form-group">
                                         <div class="col-md-12">
+                                        <button type="button" class="btn btn-sm btn-warning" id="absent_dialysis" style="display: none;">
+                                            <span class="fa fa-user-times fa-lg"></span> Absent
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-primary" id="arriveback_dialysis" style="display: none;">
+                                            <span class="fa fa-user-plus fa-lg"></span> Arrive
+                                        </button>
                                         <div class="btn-group btn-group-sm pull-right" role="group" aria-label="..." 
                                         id="btn_grp_edit_doc" >
-                                            <!-- <button type="button" class="btn btn-default" id="add_dialysis">
-                                                <span class="fa fa-plus-square-o fa-lg"></span> Add Arrival
-                                            </button> -->
                                             <button type="button" class="btn btn-default" id="edit_dialysis">
                                                 <span class="fa fa-edit fa-lg"></span> Edit Arrival
                                             </button>

@@ -23,7 +23,7 @@ $(document).ready(function () {
 			{ label: 'MRN', name: 'MRN', width: 5, classes: 'wrap', formatter: padzero, unformat: unpadzero },
 			{ label: 'Episode', name: 'Episno', width: 5 ,align: 'left',classes: 'wrap' },
 			// { label: 'Time', name: 'reg_time', width: 10 ,classes: 'wrap', formatter: timeFormatter, unformat: timeUNFormatter},
-			{ label: 'Name', name: 'Name', width: 30 ,classes: 'wrap' },
+			{ label: 'Name', name: 'Name', width: 30 ,classes: 'wrap' , formatter:nameformatter, unformat:nameunformatter},
 			{ label: 'Payer', name: 'payer', width: 20 ,classes: 'wrap' },
 			{ label: 'I/C', name: 'Newic', width: 15 ,classes: 'wrap' },
 			{ label: 'DOB', name: 'DOB', hidden: true},
@@ -41,6 +41,7 @@ $(document).ready(function () {
 			{ label: 'Citizencode', name: 'Citizencode', hidden: true },
 			{ label: 'AreaCode', name: 'AreaCode', hidden: true },
 			{ label: 'packagecode', name: 'packagecode', hidden: true },
+			{ label: 'dialysis_status', name: 'dialysis_status', hidden: true },
 		],
 		autowidth: true,
 		viewrecords: true,
@@ -54,10 +55,11 @@ $(document).ready(function () {
 			cleartabledata('all');
 			button_state_dialysis('disableAll');
 			$('button#timer_stop').click();
+			var selrowdata = selrowData('#jqGrid');
 
 			if($('#viewallcenter').val() != 1){
 				if(selrowData('#jqGrid').arrival != 0){
-					$('#dialysis_episode_idno').val(selrowData('#jqGrid').arrival);
+					$('#dialysis_episode_idno').val(selrowdata.arrival);
 					if(selrowData('#jqGrid').complete == 0){
 						hide_tran_button(false);
 					}else{
@@ -69,7 +71,7 @@ $(document).ready(function () {
 				}
 			}else{
 				if(selrowData('#jqGrid').arrival != 0){
-					$('#dialysis_episode_idno').val(selrowData('#jqGrid').arrival);
+					$('#dialysis_episode_idno').val(selrowdata.arrival);
 					hide_tran_button(false);
 				}else{
 					$('#dialysis_episode_idno').val(0);
@@ -77,9 +79,9 @@ $(document).ready(function () {
 				}
 			}
 			
-			populatedialysis(selrowData('#jqGrid'));
-			urlParam_trans.mrn = selrowData('#jqGrid').MRN;
-			urlParam_trans.episno = selrowData('#jqGrid').Episno;
+			populatedialysis(selrowdata);
+			urlParam_trans.mrn = selrowdata.MRN;
+			urlParam_trans.episno = selrowdata.Episno;
 			addmore_onadd = false;
 			curpage_tran = null;
 
@@ -242,8 +244,19 @@ function dateFormatter2(cellvalue, options, rowObject){
 	return moment(cellvalue).format("DD/MM/YYYY") + '</br>' + rowObject.arrival_time + `<span data-original=`+cellvalue+`><span>`;
 }
 
-function dateUNFormatter2(cellvalue, options, rowObject){
-	return $(rowObject).children('span').data('original');
+function dateUNFormatter2(cellvalue, options, cell){
+	return $(cell).children('span').data('original');
 }
 
+function nameformatter(cellvalue, options, rowObject){
+	if(cellvalue == null) return '';
+	if(rowObject.dialysis_status == 'ABSENT'){
+		return cellvalue+'<div style="color:darkred;">'+rowObject.dialysis_status +'</div>'+ `<span data-original='`+cellvalue+`'><span>`;
+	}else{
+		return cellvalue+`<span data-original='`+cellvalue+`'><span>`;
+	}
+}
 
+function nameunformatter(cellvalue, options, cell){
+	return $(cell).children('span').data('original');
+}

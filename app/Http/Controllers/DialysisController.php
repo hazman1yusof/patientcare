@@ -1042,6 +1042,45 @@ class DialysisController extends Controller
 
                     
                 }
+            }else if($request->oper == 'absent'){
+                $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                        ->where('idno',$request->idno);
+
+                if($dialysis_episode->exists()){
+                    $date = Carbon::parse($request->arrival_date);
+
+                    $isToday = $date->isToday();
+                    if($isToday){
+                        DB::table('hisdb.dialysis_episode')
+                            ->where('idno',$request->idno)
+                            ->update([
+                                'status' => 'ABSENT'
+                            ]);
+                    }else{
+                        throw new \Exception('Error: Cant absent record that are not today', 500); 
+                    }
+                    
+                }
+            }else if($request->oper == 'arriveback'){
+                $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                        ->where('idno',$request->idno);
+
+                if($dialysis_episode->exists()){
+                    $date = Carbon::parse($request->arrival_date);
+
+                    $isToday = $date->isToday();
+                    if($isToday){
+                        DB::table('hisdb.dialysis_episode')
+                            ->where('idno',$request->idno)
+                            ->update([
+                                'status' => 'ARRIVE'
+                            ]);
+                    }else{
+                        throw new \Exception('Error: Cant re-arrive record that are not today', 500); 
+                    }
+
+                }
+                
             }
 
             $responce = new stdClass();
@@ -1090,18 +1129,23 @@ class DialysisController extends Controller
         $responce->other_data = $other_data;
 
         if($dialysis_episode->exists()){
-            //check dkt dialysis ada data ke tak hari tu
-            $dialysis = DB::table('hisdb.dialysis')
-                            ->where('arrivalno',$request->dialysis_episode_idno);
-                            
-            if($dialysis->exists()){
-                //populate data hari tu
-                $responce->mode = 'edit';
-                $responce->data = $dialysis->first();
-
+            $dialysis_episode = $dialysis_episode->first();
+            if($dialysis_episode->status == 'ABSENT'){
+                $responce->mode = 'disableAll';
             }else{
-                //add new dialysis daily
-                $responce->mode = 'add';
+                //check dkt dialysis ada data ke tak hari tu
+                $dialysis = DB::table('hisdb.dialysis')
+                                ->where('arrivalno',$request->dialysis_episode_idno);
+                                
+                if($dialysis->exists()){
+                    //populate data hari tu
+                    $responce->mode = 'edit';
+                    $responce->data = $dialysis->first();
+
+                }else{
+                    //add new dialysis daily
+                    $responce->mode = 'add';
+                }
             }
 
         }else{
@@ -1414,7 +1458,10 @@ class DialysisController extends Controller
         }
 
         if(!$dialysis_episode->exists()){
-            throw new \Exception('Error: arrivalno doesnt exist', 500); 
+            $arrivalno = $this->auto_add_dialysis_baru($request);
+
+            $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                ->where('idno',$arrivalno);
         }
 
         $dialysis_episode = $dialysis_episode->first();
@@ -1949,8 +1996,57 @@ class DialysisController extends Controller
         return json_encode($responce);
     }
 
-    public function get_data_br($builder){
-        
+    public function auto_add_dialysis_baru(Request $request){
+        $dialysis_epis = DB::table('hisdb.dialysis_episode')
+                        ->where('compcode',session('compcode'))
+                        ->where('mrn',$request->mrn)
+                        ->where('episno',$request->episno);
+
+        if($dialysis_epis->exists()){
+            $lineno_ = intval($dialysis_epis->max('lineno_')) + 1;
+
+            $dialysis_epis_latest = DB::table('hisdb.dialysis_episode')
+                            ->where('compcode',session('compcode'))
+                            ->where('mrn',$request->mrn)
+                            ->where('episno',$request->episno)
+                            ->where('lineno_',intval($dialysis_epis->max('lineno_')));
+
+            $mcrstat = $dialysis_epis_latest->first()->mcrstat;
+            $hdstat = $dialysis_epis_latest->first()->hdstat;
+            $packagecode = $dialysis_epis_latest->first()->packagecode;
+        }else{
+            $lineno_ = 1;
+            $mcrstat = 0;
+            $hdstat = 0;
+            $packagecode = 'EPO';
+        }
+
+        $array_insert = [
+            'compcode'=>session('compcode'),
+            'mrn'=>$request->mrn,
+            'episno'=>$request->episno,
+            'lineno_'=>$lineno_,
+            'mcrstat'=>$mcrstat,
+            'hdstat'=>$hdstat,
+            'arrival_date'=>Carbon::now("Asia/Kuala_Lumpur"),
+            'arrival_time'=>Carbon::now("Asia/Kuala_Lumpur"),
+            'packagecode'=>$packagecode,
+            'order'=>0,
+            'complete'=>0
+        ];
+
+        $latest_idno = DB::table('hisdb.dialysis_episode')->insertGetId($array_insert);
+
+        DB::table('hisdb.episode')
+            ->where('mrn',$request->mrn)
+            ->where('episno',$request->episno)
+            ->update([
+                'lastarrivalno' => $latest_idno,
+                'lastarrivaldate' => Carbon::now("Asia/Kuala_Lumpur"),
+                'lastarrivaltime' => Carbon::now("Asia/Kuala_Lumpur")
+            ]);
+
+        return $latest_idno;
     }
 
 

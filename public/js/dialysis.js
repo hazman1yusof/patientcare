@@ -690,6 +690,12 @@ function populatedialysis(data){
 	$('span.metal').text(data.Name+' - MRN:'+data.MRN);
 	$('#mrn').val(data.MRN);
 	$('#episno').val(data.Episno);
+
+	if(data.dialysis_status == 'ABSENT'){
+		$('#absent_label').show();
+	}else{
+		$('#absent_label').hide();
+	}
 }
 
 function empty_dialysis(){
