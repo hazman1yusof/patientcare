@@ -654,7 +654,7 @@ class DialysisController extends Controller
                 $check_hd = $this->check_hd($request,$last_arrival_idno);
                 if($check_hd->auto == true){
 
-                    $chgmast = DB::table('hisdb.chgmast')
+                    $chgmast_hd = DB::table('hisdb.chgmast')
                         ->where('compcode','=',session('compcode'))
                         ->where('chgcode','=',$check_hd->chgcode)
                         ->first();
@@ -666,8 +666,8 @@ class DialysisController extends Controller
                         'trxtype' => 'OE',
                         'trxdate' => $request->trxdate,
                         'chgcode' => $check_hd->chgcode,
-                        'chggroup' => $chgmast->chggroup,
-                        'chgtype' => $chgmast->chgtype,
+                        'chggroup' => $chgmast_hd->chggroup,
+                        'chgtype' => $chgmast_hd->chgtype,
                         'billflag' => '0',
                         'quantity' => 1,
                         'isudept' => $isudept,
@@ -684,7 +684,7 @@ class DialysisController extends Controller
                 $check_mcr = $this->check_mcr($request,$chgmast->chgtype,$last_arrival_idno);
                 if($check_mcr->auto == true){
 
-                    $chgmast = DB::table('hisdb.chgmast')
+                    $chgmast_mcr = DB::table('hisdb.chgmast')
                         ->where('compcode','=',session('compcode'))
                         ->where('chgcode','=',$check_mcr->chgcode)
                         ->first();
@@ -696,8 +696,8 @@ class DialysisController extends Controller
                         'trxtype' => 'OE',
                         'trxdate' => $request->trxdate,
                         'chgcode' => $check_mcr->chgcode,
-                        'chggroup' => $chgmast->chggroup,
-                        'chgtype' => $chgmast->chgtype,
+                        'chggroup' => $chgmast_mcr->chggroup,
+                        'chgtype' => $chgmast_mcr->chgtype,
                         'billflag' => '0',
                         'quantity' => 1,
                         'isudept' => $isudept,
@@ -909,11 +909,13 @@ class DialysisController extends Controller
                                     ->where('lineno_',intval($dialysis_epis->max('lineno_')));
 
                     $mcrstat = $dialysis_epis_latest->first()->mcrstat;
+                    $mcrtype = $dialysis_epis_latest->first()->mcrtype; 
                     $hdstat = $dialysis_epis_latest->first()->hdstat;
                 }else{
                     $lineno_ = 1;
                     $mcrstat = 0;
                     $hdstat = 0;
+                    $mcrtype = null;
                 }
 
                 $array_insert = [
@@ -922,6 +924,7 @@ class DialysisController extends Controller
                     'episno'=>$request->episno,
                     'lineno_'=>$lineno_,
                     'mcrstat'=>$mcrstat,
+                    'mcrtype'=>$mcrtype,
                     'hdstat'=>$hdstat,
                     'arrival_date'=>$request->arrival_date,
                     'arrival_time'=>$request->arrival_time,
@@ -965,11 +968,13 @@ class DialysisController extends Controller
                                         ->where('lineno_',intval($dialysis_epis->max('lineno_')));
 
                         $mcrstat = $dialysis_epis_latest->first()->mcrstat;
+                        $mcrtype = $dialysis_epis_latest->first()->mcrtype; 
                         $hdstat = $dialysis_epis_latest->first()->hdstat;
                         $packagecode = $dialysis_epis_latest->first()->packagecode;
                     }else{
                         $lineno_ = 1;
                         $mcrstat = 0;
+                        $mcrtype = null;
                         $hdstat = 0;
                         $packagecode = 'EPO';
                     }
@@ -984,6 +989,7 @@ class DialysisController extends Controller
                         'arrival_date'=>Carbon::now("Asia/Kuala_Lumpur"),
                         'arrival_time'=>Carbon::now("Asia/Kuala_Lumpur"),
                         'packagecode'=>$packagecode,
+                        'mcrtype'=>$mcrtype,
                         'order'=>0,
                         'complete'=>0
                     ];
@@ -1219,8 +1225,8 @@ class DialysisController extends Controller
         $mcrtype = $dialysis_episode->mcrtype;
 
         if($mcrstat>0 && $chgtype=='PKG'){
-
             $dialysis_pkgdtl = DB::table('hisdb.dialysis_pkgdtl')
+                            ->where('compcode',session('compcode'))
                             ->where('pkgcode','MICERRA')
                             ->where('chgcode',$mcrtype);
 
