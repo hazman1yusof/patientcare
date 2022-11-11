@@ -271,7 +271,7 @@
     <script type="text/javascript" src="{{ asset('js/userfile.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/transaction.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/doctornote.js') }}?v=2"></script>
-    <script type="text/javascript" src="{{ asset('js/nursing.js') }}?v=2"></script>
+    <script type="text/javascript" src="{{ asset('js/nursing.js') }}?v=3"></script>
     <script type="text/javascript" src="{{ asset('js/doctornote_main.js') }}"></script>
 @endsection
 
