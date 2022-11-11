@@ -1543,7 +1543,13 @@ class NursingController extends Controller
             
             $pathealth = $pathealth->get();
 
+            $gottoday = false;
             foreach ($pathealth as $key2 => $value2) {
+
+                if(Carbon::createFromFormat('Y-m-d', $value2->arrival_date)->isToday()){
+                    $gottoday = true;
+                }
+
                 $date['date'] = Carbon::createFromFormat('Y-m-d', $value2->arrival_date)->format('d-m-Y');
                 $date['mrn'] = $value2->mrn;
                 $date['episno'] = $value2->episno;
@@ -1555,6 +1561,29 @@ class NursingController extends Controller
                 array_push($data,$date);
             }
 
+            if(!$gottoday){
+
+                $date['date'] = Carbon::now()->format('d-m-Y');
+                $date['mrn'] = $request->mrn;
+                $date['episno'] = $request->episno;
+                $date['adduser'] = 'system';
+                $date['adddate'] = Carbon::now()->format('d-m-Y');
+                $date['recordtime'] = Carbon::now()->format('H:i:s');
+                $date['type'] = 'episode';
+
+                array_unshift($data , $date);
+            }
+
+        }else{
+            $date['date'] = Carbon::now()->format('d-m-Y');
+            $date['mrn'] = $request->mrn;
+            $date['episno'] = $request->episno;
+            $date['adduser'] = 'system';
+            $date['adddate'] = Carbon::now()->format('d-m-Y');
+            $date['recordtime'] = Carbon::now()->format('H:i:s');
+            $date['type'] = 'episode';
+
+            array_push($data , $date);
         }
 
         $responce->data = $data;

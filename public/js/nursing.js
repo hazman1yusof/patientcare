@@ -446,10 +446,10 @@ $(document).ready(function () {
 					if(chk_got_same_data()){
 	    				button_state_ti('edit');
 					}else{
-	    				button_state_ti('add_edit');
+	    				button_state_ti('edit');
 					}
 	    		}else{
-	    			button_state_ti('add');
+	    			button_state_ti('edit');
 	    		}
 
 	    		if(data.triage_gen != undefined){
@@ -628,6 +628,14 @@ function autoinsert_rowdata(form,rowData){
 			}
 		}else{
 			input.val(value);
+		}
+
+		if(input.is('textarea')){
+			let textarea = document.getElementById(index);
+			if(textarea != null){
+				textarea.style.height = 'auto';
+				textarea.style.height = (textarea.scrollHeight) + 'px';
+			}
 		}
 	});
 }
@@ -907,8 +915,15 @@ function calc_jq_height_onchange(jqgrid){
 
 function loader_nursing(load){
 	if(load){
+		reset_textarea();
 		$('#loader_nursing').addClass('active');
 	}else{
 		$('#loader_nursing').removeClass('active');
 	}
+}
+
+function reset_textarea(){
+	$('textarea#medicalhistory,textarea#surgicalhistory,textarea#currentmedication,textarea#drugs_remarks,textarea#food_remarks,textarea#others_remarks,textarea#br_breathingdesc,textarea#br_coughdesc,textarea#br_smokedesc,textarea#ed_eatdrinkdesc').each(function () {
+		this.setAttribute('style', 'height:' + (38) + 'px;min-height:'+ (38) +'px;overflow-y:hidden;');
+	})
 }
