@@ -1169,7 +1169,39 @@ class DialysisController extends Controller
 
         }else{
             //kalu xde order xboleh add dialysis daily
-            $responce->mode = 'disableAll';
+            $ada_order = DB::table('hisdb.chargetrx')
+                            ->where('compcode',session('compcode'))
+                            ->where('mrn',$request->mrn)
+                            ->where('episno',$request->episno)
+                            ->whereDate('trxdate',Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d'));
+
+            if($ada_order->exists()){
+
+                $this->updateorder($request,$request->dialysis_episode_idno);
+
+                $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                            ->where('idno',$request->dialysis_episode_idno)->first();
+
+                if($dialysis_episode->status == 'ABSENT'){
+                    $responce->mode = 'disableAll';
+                }else{
+                    //check dkt dialysis ada data ke tak hari tu
+                    $dialysis = DB::table('hisdb.dialysis')
+                                    ->where('arrivalno',$request->dialysis_episode_idno);
+                                    
+                    if($dialysis->exists()){
+                        //populate data hari tu
+                        $responce->mode = 'edit';
+                        $responce->data = $dialysis->first();
+
+                    }else{
+                        //add new dialysis daily
+                        $responce->mode = 'add';
+                    }
+                }
+            }else{
+                $responce->mode = 'disableAll';
+            }
         }
 
 
@@ -1179,8 +1211,7 @@ class DialysisController extends Controller
     public function updateorder(Request $request,$last_arrival_idno){
         //update dialysis_episode charges
         $dialysis_episode = DB::table('hisdb.dialysis_episode')
-                                ->where('idno',$last_arrival_idno)
-                                ->where('order',0);
+                                ->where('idno',$last_arrival_idno);
 
         if($dialysis_episode->exists()){
             DB::table('hisdb.dialysis_episode')
