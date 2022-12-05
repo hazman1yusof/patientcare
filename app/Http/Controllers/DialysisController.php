@@ -621,7 +621,19 @@ class DialysisController extends Controller
                                 ->where('chgtype','=','PKG');
 
                     if(!$chgtrx->exists()){
-                        throw new \Exception('No dialysis for date: '.Carbon::parse($request->arrival_date)->format('d-m-Y').', Please add dialysis first!', 500);
+
+                        $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                ->where('compcode','=',session('compcode'))
+                                ->where('mrn','=',$request->mrn)
+                                ->where('episno','=',$request->episno)
+                                ->where('arrival_date','=', $request->trxdate)
+                                ->where('status','=','ABSENT');
+
+                        if(!$dialysis_episode->exists()){
+                            throw new \Exception('No dialysis for date: '.Carbon::parse($request->arrival_date)->format('d-m-Y').', Please add dialysis first!', 500);
+                        }
+
+
                     }
                 }
 
@@ -843,6 +855,7 @@ class DialysisController extends Controller
         
             $responce = new stdClass();
             $responce->success = 'success';
+            $responce->alert = $this->chk_alert($request);
             echo json_encode($responce);
 
             DB::commit();
@@ -2053,6 +2066,48 @@ class DialysisController extends Controller
             ]);
 
         return $latest_idno;
+    }
+
+    public function chk_alert(Request $request){
+        $responce = new stdClass();
+
+        $patmast = DB::table('hisdb.pat_mast')
+                            ->where('compcode',session('compcode'))
+                            ->where('MRN',$request->mrn);
+
+        if($patmast->exists()){
+            $totallimit = $patmast->first()->totallimit;
+            if(empty($totallimit)){
+                $responce->return = 'none';
+                return $responce;
+            }
+        }else{
+            $responce->return = 'none';
+            return $responce;
+        }
+
+        $sumamt = DB::table('hisdb.chargetrx AS ct')
+                        ->where('ct.compcode',session('compcode'))
+                        ->where('ct.mrn',$request->mrn)
+                        ->where('ct.episno',$request->episno)
+                        ->leftJoin('hisdb.chgprice AS cp', function($join) use ($request){
+                            $join = $join->on('ct.chgcode', '=', 'cp.chgcode')
+                                            ->where('cp.compcode','=',session('compcode'));
+                        })
+                        ->sum('cp.amt1');
+        
+
+        if(floatval($sumamt)>floatval($totallimit)){
+            $responce->return = 'yes';
+            $responce->limit = $totallimit;
+            $responce->sum = $sumamt;
+            return $responce;
+        }else{
+            $responce->return = 'none';
+            $responce->limit = $totallimit;
+            $responce->sum = $sumamt;
+            return $responce;
+        }
     }
 
 

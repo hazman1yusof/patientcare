@@ -156,6 +156,24 @@ $(document).ready(function () {
         },
         aftersavefunc: function (rowid, response, options) {
         	curpage_tran = null;
+        	let retjson = JSON.parse(response.responseText);
+        	if(retjson.alert.return == 'yes'){
+        		$.confirm({
+        			closeIcon: true,
+				    title: 'Patient Limit Exceed',
+				    content: 'Total Limit: '+parseFloat(retjson.alert.limit).toFixed(2)+'<br>'+'Total Amount: '+parseFloat(retjson.alert.sum).toFixed(2),
+				    type: 'red',
+				    typeAnimated: true,
+				    buttons: {
+				        OK: {
+				            text: 'OK',
+				            btnClass: 'btn-red',
+				            action: function(){
+				            }
+				        }
+				    }
+				});
+        	}
 			refreshGrid("#jqGrid_trans", urlParam_trans);
         }, 
         errorfunc: function(rowid,response){
