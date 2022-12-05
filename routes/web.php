@@ -85,7 +85,7 @@ Route::get('/webservice/patmast','WebserviceController@patmast');
 Route::get('/webservice/episode','WebserviceController@episode');
 Route::get('/webservice/ticket','WebserviceController@ticket');
 Route::get('/webservice/login','WebserviceController@login');
-// Route::get('/webservice/auto_episode','WebserviceController@auto_episode');
+Route::get('/webservice/auto_episode','WebserviceController@auto_episode');
 
 //util dr msoftweb
 Route::get('/util/get_value_default','defaultController@get_value_default')->name('util_val');

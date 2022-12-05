@@ -685,7 +685,7 @@ class WebserviceController extends Controller
 
         $today = Carbon::now(); //returns current day
 
-        // if($today->day != 1){return 0;}
+        if($today->day != 1){dump('not 1st day of month');return 0;}
         
         $episode = DB::table('hisdb.episode')
                         ->where('compcode','13A')
