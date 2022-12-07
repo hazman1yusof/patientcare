@@ -23,6 +23,7 @@ $(document).ready(function () {
 			curpage_tran = null;
 			urlParam_trans.mrn = $('#mrn').val();
 			urlParam_trans.epismonth = moment($('#month_year_calendar').calendar('get date')).format('M');
+			urlParam_trans.episyear = moment($('#month_year_calendar').calendar('get date')).format('YYYY');
 			urlParam_trans.episno = $('#episno').val();
 			refreshGrid("#jqGrid_trans", urlParam_trans);
 			hide_tran_button(false);
