@@ -137,9 +137,10 @@ class enquiryController extends defaultController
                             ->where('pat_mast.compcode','=',session('compcode'))
                             ->join('hisdb.episode', function($join) use ($request){
                                 $join = $join->on('episode.mrn', '=', 'pat_mast.MRN')
-                                            ->where('episode.regdept','=',session('dept'))
+                                            // ->where('episode.regdept','=',session('dept'))
                                             ->where('episode.compcode','=',session('compcode'))
-                                            ->whereMonth('episode.reg_date','=',$request->epismonth);
+                                            ->whereMonth('episode.reg_date','=',$request->epismonth)
+                                            ->whereYear('episode.reg_date','=',$request->episyear);
                             });
 
                             $table_patm = $table_patm->leftJoin('hisdb.dialysis_episode', function($join) use ($request){
