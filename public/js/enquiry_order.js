@@ -191,6 +191,7 @@ $(document).ready(function () {
 					mrn: selrow.MRN,
 		    		episno: selrow.Episno,
 		    		isudept: 'CLINIC',
+		    		mode: 'enquiry',
 				});
 
 

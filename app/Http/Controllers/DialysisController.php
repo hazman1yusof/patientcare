@@ -553,6 +553,12 @@ class DialysisController extends Controller
 
             }else if($request->oper == 'add'){
 
+                if(isset($request->mode)){
+                    $overpass_hd=true;
+                }else{
+                    $overpass_hd=false;
+                }
+
                 $table = DB::table('hisdb.chargetrx');
 
                 $chgmast = DB::table('hisdb.chgmast')
@@ -610,7 +616,7 @@ class DialysisController extends Controller
                     if($chgtrx->exists()){
                         throw new \Exception('Patient already have dialysis for date: '.Carbon::parse($request->arrival_date)->format('d-m-Y'), 500);
                     }
-                }else if($chgmast->chggroup == 'EP'){
+                }else if($chgmast->chggroup == 'EP' && !$overpass_hd){
 
                     $chgtrx = DB::table('hisdb.chargetrx')
                                 ->where('mrn','=',$request->mrn)
