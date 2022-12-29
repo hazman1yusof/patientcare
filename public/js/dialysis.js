@@ -532,7 +532,7 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#5_f_m').children('td').eq(i+1).text(e['5_f']);
 			$('table#dia_monthly tr#user_5_m').children('td').eq(i+1).text(e['user_5']);
 
-			$('table#dia_monthly tr#posthd_bp_m').children('td').eq(i+1).text(e.posthd_bp);
+			$('table#dia_monthly tr#posthd_bp_m').children('td').eq(i+1).text(e.posthd_systolic+' / '+e.posthd_diastolic);
 			$('table#dia_monthly tr#posthd_temperatue_m').children('td').eq(i+1).text(e.posthd_temperatue);
 			$('table#dia_monthly tr#posthd_pulse_m').children('td').eq(i+1).text(e.posthd_pulse);
 			$('table#dia_monthly tr#posthd_respiratory_m').children('td').eq(i+1).text(e.posthd_respiratory);

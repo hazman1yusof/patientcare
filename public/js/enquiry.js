@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+	$('#month_year_calendar').calendar({
+    	initialDate: new Date(),
+   		type: 'month'
+ 	});
+
 	$("#tab_weekly").on("show.bs.collapse", function(){
 		closealltab("#tab_weekly");
 	});
@@ -65,7 +70,7 @@ $(document).ready(function () {
 		cleartabledata('monthly');
 		var param = {
 			action: 'get_dia_monthly',
-			date:$("#selectmonth").val(),
+			date:moment($('#month_year_calendar').calendar('get date')).format('YYYY-MM'),
 			mrn:$("#mrn").val(),
 			episno:$("#episno").val()
 		}
@@ -184,7 +189,7 @@ function populate_data(type,data){
 			$('table#dia_yearly tr#5_f_y').children('td').eq(i+1).text(e['5_f']);
 			$('table#dia_yearly tr#user_5_y').children('td').eq(i+1).text(e['user_5']);
 
-			$('table#dia_yearly tr#posthd_bp_y').children('td').eq(i+1).text(e.posthd_bp);
+			$('table#dia_yearly tr#posthd_bp_y').children('td').eq(i+1).text(e.posthd_systolic+' / '+e.posthd_diastolic);
 			$('table#dia_yearly tr#posthd_temperatue_y').children('td').eq(i+1).text(e.posthd_temperatue);
 			$('table#dia_yearly tr#posthd_pulse_y').children('td').eq(i+1).text(e.posthd_pulse);
 			$('table#dia_yearly tr#posthd_respiratory_y').children('td').eq(i+1).text(e.posthd_respiratory);
@@ -283,7 +288,7 @@ function populate_data(type,data){
 			$('table#dia_monthly tr#5_f_m').children('td').eq(i+1).text(e['5_f']);
 			$('table#dia_monthly tr#user_5_m').children('td').eq(i+1).text(e['user_5']);
 
-			$('table#dia_monthly tr#posthd_bp_m').children('td').eq(i+1).text(e.posthd_bp);
+			$('table#dia_monthly tr#posthd_bp_m').children('td').eq(i+1).text(e.posthd_systolic+' / '+e.posthd_diastolic);
 			$('table#dia_monthly tr#posthd_temperatue_m').children('td').eq(i+1).text(e.posthd_temperatue);
 			$('table#dia_monthly tr#posthd_pulse_m').children('td').eq(i+1).text(e.posthd_pulse);
 			$('table#dia_monthly tr#posthd_respiratory_m').children('td').eq(i+1).text(e.posthd_respiratory);
