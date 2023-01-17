@@ -77,6 +77,8 @@ class SessionController extends Controller
                     return redirect('/dialysis');
                 }else if(strtoupper(Auth::user()->groupid) == 'REGISTER'){
                     return redirect('/dialysis');
+                }else if(strtoupper(Auth::user()->groupid) == 'PATHLAB'){
+                    return redirect('/labresult');
                 }else{
                     return redirect('/dialysis');
                 }

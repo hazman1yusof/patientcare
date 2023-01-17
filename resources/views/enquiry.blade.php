@@ -92,6 +92,25 @@
         </div>
     </div>
 
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="tab_absent_panel">
+        <div class="panel-heading clearfix collapsed mainpanel" id="toggle_absent" data-toggle="collapse" data-target="#tab_absent">
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div>
+            <h5><strong>Absent Patient Record</strong>&nbsp;&nbsp;
+                <span class="metal"></span>
+            </h5>
+        </div> 
+        </div>
+
+        <div id="tab_absent" class="panel-collapse collapse">
+            <div class="panel-body paneldiv" style="position: relative;">
+                @include('absent_record')
+            </div>
+        </div>
+    </div>
+
     <!-- <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="tab_userlog_panel">
         <div class="panel-heading clearfix collapsed mainpanel" id="toggle_userlog" data-toggle="collapse" data-target="#tab_userlog">
 
@@ -116,10 +135,9 @@
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="{{ asset('assets/DataTables/datatables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/trirand/css/trirand/ui.jqgrid-bootstrap.css') }}" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.semanticui.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/se/dt-1.13.1/fh-3.3.1/r-2.4.0/datatables.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.2.1/css/font-awesome.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -133,19 +151,20 @@
 @endsection
 
 @section('js')
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <script type="text/ecmascript" src="{{ asset('assets/trirand/i18n/grid.locale-en.js') }}"></script>
     <script type="text/ecmascript" src="{{ asset('assets/trirand/jquery.jqGrid.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('assets/DataTables/datatables.min.js') }}"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
+    <script type="text/javascript" src="{{ asset('assets/printThis.js') }}"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/se/dt-1.13.1/fh-3.3.1/r-2.4.0/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.semanticui.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script type="text/ecmascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="{{ asset('js/enquiry_main.js') }}?v=1"></script>
     <script type="text/javascript" src="{{ asset('js/enquiry.js') }}?v=3"></script>
+    <script type="text/javascript" src="{{ asset('js/absent.js') }}?v=1"></script>
 @endsection
 
 

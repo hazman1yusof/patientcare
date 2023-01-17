@@ -51,14 +51,9 @@ class PreviewController extends Controller
         return view('previewvideo',compact('video'));
     }
 
-    
-
     public function uploaddata(Request $request)
-    {
-        
+    {   
         $rows = $table->merge($user);
-
-
 
         $responce = new stdClass();
         $responce->rows = $rows;
@@ -124,7 +119,7 @@ class PreviewController extends Controller
         }else{
             $filename = $request->file('file')->getClientOriginalName();
         }
-        $file_path = $request->file('file')->store('pat_enq', 'webhosting_uploads');
+        $file_path = $request->file('file')->store('pat_enq', 'public_uploads');
         DB::table('hisdb.patresult')
             ->insert([
                 'compcode' => '-',

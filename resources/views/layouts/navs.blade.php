@@ -11,6 +11,9 @@
                     @endforeach
                 </div>
             </div>
+
+        @elseif (strtoupper(Auth::user()->groupid) == 'PATHLAB')
+            <div class="item" style="color:white;">PATHLAB</div>
         @else
             <div class="item" style="color:white;">{{ session('dept_desc') }}</div>
         @endif
@@ -126,6 +129,8 @@
 
         <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
 
+    @elseif (strtoupper(Auth::user()->groupid) == 'PATHLAB')
+        <a class="item {{(Request::is('labresult') ? 'active' : '')}}" href="{{ url('/labresult')}}"><i style="float: left" class="folder open inverted big icon link"></i>Lab Result Upload</a>
 
     @else
         <a class="item {{(Request::is('mainlanding') ? 'active' : '')}}" href="{{url('/mainlanding')}}"><i style="float: left" class="users inverted icon big link"></i>Patient List</a>

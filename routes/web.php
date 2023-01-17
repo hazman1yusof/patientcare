@@ -166,3 +166,7 @@ Route::get('/test','testController@patmast_limit');
 Route::get('/enquiry','enquiryController@show');
 Route::get('/enquiry_order','enquiryController@show_order');
 Route::get('/enquiry/table','enquiryController@table');
+
+Route::get('/labresult','LabresultController@show');
+Route::get('/labresult/table','LabresultController@table');
+Route::post('/labresult','LabresultController@form');

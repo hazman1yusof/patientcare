@@ -142,6 +142,10 @@ class DialysisController extends Controller
             case 'get_dia_daily':
                 return $this->get_dia_daily($request);
                 break;
+
+            case 'get_absent':
+                return $this->get_absent($request);
+                break;
         }
         
     }
@@ -287,6 +291,32 @@ class DialysisController extends Controller
             $post = DB::table('hisdb.dialysis')
                     ->where('idno','=',$request->idno)
                     ->first();
+        }
+
+        $responce = new stdClass();
+        $responce->data = $post;
+        return json_encode($responce);
+    }
+
+    public function get_absent(Request $request){
+        $post = [];
+        if(!empty($request->date)){
+            $carbon = new Carbon($request->date);
+            $post = DB::table('hisdb.dialysis_episode as de')
+                    ->select('de.idno','de.mrn','de.episno','de.arrival_date','de.status','p.name','e.regdept')
+                    ->leftJoin('hisdb.pat_mast as p', function($join) use ($request){
+                        $join = $join->on('p.mrn', '=', 'de.mrn')
+                                        ->where('p.compcode','=',session('compcode'));
+                    })->leftJoin('hisdb.episode as e', function($join) use ($request){
+                        $join = $join->on('e.mrn', '=', 'de.mrn')
+                                        ->on('e.episno', '=', 'de.episno')
+                                        ->where('e.compcode','=',session('compcode'));
+                    })
+                    ->whereYear('de.arrival_date', '=', $carbon->year)
+                    ->whereMonth('de.arrival_date', '=', $carbon->month)
+                    ->where('de.status','=','ABSENT')
+                    ->where('de.compcode','=',session('compcode'))
+                    ->get();
         }
 
         $responce = new stdClass();
