@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\defaultController;
 use stdClass;
 use App\User;
 use DB;
@@ -11,7 +12,7 @@ use Carbon\Carbon;
 use Hash;
 use Session;
 
-class WebserviceController extends Controller
+class WebserviceController extends defaultController
 {
     public function __construct()
     {
@@ -692,25 +693,61 @@ class WebserviceController extends Controller
     }
 
     public function query(){
-        $episode = DB::table('hisdb.episode')
-                            ->where('compcode','13A')
-                            ->whereMonth('reg_date','=','1');
+        DB::beginTransaction();
 
-        $episode = $episode->get();
+        try {
 
-        foreach ($episode as $key => $value) {
-            $count = DB::table('hisdb.chargetrx')
+            $start = new Carbon('first day of last month');
+            $end = Carbon::now(); 
+
+            $episode = DB::table('hisdb.episode')
                                 ->where('compcode','13A')
-                                ->where('mrn',$value->mrn)
-                                ->where('episno',$value->episno)
-                                ->where('chgcode','EP010002')
-                                ->where('recstatus','1')
-                                ->count();
+                                ->whereDate('reg_date','>=',$start->format('Y-m-d'))
+                                ->whereDate('reg_date','<=',$end->format('Y-m-d'))
+                                ->get();
 
-            if($count>1){
-                dump($value->mrn.'~'.$value->episno.' = '.$count);
-            }
+            foreach ($episode as $key => $value) {
+                $count = DB::table('hisdb.chargetrx')
+                                    ->where('compcode','13A')
+                                    ->where('mrn',$value->mrn)
+                                    ->where('episno',$value->episno)
+                                    ->where('chgcode','EP010002')
+                                    ->where('recstatus','1')
+                                    ->count();DB::commit();
 
+                if($count>1){
+                    $first_occ = DB::table('hisdb.chargetrx')
+                                            ->where('compcode','13A')
+                                            ->where('mrn',$value->mrn)
+                                            ->where('episno',$value->episno)
+                                            ->where('chgcode','EP010002')
+                                            ->where('recstatus','1')
+                                            ->first();
+                        
+                    dump('For mrn: '.$value->mrn.' ~ episno: '.$value->episno.' ~ only keep id: '.$first_occ->id);
+
+                    DB::table('hisdb.chargetrx')
+                        ->where('compcode','13A')
+                        ->where('mrn',$value->mrn)
+                        ->where('episno',$value->episno)
+                        ->where('chgcode','EP010002')
+                        ->where('recstatus','1')
+                        ->where('id','!=',$first_occ->id)
+                        ->update([
+                            'recstatus' => '0',
+                            'lastuser' => 'system/delete',
+                            'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
+                        ]);
+
+                }
+
+            } 
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            dd($e);
+            // return response('Error'.$e, 500);
         }
 
     }
