@@ -724,7 +724,7 @@ class WebserviceController extends defaultController
                                             ->where('recstatus','1')
                                             ->first();
                         
-                    dump('For mrn: '.$value->mrn.' ~ episno: '.$value->episno.' ~ only keep id: '.$first_occ->id);
+                    echo '('.Carbon::now().') For mrn: '.$value->mrn.' ~ episno: '.$value->episno.' ~ only keep id: '.$first_occ->id;
 
                     DB::table('hisdb.chargetrx')
                         ->where('compcode','13A')
