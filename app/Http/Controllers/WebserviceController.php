@@ -17,6 +17,16 @@ class WebserviceController extends Controller
     {
 
     }
+
+    public function table(Request $request)
+    {   
+        switch($request->action){
+            case 'query':          // for current
+                return $this->query($request);
+            default:
+                return 'error happen..';
+        }
+    }
     
     public function localpreview(Request $request)
     {   
@@ -679,6 +689,30 @@ class WebserviceController extends Controller
             dd($e);
             // return response('Error'.$e, 500);
         }
+    }
+
+    public function query(){
+        $episode = DB::table('hisdb.episode')
+                            ->where('compcode','13A')
+                            ->whereMonth('reg_date','=','1');
+
+        $episode = $episode->get();
+
+        foreach ($episode as $key => $value) {
+            $count = DB::table('hisdb.chargetrx')
+                                ->where('compcode','13A')
+                                ->where('mrn',$value->mrn)
+                                ->where('episno',$value->episno)
+                                ->where('chgcode','EP010002')
+                                ->where('recstatus','1')
+                                ->count();
+
+            if($count>1){
+                dump($value->mrn.'~'.$value->episno.' = '.$count);
+            }
+
+        }
+
     }
 
     public function auto_episode(){
