@@ -23,7 +23,9 @@ class WebserviceController extends defaultController
     {   
         switch($request->action){
             case 'query':          // for current
-                return $this->query($request);
+                return $this->query($request);break;
+            case 'query':          // for current
+                return $this->auto_labresult($request);break;
             default:
                 return 'error happen..';
         }
@@ -855,6 +857,135 @@ class WebserviceController extends defaultController
         }
 
         
+    }
+
+    public function auto_labresult(){
+        DB::beginTransaction();
+
+        try {
+
+            $labresult = DB::table('hisdb.labresult')
+                        ->where('compcode','13A')
+                        ->where('upload','0');
+
+            if($labresult->exists()){
+                $labresult = $labresult->get();
+
+                foreach ($labresult as $key => $value) {
+                    $this->labresult_store($value);
+
+
+                    DB::table('hisdb.labresult')
+                        ->where('auditno',$value->auditno)
+                        ->update([
+                            'upload' => '1'
+                        ]);
+                
+                }
+
+            }
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            dd($e);
+        }
+    }
+
+    public function labresult_store($obj){
+        $dialysis_path = 'D:\laragon\www\patientcare\public\uploads';
+
+        $file = fopen($dialysis_path.'/'.$obj->attachmentfile, "r");
+
+        $lineno = 0;
+        while(!feof($file)) {
+            $line = fgets($file). "<br>";
+            if($lineno > 1){
+                $lines = explode(",",$line);
+                if(count($lines) != 73){
+                    continue;
+                }
+                DB::table('hisdb.blood_data')
+                            ->insert([
+                                'no' => trim(trim($lines[0],'"')),
+                                'clientid' => trim(trim($lines[1],'"')),
+                                'ourlabno' => trim(trim($lines[2],'"')),
+                                'name' => trim(trim($lines[3],'"')),
+                                'icno' => trim(trim($lines[4],'"')),
+                                'age' => trim(trim($lines[5],'"')),
+                                'sex' => trim(trim($lines[6],'"')),
+                                'sampledate' => trim(trim($lines[7],'"')),
+                                'esr' => trim(trim($lines[8],'"')),
+                                'trbc' => trim(trim($lines[9],'"')),
+                                'hb' => trim(trim($lines[10],'"')),
+                                'pcv' => trim(trim($lines[11],'"')),
+                                'mcv' => trim(trim($lines[12],'"')),
+                                'mch' => trim(trim($lines[13],'"')),
+                                'mchc' => trim(trim($lines[14],'"')),
+                                'pc' => trim(trim($lines[15],'"')),
+                                'twbc' => trim(trim($lines[16],'"')),
+                                'dc' => trim(trim($lines[17],'"')),
+                                'preurea' => trim(trim($lines[18],'"')),
+                                'posturea' => trim(trim($lines[19],'"')),
+                                'creatinine' => trim(trim($lines[20],'"')),
+                                'calcium' => trim(trim($lines[21],'"')),
+                                'inorganicphosphate' => trim(trim($lines[22],'"')),
+                                'uricacid' => trim(trim($lines[23],'"')),
+                                'sodium' => trim(trim($lines[24],'"')),
+                                'potassium' => trim(trim($lines[25],'"')),
+                                'chloride' => trim(trim($lines[26],'"')),
+                                'glucose' => trim(trim($lines[27],'"')),
+                                'hc03' => trim(trim($lines[28],'"')),
+                                'totalcholesteral' => trim(trim($lines[29],'"')),
+                                'hdlcholesteral' => trim(trim($lines[30],'"')),
+                                'ldlcholesteral' => trim(trim($lines[31],'"')),
+                                'triglycerides' => trim(trim($lines[32],'"')),
+                                'hdlratio' => trim(trim($lines[33],'"')),
+                                'totalprotein' => trim(trim($lines[34],'"')),
+                                'albumin' => trim(trim($lines[35],'"')),
+                                'globulin' => trim(trim($lines[36],'"')),
+                                'albuminglobulinratio' => trim(trim($lines[37],'"')),
+                                'totalbilirubin' => trim(trim($lines[38],'"')),
+                                'alkalinephosphatase' => trim(trim($lines[39],'"')),
+                                'ast' => trim(trim($lines[40],'"')),
+                                'alt' => trim(trim($lines[41],'"')),
+                                'ggt' => trim(trim($lines[42],'"')),
+                                'afp' => trim(trim($lines[43],'"')),
+                                'vdrl' => trim(trim($lines[44],'"')),
+                                'hbsantibody' => trim(trim($lines[45],'"')),
+                                'hbsantigen' => trim(trim($lines[46],'"')),
+                                'hiv12' => trim(trim($lines[47],'"')),
+                                'hepatitiscantibody' => trim(trim($lines[48],'"')),
+                                'pthintact' => trim(trim($lines[49],'"')),
+                                'hba1c' => trim(trim($lines[50],'"')),
+                                'imm' => trim(trim($lines[51],'"')),
+                                'hbvdnarealtimepcr' => trim(trim($lines[52],'"')),
+                                'hepatitisbcoreantibody' => trim(trim($lines[53],'"')),
+                                'tsh' => trim(trim($lines[54],'"')),
+                                'freet4' => trim(trim($lines[55],'"')),
+                                'freet3' => trim(trim($lines[56],'"')),
+                                'neutrophil' => trim(trim($lines[57],'"')),
+                                'lymphocyte' => trim(trim($lines[58],'"')),
+                                'monocyte' => trim(trim($lines[59],'"')),
+                                'eosinophil' => trim(trim($lines[60],'"')),
+                                'basophil' => trim(trim($lines[61],'"')),
+                                'atypicallymphocyte' => trim(trim($lines[62],'"')),
+                                'tibc' => trim(trim($lines[63],'"')),
+                                'ferritin' => trim(trim($lines[64],'"')),
+                                'serumiron' => trim(trim($lines[65],'"')),
+                                'patientname' => trim(trim($lines[66],'"')),
+                                'controltime' => trim(trim($lines[67],'"')),
+                                'inr' => trim(trim($lines[68],'"')),
+                                'bloodgroup' => trim(trim($lines[69],'"')),
+                                'tppa' => trim(trim($lines[70],'"')),
+                                'transferrinsaturation' => trim(trim($lines[71],'"')),
+                                'vitaminb12' => trim(trim($lines[72],'"<br>'))
+                            ]);
+            }
+            $lineno++;
+        }
+
+        fclose($file);
     }
 
     
