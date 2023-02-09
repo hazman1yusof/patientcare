@@ -24,7 +24,7 @@ class WebserviceController extends defaultController
         switch($request->action){
             case 'query':          // for current
                 return $this->query($request);break;
-            case 'query':          // for current
+            case 'auto_labresult':          // for current
                 return $this->auto_labresult($request);break;
             default:
                 return 'error happen..';
@@ -893,7 +893,7 @@ class WebserviceController extends defaultController
     }
 
     public function labresult_store($obj){
-        $dialysis_path = 'D:\laragon\www\patientcare\public\uploads';
+        $dialysis_path = 'C:\laragon\www\dialysis\uploads';
 
         $file = fopen($dialysis_path.'/'.$obj->attachmentfile, "r");
 
