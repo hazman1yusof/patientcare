@@ -1115,6 +1115,12 @@ function dropdown_dialysisb4(datab4){
 				$('#visit_date').val($('#sel_date').val());
 				populate_other_data();
 			}
+			
+			urlParam_AddNotesDialysis.mrn=$("#mrn").val();
+			urlParam_AddNotesDialysis.episno=$("#episno").val();
+			urlParam_AddNotesDialysis.arrivalno=$('#arrivalno').val();
+
+			refreshGrid("#jqGridAddNotesDialysis", urlParam_AddNotesDialysis);
 		}
 	});
 }
@@ -1134,6 +1140,12 @@ function get_dialysis_daily(idno){
 		autoinsert_rowdata_dialysis('form#daily_form_completed',data.data);
 		$('#visit_date').val(data.data.visit_date);
 		load_patmedication(data.data.mrn,data.data.episno,data.data.visit_date);
+
+		urlParam_AddNotesDialysis.mrn=$("#mrn").val();
+		urlParam_AddNotesDialysis.episno=$("#episno").val();
+		urlParam_AddNotesDialysis.arrivalno=$('#arrivalno').val();
+
+		refreshGrid("#jqGridAddNotesDialysis", urlParam_AddNotesDialysis);
     }).fail(function(data){
 		loader_daily(false);
         alert('error in get data');
