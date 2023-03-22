@@ -70,6 +70,40 @@ $(document).ready(function () {
 
 	stop_scroll_on();
 
+	$('#print_rec_m').click(function(){
+		var selrowdata = selrowData('#jqGrid');
+		var header = `
+			<table style='margin:10px'>
+				<tr>
+					<td style='padding:0px 25px'><b>Patient Name:</b> `+selrowdata.Name+`</td>
+					<td style='padding:0px 25px'><b>I/C:</b> `+selrowdata.Newic+`</td>
+				</tr>
+				<tr>
+					<td style='padding:0px 25px'><b>Payer:</b> `+selrowdata.payer+`</td>
+				</tr>
+			</table>`
+		$('table#dia_monthly').printThis({
+			header: header
+		});
+	});
+
+	$('#print_rec_w').click(function(){
+		var selrowdata = selrowData('#jqGrid');
+		var header = `
+			<table style='margin:10px'>
+				<tr>
+					<td style='padding:0px 25px'><b>Patient Name:</b> `+selrowdata.Name+`</td>
+					<td style='padding:0px 25px'><b>I/C:</b> `+selrowdata.Newic+`</td>
+				</tr>
+				<tr>
+					<td style='padding:0px 25px'><b>Payer:</b> `+selrowdata.payer+`</td>
+				</tr>
+			</table>`
+		$('table#dia_weekly').printThis({
+			header: header
+		});
+	});
+
 });
 
 function populatenquiry(data){
