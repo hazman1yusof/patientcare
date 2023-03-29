@@ -822,7 +822,7 @@ class DialysisController extends Controller
                         $hdstillgot = DB::table('hisdb.chargetrx')
                                         ->where('mrn','=',$request->mrn)
                                         ->where('episno','=',$request->episno)
-                                        ->where('chgcode',$chargetrx->chgcode)
+                                        ->whereIn('chgcode',['HD020001','HD010001','HD020002'])
                                         ->where('recstatus',1);
 
                         if(!$hdstillgot->exists()){
@@ -1271,21 +1271,30 @@ class DialysisController extends Controller
                             ->where('chgcode',$request->chg_desc);
 
         if($dialysis_pkgdtl->exists()){
+            $got_auto = DB::table('hisdb.chargetrx')
+                            ->where('mrn','=',$request->mrn)
+                            ->where('episno','=',$request->episno)
+                            ->where('chgcode','EP010002')
+                            ->where('recstatus',1);
 
-            if($dialysis_episode->hdstat == 0){
-
-                DB::table('hisdb.dialysis_episode')
-                    ->where('idno',$last_arrival_idno)
-                    ->update([
-                        'hdstat' => 1
-                    ]);
-
+            if(!$got_auto->exists()){
                 $responce->auto = true;
                 $responce->chgcode = $dialysis_pkgdtl->first()->epocode;
-
-                return $responce;
-
             }
+            // if($dialysis_episode->hdstat == 0){
+
+            //     DB::table('hisdb.dialysis_episode')
+            //         ->where('idno',$last_arrival_idno)
+            //         ->update([
+            //             'hdstat' => 1
+            //         ]);
+
+            //     $responce->auto = true;
+            //     $responce->chgcode = $dialysis_pkgdtl->first()->epocode;
+
+            //     return $responce;
+
+            // }
         }
 
         $responce->auto = false;
