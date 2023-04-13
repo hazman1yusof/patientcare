@@ -909,6 +909,7 @@ class WebserviceController extends defaultController
 
                 DB::table('hisdb.blood_data')
                             ->insert([
+                                'auditno' => $obj->auditno,
                                 'no' => trim(trim($lines[0],'"')),
                                 'clientid' => trim(trim($lines[1],'"')),
                                 'ourlabno' => trim(trim($lines[2],'"')),
