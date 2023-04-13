@@ -2076,7 +2076,8 @@ class DialysisController extends Controller
         $blood_data = DB::table('hisdb.blood_data')
                             ->where('icno',$request->newic)
                             ->whereYear('sampledate', '=', $carbon->year)
-                            ->whereMonth('sampledate', '=', $carbon->month);
+                            ->whereMonth('sampledate', '=', $carbon->month)
+                            ->orderBy('sampledate','desc');
 
 
         $paginate = $blood_data->paginate($request->rows);

@@ -6,6 +6,7 @@ $(document).ready(function () {
 
 	$("#tab_bloodres").on("shown.bs.collapse", function(){
 		closealltab("#tab_bloodres");
+		clear_bloodres();
 		SmoothScrollTo('#tab_bloodres', 300,undefined,90);
 	});
 

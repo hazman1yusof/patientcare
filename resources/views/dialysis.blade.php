@@ -193,7 +193,7 @@
     <script type="text/javascript" src="{{ asset('assets/printThis.js') }}"></script>
 	<script type="text/javascript" src="{{ asset('js/dialysis_main.js') }}?v=5"></script>
     <script type="text/javascript" src="{{ asset('js/dialysis.js') }}?v=11"></script>
-    <script type="text/javascript" src="{{ asset('js/blood_test_result.js') }}?v=2"></script>
+    <script type="text/javascript" src="{{ asset('js/blood_test_result.js') }}?v=3"></script>
     <script type="text/javascript" src="{{ asset('js/patmedication_dialysis.js') }}?v=3"></script>
     <script type="text/javascript" src="{{ asset('js/transaction_dialysis.js') }}?v=4"></script>
 @endsection

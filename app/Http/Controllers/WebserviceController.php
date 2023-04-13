@@ -893,6 +893,7 @@ class WebserviceController extends defaultController
     }
 
     public function labresult_store($obj){
+        // $dialysis_path = 'D:\laragon\www\patientcare\public\uploads';
         $dialysis_path = 'C:\laragon\www\dialysis\uploads';
 
         $file = fopen($dialysis_path.'/'.$obj->attachmentfile, "r");
@@ -905,6 +906,7 @@ class WebserviceController extends defaultController
                 if(count($lines) != 73){
                     continue;
                 }
+
                 DB::table('hisdb.blood_data')
                             ->insert([
                                 'no' => trim(trim($lines[0],'"')),
@@ -914,7 +916,7 @@ class WebserviceController extends defaultController
                                 'icno' => trim(trim($lines[4],'"')),
                                 'age' => trim(trim($lines[5],'"')),
                                 'sex' => trim(trim($lines[6],'"')),
-                                'sampledate' => trim(trim($lines[7],'"')),
+                                'sampledate' => Carbon::createFromFormat('d/m/Y', trim(trim($lines[7],'"'))),
                                 'esr' => trim(trim($lines[8],'"')),
                                 'trbc' => trim(trim($lines[9],'"')),
                                 'hb' => trim(trim($lines[10],'"')),
@@ -979,13 +981,21 @@ class WebserviceController extends defaultController
                                 'bloodgroup' => trim(trim($lines[69],'"')),
                                 'tppa' => trim(trim($lines[70],'"')),
                                 'transferrinsaturation' => trim(trim($lines[71],'"')),
-                                'vitaminb12' => trim(trim($lines[72],'"<br>'))
+                                'vitaminb12' => $this->lab_hujung(trim(trim($lines[72],'"<br>')))
                             ]);
             }
             $lineno++;
         }
 
         fclose($file);
+    }
+
+    public function lab_hujung($strlab){
+        if($strlab == '"'){
+            return '';
+        }else{
+            return $strlab;
+        }
     }
 
     
