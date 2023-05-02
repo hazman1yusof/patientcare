@@ -866,7 +866,7 @@ class WebserviceController extends defaultController
                         ];
 
                         DB::table('hisdb.chargetrx')
-                            ->where('idno',$got_auto_first->idno)
+                            ->where('id',$got_auto_first->id)
                             ->update($got_auto);
 
                         dump('Update EP010002');
