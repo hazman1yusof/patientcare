@@ -809,7 +809,7 @@ class WebserviceController extends defaultController
                             'recstatus' => 1
                         ];
 
-                        $table->insert($array_insert);
+                        DB::table('hisdb.chargetrx')->insert($array_insert);
 
                         print_r('Added EP010002');
                     }
