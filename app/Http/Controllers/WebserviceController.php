@@ -858,7 +858,7 @@ class WebserviceController extends defaultController
                             ->whereDate('trxdate','=',Carbon::now("Asia/Kuala_Lumpur"))
                             ->where('recstatus',1);
 
-                    if(!$got_auto->exists()){
+                    if($got_auto->exists()){
                         $got_auto_first = $got_auto->first();
 
                         $array_update = [
