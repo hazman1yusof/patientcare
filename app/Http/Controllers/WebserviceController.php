@@ -771,51 +771,53 @@ class WebserviceController extends defaultController
                                 ->get();
 
             foreach ($episode as $key => $value) {
-                dump('-MRN: '.$value->mrn .'- -Episno: '.$value->episno.'-');
-                // $hdstillgot = DB::table('hisdb.chargetrx')
-                //                 ->where('mrn','=',$value->mrn)
-                //                 ->where('episno','=',$value->episno)
-                //                 ->whereIn('chgcode',['HD020001','HD010001','HD020002'])
-                //                 ->where('recstatus',1);
+                print_r('-MRN: '.$value->mrn .'- -Episno: '.$value->episno.'-');
+                $hdstillgot = DB::table('hisdb.chargetrx')
+                                ->where('mrn','=',$value->mrn)
+                                ->where('episno','=',$value->episno)
+                                ->whereIn('chgcode',['HD020001','HD010001','HD020002'])
+                                ->where('recstatus',1);
 
-                // if($hdstillgot->exists()){
-                //     $got_auto = DB::table('hisdb.chargetrx')
-                //             ->where('mrn','=',$value->mrn)
-                //             ->where('episno','=',$value->episno)
-                //             ->where('chgcode','EP010002')
-                //             ->where('recstatus',1);
+                if($hdstillgot->exists()){
+                    $got_auto = DB::table('hisdb.chargetrx')
+                            ->where('mrn','=',$value->mrn)
+                            ->where('episno','=',$value->episno)
+                            ->where('chgcode','EP010002')
+                            ->where('recstatus',1);
 
-                //     if(!$got_auto->exists()){
-                //         $chgmast_hd = DB::table('hisdb.chgmast')
-                //                 ->where('compcode','=',session('compcode'))
-                //                 ->where('chgcode','=','EP010002')
-                //                 ->first();
+                    if(!$got_auto->exists()){
+                        $chgmast_hd = DB::table('hisdb.chgmast')
+                                ->where('compcode','=',session('compcode'))
+                                ->where('chgcode','=','EP010002')
+                                ->first();
 
-                //         $array_insert = [
-                //             'compcode' => session('compcode'),
-                //             'mrn' => $value->mrn,
-                //             'episno' => $value->episno,
-                //             'trxtype' => 'OE',
-                //             'trxdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                //             'chgcode' => 'EP010002',
-                //             'chggroup' => $chgmast_hd->chggroup,
-                //             'chgtype' => $chgmast_hd->chgtype,
-                //             'billflag' => '0',
-                //             'quantity' => 1,
-                //             'isudept' => $value->regdept,
-                //             'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
-                //             'lastuser' => 'SYSTEM',
-                //             'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                //             'recstatus' => 1
-                //         ];
+                        $array_insert = [
+                            'compcode' => session('compcode'),
+                            'mrn' => $value->mrn,
+                            'episno' => $value->episno,
+                            'trxtype' => 'OE',
+                            'trxdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                            'chgcode' => 'EP010002',
+                            'chggroup' => $chgmast_hd->chggroup,
+                            'chgtype' => $chgmast_hd->chgtype,
+                            'billflag' => '0',
+                            'quantity' => 1,
+                            'isudept' => $value->regdept,
+                            'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
+                            'lastuser' => 'SYSTEM',
+                            'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                            'recstatus' => 1
+                        ];
 
-                //         $table->insert($array_insert);
-                //     }
-                // }
+                        $table->insert($array_insert);
+
+                        print_r('Added EP010002');
+                    }
+                }
 
             } 
 
-            DB::commit();
+            // DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             dd($e);
