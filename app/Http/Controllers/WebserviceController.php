@@ -867,7 +867,7 @@ class WebserviceController extends defaultController
 
                         DB::table('hisdb.chargetrx')
                             ->where('id',$got_auto_first->id)
-                            ->update($got_auto);
+                            ->update($array_update);
 
                         dump('Update EP010002');
                     }
