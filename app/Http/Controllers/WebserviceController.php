@@ -771,7 +771,7 @@ class WebserviceController extends defaultController
                                 ->get();
 
             foreach ($episode as $key => $value) {
-                print_r('-MRN: '.$value->mrn .'- -Episno: '.$value->episno.'-');
+                dump('-MRN: '.$value->mrn .'- -Episno: '.$value->episno.'-');
                 $hdstillgot = DB::table('hisdb.chargetrx')
                                 ->where('mrn','=',$value->mrn)
                                 ->where('episno','=',$value->episno)
@@ -811,13 +811,13 @@ class WebserviceController extends defaultController
 
                         DB::table('hisdb.chargetrx')->insert($array_insert);
 
-                        print_r('Added EP010002');
+                        dump('Added EP010002');
                     }
                 }
 
             } 
 
-            // DB::commit();
+            DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             dd($e);
