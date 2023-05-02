@@ -771,7 +771,7 @@ class WebserviceController extends defaultController
                                 ->get();
 
             foreach ($episode as $key => $value) {
-                dump('MRN: '.$value->mrn .'Episno: '.$value->episno);
+                dump('-MRN: '.$value->mrn .'- -Episno: '.$value->episno.'-');
                 // $hdstillgot = DB::table('hisdb.chargetrx')
                 //                 ->where('mrn','=',$value->mrn)
                 //                 ->where('episno','=',$value->episno)
