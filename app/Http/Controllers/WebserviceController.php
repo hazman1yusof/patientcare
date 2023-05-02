@@ -855,7 +855,7 @@ class WebserviceController extends defaultController
                             ->where('mrn','=',$value->mrn)
                             ->where('episno','=',$value->episno)
                             ->where('chgcode','EP010002')
-                            ->whereDate('trxdate','=',Carbon::now("Asia/Kuala_Lumpur"))
+                            ->whereDate('trxdate','=',Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d'))
                             ->where('recstatus',1);
 
                     if($got_auto->exists()){
@@ -875,7 +875,7 @@ class WebserviceController extends defaultController
 
             } 
 
-            // DB::commit();
+            DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             dd($e);
