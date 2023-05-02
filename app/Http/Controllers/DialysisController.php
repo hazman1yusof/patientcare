@@ -1280,6 +1280,7 @@ class DialysisController extends Controller
             if(!$got_auto->exists()){
                 $responce->auto = true;
                 $responce->chgcode = $dialysis_pkgdtl->first()->epocode;
+                return $responce;
             }
             // if($dialysis_episode->hdstat == 0){
 
