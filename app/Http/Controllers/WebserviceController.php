@@ -24,6 +24,8 @@ class WebserviceController extends defaultController
         switch($request->action){
             case 'query':          // for current
                 return $this->query($request);break;
+            case 'query2':          // for current
+                return $this->query2($request);break;
             case 'auto_labresult':          // for current
                 return $this->auto_labresult($request);break;
             default:
@@ -715,7 +717,7 @@ class WebserviceController extends defaultController
                                     ->where('episno',$value->episno)
                                     ->where('chgcode','EP010002')
                                     ->where('recstatus','1')
-                                    ->count();DB::commit();
+                                    ->count();
 
                 if($count>1){
                     $first_occ = DB::table('hisdb.chargetrx')
@@ -742,6 +744,74 @@ class WebserviceController extends defaultController
                         ]);
 
                 }
+
+            } 
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            dd($e);
+            // return response('Error'.$e, 500);
+        }
+
+    }
+
+    public function query2(){
+        DB::beginTransaction();
+
+        try {
+
+            $start = new Carbon('first day of last month');
+            $end = new Carbon('last day of this month');
+
+            $episode = DB::table('hisdb.episode')
+                                ->where('compcode','13A')
+                                ->whereDate('reg_date','>=',$start->format('Y-m-d'))
+                                ->whereDate('reg_date','<=',$end->format('Y-m-d'))
+                                ->get();
+
+            foreach ($episode as $key => $value) {
+                dump('MRN: '.$value->mrn .'Episno: '.$value->episno);
+                // $hdstillgot = DB::table('hisdb.chargetrx')
+                //                 ->where('mrn','=',$value->mrn)
+                //                 ->where('episno','=',$value->episno)
+                //                 ->whereIn('chgcode',['HD020001','HD010001','HD020002'])
+                //                 ->where('recstatus',1);
+
+                // if($hdstillgot->exists()){
+                //     $got_auto = DB::table('hisdb.chargetrx')
+                //             ->where('mrn','=',$value->mrn)
+                //             ->where('episno','=',$value->episno)
+                //             ->where('chgcode','EP010002')
+                //             ->where('recstatus',1);
+
+                //     if(!$got_auto->exists()){
+                //         $chgmast_hd = DB::table('hisdb.chgmast')
+                //                 ->where('compcode','=',session('compcode'))
+                //                 ->where('chgcode','=','EP010002')
+                //                 ->first();
+
+                //         $array_insert = [
+                //             'compcode' => session('compcode'),
+                //             'mrn' => $value->mrn,
+                //             'episno' => $value->episno,
+                //             'trxtype' => 'OE',
+                //             'trxdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                //             'chgcode' => 'EP010002',
+                //             'chggroup' => $chgmast_hd->chggroup,
+                //             'chgtype' => $chgmast_hd->chgtype,
+                //             'billflag' => '0',
+                //             'quantity' => 1,
+                //             'isudept' => $value->regdept,
+                //             'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
+                //             'lastuser' => 'SYSTEM',
+                //             'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                //             'recstatus' => 1
+                //         ];
+
+                //         $table->insert($array_insert);
+                //     }
+                // }
 
             } 
 
