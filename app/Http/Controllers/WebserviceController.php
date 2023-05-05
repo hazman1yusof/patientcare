@@ -773,7 +773,6 @@ class WebserviceController extends defaultController
                                 ->get();
 
             foreach ($episode as $key => $value) {
-                dump('-MRN: '.$value->mrn .'- -Episno: '.$value->episno.'-');
                 $hdstillgot = DB::table('hisdb.chargetrx')
                                 ->where('mrn','=',$value->mrn)
                                 ->where('episno','=',$value->episno)
@@ -788,6 +787,13 @@ class WebserviceController extends defaultController
                             ->where('recstatus',1);
 
                     if(!$got_auto->exists()){
+
+                        $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                ->where('mrn','=',$value->mrn)
+                                ->where('episno','=',$value->episno)
+                                ->orderBy('arrival_date','ASC')
+                                ->first();
+
                         $chgmast_hd = DB::table('hisdb.chgmast')
                                 ->where('compcode','=',session('compcode'))
                                 ->where('chgcode','=','EP010002')
@@ -798,7 +804,7 @@ class WebserviceController extends defaultController
                             'mrn' => $value->mrn,
                             'episno' => $value->episno,
                             'trxtype' => 'OE',
-                            'trxdate' => $value->reg_date,
+                            'trxdate' => $dialysis_episode->arrival_date,
                             'chgcode' => 'EP010002',
                             'chggroup' => $chgmast_hd->chggroup,
                             'chgtype' => $chgmast_hd->chgtype,
@@ -812,8 +818,6 @@ class WebserviceController extends defaultController
                         ];
 
                         DB::table('hisdb.chargetrx')->insert($array_insert);
-
-                        dump('Added EP010002');
                     }
                 }
 
