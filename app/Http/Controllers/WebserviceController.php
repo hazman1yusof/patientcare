@@ -873,7 +873,7 @@ class WebserviceController extends defaultController
                                         ->where('compcode','13A')
                                         ->where('mrn','=',$value->mrn)
                                         ->where('episno','=',$value->episno)
-                                        ->where('chgcode','EP010002');
+                                        ->where('chgcode','EP010005');
                                         
                         dump($count_mcr->count());
                         if(intval($count_mcr->count()) > intval($max_vol)){
