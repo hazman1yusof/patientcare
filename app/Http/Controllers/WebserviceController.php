@@ -873,7 +873,7 @@ class WebserviceController extends defaultController
                                         ->where('compcode','13A')
                                         ->where('mrn','=',$value->mrn)
                                         ->where('episno','=',$value->episno)
-                                        ->where('recstatus','=','ACTIVE')
+                                        ->where('recstatus','=','1')
                                         ->where('chgcode','EP010005');
 
                         dump($count_mcr->count());
@@ -887,7 +887,7 @@ class WebserviceController extends defaultController
                                         ->where('episno','=',$value->episno)
                                         ->where('id',$value->id)
                                         ->update([
-                                            'recstatus' => 'DEACTIVE'
+                                            'recstatus' => '0'
                                         ]);
 
 
@@ -908,6 +908,83 @@ class WebserviceController extends defaultController
             dd($e);
             // return response('Error'.$e, 500);
         }
+
+    }
+
+    public function micerra_tambah_terkurang_bulan_lepas(){
+        // DB::beginTransaction();
+
+        // try {
+
+        //     $start = new Carbon('first day of last month');
+        //     $end = new Carbon('last day of last month');
+
+        //     $episode = DB::table('hisdb.episode')
+        //                         ->where('compcode','13A')
+        //                         ->whereDate('reg_date','>=',$start->format('Y-m-d'))
+        //                         ->whereDate('reg_date','<=',$end->format('Y-m-d'))
+        //                         ->get();
+
+        //     foreach ($episode as $key => $value) {
+        //         $usemcr = DB::table('hisdb.dialysis_episode')
+        //                         ->where('compcode','13A')
+        //                         ->where('mrn','=',$value->mrn)
+        //                         ->where('episno','=',$value->episno)
+        //                         ->where('mcrstat','>',0);
+
+        //         if($usemcr->exists()){
+        //             $usemcr_first = $usemcr->first();
+
+        //             $dialysis_pkgdtl = DB::table('hisdb.dialysis_pkgdtl')
+        //                     ->where('compcode','13A')
+        //                     ->where('pkgcode','MICERRA')
+        //                     ->where('chgcode',$usemcr_first->mcrtype);
+
+        //             if($dialysis_pkgdtl->exists()){
+        //                 $dialysis_pkgdtl_first = $dialysis_pkgdtl->first();
+
+        //                 $max_vol = $dialysis_pkgdtl_first->volume2;
+        //                 dump('mrn:'.$value->mrn.' using micerra: '.$dialysis_pkgdtl_first->chgcode.' max vol:'.$max_vol);
+
+        //                 $count_mcr = DB::table('hisdb.chargetrx')
+        //                                 ->where('compcode','13A')
+        //                                 ->where('mrn','=',$value->mrn)
+        //                                 ->where('episno','=',$value->episno)
+        //                                 ->where('recstatus','=','ACTIVE')
+        //                                 ->where('chgcode','EP010005');
+
+        //                 dump($count_mcr->count());
+        //                 if(intval($count_mcr->count()) > intval($max_vol)){
+        //                     dump('mrn:'.$value->mrn.' having more micerra: '.$count_mcr->count());
+        //                     foreach ($count_mcr->get() as $key => $value) {
+        //                         if(intval($key)>intval($max_vol)){
+        //                             DB::table('hisdb.chargetrx')
+        //                                 ->where('compcode','13A')
+        //                                 ->where('mrn','=',$value->mrn)
+        //                                 ->where('episno','=',$value->episno)
+        //                                 ->where('id',$value->id)
+        //                                 ->update([
+        //                                     'recstatus' => 'DEACTIVE'
+        //                                 ]);
+
+
+        //                             dump('deactivate chargetrx id: '.$value->id);
+        //                         }
+        //                     }
+
+        //                 }
+
+        //             }
+        //         }
+
+        //     } 
+
+        //     DB::commit();
+        // } catch (Exception $e) {
+        //     DB::rollback();
+        //     dd($e);
+        //     // return response('Error'.$e, 500);
+        // }
 
     }
 
