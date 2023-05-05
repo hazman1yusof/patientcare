@@ -30,6 +30,8 @@ class WebserviceController extends defaultController
                 return $this->query2_betulkandate($request);break;
             case 'micerra_buang_terlebih_bulan_lepas':          // for current
                 return $this->micerra_buang_terlebih_bulan_lepas($request);break;
+            case 'micerra_tambah_terkurang_bulan_lepas':          // for current
+                return $this->micerra_tambah_terkurang_bulan_lepas($request);break;
             case 'auto_labresult':          // for current
                 return $this->auto_labresult($request);break;
             default:
