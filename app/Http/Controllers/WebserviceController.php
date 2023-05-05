@@ -873,8 +873,9 @@ class WebserviceController extends defaultController
                                         ->where('compcode','13A')
                                         ->where('mrn','=',$value->mrn)
                                         ->where('episno','=',$value->episno)
+                                        ->where('recstatus','=','ACTIVE')
                                         ->where('chgcode','EP010005');
-                                        
+
                         dump($count_mcr->count());
                         if(intval($count_mcr->count()) > intval($max_vol)){
                             dump('mrn:'.$value->mrn.' having more micerra: '.$count_mcr->count());
