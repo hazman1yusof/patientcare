@@ -886,7 +886,7 @@ class WebserviceController extends defaultController
                                         ->where('episno','=',$value->episno)
                                         ->where('id',$value->id)
                                         ->update([
-                                            'recstatus' => '0'
+                                            'recstatus' => '2'
                                         ]);
 
 
