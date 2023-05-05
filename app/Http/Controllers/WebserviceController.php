@@ -889,7 +889,7 @@ class WebserviceController extends defaultController
                                         ]);
 
 
-                                    dump('deactivate chargetrx id: '$value->id);
+                                    dump('deactivate chargetrx id: '.$value->id);
                                 }
                             }
 
