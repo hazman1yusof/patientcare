@@ -866,8 +866,8 @@ class WebserviceController extends defaultController
                     if($dialysis_pkgdtl->exists()){
                         $dialysis_pkgdtl_first = $dialysis_pkgdtl->first();
 
-                        dump('mrn:'.$value->mrn.' using micerra: '.$dialysis_pkgdtl_first->chgcode.' max vol:'.$max_vol);
                         $max_vol = $dialysis_pkgdtl_first->volume2;
+                        dump('mrn:'.$value->mrn.' using micerra: '.$dialysis_pkgdtl_first->chgcode.' max vol:'.$max_vol);
 
                         $count_mcr = DB::table('hisdb.chargetrx')
                                         ->where('compcode','13A')
