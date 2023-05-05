@@ -876,11 +876,10 @@ class WebserviceController extends defaultController
                                         ->where('recstatus','=','1')
                                         ->where('chgcode','EP010005');
 
-                        dump($count_mcr->count());
                         if(intval($count_mcr->count()) > intval($max_vol)){
                             dump('mrn:'.$value->mrn.' having more micerra: '.$count_mcr->count());
                             foreach ($count_mcr->get() as $key => $value) {
-                                if(intval($key)>intval($max_vol)){
+                                if(intval($key)>=intval($max_vol)){
                                     DB::table('hisdb.chargetrx')
                                         ->where('compcode','13A')
                                         ->where('mrn','=',$value->mrn)
