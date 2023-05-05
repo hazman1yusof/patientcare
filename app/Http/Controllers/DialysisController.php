@@ -1322,7 +1322,7 @@ class DialysisController extends Controller
 
             if($dialysis_pkgdtl->exists()){
 
-                if($mcrstat<=intval($dialysis_pkgdtl->first()->volume2)){
+                if($mcrstat<intval($dialysis_pkgdtl->first()->volume2)){
                     DB::table('hisdb.dialysis_episode')
                         ->where('idno',$last_arrival_idno)
                         ->update([

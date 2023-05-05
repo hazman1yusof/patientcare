@@ -28,6 +28,8 @@ class WebserviceController extends defaultController
                 return $this->query2($request);break;
             case 'query2_betulkandate':          // for current
                 return $this->query2_betulkandate($request);break;
+            case 'micerra_buang_terlebih':          // for current
+                return $this->micerra_buang_terlebih($request);break;
             case 'auto_labresult':          // for current
                 return $this->auto_labresult($request);break;
             default:
@@ -824,6 +826,81 @@ class WebserviceController extends defaultController
             } 
 
             DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            dd($e);
+            // return response('Error'.$e, 500);
+        }
+
+    }
+
+    public function micerra_buang_terlebih_bulan_lepas(){
+        DB::beginTransaction();
+
+        try {
+
+            $start = new Carbon('first day of last month');
+            $end = new Carbon('last day of last month');
+
+            $episode = DB::table('hisdb.episode')
+                                ->where('compcode','13A')
+                                ->whereDate('reg_date','>=',$start->format('Y-m-d'))
+                                ->whereDate('reg_date','<=',$end->format('Y-m-d'))
+                                ->get();
+
+            foreach ($episode as $key => $value) {
+                $usemcr = DB::table('hisdb.dialysis_episode')
+                                ->where('compcode','13A')
+                                ->where('mrn','=',$value->mrn)
+                                ->where('episno','=',$value->episno)
+                                ->where('mcrstat','>',0);
+
+                if($usemcr->exists()){
+                    $usemcr_first = $usemcr->first();
+
+                    $dialysis_pkgdtl = DB::table('hisdb.dialysis_pkgdtl')
+                            ->where('compcode','13A')
+                            ->where('pkgcode','MICERRA')
+                            ->where('chgcode',$usemcr_first->mcrtype);
+
+                    if($dialysis_pkgdtl->exists()){
+                        $dialysis_pkgdtl_first = $dialysis_pkgdtl->first();
+
+                        dump('mrn:'.$value->mrn.' using micerra: '.$dialysis_pkgdtl_first->chgcode.' max vol:'.$max_vol);
+                        $max_vol = $dialysis_pkgdtl_first->volume2;
+
+                        $count_mcr = DB::table('hisdb.chargetrx')
+                                        ->where('compcode','13A')
+                                        ->where('mrn','=',$value->mrn)
+                                        ->where('episno','=',$value->episno)
+                                        ->where('chgcode','EP010002');
+
+                        if(intval($count_mcr->count()) > intval($max_vol)){
+                            dump('mrn:'.$value->mrn.' having more micerra: '.$count_mcr->count());
+                            foreach ($count_mcr->get() as $key => $value) {
+                                if(intval($key)>intval($max_vol)){
+                                    DB::table('hisdb.chargetrx')
+                                        ->where('compcode','13A')
+                                        ->where('mrn','=',$value->mrn)
+                                        ->where('episno','=',$value->episno)
+                                        ->where('id',$value->id)
+                                        ->update([
+                                            'recstatus' => 'DEACTIVE'
+                                        ]);
+
+
+                                    dump('deactivate chargetrx id: '$value->id);
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+
+            } 
+
+            // DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             dd($e);
