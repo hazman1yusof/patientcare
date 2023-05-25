@@ -90,7 +90,7 @@
                             </div>
 
                             <div id="tabEpisode" class="panel-collapse collapse in">
-                            <form id="form_episode" name="form_episode" >
+                            <form id="form_episode" name="form_episode" autocomplete="off">
                             <div class="panel-body form-horizontal">
                                 <!-- Tab content begin -->
                                 <div class="form-group">
