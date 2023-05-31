@@ -918,8 +918,8 @@ class WebserviceController extends defaultController
 
         try {
 
-            $start = new Carbon('first day of last month');
-            $end = new Carbon('last day of last month');
+            $start = new Carbon('first day of this month');
+            $end = new Carbon('last day of this month');
 
             $episode = DB::table('hisdb.episode')
                                 ->where('compcode','13A')
@@ -996,7 +996,7 @@ class WebserviceController extends defaultController
 
             } 
 
-            DB::commit();
+            // DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             dd($e);
