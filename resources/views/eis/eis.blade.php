@@ -70,7 +70,8 @@
           </div>
         </form>
 
-        <form class="form-inline">
+        <form class="form-inline" method="post" action="/pivot_post?action=patmast_excel">
+          {{ csrf_field() }}
           <div class="form-group">
             <div class="form-check">
               <input class="form-check-input" type="radio" name="type" id="patmast" value="patmast" checked>
@@ -79,6 +80,7 @@
               </label>
             </div>
             <button class="btn btn-primary" type="button" id="fetch">Fetch Data</button>
+            <button class="btn btn-primary" type="submit" id="submit" style="margin: 10px;">Download Excel</button>
           </div>
         </form>
 

@@ -10,6 +10,8 @@ use Auth;
 use Carbon\Carbon;
 use DateTime;
 use Session;
+use App\Exports\PatmastExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class eisController extends defaultController
 {
@@ -55,6 +57,17 @@ class eisController extends defaultController
                 break;
             case 'get_patmast':
                 return $this->get_patmast($request);
+                break;
+            default:
+                # code...
+                break;
+        }
+    }
+
+    public function form(Request $request){
+        switch ($request->action) {
+            case 'patmast_excel':
+                return $this->patmast_excel($request);
                 break;
             default:
                 # code...
@@ -266,5 +279,11 @@ class eisController extends defaultController
         }
 
         return view('eis.dashboard',compact('ip_month','op_month','ip_month_epis','op_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val'));
+    }
+
+
+
+    public function patmast_excel(Request $request){
+        return Excel::download(new PatmastExport(), 'PatmastList.xlsx');
     }
 }

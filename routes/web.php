@@ -98,6 +98,7 @@ Route::get('/store_dashb','WebserviceController@store_dashb');
 Route::get('/eis','eisController@show')->name('eis');
 Route::get('/reveis','eisController@reveis')->name('reveis');
 Route::get('/pivot_get', "eisController@table");
+Route::post('/pivot_post', "eisController@form");
 
 //doctornote
 Route::get('/doctornote','DoctornoteController@index');
