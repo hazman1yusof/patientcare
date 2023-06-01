@@ -2380,7 +2380,6 @@ class PatmastController extends defaultController
                         ->leftJoin('hisdb.admissrc as adm', 'adm.admsrccode', '=', 'e.admsrccode')
                         ->leftJoin('hisdb.casetype as cas', 'cas.case_code', '=', 'e.case_code')
                         ->leftJoin('debtor.debtortype as dbty', 'dbty.debtortycode', '=', 'e.pay_type')
-                        ->leftJoin('debtor.debtormast as dbms', 'dbms.debtorcode', '=', 'epy.payercode')
                         ->leftJoin('hisdb.billtymst as bmst', 'bmst.billtype', '=', 'e.billtype')
                         ->leftJoin('sysdb.department as dpt', 'dpt.deptcode', '=', 'e.regdept')
                         ->leftJoin('hisdb.epispayer as epy', function($join) use ($request){
@@ -2388,6 +2387,7 @@ class PatmastController extends defaultController
                                                 ->on('epy.episno','=','e.episno')
                                                 ->where('epy.compcode',session('compcode'));
                                 })
+                        ->leftJoin('debtor.debtormast as dbms', 'dbms.debtorcode', '=', 'epy.payercode')
                         ->where('e.compcode','=',session('compcode'))
                         ->where('e.mrn',$request->mrn)
                         ->where('e.episno',$request->episno)
