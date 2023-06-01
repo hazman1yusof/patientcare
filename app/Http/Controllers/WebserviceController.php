@@ -34,6 +34,8 @@ class WebserviceController extends defaultController
                 return $this->micerra_tambah_terkurang_bulan_lepas($request);break;
             case 'auto_labresult':          // for current
                 return $this->auto_labresult($request);break;
+            case 'check_debtor_xde':          // for current
+                return $this->check_debtor_xde($request);break;
             default:
                 return 'error happen..';
         }
@@ -1303,6 +1305,22 @@ class WebserviceController extends defaultController
             return '';
         }else{
             return $strlab;
+        }
+    }
+
+    public function check_debtor_xde(Request $request){   
+        $epispayer = DB::table('hisdb.$debtormast')
+                        ->where('compcode','13A')
+                        ->get();
+
+        foreach ($epispayer as $key => $value) {
+            $debtormast = DB::table('debtor.debtormast')
+                        ->where('compcode','13A')
+                        ->where('debtorcode',$value->payercode);
+
+            if(!$debtormast->exists()){
+                dump('epispayer idno: '.$value->idno.' donest have debtormast') 
+            }
         }
     }
 
