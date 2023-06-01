@@ -50,7 +50,7 @@ class PatmastExport implements FromCollection, WithHeadings
     public function collection()
     {
         $pat_mast = DB::table('hisdb.pat_mast as p')
-                        ->select('p.mrn','p.Sex','p.RaceCode','p.Religion','p.Citizencode','p.AreaCode','p.Postcode','e.regdept','e.admdoctor','e.attndoctor','e.pay_type','epy.payercode')
+                        ->select('p.mrn','p.Name','p.addtype','p.Address1','p.Address2','p.Address3','p.Postcode','p.citycode','p.AreaCode','p.StateCode','p.telh','p.telhp','p.telhp2','p.idnumber','p.Newic','p.Oldic','p.Sex','p.DOB','p.Religion','p.Citizencode','p.OccupCode','p.Staffid','p.MaritalCode','p.LanguageCode','p.TitleCode','p.RaceCode','p.Reg_Date','p.last_visit_date','p.PatStatus','p.AddUser','p.AddDate','p.Sex','p.RaceCode','p.Religion','p.Citizencode','p.AreaCode','p.Postcode','e.regdept','e.admdoctor','e.attndoctor','e.pay_type','epy.payercode')
                         ->leftJoin('hisdb.episode as e', function($join){
                             $join = $join->on('e.mrn', '=', 'p.mrn')
                                         ->on('e.episno','=','p.episno')
@@ -71,7 +71,7 @@ class PatmastExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'MRN','Sex','RaceCode','Religion','Citizencode','AreaCode','Postcode','regdept','admdoctor','attndoctor','pay_type','payercode'
+            'MRN','Name','addtype','Address1','Address2','Address3','Postcode','citycode','AreaCode','StateCode','telh','telhp','telhp2','idnumber','Newic','Oldic','Sex','DOB','Religion','Citizencode','OccupCode','Staffid','MaritalCode','LanguageCode','TitleCode','RaceCode','Reg_Date','last_visit_date','PatStatus','AddUser','AddDate','Sex','RaceCode','Religion','Citizencode','AreaCode','Postcode','regdept','admdoctor','attndoctor','pay_type','payercode'
         ];
     }
 
