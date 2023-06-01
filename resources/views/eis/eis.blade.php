@@ -70,7 +70,7 @@
           </div>
         </form>
 
-        <form class="form-inline" method="post" action="/pivot_post?action=patmast_excel">
+        <form class="form-inline" method="post" action="./pivot_post?action=patmast_excel">
           {{ csrf_field() }}
           <div class="form-group">
             <div class="form-check">
