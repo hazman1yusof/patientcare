@@ -2387,7 +2387,7 @@ class PatmastController extends defaultController
                                     $join = $join->on('epy.mrn', '=', 'e.mrn')
                                                 ->on('epy.episno','=','e.episno')
                                                 ->where('epy.compcode',session('compcode'));
-                                });
+                                })
                         ->where('e.compcode','=',session('compcode'))
                         ->where('e.mrn',$request->mrn)
                         ->where('e.episno',$request->episno)
