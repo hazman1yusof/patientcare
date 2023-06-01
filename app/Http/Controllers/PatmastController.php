@@ -2368,7 +2368,7 @@ class PatmastController extends defaultController
                             'e.attndoctor',
                             'e.pay_type',
                             'e.pyrmode',
-                            'e.payer',
+                            'epy.payercode as payer',
                             'e.billtype',
                             'e.bed',
                             'dpt.description as rdp_desc',
@@ -2383,6 +2383,11 @@ class PatmastController extends defaultController
                         ->leftJoin('debtor.debtormast as dbms', 'dbms.debtorcode', '=', 'e.payer')
                         ->leftJoin('hisdb.billtymst as bmst', 'bmst.billtype', '=', 'e.billtype')
                         ->leftJoin('sysdb.department as dpt', 'dpt.deptcode', '=', 'e.regdept')
+                        ->leftJoin('hisdb.epispayer as epy', function($join) use ($request){
+                                    $join = $join->on('epy.mrn', '=', 'e.mrn')
+                                                ->on('epy.episno','=','e.episno')
+                                                ->where('epy.compcode',session('compcode'));
+                                });
                         ->where('e.compcode','=',session('compcode'))
                         ->where('e.mrn',$request->mrn)
                         ->where('e.episno',$request->episno)
