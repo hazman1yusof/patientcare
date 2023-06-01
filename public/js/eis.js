@@ -243,6 +243,7 @@ $(document).ready(function() {
             $("#output").pivotUI(mps.data, {
                 renderers: renderers,
                 unusedAttrsVertical: false,
+                cols: ["regdept"], rows: ["Sex"],
                 rendererName: "Table",
                 rowOrder: "key_a_to_z", colOrder: "key_a_to_z",
             }, true);
