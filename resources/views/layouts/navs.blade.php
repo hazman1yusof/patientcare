@@ -110,6 +110,8 @@
         <a class="item @if(Request::is('enquiry') || Request::is('enquiry/*')) {{'active'}} @endif" href="{{ url('/enquiry')}}"><i style="float: left" class="big address card icon"></i>Patient Enquiry</a>
 
         <a class="item @if(Request::is('enquiry_order') || Request::is('enquiry_order/*')) {{'active'}} @endif" href="{{ url('/enquiry_order')}}"><i style="float: left" class="big address card outline icon"></i>Patient Order Enquiry</a>
+
+        <a class="item @if(Request::is('eis') || Request::is('eis/*')) {{'active'}} @endif" href="{{ url('/eis')}}"><i style="float: left" class="chart bar big link icon"></i>EIS</a>
         
         <a class="item @if(Request::is('user_maintenance') || Request::is('user_maintenance/*')) {{'active'}} @endif" href="{{ url('/user_maintenance')}}"><i style="float: left" class="big user icon"></i>User</a>
 
