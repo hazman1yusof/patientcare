@@ -64,7 +64,7 @@ class eisController extends defaultController
 
     public function get_patmast(Request $request){
         $pat_mast = DB::table('hisdb.pat_mast as p')
-                    ->select('p.Sex','p.RaceCode','p.Religion','p.Citizencode','p.AreaCode','p.Postcode','e.regdept','e.admdoctor','e.attndoctor','e.pay_type','epy.payercode')
+                    ->select('p.mrn','p.Sex','p.RaceCode','p.Religion','p.Citizencode','p.AreaCode','p.Postcode','e.regdept','e.admdoctor','e.attndoctor','e.pay_type','epy.payercode')
                     ->leftJoin('hisdb.episode as e', function($join) use ($request){
                         $join = $join->on('e.mrn', '=', 'p.mrn')
                                     ->on('e.episno','=','p.episno')
@@ -75,6 +75,7 @@ class eisController extends defaultController
                                     ->on('epy.episno','=','p.episno')
                                     ->where('epy.compcode','13A');
                     })
+                    ->where('p.active','=','1')
                     ->where('p.compcode','=','13A')
                     ->get();
 
