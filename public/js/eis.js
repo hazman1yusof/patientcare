@@ -247,6 +247,8 @@ $(document).ready(function() {
                 rendererName: "Table",
                 rowOrder: "key_a_to_z", colOrder: "key_a_to_z",
             }, true);
+
+            gauge.set(300);
         });
     }
 
