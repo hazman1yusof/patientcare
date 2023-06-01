@@ -1309,7 +1309,7 @@ class WebserviceController extends defaultController
     }
 
     public function check_debtor_xde(Request $request){   
-        $epispayer = DB::table('hisdb.$debtormast')
+        $epispayer = DB::table('hisdb.epispayer')
                         ->where('compcode','13A')
                         ->get();
 
