@@ -45,7 +45,9 @@ class LabresultController extends defaultController
 
     public function previewdata(Request $request)
     {
-        $table = DB::table('hisdb.labresult')->where('loginid','=',$request->loginid);
+        $table = DB::table('hisdb.labresult')
+                            ->where('compcode', session('compcode'))
+                            ->where('loginid','=',$request->loginid);
 
         $responce = new stdClass();
         $responce->rows = $table->get();
@@ -57,7 +59,9 @@ class LabresultController extends defaultController
 
     public function previewvideo($auditno)
     {   
-        $video = DB::table('hisdb.labresult')->where('auditno','=',$auditno)->first();
+        $video = DB::table('hisdb.labresult')
+                        ->where('compcode', session('compcode'))
+                        ->where('auditno','=',$auditno)->first();
         return view('previewvideo',compact('video'));
     }
 
