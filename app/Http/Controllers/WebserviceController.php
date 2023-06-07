@@ -1184,11 +1184,11 @@ class WebserviceController extends defaultController
                     $this->labresult_store($value);
 
 
-                    DB::table('hisdb.labresult')
-                        ->where('auditno',$value->auditno)
-                        ->update([
-                            'upload' => '1'
-                        ]);
+                    // DB::table('hisdb.labresult')
+                    //     ->where('auditno',$value->auditno)
+                    //     ->update([
+                    //         'upload' => '1'
+                    //     ]);
                 
                 }
 
@@ -1215,7 +1215,7 @@ class WebserviceController extends defaultController
                 if(count($lines) != 73){
                     continue;
                 }
-
+                dump(trim(trim($lines[3],'"')));
                 DB::table('hisdb.blood_data')
                             ->insert([
                                 'auditno' => $obj->auditno,
