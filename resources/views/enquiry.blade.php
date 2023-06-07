@@ -92,6 +92,25 @@
         </div>
     </div>
 
+    <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="tab_bloodres_panel">
+        <div class="panel-heading clearfix collapsed mainpanel" id="toggle_bloodres" data-toggle="collapse" data-target="#tab_bloodres">
+
+        <i class="glyphicon glyphicon-chevron-up" style="font-size:24px;margin: 0 0 0 12px"></i>
+        <i class="glyphicon glyphicon-chevron-down" style="font-size:24px;margin: 0 0 0 12px"></i >
+        <div>
+            <h5><strong>Blood Test Result</strong>&nbsp;&nbsp;
+                <span class="metal"></span>
+            </h5>
+        </div> 
+        </div>
+
+        <div id="tab_bloodres" class="panel-collapse collapse">
+            <div class="panel-body paneldiv" style="position: relative;">
+                @include('blood_test_result')
+            </div>
+        </div>
+    </div>
+
     <div class="panel panel-default" style="position: relative;margin: 10px 0px 10px 0px" id="tab_absent_panel">
         <div class="panel-heading clearfix collapsed mainpanel" id="toggle_absent" data-toggle="collapse" data-target="#tab_absent">
 
@@ -163,6 +182,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="{{ asset('js/enquiry_main.js') }}?v=2"></script>
+    <script type="text/javascript" src="{{ asset('js/blood_test_result.js') }}?v=3"></script>
     <script type="text/javascript" src="{{ asset('js/enquiry.js') }}?v=3"></script>
     <script type="text/javascript" src="{{ asset('js/absent.js') }}?v=1"></script>
 @endsection
