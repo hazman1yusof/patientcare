@@ -1210,13 +1210,12 @@ class WebserviceController extends defaultController
         $lineno = 0;
         while(!feof($file)) {
             $line = fgets($file). "<br>";
-            dump($line);
             if($lineno > 1){
                 $lines = explode(",",$line);
+                dump($lines);
                 if(count($lines) != 73){
                     continue;
                 }
-                dump(trim(trim($lines[3],'"')));
                 DB::table('hisdb.blood_data')
                             ->insert([
                                 'auditno' => $obj->auditno,
