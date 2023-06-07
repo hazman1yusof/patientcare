@@ -1208,6 +1208,7 @@ class WebserviceController extends defaultController
         $file = fopen($dialysis_path.'/'.$obj->attachmentfile, "r");
 
         $lineno = 0;
+                dump('rest');
         while(!feof($file)) {
             $line = fgets($file). "<br>";
             if($lineno > 1){
