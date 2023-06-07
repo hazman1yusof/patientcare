@@ -1184,17 +1184,17 @@ class WebserviceController extends defaultController
                     $this->labresult_store($value);
 
 
-                    // DB::table('hisdb.labresult')
-                    //     ->where('auditno',$value->auditno)
-                    //     ->update([
-                    //         'upload' => '1'
-                    //     ]);
+                    DB::table('hisdb.labresult')
+                        ->where('auditno',$value->auditno)
+                        ->update([
+                            'upload' => '1'
+                        ]);
                 
                 }
 
             }
 
-            // DB::commit();
+            DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             dd($e);
@@ -1212,7 +1212,6 @@ class WebserviceController extends defaultController
             $line = fgets($file). "<br>";
             if($lineno > 1){
                 $lines = explode(",",$line);
-                dump($lines);
                 if(count($lines) != 74){
                     continue;
                 }
