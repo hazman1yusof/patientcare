@@ -1213,7 +1213,7 @@ class WebserviceController extends defaultController
             if($lineno > 1){
                 $lines = explode(",",$line);
                 dump($lines);
-                if(count($lines) != 73){
+                if(count($lines) != 74){
                     continue;
                 }
                 DB::table('hisdb.blood_data')
