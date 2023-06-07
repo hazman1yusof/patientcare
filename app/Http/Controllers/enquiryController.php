@@ -212,6 +212,7 @@ class enquiryController extends defaultController
                                 'trx.frequency as fre_code',
                                 'trx.drugindicator as dru_code',
                                 'trx.patmedication as patmedication',
+                                'trx.lastupdate as lastupdate',
 
                                 'chgmast.description as chg_desc',
                                 'instruction.description as ins_desc',
