@@ -99,7 +99,7 @@ $(document).ready(function () {
 				       custom_value:galGridCustomValue 	
 				    },},
 			{ label: 'patmedication', name: 'patmedication', hidden: true },
-			{ label: 'Entered<br/>date', name: 'lastupdate', width: 30 },
+			{ label: 'Entered<br/>Date', name: 'lastupdate', width: 30 , formatoptions: {srcformat: 'Y-m-d', newformat:'d-m-Y'}},
 		],
 		autowidth: false,
 		width: 900,
