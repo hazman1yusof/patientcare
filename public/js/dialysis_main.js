@@ -78,6 +78,12 @@ $(document).ready(function () {
 					hide_tran_button(false);
 				}
 			}
+
+			if(selrowdata.order==1){
+				$('#toggle_daily').removeClass('divpanel_disable');
+			}else{
+				$('#toggle_daily').addClass('divpanel_disable');
+			}
 			
 			populatedialysis(selrowdata);
 			urlParam_trans.mrn = selrowdata.MRN;
@@ -97,6 +103,11 @@ $(document).ready(function () {
 			empty_dialysis();
 			empty_transaction();
 			$('#no_of_pat').text($('#jqGrid').jqGrid('getGridParam', 'reccount'));
+
+			if($('#jqGrid').data('lastidno') != null || $('#jqGrid').data('lastidno') != undefined){
+				$('#jqGrid').jqGrid('setSelection', $('#jqGrid').data('lastidno'));
+			}
+			$('#jqGrid').data('lastidno',null);
 		},
 		beforeProcessing: function(data, status, xhr){
 			if(curpage == data.current){
@@ -161,6 +172,7 @@ $(document).ready(function () {
 
 	$('button#timer_refresh').click(function(){
 		curpage=null;
+		$('#jqGrid').data('lastidno',selrowData('#jqGrid').idno);
 		refreshGrid("#jqGrid", urlParam);
 	});
 

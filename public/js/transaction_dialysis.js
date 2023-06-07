@@ -19,6 +19,10 @@ $(document).ready(function () {
 		},90);
 	});
 
+	$("#tab_trans").on("hide.bs.collapse", function(){
+		$('button#timer_refresh').click();
+	});
+
 	// var fdl = new faster_detail_load();
 	$("#jqGrid_trans").jqGrid({
 		datatype: "local",
