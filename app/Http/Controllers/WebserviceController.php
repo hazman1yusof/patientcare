@@ -1338,10 +1338,9 @@ class WebserviceController extends defaultController
                                 ->where('mrn',$value->mrn)
                                 ->where('episno',$value->episno)
                                 ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
-                                ->whereMonth('trxdate',5)
-                                ->whereYear('trxdate',2023)
-                                ->min('trxdate');
-                dump($single.' , MRN:'.$value->mrn.' , Episno:'.$value->episno);
+                                ->where('trxdate','2023-05-02');
+
+                dump($single->id.' , trxdate:'.$single->trxdate.' , MRN:'.$value->mrn.' , Episno:'.$value->episno);
         }
     }
 
