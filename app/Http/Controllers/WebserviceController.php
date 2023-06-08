@@ -1347,6 +1347,7 @@ class WebserviceController extends defaultController
                             ->where('id',$value->id)
                             ->where('compcode','13A')
                             ->where('chgcode','EP010002')
+                            ->where('trxdate','!=',$single_->trxdate)
                             ->update([
                                 'trxdate' => $single_->trxdate
                             ]);
