@@ -1341,7 +1341,7 @@ class WebserviceController extends defaultController
                                 ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
                                 ->whereMonth('trxdate',5)
                                 ->whereYear('trxdate',2023)
-                                ->min('trxdate');
+                                ->min('trxdate')
                                 ->first();
                 dump($single);
         }
