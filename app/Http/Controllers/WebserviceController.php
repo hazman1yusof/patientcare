@@ -1333,7 +1333,17 @@ class WebserviceController extends defaultController
                         ->get();
 
         foreach ($chargetrx as $key => $value) {
-            dump('chargetrx idno: '.$value->idno.' has chgcode EP010002');
+                $single = DB::table('hisdb.chargetrx')
+                                ->select('mrn','episno','chgcode','trxdate')
+                                ->where('compcode','13A')
+                                ->where('mrn',$value->mrn)
+                                ->where('episno',$value->episno)
+                                ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
+                                ->whereMonth('trxdate',5)
+                                ->whereYear('trxdate',2023)
+                                ->min('trxdate');
+                                ->first();
+                dump($single);
         }
     }
 
