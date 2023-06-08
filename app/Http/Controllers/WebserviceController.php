@@ -1334,15 +1334,13 @@ class WebserviceController extends defaultController
 
         foreach ($chargetrx as $key => $value) {
                 $single = DB::table('hisdb.chargetrx')
-                                ->select('mrn','episno','chgcode','trxdate')
                                 ->where('compcode','13A')
                                 ->where('mrn',$value->mrn)
                                 ->where('episno',$value->episno)
                                 ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
                                 ->whereMonth('trxdate',5)
                                 ->whereYear('trxdate',2023)
-                                ->min('trxdate')
-                                ->first();
+                                ->min('trxdate');
                 dump($single);
         }
     }
