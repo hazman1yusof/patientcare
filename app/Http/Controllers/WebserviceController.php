@@ -1342,6 +1342,14 @@ class WebserviceController extends defaultController
                 if($single->exists()){
                     $single_ = $single->first();
                     dump($value->id.' , trxdate:'.$single_->trxdate.' , MRN:'.$value->mrn.' , Episno:'.$value->episno);
+
+                    DB::table('hisdb.chargetrx')
+                            ->where('id',$value->id)
+                            ->where('compcode','13A')
+                            ->where('chgcode','EP010002')
+                            ->update([
+                                'trxdate' => $single_->trxdate
+                            ]);
                 }
         }
     }
