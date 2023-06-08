@@ -1341,7 +1341,7 @@ class WebserviceController extends defaultController
                                 ->whereMonth('trxdate',5)
                                 ->whereYear('trxdate',2023)
                                 ->min('trxdate');
-                dump($single);
+                dump($single.' , MRN:'.$value->mrn.' , Episno:'.$value->episno);
         }
     }
 
