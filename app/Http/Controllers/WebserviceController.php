@@ -1326,6 +1326,7 @@ class WebserviceController extends defaultController
     }
 
     public function check_auto_1hb(Request $request){
+        return null;
         $chargetrx = DB::table('hisdb.chargetrx')
                         ->where('compcode','13A')
                         ->where('chgcode','EP010002')
