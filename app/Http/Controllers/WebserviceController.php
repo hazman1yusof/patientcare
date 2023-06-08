@@ -1341,7 +1341,7 @@ class WebserviceController extends defaultController
                                 ->where('trxdate','2023-05-02');
                 if($single->exists()){
                     $single_ = $single->first();
-                    dump($single_->id.' , trxdate:'.$single_->trxdate.' , MRN:'.$value->mrn.' , Episno:'.$value->episno);
+                    dump($value->id.' , trxdate:'.$single_->trxdate.' , MRN:'.$value->mrn.' , Episno:'.$value->episno);
                 }
         }
     }
