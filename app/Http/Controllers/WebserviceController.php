@@ -36,6 +36,8 @@ class WebserviceController extends defaultController
                 return $this->auto_labresult($request);break;
             case 'check_debtor_xde':          // for current
                 return $this->check_debtor_xde($request);break;
+            case 'check_auto_1hb':          // for current
+                return $this->check_auto_1hb($request);break;
             default:
                 return 'error happen..';
         }
@@ -1320,6 +1322,18 @@ class WebserviceController extends defaultController
             if(!$debtormast->exists()){
                 dump('epispayer idno: '.$value->idno.' donest have debtormast');
             }
+        }
+    }
+
+    public function check_auto_1hb(Request $request){
+        $chargetrx = DB::table('hisdb.chargetrx')
+                        ->where('compcode','13A')
+                        ->where('chgcode','EP010002')
+                        ->where('trxdate','2023-05-01')
+                        ->get();
+
+        foreach ($chargetrx as $key => $value) {
+            dump('chargetrx idno: '.$value->idno.' has chgcode EP010002');
         }
     }
 
