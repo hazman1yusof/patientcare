@@ -1349,7 +1349,7 @@ class WebserviceController extends defaultController
                             ->where('episno',$value->episno)
                             ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
                             ->where('trxdate','>','2023-06-01')
-                            ->orderby('trxdate','desc');
+                            ->orderby('trxdate','asc');
 
             if($chargetrx_->exists()){
                 $chargetrx=$chargetrx_->first();
