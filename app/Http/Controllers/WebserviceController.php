@@ -1326,7 +1326,6 @@ class WebserviceController extends defaultController
     }
 
     public function check_auto_1hb(Request $request){
-        return null;
         $chargetrx = DB::table('hisdb.chargetrx')
                         ->where('compcode','13A')
                         ->where('chgcode','EP010002')
@@ -1334,25 +1333,47 @@ class WebserviceController extends defaultController
                         ->get();
 
         foreach ($chargetrx as $key => $value) {
-                $single = DB::table('hisdb.chargetrx')
-                                ->where('compcode','13A')
-                                ->where('mrn',$value->mrn)
-                                ->where('episno',$value->episno)
-                                ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
-                                ->where('trxdate','2023-05-02');
-                if($single->exists()){
-                    $single_ = $single->first();
-                    dump($value->id.' , trxdate:'.$single_->trxdate.' , MRN:'.$value->mrn.' , Episno:'.$value->episno);
 
-                    DB::table('hisdb.chargetrx')
-                            ->where('id',$value->id)
+            dump('chgcode:'. $value->chgcode.' , trxdate:'.$value->trxdate.' , MRN:'.$value->mrn.' , Episno:'.$value->episno', id:'.$value->id);
+
+            $trxdate = DB::table('hisdb.chargetrx')
                             ->where('compcode','13A')
-                            ->where('chgcode','EP010002')
-                            ->where('trxdate','!=',$single_->trxdate)
-                            ->update([
-                                'trxdate' => $single_->trxdate
-                            ]);
-                }
+                            ->where('mrn',$value->mrn)
+                            ->where('episno',$value->episno)
+                            ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
+                            ->min('trxdate');
+
+            $chargetrx = DB::table('hisdb.chargetrx')
+                            ->where('compcode','13A')
+                            ->where('mrn',$value->mrn)
+                            ->where('episno',$value->episno)
+                            ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
+                            ->where('trxdate',$trxdate);
+
+            if($chargetrx->exists()){
+                dump('chgcode:'. $chargetrx->chgcode.' , trxdate:'.$chargetrx->trxdate.' , MRN:'.$chargetrx->mrn.' , Episno:'.$chargetrx->episno', id:'.$chargetrx->id);
+            }
+
+            dump('<<<<<>>>>>>');
+
+            // $single = DB::table('hisdb.chargetrx')
+            //                 ->where('compcode','13A')
+            //                 ->where('mrn',$value->mrn)
+            //                 ->where('episno',$value->episno)
+            //                 ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
+            //                 ->where('trxdate','2023-05-02');
+            // if($single->exists()){
+            //     $single_ = $single->first();
+
+            //     DB::table('hisdb.chargetrx')
+            //             ->where('id',$value->id)
+            //             ->where('compcode','13A')
+            //             ->where('chgcode','EP010002')
+            //             ->where('trxdate','!=',$single_->trxdate)
+            //             ->update([
+            //                 'trxdate' => $single_->trxdate
+            //             ]);
+            // }
         }
     }
 
