@@ -1336,19 +1336,20 @@ class WebserviceController extends defaultController
 
             dump('chgcode:'. $value->chgcode.' , trxdate:'.$value->trxdate.' , MRN:'.$value->mrn.' , Episno:'.$value->episno.', id:'.$value->id);
 
-            $trxdate = DB::table('hisdb.chargetrx')
-                            ->where('compcode','13A')
-                            ->where('mrn',$value->mrn)
-                            ->where('episno',$value->episno)
-                            ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
-                            ->min('trxdate');
+            // $trxdate = DB::table('hisdb.chargetrx')
+            //                 ->where('compcode','13A')
+            //                 ->where('mrn',$value->mrn)
+            //                 ->where('episno',$value->episno)
+            //                 ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
+            //                 ->min('trxdate');
 
             $chargetrx_ = DB::table('hisdb.chargetrx')
                             ->where('compcode','13A')
                             ->where('mrn',$value->mrn)
                             ->where('episno',$value->episno)
                             ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
-                            ->where('trxdate',$trxdate);
+                            ->where('trxdate','>','2023-06-01')
+                            ->sortby('trxdate','desc');
 
             if($chargetrx_->exists()){
                 $chargetrx=$chargetrx_->first();
