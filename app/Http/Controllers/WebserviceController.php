@@ -1415,8 +1415,6 @@ class WebserviceController extends defaultController
                 }
             }
 
-            dump('<<<<<>>>>>>');
-
         }
     }
 
