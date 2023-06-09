@@ -1343,14 +1343,15 @@ class WebserviceController extends defaultController
                             ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
                             ->min('trxdate');
 
-            $chargetrx = DB::table('hisdb.chargetrx')
+            $chargetrx_ = DB::table('hisdb.chargetrx')
                             ->where('compcode','13A')
                             ->where('mrn',$value->mrn)
                             ->where('episno',$value->episno)
                             ->whereIn('chgcode',['HD010001','HD020001','HD020002'])
                             ->where('trxdate',$trxdate);
 
-            if($chargetrx->exists()){
+            if($chargetrx_->exists()){
+                $chargetrx=$chargetrx_->first();
                 dump('chgcode:'. $chargetrx->chgcode.' , trxdate:'.$chargetrx->trxdate.' , MRN:'.$chargetrx->mrn.' , Episno:'.$chargetrx->episno.', id:'.$chargetrx->id);
             }
 
