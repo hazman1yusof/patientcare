@@ -1334,7 +1334,7 @@ class WebserviceController extends defaultController
 
         foreach ($chargetrx as $key => $value) {
 
-            dump('chgcode:'. $value->chgcode.' , trxdate:'.$value->trxdate.' , MRN:'.$value->mrn.' , Episno:'.$value->episno', id:'.$value->id);
+            dump('chgcode:'. $value->chgcode.' , trxdate:'.$value->trxdate.' , MRN:'.$value->mrn.' , Episno:'.$value->episno.', id:'.$value->id);
 
             $trxdate = DB::table('hisdb.chargetrx')
                             ->where('compcode','13A')
@@ -1351,7 +1351,7 @@ class WebserviceController extends defaultController
                             ->where('trxdate',$trxdate);
 
             if($chargetrx->exists()){
-                dump('chgcode:'. $chargetrx->chgcode.' , trxdate:'.$chargetrx->trxdate.' , MRN:'.$chargetrx->mrn.' , Episno:'.$chargetrx->episno', id:'.$chargetrx->id);
+                dump('chgcode:'. $chargetrx->chgcode.' , trxdate:'.$chargetrx->trxdate.' , MRN:'.$chargetrx->mrn.' , Episno:'.$chargetrx->episno.', id:'.$chargetrx->id);
             }
 
             dump('<<<<<>>>>>>');
