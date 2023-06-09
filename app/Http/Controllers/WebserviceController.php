@@ -1396,22 +1396,24 @@ class WebserviceController extends defaultController
                                 ->where('episno',$value_ep->episno)
                                 ->whereMonth('arrival_date','6')
                                 ->min('arrival_date');
-            dump($min_arrival_date);
 
-            // $chargetrx_ = DB::table('hisdb.chargetrx')
-            //                 ->where('compcode','13A')
-            //                 ->where('chgcode','EP010002')
-            //                 ->where('mrn',$value_ep->mrn)
-            //                 ->where('episno',$value_ep->episno)
-            //                 ->whereMonth('trxdate','6')
-            //                 ->where('trxdate','<',$min_arrival_date)
-            //                 ->orderby('trxdate','asc');
 
-            // if($chargetrx_->exists()){
-            //     $chargetrx=$chargetrx_->first();
+            if(!empty($min_arrival_date)){
+                $chargetrx_ = DB::table('hisdb.chargetrx')
+                                ->where('compcode','13A')
+                                ->where('chgcode','EP010002')
+                                ->where('mrn',$value_ep->mrn)
+                                ->where('episno',$value_ep->episno)
+                                ->whereMonth('trxdate','6')
+                                ->where('trxdate','<',$min_arrival_date)
+                                ->orderby('trxdate','asc');
 
-            //     dump('chgcode:'. $chargetrx->chgcode.' , trxdate:'.$chargetrx->trxdate.' , MRN:'.$chargetrx->mrn.' , Episno:'.$chargetrx->episno.', id:'.$chargetrx->id);
-            // }
+                if($chargetrx_->exists()){
+                    $chargetrx=$chargetrx_->first();
+
+                    dump('chgcode:'. $chargetrx->chgcode.' , trxdate:'.$chargetrx->trxdate.' , MRN:'.$chargetrx->mrn.' , Episno:'.$chargetrx->episno.', id:'.$chargetrx->id);
+                }
+            }
 
             dump('<<<<<>>>>>>');
 
