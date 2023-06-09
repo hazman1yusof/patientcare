@@ -1397,7 +1397,7 @@ class WebserviceController extends defaultController
                                 ->whereMonth('arrival_date','6')
                                 ->min('arrival_date');
 
-            $chargetrx_ = DB::table('hisdb.chargetrx')
+            $chargetrx = DB::table('hisdb.chargetrx')
                             ->where('compcode','13A')
                             ->where('chgcode','EP010002')
                             ->where('mrn',$value_ep->mrn)
