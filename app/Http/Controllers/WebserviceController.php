@@ -1329,7 +1329,7 @@ class WebserviceController extends defaultController
         $chargetrx = DB::table('hisdb.chargetrx')
                         ->where('compcode','13A')
                         ->where('chgcode','EP010002')
-                        ->where('trxdate','2023-05-01')
+                        ->where('trxdate','2023-06-01')
                         ->get();
 
         foreach ($chargetrx as $key => $value) {
