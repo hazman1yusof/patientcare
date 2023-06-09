@@ -38,6 +38,9 @@ class WebserviceController extends defaultController
                 return $this->check_debtor_xde($request);break;
             case 'check_auto_1hb':          // for current
                 return $this->check_auto_1hb($request);break;
+            case 'check_baca_EPISODE_DPTKAN_EPO1STVIST':          // for current
+                return $this->check_baca_EPISODE_DPTKAN_EPO1STVIST($request);break;
+
             default:
                 return 'error happen..';
         }
@@ -1376,6 +1379,38 @@ class WebserviceController extends defaultController
             //                 'trxdate' => $single_->trxdate
             //             ]);
             // }
+        }
+    }
+
+    public function check_baca_EPISODE_DPTKAN_EPO1STVIST(){
+
+        $chargetrx = DB::table('hisdb.episode')
+                        ->where('compcode','13A')
+                        ->whereMonth('reg_date','6')
+                        ->get();
+
+        foreach ($chargetrx as $key_ep => $value_ep) {
+            $min_arrival_date = DB::table('hisdb.dialysis_episode')
+                                ->where('compcode','13A')
+                                ->where('mrn',$value_ep->mrn)
+                                ->where('episno',$value_ep->episno)
+                                ->whereMonth('arrival_date','6')
+                                ->min('arrival_date');
+
+            $chargetrx_ = DB::table('hisdb.chargetrx')
+                            ->where('compcode','13A')
+                            ->where('chgcode','EP010002')
+                            ->where('mrn',$value_ep->mrn)
+                            ->where('episno',$value_ep->episno)
+                            ->whereMonth('trxdate','6')
+                            ->where('trxdate','<',$min_arrival_date)
+                            ->orderby('trxdate','asc')
+                            ->first();
+
+            dump('chgcode:'. $chargetrx->chgcode.' , trxdate:'.$chargetrx->trxdate.' , MRN:'.$chargetrx->mrn.' , Episno:'.$chargetrx->episno.', id:'.$chargetrx->id);
+
+            dump('<<<<<>>>>>>');
+
         }
     }
 
