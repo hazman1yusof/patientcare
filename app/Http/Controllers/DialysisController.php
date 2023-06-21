@@ -1815,31 +1815,33 @@ class DialysisController extends Controller
                         ->where('id',$request->chgtrx_idno)
                         ->first();
 
-                $array_insert = [
-                    'compcode'=>session('compcode'),
-                    'mrn'=>$request->mrn,
-                    'episno'=>$request->episno,
-                    'entereddate'=>Carbon::now("Asia/Kuala_Lumpur"),
-                    'enteredtime'=>Carbon::now("Asia/Kuala_Lumpur"),
-                    'enteredby'=>session('username'),
-                    'adduser'=>session('username'),
-                    'adddate'=>Carbon::now("Asia/Kuala_Lumpur"),
-                    'qty'=>$chargetrx->quantity,
-                    'verifiedby'=>$request->verifiedby,
-                    'dose'=>$chargetrx->doscode,
-                    'freq'=>$chargetrx->frequency,
-                    'instruction'=>$chargetrx->instruction,
-                    'chgcode'=>$chargetrx->chgcode,
-                    'auditno'=>$request->chgtrx_idno
-                ];
-        
-                $table->insert($array_insert);
+                if($chargetrx->patmedication != '1'){
+                    $array_insert = [
+                        'compcode'=>session('compcode'),
+                        'mrn'=>$request->mrn,
+                        'episno'=>$request->episno,
+                        'entereddate'=>Carbon::now("Asia/Kuala_Lumpur"),
+                        'enteredtime'=>Carbon::now("Asia/Kuala_Lumpur"),
+                        'enteredby'=>session('username'),
+                        'adduser'=>session('username'),
+                        'adddate'=>Carbon::now("Asia/Kuala_Lumpur"),
+                        'qty'=>$chargetrx->quantity,
+                        'verifiedby'=>$request->verifiedby,
+                        'dose'=>$chargetrx->doscode,
+                        'freq'=>$chargetrx->frequency,
+                        'instruction'=>$chargetrx->instruction,
+                        'chgcode'=>$chargetrx->chgcode,
+                        'auditno'=>$request->chgtrx_idno
+                    ];
+            
+                    $table->insert($array_insert);
 
-                DB::table('hisdb.chargetrx')
-                        ->where('id',$request->chgtrx_idno)
-                        ->update([
-                            'patmedication' => '1'
-                        ]);
+                    DB::table('hisdb.chargetrx')
+                            ->where('id',$request->chgtrx_idno)
+                            ->update([
+                                'patmedication' => '1'
+                            ]);
+                }
 
             }else if($request->oper == 'del'){
 

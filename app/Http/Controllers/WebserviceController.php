@@ -38,8 +38,8 @@ class WebserviceController extends defaultController
                 return $this->check_debtor_xde($request);break;
             case 'check_auto_1hb':          // for current
                 return $this->check_auto_1hb($request);break;
-            case 'check_baca_EPISODE_DPTKAN_EPO1STVIST':          // for current
-                return $this->check_baca_EPISODE_DPTKAN_EPO1STVIST($request);break;
+            case 'epi_auto_terawal_sama_dgn_first_vis_trxdate':          // for current
+                return $this->epi_auto_terawal_sama_dgn_first_vis_trxdate($request);break;
 
             default:
                 return 'error happen..';
@@ -1382,11 +1382,13 @@ class WebserviceController extends defaultController
         }
     }
 
-    public function check_baca_EPISODE_DPTKAN_EPO1STVIST(){
+    public function epi_auto_terawal_sama_dgn_first_vis_trxdate(){
+
+        $thismonth = $now = Carbon::now()->month;
 
         $chargetrx = DB::table('hisdb.episode')
                         ->where('compcode','13A')
-                        ->whereMonth('reg_date','6')
+                        ->whereMonth('reg_date',$thismonth);
                         ->get();
 
         foreach ($chargetrx as $key_ep => $value_ep) {
@@ -1394,9 +1396,8 @@ class WebserviceController extends defaultController
                                 ->where('compcode','13A')
                                 ->where('mrn',$value_ep->mrn)
                                 ->where('episno',$value_ep->episno)
-                                ->whereMonth('arrival_date','6')
+                                ->whereMonth('arrival_date',$thismonth)
                                 ->min('arrival_date');
-
 
             if(!empty($min_arrival_date)){
                 $chargetrx_ = DB::table('hisdb.chargetrx')
@@ -1404,14 +1405,22 @@ class WebserviceController extends defaultController
                                 ->where('chgcode','EP010002')
                                 ->where('mrn',$value_ep->mrn)
                                 ->where('episno',$value_ep->episno)
-                                ->whereMonth('trxdate','6')
+                                ->whereMonth('trxdate',$thismonth)
                                 ->where('trxdate','<',$min_arrival_date)
                                 ->orderby('trxdate','asc');
 
                 if($chargetrx_->exists()){
                     $chargetrx=$chargetrx_->first();
 
-                    dump('chgcode:'. $chargetrx->chgcode.' , trxdate:'.$chargetrx->trxdate.' , MRN:'.$chargetrx->mrn.' , Episno:'.$chargetrx->episno.', id:'.$chargetrx->id);
+                    // dump('chgcode:'. $chargetrx->chgcode.' , trxdate:'.$chargetrx->trxdate.' , MRN:'.$chargetrx->mrn.' , Episno:'.$chargetrx->episno.', id:'.$chargetrx->id);
+                    DB::table('hisdb.chargetrx')
+                        ->where('id',$chargetrx->id)
+                        ->where('compcode','13A')
+                        ->where('chgcode','EP010002')
+                        ->where('trxdate','!=',$min_arrival_date)
+                        ->update([
+                            'trxdate' => $min_arrival_date
+                        ]);
                 }
             }
 
