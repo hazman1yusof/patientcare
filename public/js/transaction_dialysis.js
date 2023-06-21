@@ -20,7 +20,7 @@ $(document).ready(function () {
 	});
 
 	$("#tab_trans").on("hide.bs.collapse", function(){
-		$('button#timer_refresh').click();
+		// $('button#timer_refresh').click();
 	});
 
 	// var fdl = new faster_detail_load();

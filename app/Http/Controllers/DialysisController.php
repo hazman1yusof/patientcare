@@ -1158,7 +1158,8 @@ class DialysisController extends Controller
                         ->select('idno','visit_date')
                         ->where('mrn',$request->mrn)
                         ->where('arrivalno','!=',$request->dialysis_episode_idno)
-                        ->orderBy('idno','DESC');
+                        ->orderBy('idno','DESC')
+                        ->limit(100);
 
         if($dialysis_b4->exists()){
             $datab4 = [];
@@ -1176,6 +1177,13 @@ class DialysisController extends Controller
                             ->where('idno',$request->dialysis_episode_idno)
                             ->where('order',1);
 
+        $ada_order = DB::table('hisdb.chargetrx')
+                            ->where('compcode',session('compcode'))
+                            ->where('mrn',$request->mrn)
+                            ->where('episno',$request->episno)
+                            ->where('recstatus','1')
+                            ->whereDate('trxdate',Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d'));
+
         $other_data = $this->get_data_for_dialysis(
                                 $request->mrn,
                                 $request->episno,
@@ -1183,8 +1191,10 @@ class DialysisController extends Controller
 
         $responce->other_data = $other_data;
 
-        if($dialysis_episode->exists()){
+        if($ada_order->exists()){
+
             $dialysis_episode = $dialysis_episode->first();
+
             if($dialysis_episode->status == 'ABSENT'){
                 $responce->mode = 'disableAll';
             }else{
@@ -1204,40 +1214,41 @@ class DialysisController extends Controller
             }
 
         }else{
-            //kalu xde order xboleh add dialysis daily
-            $ada_order = DB::table('hisdb.chargetrx')
-                            ->where('compcode',session('compcode'))
-                            ->where('mrn',$request->mrn)
-                            ->where('episno',$request->episno)
-                            ->whereDate('trxdate',Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d'));
+            $responce->mode = 'disableAll';
+            // //kalu xde order xboleh add dialysis daily
+            // // $ada_order = DB::table('hisdb.chargetrx')
+            // //                 ->where('compcode',session('compcode'))
+            // //                 ->where('mrn',$request->mrn)
+            // //                 ->where('episno',$request->episno)
+            // //                 ->whereDate('trxdate',Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d'));
 
-            if($ada_order->exists()){
+            // if($ada_order->exists()){
 
-                $this->updateorder($request,$request->dialysis_episode_idno);
+            //     $this->updateorder($request,$request->dialysis_episode_idno);
 
-                $dialysis_episode = DB::table('hisdb.dialysis_episode')
-                            ->where('idno',$request->dialysis_episode_idno)->first();
+            //     $dialysis_episode = DB::table('hisdb.dialysis_episode')
+            //                 ->where('idno',$request->dialysis_episode_idno)->first();
 
-                if($dialysis_episode->status == 'ABSENT'){
-                    $responce->mode = 'disableAll';
-                }else{
-                    //check dkt dialysis ada data ke tak hari tu
-                    $dialysis = DB::table('hisdb.dialysis')
-                                    ->where('arrivalno',$request->dialysis_episode_idno);
+            //     if($dialysis_episode->status == 'ABSENT'){
+            //         $responce->mode = 'disableAll';
+            //     }else{
+            //         //check dkt dialysis ada data ke tak hari tu
+            //         $dialysis = DB::table('hisdb.dialysis')
+            //                         ->where('arrivalno',$request->dialysis_episode_idno);
                                     
-                    if($dialysis->exists()){
-                        //populate data hari tu
-                        $responce->mode = 'edit';
-                        $responce->data = $dialysis->first();
+            //         if($dialysis->exists()){
+            //             //populate data hari tu
+            //             $responce->mode = 'edit';
+            //             $responce->data = $dialysis->first();
 
-                    }else{
-                        //add new dialysis daily
-                        $responce->mode = 'add';
-                    }
-                }
-            }else{
-                $responce->mode = 'disableAll';
-            }
+            //         }else{
+            //             //add new dialysis daily
+            //             $responce->mode = 'add';
+            //         }
+            //     }
+            // }else{
+            //     $responce->mode = 'disableAll';
+            // }
         }
 
 
@@ -1368,6 +1379,7 @@ class DialysisController extends Controller
         $responce = new stdClass();
 
         $episode = DB::table('hisdb.episode')
+                    ->where('compcode',session('compcode'))
                     ->whereNotNull('dry_weight')
                     ->whereNotNull('duration_hd')
                     ->where('mrn',$mrn)
