@@ -709,7 +709,7 @@ class WebserviceController extends defaultController
         }
     }
 
-    public function query(){
+    public function query(){ //check epo4000(system auto) lebih dari satu
         DB::beginTransaction();
 
         try {
@@ -743,24 +743,24 @@ class WebserviceController extends defaultController
                         
                     echo '('.Carbon::now().') For mrn: '.$value->mrn.' ~ episno: '.$value->episno.' ~ only keep id: '.$first_occ->id;
 
-                    DB::table('hisdb.chargetrx')
-                        ->where('compcode','13A')
-                        ->where('mrn',$value->mrn)
-                        ->where('episno',$value->episno)
-                        ->where('chgcode','EP010002')
-                        ->where('recstatus','1')
-                        ->where('id','!=',$first_occ->id)
-                        ->update([
-                            'recstatus' => '0',
-                            'lastuser' => 'system/delete',
-                            'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
-                        ]);
+                    // DB::table('hisdb.chargetrx')
+                    //     ->where('compcode','13A')
+                    //     ->where('mrn',$value->mrn)
+                    //     ->where('episno',$value->episno)
+                    //     ->where('chgcode','EP010002')
+                    //     ->where('recstatus','1')
+                    //     ->where('id','!=',$first_occ->id)
+                    //     ->update([
+                    //         'recstatus' => '0',
+                    //         'lastuser' => 'system/delete',
+                    //         'lastupdate' => Carbon::now("Asia/Kuala_Lumpur")
+                    //     ]);
 
                 }
 
             } 
 
-            DB::commit();
+            // DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             dd($e);
@@ -1071,7 +1071,7 @@ class WebserviceController extends defaultController
     public function auto_episode(){
 
         $today = Carbon::now(); //returns current day
-        if($today->day != 1){dump('not 1st day of month');return 0;}
+        // if($today->day != 1){dump('not 1st day of month');return 0;}
         
 
         DB::beginTransaction();
@@ -1384,11 +1384,14 @@ class WebserviceController extends defaultController
 
     public function epi_auto_terawal_sama_dgn_first_vis_trxdate(){
 
-        $thismonth = $now = Carbon::now()->month;
+        // $thismonth = $now = Carbon::now()->month;
+        $lastmonth = new Carbon('last month');
+
+        // dd($lastmonth->format('n'));
 
         $chargetrx = DB::table('hisdb.episode')
                         ->where('compcode','13A')
-                        ->whereMonth('reg_date',$thismonth);
+                        ->whereMonth('reg_date',$lastmonth->format('n'))
                         ->get();
 
         foreach ($chargetrx as $key_ep => $value_ep) {
@@ -1396,7 +1399,7 @@ class WebserviceController extends defaultController
                                 ->where('compcode','13A')
                                 ->where('mrn',$value_ep->mrn)
                                 ->where('episno',$value_ep->episno)
-                                ->whereMonth('arrival_date',$thismonth)
+                                ->whereMonth('arrival_date',$lastmonth)
                                 ->min('arrival_date');
 
             if(!empty($min_arrival_date)){
@@ -1405,22 +1408,22 @@ class WebserviceController extends defaultController
                                 ->where('chgcode','EP010002')
                                 ->where('mrn',$value_ep->mrn)
                                 ->where('episno',$value_ep->episno)
-                                ->whereMonth('trxdate',$thismonth)
+                                ->whereMonth('trxdate',$lastmonth)
                                 ->where('trxdate','<',$min_arrival_date)
                                 ->orderby('trxdate','asc');
 
                 if($chargetrx_->exists()){
                     $chargetrx=$chargetrx_->first();
 
-                    // dump('chgcode:'. $chargetrx->chgcode.' , trxdate:'.$chargetrx->trxdate.' , MRN:'.$chargetrx->mrn.' , Episno:'.$chargetrx->episno.', id:'.$chargetrx->id);
-                    DB::table('hisdb.chargetrx')
-                        ->where('id',$chargetrx->id)
-                        ->where('compcode','13A')
-                        ->where('chgcode','EP010002')
-                        ->where('trxdate','!=',$min_arrival_date)
-                        ->update([
-                            'trxdate' => $min_arrival_date
-                        ]);
+                    dump('chgcode:'. $chargetrx->chgcode.' , trxdate:'.$chargetrx->trxdate.' , MRN:'.$chargetrx->mrn.' , Episno:'.$chargetrx->episno.', id:'.$chargetrx->id);
+                    // DB::table('hisdb.chargetrx')
+                    //     ->where('id',$chargetrx->id)
+                    //     ->where('compcode','13A')
+                    //     ->where('chgcode','EP010002')
+                    //     ->where('trxdate','!=',$min_arrival_date)
+                    //     ->update([
+                    //         'trxdate' => $min_arrival_date
+                    //     ]);
                 }
             }
 
