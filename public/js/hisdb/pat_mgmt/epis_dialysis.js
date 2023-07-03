@@ -160,7 +160,7 @@ $(document).ready(function () {
 
 	$("#edit_dialysis").click(function(){
 		button_state_dialysis('wait');
-		enableForm('#form_dialysis',['dialysis_no','dialysis_patname','dialysis_date','dialysis_time']);
+		enableForm('#form_dialysis',['dialysis_no','dialysis_patname']);
 		$("#save_dialysis").data('oper','edit');
 		
 	});

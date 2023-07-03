@@ -367,6 +367,10 @@ class DialysisController extends Controller
 
                 $array_update = [];
 
+                if(empty($request->initiated_by)){
+                    $array_update['initiated_by'] = $request->user_prehd;
+                }
+
                 $except_post = ['compcode','mrn','episno','arrivalno','visit_date','idno'];
 
                 foreach ($_POST as $key => $value) {
@@ -1061,11 +1065,63 @@ class DialysisController extends Controller
                         ->where('idno',$request->idno);
 
                 if($dialysis_episode->exists()){
-                    DB::table('hisdb.dialysis_episode')
-                        ->where('idno',$request->idno)
-                        ->update([
-                            'packagecode' => $request->packagecode
-                        ]);
+
+                    if($request->arrival_date == '2023-07-01'){
+                        DB::table('hisdb.dialysis_episode')
+                            ->where('idno',$request->idno)
+                            ->update([
+                                'packagecode' => $request->packagecode,
+                                'arrival_date'=>$request->arrival_date,
+                                'arrival_time'=>$request->arrival_time,
+                            ]);
+
+                        $episode_ = DB::table('hisdb.episode')
+                                            ->where('compcode',session('compcode'))
+                                            ->whereNotNull('dry_weight')
+                                            ->whereNotNull('duration_hd')
+                                            ->where('mrn',$request->mrn)
+                                            ->orderBy('idno','desc');
+
+                        if($episode_->exists()){
+                            $dry_weight = $episode_->first()->dry_weight;
+                            $duration_hd = $episode_->first()->duration_hd;
+                        }else{
+                            $dry_weight = null;
+                            $duration_hd = null;
+                        }
+
+                        $dialysis_ = DB::table('hisdb.dialysis')
+                                            ->where('mrn',$request->mrn)
+                                            ->latest('visit_date');
+
+                        if($dialysis_->exists()){
+                            $prev_post_weight = $dialysis_->first()->post_weight;
+                            $last_visit = $dialysis_->first()->visit_date;
+                        }else{
+                            $prev_post_weight = null;
+                            $last_visit = null;
+                        }
+
+                        DB::table('hisdb.dialysis')
+                            ->insert([
+                                'compcode'=>session('compcode'),
+                                'mrn'=>$request->mrn,
+                                'episno'=>$request->episno,
+                                'arrivalno'=>$request->idno,
+                                'visit_date'=>$request->arrival_date,
+                                'dry_weight'=>$dry_weight,
+                                'duration_of_hd'=>$duration_hd,
+                                'prev_post_weight'=>$prev_post_weight,
+                                'last_visit'=>$last_visit,
+                            ]);
+
+                    }else{
+                        DB::table('hisdb.dialysis_episode')
+                            ->where('idno',$request->idno)
+                            ->update([
+                                'packagecode' => $request->packagecode
+                            ]);
+                    }
                 }
             }else if($request->oper == 'del'){
                 $dialysis_episode = DB::table('hisdb.dialysis_episode')

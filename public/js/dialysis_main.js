@@ -79,11 +79,11 @@ $(document).ready(function () {
 				}
 			}
 
-			if(selrowdata.order==1){
-				$('#toggle_daily').removeClass('divpanel_disable');
-			}else{
-				$('#toggle_daily').addClass('divpanel_disable');
-			}
+			// if(selrowdata.order==1){
+			// 	$('#toggle_daily').removeClass('divpanel_disable');
+			// }else{
+			// 	$('#toggle_daily').addClass('divpanel_disable');
+			// }
 			
 			populatedialysis(selrowdata);
 			urlParam_trans.mrn = selrowdata.MRN;

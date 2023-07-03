@@ -682,7 +682,7 @@
 
 
 	<!-- <script type="text/javascript" src="js/hisdb/pat_mgmt/epis_doctor.js"></script> -->
-	<script type="text/javascript" src="{{ asset('js/hisdb/pat_mgmt/epis_dialysis.js') }}?v=1"></script>
+	<script type="text/javascript" src="{{ asset('js/hisdb/pat_mgmt/epis_dialysis.js') }}?v=2"></script>
 	<!-- <script type="text/javascript" src="js/hisdb/pat_mgmt/epis_nok.js"></script> -->
 	<!-- <script type="text/javascript" src="js/hisdb/pat_mgmt/epis_bed.js"></script> -->
 	<script type="text/javascript" src="js/hisdb/pat_mgmt/pat_nok.js"></script>
