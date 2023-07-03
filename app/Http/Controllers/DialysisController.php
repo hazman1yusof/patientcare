@@ -1212,6 +1212,7 @@ class DialysisController extends Controller
 
         $dialysis_b4 = DB::table('hisdb.dialysis')
                         ->select('idno','visit_date')
+                        ->where('compcode',session('compcode'))
                         ->where('mrn',$request->mrn)
                         ->where('arrivalno','!=',$request->dialysis_episode_idno)
                         ->orderBy('idno','DESC')
