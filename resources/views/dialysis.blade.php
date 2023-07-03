@@ -191,7 +191,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
     <script type="text/javascript" src="{{ asset('assets/printThis.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('js/dialysis_main.js') }}?v=6"></script>
+	<script type="text/javascript" src="{{ asset('js/dialysis_main.js') }}?v=7"></script>
     <script type="text/javascript" src="{{ asset('js/dialysis.js') }}?v=11"></script>
     <script type="text/javascript" src="{{ asset('js/blood_test_result.js') }}?v=3"></script>
     <script type="text/javascript" src="{{ asset('js/patmedication_dialysis.js') }}?v=3"></script>
