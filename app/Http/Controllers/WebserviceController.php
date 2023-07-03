@@ -968,33 +968,33 @@ class WebserviceController extends defaultController
 
                             $chargetrx_first =  $count_mcr->first();
 
-                            // for ($i=0; $i < $need_to_add; $i++) { 
-                            //     $id_chargetrx = DB::table('hisdb.chargetrx')
-                            //             ->insertGetId([
-                            //                 'compcode' => $chargetrx_first->compcode,
-                            //                 'mrn' => $chargetrx_first->mrn,
-                            //                 'episno' => $chargetrx_first->episno,
-                            //                 'trxtype' => $chargetrx_first->trxtype,
-                            //                 'trxdate' => $chargetrx_first->trxdate,
-                            //                 'chgcode' => $chargetrx_first->chgcode,
-                            //                 'chggroup' =>  $chargetrx_first->chggroup,
-                            //                 'chgtype' =>  $chargetrx_first->chgtype,
-                            //                 'instruction' => $chargetrx_first->instruction,
-                            //                 'doscode' => $chargetrx_first->doscode,
-                            //                 'frequency' => $chargetrx_first->frequency,
-                            //                 'drugindicator' => $chargetrx_first->drugindicator,
-                            //                 'remarks' => '',
-                            //                 'billflag' => $chargetrx_first->billflag,
-                            //                 'quantity' => $chargetrx_first->quantity,
-                            //                 'isudept' => $chargetrx_first->isudept,
-                            //                 'trxtime' => $chargetrx_first->trxtime,
-                            //                 'lastuser' => 'SYSTEM-MCR2',
-                            //                 'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                            //                 'recstatus' => 1
-                            //             ]);
+                            for ($i=0; $i < $need_to_add; $i++) { 
+                                $id_chargetrx = DB::table('hisdb.chargetrx')
+                                        ->insertGetId([
+                                            'compcode' => $chargetrx_first->compcode,
+                                            'mrn' => $chargetrx_first->mrn,
+                                            'episno' => $chargetrx_first->episno,
+                                            'trxtype' => $chargetrx_first->trxtype,
+                                            'trxdate' => $chargetrx_first->trxdate,
+                                            'chgcode' => $chargetrx_first->chgcode,
+                                            'chggroup' =>  $chargetrx_first->chggroup,
+                                            'chgtype' =>  $chargetrx_first->chgtype,
+                                            'instruction' => $chargetrx_first->instruction,
+                                            'doscode' => $chargetrx_first->doscode,
+                                            'frequency' => $chargetrx_first->frequency,
+                                            'drugindicator' => $chargetrx_first->drugindicator,
+                                            'remarks' => '',
+                                            'billflag' => $chargetrx_first->billflag,
+                                            'quantity' => $chargetrx_first->quantity,
+                                            'isudept' => $chargetrx_first->isudept,
+                                            'trxtime' => $chargetrx_first->trxtime,
+                                            'lastuser' => 'SYSTEM-MCR2',
+                                            'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                                            'recstatus' => 1
+                                        ]);
 
-                            //     dump('MCR added by system, id: '.$id_chargetrx);
-                            // }
+                                dump('MCR added by system, id: '.$id_chargetrx);
+                            }
 
                         }
 
@@ -1003,7 +1003,7 @@ class WebserviceController extends defaultController
 
             } 
 
-            // DB::commit();
+            DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             dd($e);
