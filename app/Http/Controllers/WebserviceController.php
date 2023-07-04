@@ -40,8 +40,6 @@ class WebserviceController extends defaultController
                 return $this->check_auto_1hb($request);break;
             case 'epi_auto_terawal_sama_dgn_first_vis_trxdate':          // for current
                 return $this->epi_auto_terawal_sama_dgn_first_vis_trxdate($request);break;
-            case 'check_21hb_tersilap':          // for current
-                return $this->check_21hb_tersilap($request);break;
 
             default:
                 return 'error happen..';
@@ -1431,41 +1429,5 @@ class WebserviceController extends defaultController
 
         }
     }
-
-    public function check_21hb_tersilap(Request $request){
-
-        DB::beginTransaction();
-
-        try {
-
-            $chargetrx DB::table('hisdb.chargetrx')
-                        ->where('compcode','13A')
-                        ->whereDate('lastupdate','=','2023-06-21')
-                        ->where('recstatus','1');
-
-            if($labresult->exists()){
-                $labresult = $labresult->get();
-
-                foreach ($labresult as $key => $value) {
-                    $this->labresult_store($value);
-
-
-                    DB::table('hisdb.labresult')
-                        ->where('auditno',$value->auditno)
-                        ->update([
-                            'upload' => '1'
-                        ]);
-                
-                }
-
-            }
-
-            DB::commit();
-        } catch (Exception $e) {
-            DB::rollback();
-            dd($e);
-        }
-    }
-
     
 }
