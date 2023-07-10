@@ -870,6 +870,7 @@ class WebserviceController extends defaultController
                                     ->where('recstatus',1);
 
                 if($got_auto->exists()){
+                    dd($got_auto->first());
                     $got_single = DB::table('hisdb.chargetrx')
                                     ->where('compcode','13A')
                                     ->where('mrn','=',$value->mrn)
