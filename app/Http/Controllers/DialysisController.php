@@ -1850,7 +1850,8 @@ class DialysisController extends Controller
                                 'freq.freqdesc as fre_desc',
                                 'ptm.qty as quantity',
                                 'ptm.idno as status',
-                                'ptm.ownmed')
+                                'ptm.ownmed',
+                                'chargetrx.trxdate')
 
                             ->leftJoin('hisdb.chgmast', function($join) use ($request){
                                 $join = $join->on('chgmast.chgcode', '=', 'ptm.chgcode')
