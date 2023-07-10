@@ -779,7 +779,7 @@ class WebserviceController extends defaultController
         try {
 
             $start = new Carbon('first day of last month');
-            $end = new Carbon('last day of this month');
+            $end = new Carbon('last day of last month');
 
             $episode = DB::table('hisdb.episode')
                                 ->where('compcode','13A')
@@ -853,7 +853,7 @@ class WebserviceController extends defaultController
         try {
 
             $start = new Carbon('first day of last month');
-            $end = new Carbon('last day of this month');
+            $end = new Carbon('last day of last month');
 
             $episode = DB::table('hisdb.episode')
                                 ->where('compcode','13A')
@@ -863,32 +863,96 @@ class WebserviceController extends defaultController
 
             foreach ($episode as $key => $value) {
                 $got_auto = DB::table('hisdb.chargetrx')
-                            ->where('mrn','=',$value->mrn)
-                            ->where('episno','=',$value->episno)
-                            ->where('chgcode','EP010002')
-                            ->where('recstatus',1);
+                                    ->where('compcode','13A')
+                                    ->where('mrn','=',$value->mrn)
+                                    ->where('episno','=',$value->episno)
+                                    ->where('chgcode','EP010002')
+                                    ->where('recstatus',1);
 
                 if($got_auto->exists()){
                     $got_single = DB::table('hisdb.chargetrx')
-                                ->where('mrn','=',$value->mrn)
-                                ->where('episno','=',$value->episno)
-                                ->whereIn('chgcode',['HD020001','HD010001','HD020002'])
-                                ->where('recstatus',1);
+                                    ->where('compcode','13A')
+                                    ->where('mrn','=',$value->mrn)
+                                    ->where('episno','=',$value->episno)
+                                    ->whereIn('chgcode',['HD020001','HD010001','HD020002'])
+                                    ->where('recstatus',1);
 
                     if(!$got_single->exists()){
                         dump('MRN: '.$value->mrn.', episno: '.$value->episno.' ada auto EP010002 tapi xde single use');
-                    }
 
-                    // DB::table('hisdb.chargetrx')
-                    //         ->where('mrn','=',$value->mrn)
-                    //         ->where('episno','=',$value->episno)
-                    //         ->where('chgcode','EP010002')
-                    //         ->where('recstatus',1)
-                    //         ->update([
-                    //             'recstatus' => 0 ,
-                    //             'lastuser' => 'SYSTEM-EPOtolak' ,
-                    //             'lastupdate' => Carbon::now("Asia/Kuala_Lumpur") 
-                    //         ]);
+                        DB::table('hisdb.chargetrx')
+                                    ->where('compcode','13A')
+                                    ->where('mrn','=',$value->mrn)
+                                    ->where('episno','=',$value->episno)
+                                    ->where('chgcode','EP010002')
+                                    ->where('recstatus',1)
+                                    ->update([
+                                        'recstatus' => 0 ,
+                                        'lastuser' => 'SYSTEM-EPOtolak' ,
+                                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur") 
+                                    ]);
+
+                        dump('recstatus set to 0 for id: '.$got_auto->first()->id);
+                    }
+                }
+            } 
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            dd($e);
+            // return response('Error'.$e, 500);
+        }
+    }
+
+    public function chk_auto_terlebih_dari_satu(){
+        DB::beginTransaction();
+
+        try {
+
+            $start = new Carbon('first day of last month');
+            $end = new Carbon('last day of this month');
+
+            $episode = DB::table('hisdb.episode')
+                                ->where('compcode','13A')
+                                ->whereDate('reg_date','>=',$start->format('Y-m-d'))
+                                ->whereDate('reg_date','<=',$end->format('Y-m-d'))
+                                ->get();
+
+            foreach ($episode as $key => $value) {
+                $got_single = DB::table('hisdb.chargetrx')
+                                    ->where('compcode','13A')
+                                    ->where('mrn','=',$value->mrn)
+                                    ->where('episno','=',$value->episno)
+                                    ->whereIn('chgcode',['HD020001','HD010001','HD020002'])
+                                    ->where('recstatus',1);
+
+                if($got_single->exists()){
+                    $got_auto = DB::table('hisdb.chargetrx')
+                                    ->where('compcode','13A')
+                                    ->where('mrn','=',$value->mrn)
+                                    ->where('episno','=',$value->episno)
+                                    ->where('chgcode','EP010002')
+                                    ->where('recstatus',1);
+
+                    if(intval($got_auto->count()) > 1){
+                        dump('MRN: '.$value->mrn.', episno: '.$value->episno.' ada auto EP010002 lebih dari satu, jumlah auto: '.$got_auto->count());
+                        foreach ($got_auto->get() as $key => $value) {
+                            if(intval($key) > 1){
+                                DB::table('hisdb.chargetrx')
+                                    ->where('compcode','13A')
+                                    ->where('mrn','=',$value->mrn)
+                                    ->where('episno','=',$value->episno)
+                                    ->where('id',$value->id)
+                                    ->update([
+                                        'recstatus' => '0',
+                                        'remarks' => "delete sebab terlebih"
+                                    ]);
+
+                                dump('deactivate chargetrx id: '.$value->id);
+                            }
+                        }
+                    }
                 }
             } 
 
