@@ -892,7 +892,6 @@ class WebserviceController extends defaultController
                                         'lastupdate' => Carbon::now("Asia/Kuala_Lumpur") 
                                     ]);
 
-                        dump($got_auto->first()->id);
                     }
                 }
             } 
