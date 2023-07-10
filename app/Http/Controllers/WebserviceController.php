@@ -24,8 +24,12 @@ class WebserviceController extends defaultController
         switch($request->action){
             case 'query':          // for current
                 return $this->query($request);break;
-            case 'query2':          // for current
-                return $this->query2($request);break;
+            case 'chk_auto_terlebih_dari_satu':          // for current
+                return $this->chk_auto_terlebih_dari_satu($request);break;
+            case 'chk_ada_auto_tapi_xde_single':          // for current
+                return $this->chk_ada_auto_tapi_xde_single($request);break;
+            case 'chk_kalu_ada_single_tp_xde_auto':          // for current
+                return $this->chk_kalu_ada_single_tp_xde_auto($request);break;
             case 'query2_betulkandate':          // for current
                 return $this->query2_betulkandate($request);break;
             case 'micerra_buang_terlebih_bulan_lepas':          // for current
@@ -769,7 +773,7 @@ class WebserviceController extends defaultController
 
     }
 
-    public function query2(){
+    public function chk_kalu_ada_single_tp_xde_auto(){
         DB::beginTransaction();
 
         try {
@@ -841,6 +845,59 @@ class WebserviceController extends defaultController
             // return response('Error'.$e, 500);
         }
 
+    }
+
+    public function chk_ada_auto_tapi_xde_single(){
+        DB::beginTransaction();
+
+        try {
+
+            $start = new Carbon('first day of last month');
+            $end = new Carbon('last day of this month');
+
+            $episode = DB::table('hisdb.episode')
+                                ->where('compcode','13A')
+                                ->whereDate('reg_date','>=',$start->format('Y-m-d'))
+                                ->whereDate('reg_date','<=',$end->format('Y-m-d'))
+                                ->get();
+
+            foreach ($episode as $key => $value) {
+                $got_auto = DB::table('hisdb.chargetrx')
+                            ->where('mrn','=',$value->mrn)
+                            ->where('episno','=',$value->episno)
+                            ->where('chgcode','EP010002')
+                            ->where('recstatus',1);
+
+                if($got_auto->exists()){
+                    $got_single = DB::table('hisdb.chargetrx')
+                                ->where('mrn','=',$value->mrn)
+                                ->where('episno','=',$value->episno)
+                                ->whereIn('chgcode',['HD020001','HD010001','HD020002'])
+                                ->where('recstatus',1);
+
+                    if(!$got_single->exists()){
+                        dump('MRN: '.$value->mrn.', episno: '.$value->episno.' ada auto EP010002 tapi xde single use');
+                    }
+
+                    // DB::table('hisdb.chargetrx')
+                    //         ->where('mrn','=',$value->mrn)
+                    //         ->where('episno','=',$value->episno)
+                    //         ->where('chgcode','EP010002')
+                    //         ->where('recstatus',1)
+                    //         ->update([
+                    //             'recstatus' => 0 ,
+                    //             'lastuser' => 'SYSTEM-EPOtolak' ,
+                    //             'lastupdate' => Carbon::now("Asia/Kuala_Lumpur") 
+                    //         ]);
+                }
+            } 
+
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            dd($e);
+            // return response('Error'.$e, 500);
+        }
     }
 
     public function micerra_buang_terlebih_bulan_lepas(){
