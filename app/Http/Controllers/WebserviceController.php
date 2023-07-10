@@ -870,7 +870,6 @@ class WebserviceController extends defaultController
                                     ->where('recstatus',1);
 
                 if($got_auto->exists()){
-                    dump($got_auto->first()->id);
                     $got_single = DB::table('hisdb.chargetrx')
                                     ->where('compcode','13A')
                                     ->where('mrn','=',$value->mrn)
@@ -893,7 +892,7 @@ class WebserviceController extends defaultController
                                         'lastupdate' => Carbon::now("Asia/Kuala_Lumpur") 
                                     ]);
 
-                        dump('recstatus set to 0 for id: '.$got_auto->first()->id);
+                        dump($got_auto->first()->id);
                     }
                 }
             } 
