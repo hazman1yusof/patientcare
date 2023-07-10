@@ -1856,6 +1856,11 @@ class DialysisController extends Controller
                                 $join = $join->on('chgmast.chgcode', '=', 'ptm.chgcode')
                                                 ->where('chgmast.compcode','=',session('compcode'));
                             })
+                            ->leftJoin('hisdb.chargetrx', function($join) use ($request){
+                                $join = $join->on('chargetrx.id', '=', 'ptm.auditno')
+                                                ->whereDate('chargetrx.trxdate', $request->date)
+                                                ->where('chargetrx.compcode','=',session('compcode'));
+                            })
                             ->leftJoin('hisdb.instruction', function($join) use ($request){
                                 $join = $join->on('instruction.inscode', '=', 'ptm.instruction')
                                                 ->where('instruction.compcode','=',session('compcode'));
