@@ -1859,7 +1859,6 @@ class DialysisController extends Controller
                             })
                             ->leftJoin('hisdb.chargetrx', function($join) use ($request){
                                 $join = $join->on('chargetrx.id', '=', 'ptm.auditno')
-                                                ->whereDate('chargetrx.trxdate', $request->date)
                                                 ->where('chargetrx.compcode','=',session('compcode'));
                             })
                             ->leftJoin('hisdb.instruction', function($join) use ($request){
@@ -1875,6 +1874,7 @@ class DialysisController extends Controller
                                                 ->where('dose.compcode','=',session('compcode'));
                             })
                             
+                            ->whereDate('chargetrx.trxdate', $request->date)
                             ->where('ptm.mrn' ,'=', $request->mrn)
                             ->where('ptm.episno' ,'=', $request->episno)
                             ->whereDate('ptm.entereddate', $request->date)
