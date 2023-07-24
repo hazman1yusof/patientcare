@@ -579,8 +579,20 @@ class DialysisController extends Controller
     }
 
     public function dialysis_transaction_save(Request $request){
-
         DB::beginTransaction();
+
+        if(empty($request->trxdate)){
+            $trxdate = Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d');
+        }else{
+            $trxdate = $request->trxdate;
+        }
+
+        if(empty($request->trxtime)){
+            $trxtime = Carbon::now("Asia/Kuala_Lumpur")->format('H:i:s');
+        }else{
+            $trxtime = $request->trxtime;
+        }
+        
         try {
 
             if($request->oper == 'edit'){
@@ -613,7 +625,7 @@ class DialysisController extends Controller
                                         ->where('dialysis_episode.mrn',$request->mrn)
                                         ->where('dialysis_episode.episno',$request->episno)
                                         ->where('dialysis_episode.compcode','=',session('compcode'))
-                                        ->whereDate('dialysis_episode.arrival_date',$request->trxdate);
+                                        ->whereDate('dialysis_episode.arrival_date',$trxdate);
 
                 if($dialysis_episode->exists()){
                     // throw new \Exception('Patient doesnt arrive for dialysis at date: '.Carbon::parse($request->trxdate)->format('d-m-Y'), 500);
@@ -643,7 +655,7 @@ class DialysisController extends Controller
                                 ->where('mrn','=',$request->mrn)
                                 ->where('episno','=',$request->episno)
                                 ->where('compcode','=',session('compcode'))
-                                ->where('trxdate','=', $request->trxdate)
+                                ->where('trxdate','=', $trxdate)
                                 ->where('recstatus','=',1)
                                 ->where('chgtype','=','PKG');
 
@@ -657,7 +669,7 @@ class DialysisController extends Controller
                                 ->where('episno','=',$request->episno)
                                 ->where('compcode','=',session('compcode'))
                                 ->where('recstatus','=',1)
-                                ->where('trxdate','=', $request->trxdate)
+                                ->where('trxdate','=', $trxdate)
                                 ->where('chgtype','=','PKG');
 
                     if(!$chgtrx->exists()){
@@ -666,13 +678,12 @@ class DialysisController extends Controller
                                 ->where('compcode','=',session('compcode'))
                                 ->where('mrn','=',$request->mrn)
                                 ->where('episno','=',$request->episno)
-                                ->where('arrival_date','=', $request->trxdate)
+                                ->where('arrival_date','=', $trxdate)
                                 ->where('status','=','ABSENT');
 
                         if(!$dialysis_episode->exists()){
                             throw new \Exception('No dialysis for date: '.Carbon::parse($request->arrival_date)->format('d-m-Y').', Please add dialysis first!', 500);
                         }
-
 
                     }
                 }
@@ -682,7 +693,7 @@ class DialysisController extends Controller
                     'mrn' => $request->mrn,
                     'episno' => $request->episno,
                     'trxtype' => 'OE',
-                    'trxdate' => $request->trxdate,
+                    'trxdate' => $trxdate,
                     'chgcode' => $request->chg_desc,
                     'chggroup' =>  $chgmast->chggroup,
                     'chgtype' =>  $chgmast->chgtype,
@@ -694,7 +705,7 @@ class DialysisController extends Controller
                     'billflag' => '0',
                     'quantity' => $request->quantity,
                     'isudept' => $isudept,
-                    'trxtime' => $request->trxtime,
+                    'trxtime' => $trxtime,
                     'lastuser' => Auth::user()->username,
                     'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
                     'recstatus' => 1
@@ -716,14 +727,14 @@ class DialysisController extends Controller
                         'mrn' => $request->mrn,
                         'episno' => $request->episno,
                         'trxtype' => 'OE',
-                        'trxdate' => $request->trxdate,
+                        'trxdate' => $trxdate,
                         'chgcode' => $check_hd->chgcode,
                         'chggroup' => $chgmast_hd->chggroup,
                         'chgtype' => $chgmast_hd->chgtype,
                         'billflag' => '0',
                         'quantity' => 1,
                         'isudept' => $isudept,
-                        'trxtime' => $request->trxtime,
+                        'trxtime' => $trxtime,
                         'lastuser' => Auth::user()->username,
                         'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
                         'recstatus' => 1
@@ -746,14 +757,14 @@ class DialysisController extends Controller
                         'mrn' => $request->mrn,
                         'episno' => $request->episno,
                         'trxtype' => 'OE',
-                        'trxdate' => $request->trxdate,
+                        'trxdate' => $trxdate,
                         'chgcode' => $check_mcr->chgcode,
                         'chggroup' => $chgmast_mcr->chggroup,
                         'chgtype' => $chgmast_mcr->chgtype,
                         'billflag' => '0',
                         'quantity' => 1,
                         'isudept' => $isudept,
-                        'trxtime' => $request->trxtime,
+                        'trxtime' => $trxtime,
                         'lastuser' => Auth::user()->username,
                         'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
                         'recstatus' => 1
@@ -776,7 +787,7 @@ class DialysisController extends Controller
                                             ->where('dialysis_episode.mrn',$request->mrn)
                                             ->where('dialysis_episode.episno',$request->episno)
                                             ->where('dialysis_episode.compcode','=',session('compcode'))
-                                            ->whereDate('dialysis_episode.arrival_date',$request->trxdate);
+                                            ->whereDate('dialysis_episode.arrival_date',$trxdate);
 
                     if($dialysis_episode->exists()){
                         // throw new \Exception('Patient doesnt arrive for dialysis at date: '.Carbon::parse($request->trxdate)->format('d-m-Y'), 500);

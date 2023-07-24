@@ -162,7 +162,7 @@ $(document).ready(function () {
         	calc_jq_height_onchange("jqGrid_trans");
         	addmore_onadd = true;
         	$("#jqGrid_trans input[name='trxdate']").val(moment().format("YYYY-MM-DD"));
-        	$("#jqGrid_trans input[name='trxtime']").val(moment().format("HH:MM"));
+        	$("#jqGrid_trans input[name='trxtime']").val(moment().format("HH:mm:ss"));
 
         	$('#jqGrid_trans_ildelete').addClass('ui-disabled');
 
