@@ -880,23 +880,23 @@ class WebserviceController extends defaultController
                     if(!$got_single->exists()){
                         dump('MRN: '.$value->mrn.', episno: '.$value->episno.' ada auto EP010002 tapi xde single use');
 
-                        // DB::table('hisdb.chargetrx')
-                        //             ->where('compcode','13A')
-                        //             ->where('mrn','=',$value->mrn)
-                        //             ->where('episno','=',$value->episno)
-                        //             ->where('chgcode','EP010002')
-                        //             ->where('recstatus',1)
-                        //             ->update([
-                        //                 'recstatus' => 0 ,
-                        //                 'lastuser' => 'SYSTEM-EPOtolak' ,
-                        //                 'lastupdate' => Carbon::now("Asia/Kuala_Lumpur") 
-                        //             ]);
+                        DB::table('hisdb.chargetrx')
+                                    ->where('compcode','13A')
+                                    ->where('mrn','=',$value->mrn)
+                                    ->where('episno','=',$value->episno)
+                                    ->where('chgcode','EP010002')
+                                    ->where('recstatus',1)
+                                    ->update([
+                                        'recstatus' => 0 ,
+                                        'lastuser' => 'SYSTEM-EPOtolak' ,
+                                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur") 
+                                    ]);
 
                     }
                 }
             } 
 
-            // DB::commit();
+            DB::commit();
         } catch (Exception $e) {
             DB::rollback();
             dd($e);
@@ -909,7 +909,7 @@ class WebserviceController extends defaultController
 
         try {
 
-            $start = new Carbon('first day of last month');
+            $start = new Carbon('first day of this month');
             $end = new Carbon('last day of this month');
 
             $episode = DB::table('hisdb.episode')
