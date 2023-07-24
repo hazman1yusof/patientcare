@@ -1862,16 +1862,16 @@ class DialysisController extends Controller
                                 'ptm.qty as quantity',
                                 'ptm.idno as status',
                                 'ptm.ownmed',
-                                'chargetrx.trxdate')
+                                'ptm.entereddate')
 
                             ->leftJoin('hisdb.chgmast', function($join) use ($request){
                                 $join = $join->on('chgmast.chgcode', '=', 'ptm.chgcode')
                                                 ->where('chgmast.compcode','=',session('compcode'));
                             })
-                            ->leftJoin('hisdb.chargetrx', function($join) use ($request){
-                                $join = $join->on('chargetrx.id', '=', 'ptm.auditno')
-                                                ->where('chargetrx.compcode','=',session('compcode'));
-                            })
+                            // ->leftJoin('hisdb.chargetrx', function($join) use ($request){
+                            //     $join = $join->on('chargetrx.id', '=', 'ptm.auditno')
+                            //                     ->where('chargetrx.compcode','=',session('compcode'));
+                            // })
                             ->leftJoin('hisdb.instruction', function($join) use ($request){
                                 $join = $join->on('instruction.inscode', '=', 'ptm.instruction')
                                                 ->where('instruction.compcode','=',session('compcode'));
@@ -1885,7 +1885,7 @@ class DialysisController extends Controller
                                                 ->where('dose.compcode','=',session('compcode'));
                             })
                             
-                            ->whereDate('chargetrx.trxdate', $request->date)
+                            // ->whereDate('chargetrx.trxdate', $request->date)
                             ->where('ptm.mrn' ,'=', $request->mrn)
                             ->where('ptm.episno' ,'=', $request->episno)
                             ->whereDate('ptm.entereddate', $request->date)
