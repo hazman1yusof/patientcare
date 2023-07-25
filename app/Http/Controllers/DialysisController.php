@@ -1255,6 +1255,16 @@ class DialysisController extends Controller
                             ->where('idno',$request->dialysis_episode_idno);
                             // ->where('order',1);
 
+        if(!$dialysis_episode->exists()){
+            $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                ->where('compcode',session('compcode'))
+                                ->where('mrn',$request->mrn)
+                                ->where('episno',$request->episno)
+                                ->orderBy('idno','DESC');
+
+
+        }
+
         $ada_order = DB::table('hisdb.chargetrx')
                             ->where('compcode',session('compcode'))
                             ->where('mrn',$request->mrn)
