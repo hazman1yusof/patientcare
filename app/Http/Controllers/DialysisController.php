@@ -1252,8 +1252,8 @@ class DialysisController extends Controller
         
         //check dkt dialysis_episode ada order ke tak
         $dialysis_episode = DB::table('hisdb.dialysis_episode')
-                            ->where('idno',$request->dialysis_episode_idno)
-                            ->where('order',1);
+                            ->where('idno',$request->dialysis_episode_idno);
+                            // ->where('order',1);
 
         $ada_order = DB::table('hisdb.chargetrx')
                             ->where('compcode',session('compcode'))
