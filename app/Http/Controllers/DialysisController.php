@@ -1236,6 +1236,7 @@ class DialysisController extends Controller
                         ->where('compcode',session('compcode'))
                         ->where('mrn',$request->mrn)
                         ->where('arrivalno','!=',$request->dialysis_episode_idno)
+                        ->whereDate('visit_date','!=',Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d'))
                         ->orderBy('idno','DESC')
                         ->limit(100);
 
