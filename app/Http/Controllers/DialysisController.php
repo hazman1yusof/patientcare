@@ -1287,6 +1287,9 @@ class DialysisController extends Controller
             }else{
                 //check dkt dialysis ada data ke tak hari tu
                 $dialysis = DB::table('hisdb.dialysis')
+                                ->where('compcode',session('compcode'))
+                                ->where('mrn',$request->mrn)
+                                ->where('episno',$request->episno)
                                 ->where('visit_date',Carbon::now("Asia/Kuala_Lumpur")->format('Y-m-d'));
                                 // ->where('arrivalno',$request->dialysis_episode_idno);
                                 
