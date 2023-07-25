@@ -1261,8 +1261,6 @@ class DialysisController extends Controller
                                 ->where('mrn',$request->mrn)
                                 ->where('episno',$request->episno)
                                 ->orderBy('idno','DESC');
-
-
         }
 
         $ada_order = DB::table('hisdb.chargetrx')
