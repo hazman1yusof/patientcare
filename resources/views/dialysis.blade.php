@@ -195,7 +195,7 @@
     <script type="text/javascript" src="{{ asset('js/dialysis.js') }}?v=12"></script>
     <script type="text/javascript" src="{{ asset('js/blood_test_result.js') }}?v=3"></script>
     <script type="text/javascript" src="{{ asset('js/patmedication_dialysis.js') }}?v=4"></script>
-    <script type="text/javascript" src="{{ asset('js/transaction_dialysis.js') }}?v=7"></script>
+    <script type="text/javascript" src="{{ asset('js/transaction_dialysis.js') }}?v=8"></script>
 @endsection
 
 

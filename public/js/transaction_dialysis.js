@@ -79,13 +79,12 @@ $(document).ready(function () {
 		onSelectRow:function(rowid, selected){
         	$('#jqGrid_trans_ildelete').addClass('ui-disabled');
 			calc_jq_height_onchange("jqGrid_trans");
-			if(!$('#jqGrid_trans_iladd').hasClass('ui-disabled') && selrowData('#jqGrid_trans').patmedication != '1'){
+			if(!$('#jqGrid_trans_iladd').hasClass('ui-disabled')){
 				var trxdate = selrowData('#jqGrid_trans').trxdate;
-				if(moment().isSame(moment(trxdate, "DD-MM-YYYY"), 'day')){
+				
+				if(moment().isSame(moment(trxdate, "YYYY-MM-DD"),'day') && selrowData('#jqGrid_trans').patmedication != '1'){
         			$('#jqGrid_trans_ildelete').removeClass('ui-disabled');
-				}
-
-				if($('#viewallcenter').val() == 1){
+				}else if($('#viewallcenter').val() == 1){
         			$('#jqGrid_trans_ildelete').removeClass('ui-disabled');
 				}
 			}
