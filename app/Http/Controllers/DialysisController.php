@@ -1539,7 +1539,7 @@ class DialysisController extends Controller
 
         }else{
             $dialysis = DB::table('hisdb.dialysis')
-                                ->where('mrn',$dialysis_episode->mrn)
+                                ->where('mrn',$mrn)
                                 ->latest('visit_date');
 
             if($dialysis->exists()){
