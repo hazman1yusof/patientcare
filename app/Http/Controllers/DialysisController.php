@@ -1961,7 +1961,7 @@ class DialysisController extends Controller
                         'compcode'=>session('compcode'),
                         'mrn'=>$request->mrn,
                         'episno'=>$request->episno,
-                        'entereddate'=>Carbon::now("Asia/Kuala_Lumpur"),
+                        'entereddate'=>$request->date,
                         'enteredtime'=>Carbon::now("Asia/Kuala_Lumpur"),
                         'enteredby'=>session('username'),
                         'adduser'=>session('username'),
