@@ -834,7 +834,7 @@ class WebserviceController extends defaultController
                         //     'recstatus' => 1
                         // ];
 
-                        DB::table('hisdb.chargetrx')->insert($array_insert);
+                        // DB::table('hisdb.chargetrx')->insert($array_insert);
                     }
                 }
 
