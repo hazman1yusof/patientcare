@@ -790,11 +790,17 @@ class DialysisController extends Controller
                 }
 
                 if(empty($request->dialysis_episode_idno)){
+
+                    $chgtrx = DB::table('hisdb.chargetrx')
+                                ->where('compcode','=',session('compcode'))
+                                ->where('id','=',$request->id)
+                                ->first();
+
                     $dialysis_episode = DB::table('hisdb.dialysis_episode')
                                             ->where('dialysis_episode.mrn',$request->mrn)
                                             ->where('dialysis_episode.episno',$request->episno)
                                             ->where('dialysis_episode.compcode','=',session('compcode'))
-                                            ->whereDate('dialysis_episode.arrival_date',$trxdate);
+                                            ->whereDate('dialysis_episode.arrival_date',$chgtrx->trxdate);
 
                     if($dialysis_episode->exists()){
                         // throw new \Exception('Patient doesnt arrive for dialysis at date: '.Carbon::parse($request->trxdate)->format('d-m-Y'), 500);
@@ -837,9 +843,7 @@ class DialysisController extends Controller
 
                 if($dialysis_pkgdtl->exists()){
                     $dialysis_episode = DB::table('hisdb.dialysis_episode')
-                                        ->where('dialysis_episode.mrn',$request->mrn)
-                                        ->where('dialysis_episode.episno',$request->episno)
-                                        ->whereDate('dialysis_episode.arrival_date',$trxdate)
+                                        ->where('dialysis_episode.idno',$last_arrival_idno)
                                         ->where('dialysis_episode.compcode','=',session('compcode'))
                                         ->first(); 
 
@@ -863,9 +867,7 @@ class DialysisController extends Controller
                                 ]);
 
                             DB::table('hisdb.dialysis_episode')
-                                ->where('dialysis_episode.mrn',$request->mrn)
-                                ->where('dialysis_episode.episno',$request->episno)
-                                ->whereDate('dialysis_episode.arrival_date',$trxdate)
+                                ->where('dialysis_episode.idno',$last_arrival_idno)
                                 ->where('dialysis_episode.compcode','=',session('compcode'))
                                 ->update(['hdstat' => 0]);
                         }
@@ -880,11 +882,9 @@ class DialysisController extends Controller
 
                 if($dialysis_pkgdtl->exists()){
                     $dialysis_episode = DB::table('hisdb.dialysis_episode')
-                                ->where('dialysis_episode.mrn',$request->mrn)
-                                ->where('dialysis_episode.episno',$request->episno)
-                                ->whereDate('dialysis_episode.arrival_date',$trxdate)
-                                ->where('dialysis_episode.compcode','=',session('compcode'))
-                        ->first();
+                                        ->where('dialysis_episode.idno',$last_arrival_idno)
+                                        ->where('dialysis_episode.compcode','=',session('compcode'))
+                                        ->first();
 
                     if($dialysis_episode->mcrstat>0){
                         // $oldmcr = intval($dialysis_episode->mcrstat);
@@ -901,9 +901,7 @@ class DialysisController extends Controller
                         // }
                         $del_array=['mcrstat' => 0,'mcrtype' => ''];
                         DB::table('hisdb.dialysis_episode')
-                            ->where('dialysis_episode.mrn',$request->mrn)
-                            ->where('dialysis_episode.episno',$request->episno)
-                            ->whereDate('dialysis_episode.arrival_date',$trxdate)
+                            ->where('dialysis_episode.idno',$last_arrival_idno)
                             ->where('dialysis_episode.compcode','=',session('compcode'))
                             ->update($del_array);
 

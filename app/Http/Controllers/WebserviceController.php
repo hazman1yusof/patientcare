@@ -773,7 +773,7 @@ class WebserviceController extends defaultController
 
     }
 
-    public function chk_kalu_ada_single_tp_xde_auto(){
+    public function chk_kalu_ada_single_tp_xde_auto(Request $request){
         DB::beginTransaction();
 
         try {
@@ -816,25 +816,27 @@ class WebserviceController extends defaultController
                                 ->where('chgcode','=','EP010002')
                                 ->first();
 
-                        // $array_insert = [
-                        //     'compcode' => session('compcode'),
-                        //     'mrn' => $value->mrn,
-                        //     'episno' => $value->episno,
-                        //     'trxtype' => 'OE',
-                        //     'trxdate' => $dialysis_episode->arrival_date,
-                        //     'chgcode' => 'EP010002',
-                        //     'chggroup' => $chgmast_hd->chggroup,
-                        //     'chgtype' => $chgmast_hd->chgtype,
-                        //     'billflag' => '0',
-                        //     'quantity' => 1,
-                        //     'isudept' => $value->regdept,
-                        //     'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
-                        //     'lastuser' => 'SYSTEM-EPOtambah',
-                        //     'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                        //     'recstatus' => 1
-                        // ];
+                        $array_insert = [
+                            'compcode' => session('compcode'),
+                            'mrn' => $value->mrn,
+                            'episno' => $value->episno,
+                            'trxtype' => 'OE',
+                            'trxdate' => $dialysis_episode->arrival_date,
+                            'chgcode' => 'EP010002',
+                            'chggroup' => $chgmast_hd->chggroup,
+                            'chgtype' => $chgmast_hd->chgtype,
+                            'billflag' => '0',
+                            'quantity' => 1,
+                            'isudept' => $value->regdept,
+                            'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
+                            'lastuser' => 'SYSTEM-EPOtambah',
+                            'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                            'recstatus' => 1
+                        ];
 
-                        // DB::table('hisdb.chargetrx')->insert($array_insert);
+                        if(!empty($request->commit)){
+                            DB::table('hisdb.chargetrx')->insert($array_insert);
+                        }
                     }
                 }
 
@@ -849,7 +851,7 @@ class WebserviceController extends defaultController
 
     }
 
-    public function chk_ada_auto_tapi_xde_single(){
+    public function chk_ada_auto_tapi_xde_single(Request $request){
         DB::beginTransaction();
 
         try {
@@ -882,17 +884,20 @@ class WebserviceController extends defaultController
                     if(!$got_single->exists()){
                         dump('MRN: '.$value->mrn.', episno: '.$value->episno.' ada auto EP010002 tapi xde single use');
 
-                        DB::table('hisdb.chargetrx')
-                                    ->where('compcode','13A')
-                                    ->where('mrn','=',$value->mrn)
-                                    ->where('episno','=',$value->episno)
-                                    ->where('chgcode','EP010002')
-                                    ->where('recstatus',1)
-                                    ->update([
-                                        'recstatus' => 0 ,
-                                        'lastuser' => 'SYSTEM-EPOtolak' ,
-                                        'lastupdate' => Carbon::now("Asia/Kuala_Lumpur") 
-                                    ]);
+
+                        if(!empty($request->commit)){
+                            DB::table('hisdb.chargetrx')
+                                        ->where('compcode','13A')
+                                        ->where('mrn','=',$value->mrn)
+                                        ->where('episno','=',$value->episno)
+                                        ->where('chgcode','EP010002')
+                                        ->where('recstatus',1)
+                                        ->update([
+                                            'recstatus' => 0 ,
+                                            'lastuser' => 'SYSTEM-EPOtolak' ,
+                                            'lastupdate' => Carbon::now("Asia/Kuala_Lumpur") 
+                                        ]);
+                        }
 
                     }
                 }
@@ -906,7 +911,7 @@ class WebserviceController extends defaultController
         }
     }
 
-    public function chk_auto_terlebih_dari_satu(){
+    public function chk_auto_terlebih_dari_satu(Request $request){
         DB::beginTransaction();
 
         try {
@@ -938,19 +943,22 @@ class WebserviceController extends defaultController
 
                     if(intval($got_auto->count()) > 1){
                         dump('MRN: '.$value->mrn.', episno: '.$value->episno.' ada auto EP010002 lebih dari satu, jumlah auto: '.$got_auto->count());
-                        foreach ($got_auto->get() as $key => $value) {
-                            if(intval($key) > 1){
-                                DB::table('hisdb.chargetrx')
-                                    ->where('compcode','13A')
-                                    ->where('mrn','=',$value->mrn)
-                                    ->where('episno','=',$value->episno)
-                                    ->where('id',$value->id)
-                                    ->update([
-                                        'recstatus' => '0',
-                                        'remarks' => "delete sebab terlebih"
-                                    ]);
 
-                                dump('deactivate chargetrx id: '.$value->id);
+                        if(!empty($request->commit)){
+                            foreach ($got_auto->get() as $key => $value) {
+                                if(intval($key) > 1){
+                                    DB::table('hisdb.chargetrx')
+                                        ->where('compcode','13A')
+                                        ->where('mrn','=',$value->mrn)
+                                        ->where('episno','=',$value->episno)
+                                        ->where('id',$value->id)
+                                        ->update([
+                                            'recstatus' => '0',
+                                            'remarks' => "delete sebab terlebih"
+                                        ]);
+
+                                    dump('deactivate chargetrx id: '.$value->id);
+                                }
                             }
                         }
                     }
@@ -965,7 +973,7 @@ class WebserviceController extends defaultController
         }
     }
 
-    public function micerra_buang_terlebih_bulan_lepas(){
+    public function micerra_buang_terlebih_bulan_lepas(Request $request){
         DB::beginTransaction();
 
         try {
@@ -1009,20 +1017,24 @@ class WebserviceController extends defaultController
 
                         if(intval($count_mcr->count()) > intval($max_vol)){
                             dump('mrn:'.$value->mrn.' having more micerra: '.$count_mcr->count());
-                            foreach ($count_mcr->get() as $key => $value) {
-                                if(intval($key)>=intval($max_vol)){
-                                    DB::table('hisdb.chargetrx')
-                                        ->where('compcode','13A')
-                                        ->where('mrn','=',$value->mrn)
-                                        ->where('episno','=',$value->episno)
-                                        ->where('id',$value->id)
-                                        ->update([
-                                            'recstatus' => '0',
-                                            'remarks' => "delete sebab terlebih"
-                                        ]);
 
 
-                                    dump('deactivate chargetrx id: '.$value->id);
+                            if(!empty($request->commit)){
+                                foreach ($count_mcr->get() as $key => $value) {
+                                    if(intval($key)>=intval($max_vol)){
+                                        DB::table('hisdb.chargetrx')
+                                            ->where('compcode','13A')
+                                            ->where('mrn','=',$value->mrn)
+                                            ->where('episno','=',$value->episno)
+                                            ->where('id',$value->id)
+                                            ->update([
+                                                'recstatus' => '0',
+                                                'remarks' => "delete sebab terlebih"
+                                            ]);
+
+
+                                        dump('deactivate chargetrx id: '.$value->id);
+                                    }
                                 }
                             }
 
@@ -1042,7 +1054,7 @@ class WebserviceController extends defaultController
 
     }
 
-    public function micerra_tambah_terkurang_bulan_lepas(){
+    public function micerra_tambah_terkurang_bulan_lepas(Request $request){
         DB::beginTransaction();
 
         try {
@@ -1090,32 +1102,34 @@ class WebserviceController extends defaultController
 
                             $chargetrx_first =  $count_mcr->first();
 
-                            for ($i=0; $i < $need_to_add; $i++) { 
-                                $id_chargetrx = DB::table('hisdb.chargetrx')
-                                        ->insertGetId([
-                                            'compcode' => $chargetrx_first->compcode,
-                                            'mrn' => $chargetrx_first->mrn,
-                                            'episno' => $chargetrx_first->episno,
-                                            'trxtype' => $chargetrx_first->trxtype,
-                                            'trxdate' => $chargetrx_first->trxdate,
-                                            'chgcode' => $chargetrx_first->chgcode,
-                                            'chggroup' =>  $chargetrx_first->chggroup,
-                                            'chgtype' =>  $chargetrx_first->chgtype,
-                                            'instruction' => $chargetrx_first->instruction,
-                                            'doscode' => $chargetrx_first->doscode,
-                                            'frequency' => $chargetrx_first->frequency,
-                                            'drugindicator' => $chargetrx_first->drugindicator,
-                                            'remarks' => '',
-                                            'billflag' => $chargetrx_first->billflag,
-                                            'quantity' => $chargetrx_first->quantity,
-                                            'isudept' => $chargetrx_first->isudept,
-                                            'trxtime' => $chargetrx_first->trxtime,
-                                            'lastuser' => 'SYSTEM-MCR2',
-                                            'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                                            'recstatus' => 1
-                                        ]);
+                            if(!empty($request->commit)){
+                                for ($i=0; $i < $need_to_add; $i++) { 
+                                    $id_chargetrx = DB::table('hisdb.chargetrx')
+                                            ->insertGetId([
+                                                'compcode' => $chargetrx_first->compcode,
+                                                'mrn' => $chargetrx_first->mrn,
+                                                'episno' => $chargetrx_first->episno,
+                                                'trxtype' => $chargetrx_first->trxtype,
+                                                'trxdate' => $chargetrx_first->trxdate,
+                                                'chgcode' => $chargetrx_first->chgcode,
+                                                'chggroup' =>  $chargetrx_first->chggroup,
+                                                'chgtype' =>  $chargetrx_first->chgtype,
+                                                'instruction' => $chargetrx_first->instruction,
+                                                'doscode' => $chargetrx_first->doscode,
+                                                'frequency' => $chargetrx_first->frequency,
+                                                'drugindicator' => $chargetrx_first->drugindicator,
+                                                'remarks' => '',
+                                                'billflag' => $chargetrx_first->billflag,
+                                                'quantity' => $chargetrx_first->quantity,
+                                                'isudept' => $chargetrx_first->isudept,
+                                                'trxtime' => $chargetrx_first->trxtime,
+                                                'lastuser' => 'SYSTEM-MCR2',
+                                                'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                                                'recstatus' => 1
+                                            ]);
 
-                                dump('MCR added by system, id: '.$id_chargetrx);
+                                    dump('MCR added by system, id: '.$id_chargetrx);
+                                }
                             }
 
                         }
