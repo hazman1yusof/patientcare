@@ -1518,7 +1518,7 @@ class WebserviceController extends defaultController
         }
     }
 
-    public function epi_auto_terawal_sama_dgn_first_vis_trxdate(){
+    public function epi_auto_terawal_sama_dgn_first_vis_trxdate(Request $request){
 
         // $thismonth = $now = Carbon::now()->month;
         $lastmonth = new Carbon('last month');
@@ -1552,14 +1552,17 @@ class WebserviceController extends defaultController
                     $chargetrx=$chargetrx_->first();
 
                     dump('chgcode:'. $chargetrx->chgcode.' , trxdate:'.$chargetrx->trxdate.' , MRN:'.$chargetrx->mrn.' , Episno:'.$chargetrx->episno.', id:'.$chargetrx->id);
-                    // DB::table('hisdb.chargetrx')
-                    //     ->where('id',$chargetrx->id)
-                    //     ->where('compcode','13A')
-                    //     ->where('chgcode','EP010002')
-                    //     ->where('trxdate','!=',$min_arrival_date)
-                    //     ->update([
-                    //         'trxdate' => $min_arrival_date
-                    //     ]);
+
+                    if(!empty($request->commit)){
+                        DB::table('hisdb.chargetrx')
+                            ->where('id',$chargetrx->id)
+                            ->where('compcode','13A')
+                            ->where('chgcode','EP010002')
+                            ->where('trxdate','!=',$min_arrival_date)
+                            ->update([
+                                'trxdate' => $min_arrival_date
+                            ]);
+                    }
                 }
             }
 
