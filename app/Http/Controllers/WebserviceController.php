@@ -803,6 +803,8 @@ class WebserviceController extends defaultController
 
                     if(!$got_auto->exists()){
 
+                        dump('MRN: '.$value->mrn.', episno: '.$value->episno.' ada single use, xde auto');
+
                         $dialysis_episode = DB::table('hisdb.dialysis_episode')
                                 ->where('mrn','=',$value->mrn)
                                 ->where('episno','=',$value->episno)
@@ -814,23 +816,23 @@ class WebserviceController extends defaultController
                                 ->where('chgcode','=','EP010002')
                                 ->first();
 
-                        $array_insert = [
-                            'compcode' => session('compcode'),
-                            'mrn' => $value->mrn,
-                            'episno' => $value->episno,
-                            'trxtype' => 'OE',
-                            'trxdate' => $dialysis_episode->arrival_date,
-                            'chgcode' => 'EP010002',
-                            'chggroup' => $chgmast_hd->chggroup,
-                            'chgtype' => $chgmast_hd->chgtype,
-                            'billflag' => '0',
-                            'quantity' => 1,
-                            'isudept' => $value->regdept,
-                            'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
-                            'lastuser' => 'SYSTEM-EPOtambah',
-                            'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
-                            'recstatus' => 1
-                        ];
+                        // $array_insert = [
+                        //     'compcode' => session('compcode'),
+                        //     'mrn' => $value->mrn,
+                        //     'episno' => $value->episno,
+                        //     'trxtype' => 'OE',
+                        //     'trxdate' => $dialysis_episode->arrival_date,
+                        //     'chgcode' => 'EP010002',
+                        //     'chggroup' => $chgmast_hd->chggroup,
+                        //     'chgtype' => $chgmast_hd->chgtype,
+                        //     'billflag' => '0',
+                        //     'quantity' => 1,
+                        //     'isudept' => $value->regdept,
+                        //     'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
+                        //     'lastuser' => 'SYSTEM-EPOtambah',
+                        //     'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                        //     'recstatus' => 1
+                        // ];
 
                         DB::table('hisdb.chargetrx')->insert($array_insert);
                     }
