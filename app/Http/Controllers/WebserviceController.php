@@ -1094,23 +1094,39 @@ class WebserviceController extends defaultController
                                         ->where('mrn','=',$value->mrn)
                                         ->where('episno','=',$value->episno)
                                         ->where('recstatus','=','1')
-                                        ->where('chgcode','EP010005');
+                                        ->where('chgcode','EP010005')
+                                        ->orderBy('id','desc');
 
                         if(intval($count_mcr->count()) < intval($max_vol)){
                             dump('mrn:'.$value->mrn.' having less micerra: '.$count_mcr->count());
                             $need_to_add = intval($max_vol) - intval($count_mcr->count());
 
                             $chargetrx_first =  $count_mcr->first();
-
+                            $trxdate = $chargetrx_first->trxdate
                             if(!empty($request->commit)){
                                 for ($i=0; $i < $need_to_add; $i++) { 
+                                    $chargetrx_hd_next = DB::table('hisdb.chargetrx')
+                                                    ->where('compcode','13A')
+                                                    ->where('mrn','=',$value->mrn)
+                                                    ->where('episno','=',$value->episno)
+                                                    ->where('recstatus','=','1')
+                                                    ->where('chggroup','=','HD')
+                                                    ->whereDate('trxdate','>',$trxdate)
+                                                    ->orderBy('id','desc');
+
+                                    if($chargetrx_hd_next->exists()){
+                                        $trxdate = $chargetrx_hd_next->first()->trxdate;
+                                    }else{
+                                        $trxdate = $trxdate;
+                                    }
+
                                     $id_chargetrx = DB::table('hisdb.chargetrx')
                                             ->insertGetId([
                                                 'compcode' => $chargetrx_first->compcode,
                                                 'mrn' => $chargetrx_first->mrn,
                                                 'episno' => $chargetrx_first->episno,
                                                 'trxtype' => $chargetrx_first->trxtype,
-                                                'trxdate' => $chargetrx_first->trxdate,
+                                                'trxdate' => $trxdate,
                                                 'chgcode' => $chargetrx_first->chgcode,
                                                 'chggroup' =>  $chargetrx_first->chggroup,
                                                 'chgtype' =>  $chargetrx_first->chgtype,
@@ -1139,7 +1155,7 @@ class WebserviceController extends defaultController
 
             } 
 
-            DB::commit();
+            // DB::commit(); //tgk balik dah lupa tambah apa 
         } catch (Exception $e) {
             DB::rollback();
             dd($e);
