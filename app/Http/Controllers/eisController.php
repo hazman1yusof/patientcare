@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use DateTime;
 use Session;
 use App\Exports\PatmastExport;
+use App\Exports\pat_monthly;
 use Maatwebsite\Excel\Facades\Excel;
 
 class eisController extends defaultController
@@ -68,6 +69,9 @@ class eisController extends defaultController
         switch ($request->action) {
             case 'patmast_excel':
                 return $this->patmast_excel($request);
+                break;
+            case 'pat_monthly':
+                return $this->pat_monthly($request);
                 break;
             default:
                 # code...
@@ -281,9 +285,15 @@ class eisController extends defaultController
         return view('eis.dashboard',compact('ip_month','op_month','ip_month_epis','op_month_epis','groupdesc','groupdesc_val_op','groupdesc_val_ip','groupdesc_cnt_op','groupdesc_cnt_ip','groupdesc_val'));
     }
 
-
-
     public function patmast_excel(Request $request){
         return Excel::download(new PatmastExport(), 'PatmastList.xlsx');
+    }
+
+    public function pat_monthly(Request $request){
+
+        $excel_name = 'Patient Month-'.$request->month.' Year-'.$request->year.' '.$request->pat_name;
+        $excel_name = $excel_name.' '.Carbon::now("Asia/Kuala_Lumpur")->format('d-m-Y H:i:s');
+
+        return Excel::download(new pat_monthly($request), $excel_name.'.xlsx');
     }
 }

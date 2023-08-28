@@ -2,7 +2,11 @@ $(document).ready(function () {
 
 	$('#month_year_calendar').calendar({
     	initialDate: new Date(),
-   		type: 'month'
+   		type: 'month',
+   		onChange: function(newDate){
+			$('#excel_month_m').val(moment(newDate).format('MM'));
+			$('#excel_year_m').val(moment(newDate).format('YYYY'));
+   		},
  	});
 
 	$("#tab_weekly").on("show.bs.collapse", function(){
@@ -15,6 +19,8 @@ $(document).ready(function () {
 	});
 
 	$("#tab_monthly").on("show.bs.collapse", function(){
+		$('#excel_month_m').val(moment($('#month_year_calendar').calendar('get date')).format('MM'));
+		$('#excel_year_m').val(moment($('#month_year_calendar').calendar('get date')).format('YYYY'));
 		closealltab("#tab_monthly");
 	});
 

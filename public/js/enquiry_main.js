@@ -110,6 +110,9 @@ function populatenquiry(data){
 	$('span.metal').text(data.Name+' - MRN:'+data.MRN);
 	$('#mrn').val(data.MRN);
 	$('#episno').val(data.Episno);
+	$('#excel_mrn_m').val(data.MRN);
+	$('#excel_episno_m').val(data.Episno);
+	$('#excel_pat_name_m').val(data.Name);
 }
 
 function closealltab(except){
