@@ -1102,7 +1102,7 @@ class WebserviceController extends defaultController
                             $need_to_add = intval($max_vol) - intval($count_mcr->count());
 
                             $chargetrx_first =  $count_mcr->first();
-                            $trxdate = $chargetrx_first->trxdate
+                            $trxdate = $chargetrx_first->trxdate;
                             if(!empty($request->commit)){
                                 for ($i=0; $i < $need_to_add; $i++) { 
                                     $chargetrx_hd_next = DB::table('hisdb.chargetrx')
