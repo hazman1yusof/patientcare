@@ -812,12 +812,12 @@ class WebserviceController extends defaultController
                                 ->first();
 
                         $chgmast_hd = DB::table('hisdb.chgmast')
-                                ->where('compcode','=',session('compcode'))
+                                ->where('compcode','=','13A')
                                 ->where('chgcode','=','EP010002')
                                 ->first();
 
                         $array_insert = [
-                            'compcode' => session('compcode'),
+                            'compcode' => '13A',
                             'mrn' => $value->mrn,
                             'episno' => $value->episno,
                             'trxtype' => 'OE',
@@ -1028,6 +1028,7 @@ class WebserviceController extends defaultController
                                             ->where('episno','=',$value->episno)
                                             ->where('id',$value->id)
                                             ->update([
+                                                'compcode' => 'XX',
                                                 'recstatus' => '0',
                                                 'remarks' => "delete sebab terlebih"
                                             ]);
@@ -1155,7 +1156,7 @@ class WebserviceController extends defaultController
 
             } 
 
-            // DB::commit(); //tgk balik dah lupa tambah apa 
+            DB::commit(); //tgk balik dah lupa tambah apa 
         } catch (Exception $e) {
             DB::rollback();
             dd($e);
