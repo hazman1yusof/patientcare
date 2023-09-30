@@ -1116,7 +1116,7 @@ class WebserviceController extends defaultController
                                                     ->where('recstatus','=','1')
                                                     ->where('chggroup','=','HD')
                                                     ->whereDate('trxdate','>',$trxdate)
-                                                    ->orderBy('id','desc');
+                                                    ->orderBy('id','asc');
 
                                     if($chargetrx_hd_next->exists()){
                                         $trxdate = $chargetrx_hd_next->first()->trxdate;
