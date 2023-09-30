@@ -1097,7 +1097,10 @@ class WebserviceController extends defaultController
                                         ->where('chgcode','EP010005')
                                         ->orderBy('id','desc');
 
-                        if(intval($count_mcr->count()) < intval($max_vol)){
+                        if(!$count_mcr->exists()){
+                            dump('mrn:'.$value->mrn.' no micerra auto');
+
+                        }else if(intval($count_mcr->count()) < intval($max_vol)){
                             dump('mrn:'.$value->mrn.' having less micerra: '.$count_mcr->count());
                             $need_to_add = intval($max_vol) - intval($count_mcr->count());
 
@@ -1155,7 +1158,7 @@ class WebserviceController extends defaultController
 
             } 
 
-            // DB::commit(); //tgk balik dah lupa tambah apa 
+            DB::commit(); //tgk balik dah lupa tambah apa 
         } catch (Exception $e) {
             DB::rollback();
             dd($e);
