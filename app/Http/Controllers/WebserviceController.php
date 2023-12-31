@@ -1100,6 +1100,61 @@ class WebserviceController extends defaultController
 
                         if(!$count_mcr->exists()){
                             dump('mrn:'.$value->mrn.' no micerra auto');
+                            $need_to_add = intval($max_vol);
+                            $trxdate = null;
+
+                            if(!empty($request->commit)){
+                                $chargetrx_hd_next = DB::table('hisdb.chargetrx')
+                                                ->where('compcode','13A')
+                                                ->where('mrn','=',$value->mrn)
+                                                ->where('episno','=',$value->episno)
+                                                ->where('recstatus','=','1')
+                                                ->where('chgcode','=',$dialysis_pkgdtl_first->chgcode)
+                                                ->orderBy('id','asc');
+
+                                $trxdate = $chargetrx_hd_next->first()->trxdate;
+
+                                for ($i=0; $i < $need_to_add; $i++) { 
+                                    if($trxdate == null){
+                                        continue;
+                                    }
+                                    $chargetrx_hd_next = DB::table('hisdb.chargetrx')
+                                                    ->where('compcode','13A')
+                                                    ->where('mrn','=',$value->mrn)
+                                                    ->where('episno','=',$value->episno)
+                                                    ->where('recstatus','=','1')
+                                                    ->where('chggroup','=','HD')
+                                                    ->whereDate('trxdate','>',$trxdate)
+                                                    ->orderBy('id','asc');
+
+                                    if($chargetrx_hd_next->exists()){
+                                        $trxdate = $chargetrx_hd_next->first()->trxdate;
+                                    }else{
+                                        $trxdate = $trxdate;
+                                    }
+
+                                    $id_chargetrx = DB::table('hisdb.chargetrx')
+                                            ->insertGetId([
+                                                'compcode' => $'13A',
+                                                'mrn' => $value->mrn,
+                                                'episno' => $value->mrn->episno,
+                                                'trxtype' => 'OE',
+                                                'trxdate' => $trxdate,
+                                                'chgcode' => 'EP010005',
+                                                'chggroup' =>  'EP',
+                                                'chgtype' =>  'EP01',
+                                                'billflag' => 0,
+                                                'quantity' => 1.00,
+                                                'isudept' => $chargetrx_hd_next->first()->isudept,
+                                                'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
+                                                'lastuser' => 'SYSTEM-MCR2',
+                                                'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                                                'recstatus' => 1
+                                            ]);
+
+                                    dump('MCR added by system, id: '.$id_chargetrx);
+                                }
+                            }
 
                         }else if(intval($count_mcr->count()) < intval($max_vol)){
                             dump('mrn:'.$value->mrn.' having less micerra: '.$count_mcr->count());
