@@ -1137,7 +1137,7 @@ class WebserviceController extends defaultController
                                             ->insertGetId([
                                                 'compcode' => '13A',
                                                 'mrn' => $value->mrn,
-                                                'episno' => $value->mrn->episno,
+                                                'episno' => $value->episno,
                                                 'trxtype' => 'OE',
                                                 'trxdate' => $trxdate,
                                                 'chgcode' => 'EP010005',
