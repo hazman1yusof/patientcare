@@ -1135,7 +1135,7 @@ class WebserviceController extends defaultController
 
                                     $id_chargetrx = DB::table('hisdb.chargetrx')
                                             ->insertGetId([
-                                                'compcode' => $'13A',
+                                                'compcode' => '13A',
                                                 'mrn' => $value->mrn,
                                                 'episno' => $value->mrn->episno,
                                                 'trxtype' => 'OE',
