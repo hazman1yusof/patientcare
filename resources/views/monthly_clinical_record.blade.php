@@ -220,7 +220,7 @@
     <td width="80" align="center">&nbsp;</td>
 </tr>
 <tr id="prehd_tmp_m">
-    <td width="100" align="left" class="txtaln">&nbsp;TMP</td>
+    <td width="100" align="left" class="txtaln">&nbsp;TEMP</td>
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
@@ -425,7 +425,7 @@
     <td width="80" align="center">&nbsp;</td>
 </tr>
 <tr id="1_tmp_m" class="color_1sthour">
-    <td width="100" align="left" class="txtaln">&nbsp;TMP</td>
+    <td width="100" align="left" class="txtaln">&nbsp;TEMP</td>
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
@@ -596,7 +596,7 @@
     <td width="80" align="center">&nbsp;</td>
 </tr>
 <tr id="2_tmp_m" class="color_2ndthour">
-    <td width="100" align="left" class="txtaln">&nbsp;TMP</td>
+    <td width="100" align="left" class="txtaln">&nbsp;TEMP</td>
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
@@ -767,7 +767,7 @@
     <td width="80" align="center">&nbsp;</td>
 </tr>
 <tr id="3_tmp_m" class="color_3rdhour">
-    <td width="100" align="left" class="txtaln">&nbsp;TMP</td>
+    <td width="100" align="left" class="txtaln">&nbsp;TEMP</td>
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
@@ -938,7 +938,7 @@
     <td width="80" align="center">&nbsp;</td>
 </tr>
 <tr id="4_tmp_m" class="color_4thhour">
-    <td width="100" align="left" class="txtaln">&nbsp;TMP</td>
+    <td width="100" align="left" class="txtaln">&nbsp;TEMP</td>
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
@@ -1109,7 +1109,7 @@
     <td width="80" align="center">&nbsp;</td>
 </tr>
 <tr id="5_tmp_m" class="color_5thhour">
-    <td width="100" align="left" class="txtaln">&nbsp;TMP</td>
+    <td width="100" align="left" class="txtaln">&nbsp;TEMP</td>
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
     <td width="80" align="center">&nbsp;</td>
