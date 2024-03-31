@@ -1113,6 +1113,7 @@ class WebserviceController extends defaultController
                                                 ->orderBy('id','asc');
 
                                 $trxdate = $chargetrx_hd_next->first()->trxdate;
+                                $isudept = $chargetrx_hd_next->first()->isudept;
 
                                 for ($i=0; $i < $need_to_add; $i++) { 
                                     if($trxdate == null){
@@ -1129,8 +1130,10 @@ class WebserviceController extends defaultController
 
                                     if($chargetrx_hd_next->exists()){
                                         $trxdate = $chargetrx_hd_next->first()->trxdate;
+                                        $isudept = $chargetrx_hd_next->first()->isudept;
                                     }else{
                                         $trxdate = $trxdate;
+                                        $isudept = $isudept;
                                     }
 
                                     $id_chargetrx = DB::table('hisdb.chargetrx')
@@ -1145,7 +1148,7 @@ class WebserviceController extends defaultController
                                                 'chgtype' =>  'EP01',
                                                 'billflag' => 0,
                                                 'quantity' => 1.00,
-                                                'isudept' => $chargetrx_hd_next->first()->isudept,
+                                                'isudept' => $isudept,
                                                 'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
                                                 'lastuser' => 'SYSTEM-MCR2',
                                                 'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
