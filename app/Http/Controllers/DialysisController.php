@@ -1574,8 +1574,8 @@ class DialysisController extends Controller
         $verify = DB::table('sysdb.users')
                     ->where('compcode',session('compcode'))
                     ->where('username',$request->username)
-                    ->where('password',$request->password)
-                    ->where('groupid','ADMIN');
+                    ->where('password',$request->password);
+                    // ->where('groupid','ADMIN');
 
         if($verify->exists()){
             $responce->success = 'success';
