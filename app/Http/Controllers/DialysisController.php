@@ -1713,7 +1713,7 @@ class DialysisController extends Controller
                     // ->leftJoin('hisdb.dose as d','d.dosecode','=','cm.dosecode')
                     // ->leftJoin('hisdb.freq as f','f.freqcode','=','cm.freqcode')
                     // ->leftJoin('hisdb.instruction as i','i.inscode','=','cm.instruction')
-                    ->where('cm.auto','=',0)
+                    // ->where('cm.auto','=',0)
                     ->whereIn('cm.chggroup',['HD','EP'])
                     ->where('cm.compcode','=',session('compcode'))
                     ->where('cm.active','=',1);
