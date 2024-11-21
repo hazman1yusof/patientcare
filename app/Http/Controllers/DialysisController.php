@@ -1720,9 +1720,11 @@ class DialysisController extends Controller
 
         if($dialysis_episode->packagecode == 'EPO'){
             $data = $data->where('cm.micerra','!=',1);
-        }else if($dialysis_episode->mcrstat>0){
-            $data = $data->where('cm.micerra','!=',1);
         }
+
+        // else if($dialysis_episode->mcrstat>0){
+        //     $data = $data->where('cm.micerra','!=',1);
+        // }
 
         // if(Session::has('chggroup')){
         //     $data = $data->where('chggroup','=',session('chggroup'));
