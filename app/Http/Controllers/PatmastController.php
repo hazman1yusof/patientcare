@@ -1059,7 +1059,17 @@ class PatmastController extends defaultController
                 break;
             
             case 'edit':
-                $this->edit_episode($request);
+
+                $episode =  DB::table("hisdb.episode")
+                                ->where('compcode',session('compcode'))
+                                ->where("mrn",'=',$request->epis_mrn)
+                                ->where("episno",'=',$request->epis_no);
+
+                if(!$episode->exists()){
+                    $this->add_episode($request);
+                }else{
+                    $this->edit_episode($request);
+                }
                 break;
             
             default:
