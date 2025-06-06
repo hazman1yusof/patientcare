@@ -2116,20 +2116,25 @@ class DialysisController extends Controller
 
         try {
             if(empty($request->dialysis_episode_idno)){
-                throw new \Exception('Patient doesnt have episode idno', 500);
-            }
-
-            $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                    ->where('mrn',$request->mrn)
+                                    ->where('episno',$request->episno)
+                                    ->update([
+                                        'packagecode' => $request->packagecode
+                                    ]);
+            }else{
+                $dialysis_episode = DB::table('hisdb.dialysis_episode')
                                     ->where('idno',$request->dialysis_episode_idno);
 
-            if(!$dialysis_episode->exists()){
-                throw new \Exception('Patient doesnt have dialysis episode', 500);
-            }
+                if(!$dialysis_episode->exists()){
+                    throw new \Exception('Patient doesnt have dialysis episode', 500);
+                }
             
-            $dialysis_episode
+                $dialysis_episode
                     ->update([
                         'packagecode' => $request->packagecode
                     ]);
+            }
 
             $responce = new stdClass();
             $responce->success = 'success';
