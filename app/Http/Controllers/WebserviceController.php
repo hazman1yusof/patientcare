@@ -30,8 +30,8 @@ class WebserviceController extends defaultController
                 return $this->chk_ada_auto_tapi_xde_single($request);break;
             case 'chk_kalu_ada_single_tp_xde_auto':          // for current
                 return $this->chk_kalu_ada_single_tp_xde_auto($request);break;
-            case 'query2_betulkandate':          // for current
-                return $this->query2_betulkandate($request);break;
+            // case 'query2_betulkandate':          // for current
+            //     return $this->query2_betulkandate($request);break;
             case 'micerra_buang_terlebih_bulan_lepas':          // for current
                 return $this->micerra_buang_terlebih_bulan_lepas($request);break;
             case 'micerra_tambah_terkurang_bulan_lepas':          // for current
@@ -770,7 +770,6 @@ class WebserviceController extends defaultController
             dd($e);
             // return response('Error'.$e, 500);
         }
-
     }
 
     public function chk_kalu_ada_single_tp_xde_auto(Request $request){
@@ -779,7 +778,7 @@ class WebserviceController extends defaultController
         try {
 
             $start = new Carbon('first day of last month');
-            $end = new Carbon('last day of last month');
+            $end = new Carbon('last day of this month');
 
             $episode = DB::table('hisdb.episode')
                                 ->where('compcode','13A')
@@ -848,7 +847,6 @@ class WebserviceController extends defaultController
             dd($e);
             // return response('Error'.$e, 500);
         }
-
     }
 
     public function chk_ada_auto_tapi_xde_single(Request $request){
@@ -857,7 +855,7 @@ class WebserviceController extends defaultController
         try {
 
             $start = new Carbon('first day of last month');
-            $end = new Carbon('last day of last month');
+            $end = new Carbon('last day of this month');
 
             $episode = DB::table('hisdb.episode')
                                 ->where('compcode','13A')
@@ -979,7 +977,7 @@ class WebserviceController extends defaultController
         try {
 
             $start = new Carbon('first day of last month');
-            $end = new Carbon('last day of last month');
+            $end = new Carbon('last day of this month');
 
             $episode = DB::table('hisdb.episode')
                                 ->where('compcode','13A')
@@ -1052,7 +1050,6 @@ class WebserviceController extends defaultController
             dd($e);
             // return response('Error'.$e, 500);
         }
-
     }
 
     public function micerra_tambah_terkurang_bulan_lepas(Request $request){
@@ -1061,7 +1058,7 @@ class WebserviceController extends defaultController
         try {
 
             $start = new Carbon('first day of last month');
-            $end = new Carbon('last day of last month');
+            $end = new Carbon('last day of this month');
 
             $episode = DB::table('hisdb.episode')
                                 ->where('compcode','13A')
@@ -1098,7 +1095,68 @@ class WebserviceController extends defaultController
                                         ->where('chgcode','EP010005')
                                         ->orderBy('id','desc');
 
-                        if(intval($count_mcr->count()) < intval($max_vol)){
+                        if(!$count_mcr->exists()){
+                            dump('mrn:'.$value->mrn.' no micerra auto');
+                            $need_to_add = intval($max_vol);
+                            $trxdate = null;
+
+                            if(!empty($request->commit)){
+                                $chargetrx_hd_next = DB::table('hisdb.chargetrx')
+                                                ->where('compcode','13A')
+                                                ->where('mrn','=',$value->mrn)
+                                                ->where('episno','=',$value->episno)
+                                                ->where('recstatus','=','1')
+                                                ->where('chgcode','=',$dialysis_pkgdtl_first->chgcode)
+                                                ->orderBy('id','asc');
+
+                                $trxdate = $chargetrx_hd_next->first()->trxdate;
+                                $isudept = $chargetrx_hd_next->first()->isudept;
+
+                                for ($i=0; $i < $need_to_add; $i++) { 
+                                    if($trxdate == null){
+                                        continue;
+                                    }
+                                    $chargetrx_hd_next = DB::table('hisdb.chargetrx')
+                                                    ->where('compcode','13A')
+                                                    ->where('mrn','=',$value->mrn)
+                                                    ->where('episno','=',$value->episno)
+                                                    ->where('recstatus','=','1')
+                                                    ->where('chggroup','=','HD')
+                                                    ->whereDate('trxdate','>',$trxdate)
+                                                    ->orderBy('id','asc');
+
+                                    if($chargetrx_hd_next->exists()){
+                                        $trxdate = $chargetrx_hd_next->first()->trxdate;
+                                        $isudept = $chargetrx_hd_next->first()->isudept;
+                                    }else{
+                                        $trxdate = $trxdate;
+                                        $isudept = $isudept;
+                                    }
+
+                                    $id_chargetrx = DB::table('hisdb.chargetrx')
+                                            ->insertGetId([
+                                                'compcode' => '13A',
+                                                'mrn' => $value->mrn,
+                                                'episno' => $value->episno,
+                                                'trxtype' => 'OE',
+                                                'trxdate' => $trxdate,
+                                                'chgcode' => 'EP010005',
+                                                'chggroup' =>  'EP',
+                                                'chgtype' =>  'EP01',
+                                                'billflag' => 0,
+                                                'quantity' => 1.00,
+                                                'isudept' => $isudept,
+                                                'trxtime' => Carbon::now("Asia/Kuala_Lumpur"),
+                                                'lastuser' => 'SYSTEM-MCR2',
+                                                'lastupdate' => Carbon::now("Asia/Kuala_Lumpur"),
+                                                'recstatus' => 1
+                                            ]);
+
+                                    dump('MCR added by system, id: '.$id_chargetrx);
+                                }
+                            }
+
+                        }else if(intval($count_mcr->count()) < intval($max_vol)){
                             dump('mrn:'.$value->mrn.' having less micerra: '.$count_mcr->count());
                             $need_to_add = intval($max_vol) - intval($count_mcr->count());
 
@@ -1113,7 +1171,7 @@ class WebserviceController extends defaultController
                                                     ->where('recstatus','=','1')
                                                     ->where('chggroup','=','HD')
                                                     ->whereDate('trxdate','>',$trxdate)
-                                                    ->orderBy('id','desc');
+                                                    ->orderBy('id','asc');
 
                                     if($chargetrx_hd_next->exists()){
                                         $trxdate = $chargetrx_hd_next->first()->trxdate;
@@ -1162,7 +1220,6 @@ class WebserviceController extends defaultController
             dd($e);
             // return response('Error'.$e, 500);
         }
-
     }
 
     public function query2_betulkandate(){
@@ -1218,7 +1275,6 @@ class WebserviceController extends defaultController
             dd($e);
             // return response('Error'.$e, 500);
         }
-
     }
 
     public function auto_episode(){
@@ -1321,9 +1377,7 @@ class WebserviceController extends defaultController
             DB::rollback();
             dd($e);
             // return response('Error'.$e, 500);
-        }
-
-        
+        }        
     }
 
     public function auto_labresult(){

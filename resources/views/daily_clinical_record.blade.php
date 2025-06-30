@@ -531,7 +531,7 @@
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
 						</th>
-						<th style="text-align: center;">&nbsp;</br>TMP
+						<th style="text-align: center;">&nbsp;</br>TEMP
 							</br>
 							<div class="ui right labeled input">
 								<div class="ui small icon input">
@@ -614,7 +614,7 @@
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
 								<div class="ui small input">
-									<input type="text" name="1_tmp" id="1_tmp" value="" placeholder="TMP" class="smallinputpad">
+									<input type="text" name="1_tmp" id="1_tmp" value="" placeholder="TEMP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
@@ -690,7 +690,7 @@
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
 								<div class="ui small input">
-									<input type="text" name="2_tmp" id="2_tmp" value="" placeholder="TMP" class="smallinputpad">
+									<input type="text" name="2_tmp" id="2_tmp" value="" placeholder="TEMP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
@@ -767,7 +767,7 @@
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
 								<div class="ui small input">
-									<input type="text" name="3_tmp" id="3_tmp" value="" placeholder="TMP" class="smallinputpad">
+									<input type="text" name="3_tmp" id="3_tmp" value="" placeholder="TEMP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
@@ -843,7 +843,7 @@
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
 								<div class="ui small input">
-									<input type="text" name="4_tmp" id="4_tmp" value="" placeholder="TMP" class="smallinputpad">
+									<input type="text" name="4_tmp" id="4_tmp" value="" placeholder="TEMP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>
@@ -919,7 +919,7 @@
 						<td>&nbsp;</br>
 							<div class="ui right labeled input">
 								<div class="ui small input">
-									<input type="text" name="5_tmp" id="5_tmp" value="" placeholder="TMP" class="smallinputpad">
+									<input type="text" name="5_tmp" id="5_tmp" value="" placeholder="TEMP" class="smallinputpad">
 								</div>
 								<div class="ui basic label mylabel">mmHg</div>
 							</div>

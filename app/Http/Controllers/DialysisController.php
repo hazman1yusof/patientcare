@@ -1574,8 +1574,8 @@ class DialysisController extends Controller
         $verify = DB::table('sysdb.users')
                     ->where('compcode',session('compcode'))
                     ->where('username',$request->username)
-                    ->where('password',$request->password)
-                    ->where('groupid','ADMIN');
+                    ->where('password',$request->password);
+                    // ->where('groupid','ADMIN');
 
         if($verify->exists()){
             $responce->success = 'success';
@@ -1713,16 +1713,18 @@ class DialysisController extends Controller
                     // ->leftJoin('hisdb.dose as d','d.dosecode','=','cm.dosecode')
                     // ->leftJoin('hisdb.freq as f','f.freqcode','=','cm.freqcode')
                     // ->leftJoin('hisdb.instruction as i','i.inscode','=','cm.instruction')
-                    ->where('cm.auto','=',0)
+                    // ->where('cm.auto','=',0)
                     ->whereIn('cm.chggroup',['HD','EP'])
                     ->where('cm.compcode','=',session('compcode'))
                     ->where('cm.active','=',1);
 
         if($dialysis_episode->packagecode == 'EPO'){
             $data = $data->where('cm.micerra','!=',1);
-        }else if($dialysis_episode->mcrstat>0){
-            $data = $data->where('cm.micerra','!=',1);
         }
+
+        // else if($dialysis_episode->mcrstat>0){
+        //     $data = $data->where('cm.micerra','!=',1);
+        // }
 
         // if(Session::has('chggroup')){
         //     $data = $data->where('chggroup','=',session('chggroup'));
@@ -2114,20 +2116,25 @@ class DialysisController extends Controller
 
         try {
             if(empty($request->dialysis_episode_idno)){
-                throw new \Exception('Patient doesnt have episode idno', 500);
-            }
-
-            $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                $dialysis_episode = DB::table('hisdb.dialysis_episode')
+                                    ->where('mrn',$request->mrn)
+                                    ->where('episno',$request->episno)
+                                    ->update([
+                                        'packagecode' => $request->packagecode
+                                    ]);
+            }else{
+                $dialysis_episode = DB::table('hisdb.dialysis_episode')
                                     ->where('idno',$request->dialysis_episode_idno);
 
-            if(!$dialysis_episode->exists()){
-                throw new \Exception('Patient doesnt have dialysis episode', 500);
-            }
+                if(!$dialysis_episode->exists()){
+                    throw new \Exception('Patient doesnt have dialysis episode', 500);
+                }
             
-            $dialysis_episode
+                $dialysis_episode
                     ->update([
                         'packagecode' => $request->packagecode
                     ]);
+            }
 
             $responce = new stdClass();
             $responce->success = 'success';
