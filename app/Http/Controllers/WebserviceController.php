@@ -30,8 +30,8 @@ class WebserviceController extends defaultController
                 return $this->chk_ada_auto_tapi_xde_single($request);break;
             case 'chk_kalu_ada_single_tp_xde_auto':          // for current
                 return $this->chk_kalu_ada_single_tp_xde_auto($request);break;
-            case 'query2_betulkandate':          // for current
-                return $this->query2_betulkandate($request);break;
+            // case 'query2_betulkandate':          // for current
+            //     return $this->query2_betulkandate($request);break;
             case 'micerra_buang_terlebih_bulan_lepas':          // for current
                 return $this->micerra_buang_terlebih_bulan_lepas($request);break;
             case 'micerra_tambah_terkurang_bulan_lepas':          // for current
@@ -770,7 +770,6 @@ class WebserviceController extends defaultController
             dd($e);
             // return response('Error'.$e, 500);
         }
-
     }
 
     public function chk_kalu_ada_single_tp_xde_auto(Request $request){
@@ -779,7 +778,7 @@ class WebserviceController extends defaultController
         try {
 
             $start = new Carbon('first day of last month');
-            $end = new Carbon('last day of last month');
+            $end = new Carbon('last day of this month');
 
             $episode = DB::table('hisdb.episode')
                                 ->where('compcode','13A')
@@ -848,7 +847,6 @@ class WebserviceController extends defaultController
             dd($e);
             // return response('Error'.$e, 500);
         }
-
     }
 
     public function chk_ada_auto_tapi_xde_single(Request $request){
@@ -857,7 +855,7 @@ class WebserviceController extends defaultController
         try {
 
             $start = new Carbon('first day of last month');
-            $end = new Carbon('last day of last month');
+            $end = new Carbon('last day of this month');
 
             $episode = DB::table('hisdb.episode')
                                 ->where('compcode','13A')
@@ -979,7 +977,7 @@ class WebserviceController extends defaultController
         try {
 
             $start = new Carbon('first day of last month');
-            $end = new Carbon('last day of last month');
+            $end = new Carbon('last day of this month');
 
             $episode = DB::table('hisdb.episode')
                                 ->where('compcode','13A')
@@ -1052,7 +1050,6 @@ class WebserviceController extends defaultController
             dd($e);
             // return response('Error'.$e, 500);
         }
-
     }
 
     public function micerra_tambah_terkurang_bulan_lepas(Request $request){
@@ -1061,7 +1058,7 @@ class WebserviceController extends defaultController
         try {
 
             $start = new Carbon('first day of last month');
-            $end = new Carbon('last day of last month');
+            $end = new Carbon('last day of this month');
 
             $episode = DB::table('hisdb.episode')
                                 ->where('compcode','13A')
@@ -1223,7 +1220,6 @@ class WebserviceController extends defaultController
             dd($e);
             // return response('Error'.$e, 500);
         }
-
     }
 
     public function query2_betulkandate(){
@@ -1279,7 +1275,6 @@ class WebserviceController extends defaultController
             dd($e);
             // return response('Error'.$e, 500);
         }
-
     }
 
     public function auto_episode(){
@@ -1382,9 +1377,7 @@ class WebserviceController extends defaultController
             DB::rollback();
             dd($e);
             // return response('Error'.$e, 500);
-        }
-
-        
+        }        
     }
 
     public function auto_labresult(){
