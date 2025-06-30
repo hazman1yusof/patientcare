@@ -18,7 +18,7 @@
 
             @if (Request::is('login'))
                 body{
-                  background-image:url( {{ asset('img/picombg.webp') }} ) !important;
+                  background-image:url( {{ asset('img/page-hospital.jpg') }} ) !important;
                   background-repeat: no-repeat !important;
                   background-size: cover !important;
                   background-position: center !important;

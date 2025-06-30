@@ -9,7 +9,7 @@
 				{{ csrf_field() }}
 				<div class="ui raised segment" style="background: rgb(121 205 255 / 50%); padding: 20px 40px;">
 					<div class="ui medium rounded image">
-					  <img src="{{ asset('img/LOGOpicom.png') }}">
+					  <!-- <img src="{{ asset('img/LOGOpicom.png') }}"> -->
 					</div>
 					<div class="field" style="text-align: center;font-size: medium;letter-spacing: .8px;">
 						<label>Log In</label>
@@ -25,7 +25,7 @@
 						  <i id="showpwd" class="eye link icon"></i>
 						</div>
 					</div>
-					<div class="field">
+					<div class="field" style="display:none;">
 						<!-- <label>Company</label> -->
 						<select class="ui selection dropdown" id="compcode" name="compcode">
 						  @foreach ($company as $obj)
