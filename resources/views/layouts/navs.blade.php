@@ -87,6 +87,8 @@
 
 
     @elseif (strtoupper(Auth::user()->groupid) == 'CLINICAL')
+        <a class="item" href="{{url('/mainlanding')}}"><i style="float: left" class="home icon big link"></i>Admin</a>
+
         <a class="item {{(Request::is('mainlanding') ? 'active' : '')}}" href="{{url('/mainlanding')}}"><i style="float: left" class="users inverted icon big link"></i>Patient List</a>
 
         <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
@@ -99,6 +101,8 @@
 
 
     @elseif (strtoupper(Auth::user()->groupid) == 'ADMIN')
+        <a class="item" href="{{url('/mainlanding')}}"><i style="float: left" class="home icon big link"></i>Admin</a>
+
         <a class="item {{(Request::is('mainlanding') ? 'active' : '')}}" href="{{url('/mainlanding')}}"><i style="float: left" class="users inverted icon big link"></i>Patient List</a>
 
         <a class="item {{(Request::is('emergency') ? 'active' : '')}}" href="{{ url('/emergency')}}"><i style="float: left" class="folder open inverted big icon link"></i>Document Upload</a>
