@@ -87,7 +87,7 @@
 
 
     @elseif (strtoupper(Auth::user()->groupid) == 'CLINICAL')
-        <a class="item" href="{{url('/mainlanding')}}"><i style="float: left" class="home icon big link"></i>Admin</a>
+        <a class="item" href="http://175.143.1.33:8080/medicare_demo/autologin?computerid=none&username={{session('username')}}&password={{session('password')}}&cmb_companies={{session('compcode')}}"><i style="float: left" class="home icon big link"></i>Admin</a>
 
         <a class="item {{(Request::is('mainlanding') ? 'active' : '')}}" href="{{url('/mainlanding')}}"><i style="float: left" class="users inverted icon big link"></i>Patient List</a>
 
@@ -101,7 +101,7 @@
 
 
     @elseif (strtoupper(Auth::user()->groupid) == 'ADMIN')
-        <a class="item" href="{{url('/mainlanding')}}"><i style="float: left" class="home icon big link"></i>Admin</a>
+        <a class="item" href="http://175.143.1.33:8080/medicare_demo/autologin?computerid=none&username={{session('username')}}&password={{session('password')}}&cmb_companies={{session('compcode')}}"><i style="float: left" class="home icon big link"></i>Admin</a>
 
         <a class="item {{(Request::is('mainlanding') ? 'active' : '')}}" href="{{url('/mainlanding')}}"><i style="float: left" class="users inverted icon big link"></i>Patient List</a>
 

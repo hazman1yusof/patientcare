@@ -49,6 +49,7 @@ class SessionController extends Controller
             $request->session()->put('dept', $user->first()->dept);
             $request->session()->put('dept_desc', $department->description);
             $request->session()->put('username', request('username'));
+            $request->session()->put('password', request('password'));
             $request->session()->put('compcode', $user->first()->compcode);
             
             // if($user->first()->status == 'Inactive'){
